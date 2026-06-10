@@ -681,6 +681,15 @@ body{background:var(--bg);min-height:100vh;display:flex;align-items:center;justi
 <div class="screen" id="screen-intro"><div class="intro-lines" id="intro-lines"></div></div>
 
 <!-- LANGUAGE SELECTION -->
+<!-- CONTINUE SCREEN -->
+<div class="screen" id="screen-continue" style="align-items:center;justify-content:center;flex-direction:column;gap:1.2rem;padding:2rem;">
+  <div style="font-family:'DM Mono',monospace;font-size:.5rem;letter-spacing:.25em;color:var(--teal);text-transform:uppercase">vibe</div>
+  <div style="font-size:1.1rem;font-weight:700;color:var(--text-bright);text-align:center">Devam etmek ister misin?</div>
+  <div id="continue-info" style="background:var(--card2);border:1px solid var(--teal-dim);border-radius:14px;padding:1rem 1.4rem;text-align:center;display:flex;flex-direction:column;gap:.3rem;min-width:200px;"></div>
+  <button class="name-btn" onclick="resumeGame()" style="width:220px">▶ Kaldığım Yerden Devam</button>
+  <button style="background:none;border:none;color:var(--text-dim);font-size:.72rem;cursor:pointer;padding:.4rem" onclick="deleteSave();switchScreen('screen-lang')">Sıfırla ve Yeni Oyun Başlat</button>
+</div>
+
 <div class="screen" id="screen-lang">
   <div style="text-align:center;margin-bottom:.4rem">
     <span class="mono-label">vibe</span>
@@ -834,8 +843,7 @@ body{background:var(--bg);min-height:100vh;display:flex;align-items:center;justi
     </div>
     <div class="top-right">
       <button id="logbook-btn" onclick="openLogbook()">📖 <span id="lb-badge" class="lb-badge">0</span></button>
-      <button class="sl-btn" id="btn-save" onclick="saveGame()">💾 Save</button>
-      <button class="sl-btn" id="btn-load" onclick="loadGame()">📂 Load</button>
+      <button class="sl-btn" onclick="deleteSave()">🗑️ Kaydı Sil</button>
       <div class="xp-bar-wrap">
         <span class="xp-level-badge" id="xp-level-badge">Lv.1</span>
         <div class="xp-progress-outer"><div class="xp-progress-inner" id="xp-bar"></div></div>
@@ -1101,8 +1109,26 @@ body{background:var(--bg);min-height:100vh;display:flex;align-items:center;justi
     <div class="dev-section">
       <div class="dev-section-label">Feature Flags</div>
       <div class="dev-row">
-        <button class="dev-btn" onclick="devToggleSave()">💾 Save: <span id="flag-save">OFF</span></button>
+        <button class="dev-btn" onclick="devToggleSave()">💾 Save: <span id="flag-save">?</span></button>
         <button class="dev-btn" onclick="devToggleAudio()">🔊 Audio: <span id="flag-audio">ON</span></button>
+        <button class="dev-btn" onclick="devToggleFreeMode()">🚪 Free: <span id="flag-free">OFF</span></button>
+      </div>
+    </div>
+    <div class="dev-sep"></div>
+    <div class="dev-section">
+      <div class="dev-section-label">Vitals</div>
+      <div class="dev-row">
+        <button class="dev-btn green" onclick="devSetVitals(100)">💚 Full</button>
+        <button class="dev-btn red"   onclick="devSetVitals(0)">💀 Zero</button>
+        <button class="dev-btn amber" onclick="devSetVitals(50)">🟡 Half</button>
+      </div>
+    </div>
+    <div class="dev-sep"></div>
+    <div class="dev-section">
+      <div class="dev-section-label">Shortcuts</div>
+      <div class="dev-row">
+        <button class="dev-btn green" onclick="devBuildPC()">🖥️ Build PC</button>
+        <button class="dev-btn red"   onclick="deleteSave();showToast('🗑️ Kayıt silindi.')">🗑️ Kaydı Sil</button>
       </div>
     </div>
     <div class="dev-sep"></div>
@@ -1120,6 +1146,10 @@ body{background:var(--bg);min-height:100vh;display:flex;align-items:center;justi
 </div>
 
 <script>
+// ── API Yapılandırması ──────────────────────────────
+// Anthropic API key'ini buraya gir:
+window.ANTHROPIC_API_KEY = 'BURAYA_API_KEY_GIRINIZ';
+// ────────────────────────────────────────────────────
 'use strict';
 
 // ══════════════════════════════════════════════════════
@@ -1461,6 +1491,7 @@ function addXP(n) {
     showLevelUpEffect(GS.player.level);
   }
   updateXPBar();
+  autoSave();
 }
 
 function showLevelUpEffect(newLevel) {
@@ -1708,7 +1739,8 @@ const QUEST_DEFS = {
   living_room: { title:'🛋️ Quest: Find the Remote', tasks:[
     { id:'explore', en:'Explore the living room',   tr:'Salonu keşfet',          deps:[] },
     { id:'table',   en:'Check the table for clues', tr:'Masayı kontrol et',      deps:['explore'] },
-    { id:'remote',  en:'Find the remote control',   tr:'Kumandayı bul',           deps:['table'] },
+    { id:'remote',  en:'Find the remote control',   tr:'Kumandayı bul',          deps:['table'] },
+    { id:'use_door',en:'Use the door to Hobby Room',tr:'Kapıyı kullanarak Hobi Odasına geç', deps:['remote'] },
   ]},
   hobby_room: { title:'🎮 Quest: Build Your PC', tasks:[
     { id:'open_box',  en:'Open the parts box',    tr:'Kutuyu aç',          deps:[] },
@@ -1769,6 +1801,7 @@ function doneTask(qKey, taskId) {
   });
   const allDone = def.tasks.every(t => !!QD[qKey][t.id]);
   if (allDone) { GS.progression.completedMissions++; addXP(25); }
+  autoSave();
   _devAutoRefresh();
 }
 
@@ -1955,62 +1988,6 @@ const WINDOW_PARTS = [
 ];
 
 // ══════════════════════════════════════════════════════
-//  SAVE / LOAD (disabled by default)
-// ══════════════════════════════════════════════════════
-const SAVE_KEY = 'katalyst_rpg_v1';
-let _saveEnabled = false;
-
-function saveGame(silent) {
-  if (!_saveEnabled) { if (!silent) showToast('💾 Save is disabled'); return; }
-  try {
-    const data = {
-      player: JSON.parse(JSON.stringify(GS.player)),
-      progression: JSON.parse(JSON.stringify(GS.progression)),
-      vitals: JSON.parse(JSON.stringify(GS.vitals)),
-      room: GS.room, quest: GS.quest,
-      drawer: GS.drawer, kettleOn: GS.kettleOn,
-      bath: GS.bath, ward: GS.ward,
-      sessionInv: [...GS.sessionInv], examined: [...GS.examined],
-      questDone: JSON.parse(JSON.stringify(QD)),
-      kitchenObs: [...ROOMS.kitchen.obs], savedAt: Date.now()
-    };
-    localStorage.setItem(SAVE_KEY, JSON.stringify(data));
-    if (!silent) { showSaveIndicator('✓ Oyun kaydedildi!'); }
-  } catch(e) { if (!silent) showToast('⚠ Kayıt hatası: ' + e.message); }
-}
-
-function loadGame(silent) {
-  if (!_saveEnabled) { if (!silent) showToast('💾 Load is disabled'); return; }
-  const raw = localStorage.getItem(SAVE_KEY);
-  if (!raw) { if (!silent) showToast('⚠ Kayıt bulunamadı!'); return; }
-  try {
-    const d = JSON.parse(raw);
-    Object.assign(GS.player, d.player||{});
-    Object.assign(GS.progression, d.progression||{});
-    Object.assign(GS.vitals, d.vitals||{});
-    GS.room=d.room||'bedroom'; GS.quest=d.quest||'water';
-    GS.drawer=d.drawer||{coffee:false,milk:false}; GS.kettleOn=d.kettleOn||false;
-    GS.bath=d.bath||{...GS.bath}; GS.ward=d.ward||{...GS.ward};
-    GS.sessionInv=d.sessionInv||[]; GS.examined=new Set(d.examined||[]);
-    if (d.questDone) Object.assign(QD, d.questDone);
-    if (d.kitchenObs) ROOMS.kitchen.obs=[...d.kitchenObs];
-    switchScreen('screen-game');
-    const av=G('avatar-btn');if(av)av.textContent=GS.player.emoji;
-    const pn=G('p-name');if(pn)pn.textContent=GS.player.name;
-    const pt=G('p-title');if(pt)pt.textContent=GS.player.activeTitle;
-    const dc=G('dc-name');if(dc)dc.textContent=GS.player.name;
-    initVitals(); updateXPBar(); setQuest(GS.quest); loadRoom(GS.room);
-    if (!silent) showSaveIndicator('✓ Oyun yüklendi!');
-  } catch(e) { if (!silent) showToast('⚠ Yükleme hatası: ' + e.message); }
-}
-
-function showSaveIndicator(msg) {
-  const el = G('save-indicator'); if (!el) return;
-  el.textContent = msg; el.classList.add('show');
-  setTimeout(() => el.classList.remove('show'), 2200);
-}
-
-// ══════════════════════════════════════════════════════
 //  NAME VALIDATION
 // ══════════════════════════════════════════════════════
 const BAD_WORDS = ['fuck','shit','ass','bitch','damn','cunt','bastard','idiot','stupid','nazi','kill','rape','nigger','faggot'];
@@ -2191,6 +2168,7 @@ function loadRoom(key) {
     const tp = G('task-panel'); if (tp) tp.classList.remove('show');
   }
   renderInv();
+  autoSave();
   const N = GS.player.name;
   const sceneEl = G('scene-text'); if (!sceneEl) return;
   const TEXTS = {
@@ -2236,6 +2214,9 @@ function renderObjects(keys) {
 //  EXAMINE + WORD CARD
 // ══════════════════════════════════════════════════════
 // Hobi odası nesneleri — recall sonrası direkt özellik
+// Kapı etkileşim sayacı
+if (!GS.doorInteractions) GS.doorInteractions = {};
+
 const HOBBY_FEATURE_MAP = {
   hr_computer:   () => fetchComputerSentence(GS.hobby.computerLevel || 'A2'),
   hr_bookshelf:  () => openLibrary(),
@@ -2246,11 +2227,30 @@ const HOBBY_FEATURE_MAP = {
 
 function examineObj(key, btn) {
   const obj = OBJ[key]; if (!obj) return;
-  // Hobi odası nesnesi + daha önce incelendiyse → direkt özellik
-  if (GS.room === 'hobby_room' && GS.examined.has(key) && HOBBY_FEATURE_MAP[key]) {
-    HOBBY_FEATURE_MAP[key]();
+
+  // Kapı nesnesi — 5 kez sonra öğrenildi say, direkt aç
+  if (key === 'door_free') {
+    if (!GS.doorInteractions) GS.doorInteractions = {};
+    GS.doorInteractions[key] = (GS.doorInteractions[key] || 0) + 1;
+    if (GS.doorInteractions[key] >= 5) {
+      // Öğrenildi — direkt aksiyona geç
+      AUD.speak(obj.en);
+      handleAction(obj.act, key, btn);
+      return;
+    }
+  }
+
+  // Hobi odası nesnesi + recall tamamlandıysa → ses + direkt özellik
+  if (GS.room === 'hobby_room' && GS.examined.has(key) && GS.scoredKeys.has(key)) {
+    AUD.speak(obj.en);
+    if (HOBBY_FEATURE_MAP[key]) {
+      HOBBY_FEATURE_MAP[key]();
+    } else {
+      handleAction(obj.act, key, btn);
+    }
     return;
   }
+
   GS.recallDone = false;
   const sceneEl = G('scene-text');
   const exHtml = `<span class="scene-ok">${obj.ex.en}</span><span class="scene-tr-line">${obj.ex.tr}</span>`;
@@ -2460,7 +2460,7 @@ function handleAction(act, key, btn) {
         ROOMS.living_room.obs = ROOMS.living_room.obs.filter(o => o !== 'door_lr');
         if (!ROOMS.living_room.obs.includes('door_free')) ROOMS.living_room.obs.push('door_free');
         renderObjects(ROOMS.living_room.obs);
-        fadeText(G('scene-text'), `<span class="scene-ok">🚪 ${biLine('A door appeared! Head to the Hobby Room.','Bir kapı belirdi! Hobi Odasına geç.')}</span>`);
+        fadeText(G('scene-text'), `<span class="scene-ok">🚪 ${biLine('A door appeared! Use the door to go to the Hobby Room.','Bir kapı belirdi! Hobi Odasına geçmek için kapıyı kullan.')}</span>`);
       }), 1200);
       break;
     case 'go_bedroom_from_lr':
@@ -2519,11 +2519,20 @@ function handleAction(act, key, btn) {
       } break;
 
     case 'use_computer':
-      // İlk açılışta sadece "hazır" mesajı göster — API ikinci tıklamada HOBBY_FEATURE_MAP üzerinden çağrılır
       setTimeout(() => {
         const wc = G('word-card'); if(wc) wc.classList.remove('show');
-        fadeText(G('scene-text'), `<span class="scene-ok">💻 ${biLine('Your PC is on! Click it again to generate a sentence.','Bilgisayarın açık! Cümle üretmek için tekrar tıkla.')}</span>`);
+        fetchComputerSentence(GS.hobby.computerLevel || 'A2');
       }, 400);
+      break;
+
+    case 'open_room_nav':
+      if (!GS.freeMode && GS.quest === 'living_room') {
+        doneTask('living_room','use_door');
+        fadeText(st, `<span class="scene-ok">🚪 ${biLine('You head to the Hobby Room!','Hobi Odasına geçiyorsun!')}</span>`);
+        setTimeout(() => startHobbyRoom(), 1200);
+      } else {
+        openRoomNav();
+      }
       break;
 
     case 'open_radio':
@@ -3209,7 +3218,10 @@ async function fetchComputerSentence(level) {
   try {
     const res = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'anthropic-dangerous-direct-browser-access': 'true',
+      },
       body: JSON.stringify({
         model: 'claude-sonnet-4-20250514',
         max_tokens: 300,
@@ -3274,13 +3286,13 @@ const FREE_ROOMS = [
 //  RADIO
 // ══════════════════════════════════════════════════════
 const RADIO_STATIONS = [
-  { em:'🇹🇷', name:'TRT FM',       genre:'Pop / Mixed',     url:'https://radio.trt.net.tr/trtfm/trtfm96k.mp3' },
-  { em:'🎵', name:'Radyo D',        genre:'Top 40 / Pop',    url:'https://radyod.radyotvonline.net/radyod' },
-  { em:'🎸', name:'Virgin Radio TR',genre:'Rock / Hits',     url:'https://virginradio.radyotvonline.net/virginradio' },
-  { em:'👑', name:'Kral FM',        genre:'Türk Pop',        url:'https://kralfm.radyotvonline.net/kralfm' },
-  { em:'🌊', name:'Slow Türk',      genre:'Slow / Acoustic', url:'https://slowturk.radyotvonline.net/slowturk' },
-  { em:'🎤', name:'Power FM',       genre:'Dance / EDM',     url:'https://powerfm.radyotvonline.net/powerfm' },
-  { em:'🎷', name:'NTV Radyo',      genre:'Haber / Mixed',   url:'https://ntvradyo.radyotvonline.net/ntvradyo' },
+  { em:'🇹🇷', name:'TRT FM',        genre:'Pop / Mixed',     url:'https://radio.trt.net.tr/trtfm/trtfm96k.mp3' },
+  { em:'🎵', name:'Power FM',        genre:'Dance / Hits',    url:'https://listen.powerapp.com.tr/powerfm/abr/powerfm/128/icecast.audio' },
+  { em:'🎸', name:'Kiss FM',         genre:'Rock / Pop',      url:'https://topradio-de-hz-fal-stream03-cluster01.radiohost.de/kissfm-tuerkisch_aac-64' },
+  { em:'👑', name:'Number 1 Dance',  genre:'Dance / EDM',     url:'https://n10101m.mediatriple.net/videoonlylive/mtkgeuihrlfwlive/u_stream_5c9e33b514f52_1/playlist.m3u8' },
+  { em:'🌊', name:'Number 1 Classic',genre:'Klasik / Mixed',  url:'https://n10101m.mediatriple.net/videoonlylive/mtkgeuihrlfwlive/u_stream_5c9e34bfc5042_1/playlist.m3u8' },
+  { em:'🎤', name:'Power Smooth Jazz',genre:'Jazz / Lounge',  url:'https://listen.powerapp.com.tr/powersmoothjazz/abr/powersmoothjazz/128/playlist.m3u8' },
+  { em:'🎷', name:'Doksanlar',       genre:'90s / Nostalji',  url:'https://moondigitaledge.radyotvonline.net/radyolanddoksanlar/playlist.m3u8' },
 ];
 
 let _radioCurrentIdx = -1;
@@ -3490,8 +3502,12 @@ function devRefreshState() {
     `<span>Missions:</span> ${pr.completedMissions}<br>`+
     `<span>Thirst:</span> ${GS.vitals.thirst}% <span>Hunger:</span> ${GS.vitals.hunger}%<br>`+
     `<span>Toilet:</span> ${GS.vitals.toilet}%<br>`+
+    `<span>FreeMode:</span> ${GS.freeMode?'✅':'❌'} &nbsp;<span>Save:</span> ${hasSave()?'✅':'❌'}<br>`+
     `<span>Titles:</span> ${p.unlockedTitles.length}<br>`+
     `<span>Inv:</span> ${GS.sessionInv.length} items`;
+  // Flag butonları güncelle
+  const ff = G('flag-free'); if(ff) ff.textContent = GS.freeMode ? 'ON' : 'OFF';
+  const fs = G('flag-save'); if(fs) fs.textContent = hasSave() ? 'VAR' : 'YOK';
   devRenderQuestList();
 }
 
@@ -3690,6 +3706,30 @@ function devSkipTask() {
       }
     }
     if (next.id === 'remote') { GS.sessionInv.push('remote'); renderInv(); react('item'); }
+    if (next.id === 'use_door') {
+      ROOMS.living_room.obs = ROOMS.living_room.obs.filter(o => o !== 'door_lr');
+      if (!ROOMS.living_room.obs.includes('door_free')) ROOMS.living_room.obs.push('door_free');
+    }
+  }
+  if (q === 'hobby_room') {
+    if (next.id === 'open_box') {
+      ['hr_monitor','hr_keyboard','hr_mouse','hr_headset','hr_case'].forEach(p => {
+        if (!ROOMS.hobby_room.obs.includes(p)) ROOMS.hobby_room.obs.push(p);
+      });
+      ROOMS.hobby_room.obs = ROOMS.hobby_room.obs.filter(o => o !== 'hr_computer_parts');
+    }
+    if (next.id === 'monitor')  GS.hobby.monitor  = true;
+    if (next.id === 'keyboard') GS.hobby.keyboard = true;
+    if (next.id === 'mouse')    GS.hobby.mouse    = true;
+    if (next.id === 'headset')  GS.hobby.headset  = true;
+    if (next.id === 'pc_case')  GS.hobby.pc_case  = true;
+    if (next.id === 'power_on') {
+      GS.hobby.pc_built = true;
+      ['hr_monitor','hr_keyboard','hr_mouse','hr_headset','hr_case'].forEach(p => {
+        ROOMS.hobby_room.obs = ROOMS.hobby_room.obs.filter(o => o !== p);
+      });
+      if (!ROOMS.hobby_room.obs.includes('hr_computer')) ROOMS.hobby_room.obs.splice(0,0,'hr_computer');
+    }
   }
 
   // Tick the task via doneTask for proper flow (unlocks next, checks allDone)
@@ -3726,6 +3766,16 @@ function devCompleteQuest() {
     if (q==='living_room'){
       if(t.id==='table'){if(!ROOMS.living_room.obs.includes('remote')){const ti=ROOMS.living_room.obs.indexOf('lr_table');ROOMS.living_room.obs.splice(ti>=0?ti+1:ROOMS.living_room.obs.length,0,'remote');}}
       if(t.id==='remote'){if(!GS.sessionInv.includes('remote')){GS.sessionInv.push('remote');renderInv();}}
+      if(t.id==='use_door'){ROOMS.living_room.obs=ROOMS.living_room.obs.filter(o=>o!=='door_lr');if(!ROOMS.living_room.obs.includes('door_free'))ROOMS.living_room.obs.push('door_free');}
+    }
+    if (q==='hobby_room'){
+      if(t.id==='open_box'){['hr_monitor','hr_keyboard','hr_mouse','hr_headset','hr_case'].forEach(p=>{if(!ROOMS.hobby_room.obs.includes(p))ROOMS.hobby_room.obs.push(p);});ROOMS.hobby_room.obs=ROOMS.hobby_room.obs.filter(o=>o!=='hr_computer_parts');}
+      if(t.id==='monitor')  GS.hobby.monitor=true;
+      if(t.id==='keyboard') GS.hobby.keyboard=true;
+      if(t.id==='mouse')    GS.hobby.mouse=true;
+      if(t.id==='headset')  GS.hobby.headset=true;
+      if(t.id==='pc_case')  GS.hobby.pc_case=true;
+      if(t.id==='power_on'){GS.hobby.pc_built=true;['hr_monitor','hr_keyboard','hr_mouse','hr_headset','hr_case'].forEach(p=>{ROOMS.hobby_room.obs=ROOMS.hobby_room.obs.filter(o=>o!==p);});if(!ROOMS.hobby_room.obs.includes('hr_computer'))ROOMS.hobby_room.obs.splice(0,0,'hr_computer');}
     }
     doneTask(q, t.id);
   });
@@ -3772,6 +3822,7 @@ function devJumpQuest(qKey) {
       startBreakfastQuest(); devRefreshState(); return;
     }
     if (qKey === 'living_room') { startLivingRoom(); devRefreshState(); return; }
+    if (qKey === 'hobby_room') { startHobbyRoom(); devRefreshState(); return; }
     const rm = {water:'bedroom',coffee:'kitchen',bathroom:'bathroom',wardrobe:'bedroom_w'};
     setQuest(qKey); if(rm[qKey]) loadRoom(rm[qKey]);
     showToast('🎯 Quest: '+qKey); devRefreshState();
@@ -3794,6 +3845,11 @@ function devResetQuest() {
   if (q === 'bathroom') { GS.bath={toothbrush_picked:false,toothpaste:false,teeth:false,rinse:false,soap_picked:false,faucet:false,hands:false,mirror:false,toilet:false,window:false,shampoo_picked:false,shower:false}; ROOMS.bathroom.obs=['toothbrush','toothpaste','soap','liquid_soap','towel','comb','shower','faucet_b','toilet_paper','door_b']; }
   if (q === 'wardrobe') { GS.ward={socks:false,shirt:false,jeans:false}; }
   if (q === 'living_room') { ROOMS.living_room.obs=['wall_clock','tv','painting','lamp','radio','bookshelf','sofa','coffee_table','newspaper','lr_table','lr_chair']; }
+  if (q === 'hobby_room') {
+    GS.hobby={monitor:false,keyboard:false,mouse:false,headset:false,pc_case:false,pc_built:false,books_read:0,computerLevel:GS.hobby?.computerLevel||'A2'};
+    ROOMS.hobby_room.obs=['hr_computer_parts','hr_bookshelf','hr_dictionary','hr_trophy','hr_phone','hr_radio','hr_guitar'];
+    GS.freeMode=false;
+  }
   setQuest(q);
   renderObjects(ROOMS[GS.room].obs);
   showToast('🔄 Quest reset: ' + q);
@@ -3801,12 +3857,43 @@ function devResetQuest() {
 }
 
 function devToggleSave() {
-  _saveEnabled = !_saveEnabled;
-  const el=G('flag-save');if(el)el.textContent=_saveEnabled?'ON':'OFF';
-  const bs=G('btn-save'),bl=G('btn-load');
-  if(bs)bs.classList.toggle('visible',_saveEnabled);
-  if(bl)bl.classList.toggle('visible',_saveEnabled);
-  showToast('💾 Save: '+(_saveEnabled?'ON':'OFF'));
+  const hasSaveNow = hasSave();
+  const el = G('flag-save');
+  if (el) el.textContent = hasSaveNow ? 'VAR' : 'YOK';
+  showToast(hasSaveNow ? '💾 Kayıt mevcut' : '💾 Kayıt yok');
+}
+
+function devToggleFreeMode() {
+  if (GS.freeMode) {
+    GS.freeMode = false;
+    const el = G('flag-free'); if(el) el.textContent = 'OFF';
+    showToast('🚪 Free Mode: OFF');
+  } else {
+    activateFreeMode();
+    const el = G('flag-free'); if(el) el.textContent = 'ON';
+  }
+  devRefreshState();
+}
+
+function devSetVitals(val) {
+  ['thirst','hunger','toilet'].forEach(k => setVital(k, val));
+  showToast(`💊 Vitals → ${val}%`);
+  devRefreshState();
+}
+
+function devBuildPC() {
+  if (GS.room !== 'hobby_room') { devTP('hobby_room'); setTimeout(devBuildPC, 300); return; }
+  GS.hobby.monitor=true; GS.hobby.keyboard=true; GS.hobby.mouse=true;
+  GS.hobby.headset=true; GS.hobby.pc_case=true; GS.hobby.pc_built=true;
+  if (!QD.hobby_room) QD.hobby_room={};
+  ['open_box','monitor','keyboard','mouse','headset','pc_case','power_on'].forEach(id => QD.hobby_room[id]=true);
+  ['hr_monitor','hr_keyboard','hr_mouse','hr_headset','hr_case','hr_computer_parts'].forEach(p => {
+    ROOMS.hobby_room.obs = ROOMS.hobby_room.obs.filter(o => o !== p);
+  });
+  if (!ROOMS.hobby_room.obs.includes('hr_computer')) ROOMS.hobby_room.obs.splice(0,0,'hr_computer');
+  renderObjects(ROOMS.hobby_room.obs);
+  showToast('🖥️ PC Built!');
+  devRefreshState();
 }
 
 function devToggleAudio() {
@@ -3854,15 +3941,149 @@ function switchScreen(id) {
 }
 function G(id) { return document.getElementById(id); }
 
+// ══════════════════════════════════════════════════════
+//  KAYIT SİSTEMİ — localStorage
+// ══════════════════════════════════════════════════════
+const SAVE_KEY = 'vibe_save_v1';
+
+function saveGame() {
+  try {
+    const saveData = {
+      player:      GS.player,
+      progression: GS.progression,
+      vitals:      GS.vitals,
+      room:        GS.room,
+      quest:       GS.quest,
+      bath:        GS.bath,
+      ward:        GS.ward,
+      hobby:       GS.hobby,
+      freeMode:    GS.freeMode,
+      doorInteractions: GS.doorInteractions || {},
+      drawer:      GS.drawer,
+      kettleOn:    GS.kettleOn,
+      mealChoice:  GS.mealChoice,
+      QD:          QD,
+      sessionInv:  GS.sessionInv,
+      examined:    [...GS.examined],
+      scoredKeys:  [...GS.scoredKeys],
+      lang:        LANG,
+      savedAt:     Date.now(),
+    };
+    localStorage.setItem(SAVE_KEY, JSON.stringify(saveData));
+    // Kayıt göstergesi
+    const si = G('save-indicator');
+    if (si) { si.textContent = '✓ Kaydedildi'; si.classList.add('show'); setTimeout(() => si.classList.remove('show'), 1800); }
+  } catch(e) { console.warn('Save failed:', e); }
+}
+
+function loadGame() {
+  try {
+    const raw = localStorage.getItem(SAVE_KEY);
+    if (!raw) return false;
+    const d = JSON.parse(raw);
+    if (!d || !d.player?.name) return false;
+    // GS restore
+    GS.player      = { ...GS.player, ...d.player };
+    GS.progression = { ...GS.progression, ...d.progression };
+    GS.vitals      = { ...GS.vitals, ...d.vitals };
+    GS.room        = d.room  || 'bedroom';
+    GS.quest       = d.quest || 'water';
+    GS.bath        = { ...GS.bath,  ...d.bath  };
+    GS.ward        = { ...GS.ward,  ...d.ward  };
+    GS.hobby       = { ...GS.hobby, ...d.hobby };
+    GS.freeMode    = d.freeMode || false;
+    GS.doorInteractions = d.doorInteractions || {};
+    GS.drawer      = { ...GS.drawer, ...d.drawer };
+    GS.kettleOn    = d.kettleOn || false;
+    GS.mealChoice  = d.mealChoice || null;
+    GS.sessionInv  = d.sessionInv || [];
+    GS.examined    = new Set(d.examined || []);
+    GS.scoredKeys  = new Set(d.scoredKeys || []);
+    if (d.QD) Object.assign(QD, d.QD);
+    if (d.lang) { LANG.native = d.lang.native; LANG.target = d.lang.target; }
+    return true;
+  } catch(e) { console.warn('Load failed:', e); return false; }
+}
+
+function deleteSave() {
+  localStorage.removeItem(SAVE_KEY);
+  showToast('🗑️ Kayıt silindi.');
+}
+
+function hasSave() {
+  return !!localStorage.getItem(SAVE_KEY);
+}
+
+// Otomatik kayıt — önemli aksiyonlarda çağrılır
+function autoSave() { saveGame(); }
+
+function resumeGame() {
+  const ok = loadGame();
+  if (!ok) { switchScreen('screen-lang'); return; }
+  // Dili ayarla
+  document.querySelectorAll('.lang-opt').forEach(el => {
+    if (el.dataset.code === LANG.native) el.classList.add('sel');
+  });
+  // Oyunu başlat
+  switchScreen('screen-game');
+  const av=G('avatar-btn'); if(av) av.textContent=GS.player.emoji;
+  const pn=G('p-name');     if(pn) pn.textContent=GS.player.name;
+  const pt=G('p-title');    if(pt) pt.textContent=GS.player.activeTitle;
+  const dc=G('dc-name');    if(dc) dc.textContent=GS.player.name;
+  updateXPBar();
+  // Vital barları restore et
+  Object.keys(GS.vitals).forEach(k => setVital(k, GS.vitals[k]));
+  // freeMode aktifse odaları güncelle
+  if (GS.freeMode) {
+    Object.values(ROOMS).forEach(r => {
+      if (!r.obs.includes('door_free')) r.obs.push('door_free');
+      r.obs = r.obs.filter(o => !['door_k','door_b','door_lr'].includes(o));
+    });
+  }
+  // Quest ve oda yükle
+  if (GS.freeMode) {
+    loadRoom(GS.room);
+  } else {
+    setQuest(GS.quest);
+    loadRoom(GS.room);
+  }
+  showToast('👋 Kaldığın yerden devam ediyorsun!');
+}
+
+function showContinueScreen() {
+  // Kayıt bilgilerini oku
+  try {
+    const raw = localStorage.getItem(SAVE_KEY);
+    const d = JSON.parse(raw);
+    const name = d?.player?.name || '?';
+    const room = ROOMS[d?.room]?.en || '?';
+    const xp = d?.player?.xp || 0;
+    const lv = d?.player?.level || 1;
+    const words = d?.player?.inventory?.length || 0;
+    const cs = G('continue-info');
+    if (cs) cs.innerHTML = `
+      <div style="font-size:1.4rem">${d?.player?.emoji||'🧑'}</div>
+      <div style="font-size:.9rem;font-weight:700;color:var(--text-bright)">${name}</div>
+      <div style="font-size:.68rem;color:var(--text-dim)">Lv.${lv} · ${xp} XP · ${words} kelime</div>
+      <div style="font-size:.64rem;color:var(--teal);margin-top:.2rem">📍 ${room}</div>
+    `;
+  } catch(e) {}
+  switchScreen('screen-continue');
+}
+
 function runSplash() {
-  // Splash: tagline ve loading bar
   const tag = document.getElementById('splash-tagline');
   const bar = document.getElementById('splash-bar');
   const fill = document.getElementById('splash-fill');
   if (tag) setTimeout(() => tag.classList.add('show'), 400);
   if (bar) setTimeout(() => { bar.classList.add('show'); if(fill) fill.classList.add('go'); }, 800);
   setTimeout(() => {
-    switchScreen('screen-lang');
+    if (hasSave()) {
+      // Kayıt var — devam et ekranı göster
+      showContinueScreen();
+    } else {
+      switchScreen('screen-lang');
+    }
   }, 3000);
 }
 
