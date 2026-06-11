@@ -1,10 +1,6 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<link rel="icon" type="image/x-icon" href="favicon.ico">
-<link rel="icon" type="image/svg+xml" href="favicon.svg">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="manifest" href="site.webmanifest">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>vibe</title>
@@ -456,6 +452,68 @@ body{background:var(--bg);min-height:100vh;display:flex;align-items:center;justi
 .dict-badge-medium{background:var(--amber-dim);color:var(--amber);}
 .dict-badge-hard{background:var(--red-dim);color:var(--red);}
 
+/* ── LIBRARY & READER ───────────────────────── */
+#screen-library,#screen-reader{padding:0;gap:0;background:var(--bg);}
+.lib-header{display:flex;align-items:center;gap:.6rem;padding:.7rem .9rem;background:var(--card);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:10;}
+.lib-back-btn{background:none;border:1px solid var(--border2);color:var(--text);border-radius:7px;padding:.22rem .55rem;font-size:.7rem;cursor:pointer;}
+.lib-back-btn:hover{border-color:var(--teal);color:var(--teal);}
+.lib-title{font-family:'DM Mono',monospace;font-size:.72rem;font-weight:700;color:var(--text-bright);flex:1;}
+.lib-level-row{display:flex;gap:.4rem;padding:.6rem .9rem;background:var(--card2);border-bottom:1px solid var(--border);}
+.lib-level-btn{font-family:'DM Mono',monospace;font-size:.58rem;padding:.24rem .6rem;border-radius:7px;border:1px solid var(--border2);background:var(--card);color:var(--text-dim);cursor:pointer;transition:all .2s;}
+.lib-level-btn.active{border-color:var(--teal);color:var(--teal);background:var(--teal-dim);}
+.lib-books{display:flex;flex-direction:column;gap:.6rem;padding:.8rem .9rem;overflow-y:auto;}
+.lib-book-card{display:flex;align-items:center;gap:.8rem;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:.7rem .9rem;cursor:pointer;transition:all .2s;}
+.lib-book-card:hover{border-color:var(--teal);transform:translateY(-1px);}
+.lib-book-em{font-size:1.8rem;}
+.lib-book-title{font-size:.82rem;font-weight:700;color:var(--text-bright);}
+.lib-book-level{font-family:'DM Mono',monospace;font-size:.48rem;background:var(--teal-dim);color:var(--teal);border-radius:5px;padding:.1rem .3rem;}
+.lib-empty{color:var(--text-dim);font-size:.74rem;text-align:center;padding:2rem 0;font-style:italic;}
+
+/* Reader */
+.reader-progress-wrap{height:3px;background:var(--border);width:100%;}
+.reader-progress-bar{height:3px;background:var(--teal);width:0%;transition:width .5s;}
+.reader-sentences{padding:.8rem .9rem;display:flex;flex-direction:column;gap:.9rem;overflow-y:auto;max-height:calc(100vh - 220px);}
+.reader-sentence{line-height:1.7;}
+.reader-sentence-en{font-size:.9rem;color:var(--text-bright);display:block;margin-bottom:.2rem;}
+.reader-sentence-tr{font-size:.72rem;color:var(--text-dim);font-style:italic;display:none;}
+.reader-sentence-tr.show{display:block;}
+.reader-word{cursor:pointer;border-bottom:1px dotted var(--teal);color:inherit;transition:color .15s;}
+.reader-word:hover{color:var(--teal);}
+.reader-listen-row{display:flex;align-items:center;justify-content:space-between;padding:.5rem .9rem;background:var(--card2);border-top:1px solid var(--border);}
+.reader-listen-btn{background:var(--teal-dim);border:1px solid var(--teal);color:var(--teal);border-radius:8px;padding:.3rem .7rem;font-size:.7rem;cursor:pointer;}
+.reader-page-info{font-family:'DM Mono',monospace;font-size:.56rem;color:var(--text-dim);}
+
+/* Word Popup */
+.reader-word-popup{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:var(--card2);border:1.5px solid var(--teal);border-radius:14px;padding:.7rem 1rem;z-index:800;display:flex;align-items:center;gap:.6rem;box-shadow:0 0 30px rgba(0,201,167,.2);min-width:200px;}
+.rwp-word{font-size:.9rem;font-weight:700;color:var(--text-bright);}
+.rwp-tr{font-size:.72rem;color:var(--teal);flex:1;}
+.rwp-speak,.rwp-close{background:none;border:none;cursor:pointer;font-size:.9rem;color:var(--text-dim);}
+.rwp-speak:hover{color:var(--teal);}
+.rwp-close:hover{color:var(--red);}
+
+/* Quiz */
+.reader-quiz{padding:.8rem .9rem;display:flex;flex-direction:column;gap:.8rem;}
+.quiz-title{font-family:'DM Mono',monospace;font-size:.48rem;letter-spacing:.18em;text-transform:uppercase;color:var(--teal);margin-bottom:.2rem;}
+.quiz-question{font-size:.84rem;font-weight:700;color:var(--text-bright);line-height:1.5;}
+.quiz-question-tr{font-size:.68rem;color:var(--text-dim);font-style:italic;margin-bottom:.5rem;}
+.quiz-options{display:flex;flex-direction:column;gap:.38rem;}
+.quiz-opt{background:var(--card);border:1px solid var(--border2);border-radius:9px;padding:.5rem .7rem;font-size:.78rem;color:var(--text);cursor:pointer;text-align:left;transition:all .2s;}
+.quiz-opt:hover:not(:disabled){border-color:var(--teal);color:var(--teal);}
+.quiz-opt.correct{border-color:var(--green);background:var(--green-dim);color:var(--green);}
+.quiz-opt.wrong{border-color:var(--red);background:var(--red-dim);color:var(--red);}
+
+/* End Message */
+.reader-end{padding:1.5rem .9rem;display:flex;flex-direction:column;align-items:center;gap:.8rem;text-align:center;}
+.reader-end-char{font-size:3rem;animation:bounce .8s infinite alternate;}
+@keyframes bounce{from{transform:translateY(0);}to{transform:translateY(-8px);}}
+.reader-end-msg{font-size:.9rem;font-weight:700;color:var(--text-bright);}
+.reader-end-msg-tr{font-size:.72rem;color:var(--text-dim);font-style:italic;}
+.reader-end-xp{font-family:'DM Mono',monospace;font-size:.7rem;color:var(--gold);background:var(--gold-dim);border-radius:8px;padding:.3rem .7rem;}
+.reader-end-btn{background:var(--teal-dim);border:1px solid var(--teal);color:var(--teal);border-radius:10px;padding:.5rem 1.2rem;font-size:.8rem;font-weight:700;cursor:pointer;margin-top:.4rem;}
+
+/* Level badge in reader */
+.reader-level-badge{font-family:'DM Mono',monospace;font-size:.46rem;background:var(--teal-dim);color:var(--teal);border-radius:5px;padding:.1rem .32rem;}
+
 /* Radio Modal */
 #radio-modal{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(.88);background:var(--card2);border:1.5px solid var(--purple);border-radius:18px;padding:1.2rem 1.3rem;z-index:961;width:300px;max-height:80vh;display:flex;flex-direction:column;gap:.5rem;opacity:0;pointer-events:none;transition:all .35s cubic-bezier(.34,1.56,.64,1);box-shadow:0 0 50px rgba(155,109,255,.18);}
 #radio-modal.show{opacity:1;transform:translate(-50%,-50%) scale(1);pointer-events:all;}
@@ -789,6 +847,50 @@ body{background:var(--bg);min-height:100vh;display:flex;align-items:center;justi
 </div>
 
 <div class="screen" id="screen-story"><div class="story-block" id="story-block"></div></div>
+
+<!-- LIBRARY SCREEN -->
+<div class="screen" id="screen-library">
+  <div class="lib-header">
+    <button class="lib-back-btn" onclick="closeLibrary()">← Geri</button>
+    <span class="lib-title">📚 Library</span>
+  </div>
+  <div class="lib-level-row" id="lib-level-row">
+    <button class="lib-level-btn active" onclick="selectLibLevel('A1')">A1</button>
+    <button class="lib-level-btn" onclick="selectLibLevel('A2')">A2</button>
+    <button class="lib-level-btn" onclick="selectLibLevel('B1')">B1</button>
+    <button class="lib-level-btn" onclick="selectLibLevel('B2')">B2</button>
+  </div>
+  <div class="lib-books" id="lib-books"></div>
+</div>
+
+<!-- READER SCREEN -->
+<div class="screen" id="screen-reader">
+  <div class="lib-header">
+    <button class="lib-back-btn" onclick="closeReader()">← Kütüphane</button>
+    <span class="lib-title" id="reader-title">—</span>
+    <span class="reader-level-badge" id="reader-level-badge">A2</span>
+  </div>
+  <div class="reader-progress-wrap">
+    <div class="reader-progress-bar" id="reader-progress"></div>
+  </div>
+  <div class="reader-sentences" id="reader-sentences"></div>
+  <div class="reader-listen-row">
+    <button class="reader-listen-btn" id="reader-listen-btn" onclick="readerListenCurrent()">🔊 Dinle</button>
+    <span class="reader-page-info" id="reader-page-info"></span>
+  </div>
+  <!-- QUIZ -->
+  <div id="reader-quiz" class="reader-quiz" style="display:none"></div>
+  <!-- END MESSAGE -->
+  <div id="reader-end" class="reader-end" style="display:none"></div>
+</div>
+
+<!-- WORD POPUP (reader için) -->
+<div id="reader-word-popup" class="reader-word-popup" style="display:none">
+  <div class="rwp-word" id="rwp-word"></div>
+  <div class="rwp-tr" id="rwp-tr"></div>
+  <button class="rwp-speak" onclick="readerSpeakWord()">🔊</button>
+  <button class="rwp-close" onclick="closeReaderWordPopup()">✕</button>
+</div>
 
 <div class="screen" id="screen-character">
   <div style="text-align:center">
@@ -1851,7 +1953,7 @@ const OBJ = {
   tap:         {d:'easy',  em:'💧',en:'Tap',            tr:'Musluk',         ctx:'Turn on the tap for fresh cold water.',        recall:{c:'Musluk',      o:['Duş','Boru','Musluk','Vana']},             act:'use_tap',        ex:{en:'Fresh water from the tap.', tr:'Musluktan taze su.'}},
   napkin:      {d:'easy',  em:'🧻',en:'Napkin',         tr:'Peçete',         ctx:'Paper napkin. Wipe your hands.',               recall:{c:'Peçete',      o:['Peçete','Havlu','Kağıt','Mendil']},        act:null,             ex:{en:'A paper napkin.',           tr:'Kağıt peçete.'}},
   hand_towel:  {d:'medium',em:'🏳️',en:'Hand Towel',    tr:'El Havlusu',     ctx:'Hand towel. Dry your hands.',                  recall:{c:'El Havlusu',  o:['Havlu','Peçete','El Havlusu','Önlük']},   act:null,             ex:{en:'A hand towel.',             tr:'El havlusu.'}},
-  liquid_soap: {d:'medium',em:'🧴',en:'Liquid Soap',   tr:'Sıvı Sabun',     ctx:'Liquid soap pump. Clean your hands.',          recall:{c:'Sıvı Sabun',  o:['Sıvı Sabun','Şampuan','Losyon','Krem']},  act:null,             ex:{en:'Liquid soap.',              tr:'Sıvı sabun.'}},
+  liquid_soap: {d:'medium',em:'🧴',en:'Liquid Soap',   tr:'Sıvı Sabun',     ctx:'Liquid soap pump. Clean your hands.',          recall:{c:'Sıvı Sabun',  o:['Sıvı Sabun','Şampuan','Losyon','Krem']},  act:'use_soap',       ex:{en:'Liquid soap.',              tr:'Sıvı sabun.'}},
   door_b:      {d:'easy',  em:'🚪',en:'Door',           tr:'Kapı',           ctx:'Go back to the bedroom.',                      recall:{c:'Kapı',        o:['Kapı','Pencere','Duvar','Merdiven']},      act:'go_bedroom',     ex:{en:'Back to bedroom.',          tr:'Yatak odasına dön.'}},
   door_free:   {d:'easy',  em:'🚪',en:'Door',           tr:'Kapı',           ctx:'Where would you like to go?',                  recall:{c:'Kapı',        o:['Kapı','Pencere','Duvar','Merdiven']},      act:'open_room_nav',  ex:{en:'The door. Where to?',       tr:'Kapı. Nereye gidiyorsun?'}},
   // KITCHEN BREAKFAST
@@ -2614,7 +2716,9 @@ function drinkWater() {
 // ══════════════════════════════════════════════════════
 function startCoffeeQuest() {
   setVital('hunger',30); setVital('toilet',35); setQuest('coffee');
-  fadeText(G('scene-text'), `<span class="scene-name">${GS.player.name}</span>: <span class="scene-en">${ST('coffee_intro')}</span><span class="scene-tr-line">${S('coffee_intro')}</span>`);
+  // Kilitli kapıyı mutfağa ekle
+  if (!ROOMS.kitchen.obs.includes('door_b')) ROOMS.kitchen.obs.push('door_b');
+  fadeText(G('scene-text'), '<span class="scene-name">' + GS.player.name + '</span>: <span class="scene-en">' + ST('coffee_intro') + '</span><span class="scene-tr-line">' + S('coffee_intro') + '</span>');
   loadRoom('kitchen');
 }
 
@@ -2748,10 +2852,10 @@ function chooseMeal(meal) {
   const rt = G('recipe-title'); if (rt) rt.textContent = rec.title;
   const ri = G('recipe-items'); if (ri) ri.innerHTML = rec.items.map(i => { const o=OBJ[i]; return `<div class="recipe-item" id="ri-${i}"><span>${o.em}</span> ${o.en}</div>`; }).join('');
   G('recipe-panel').classList.add('show');
-  // Sadece malzemeleri göster — mutfak nesneleri KARIŞMASIn
-  const all = [...new Set([...rec.items,...FRIDGE_EXP,...rec.decoys])];
-  GS.fridgeObs = all; // ayrı liste — kitchen.obs'a ekleme
-  renderObjects(all);
+  // Malzeme ekranına kilitli kapı ekle
+  const allWithDoor = [...new Set([...rec.items,...FRIDGE_EXP,...rec.decoys,'door_b'])];
+  GS.fridgeObs = allWithDoor;
+  renderObjects(allWithDoor);
   const tl = G('task-list'); if (tl) tl.innerHTML = rec.items.map(i => { const o=OBJ[i]; return `<div class="task-item active-task" id="tsk-b-${i}"><div class="task-check"></div><div style="flex:1"><span class="task-en">Get ${o.en}</span><span class="task-tr">${o.tr} al</span></div></div>`; }).join('');
   fadeText(G('scene-text'), `<span class="scene-en">You chose: ${rec.title}!</span><span class="scene-tr-line">Seçimin: ${rec.title}!</span><span class="scene-gap"></span>${biLine('Collect the right ingredients from the fridge.','Buzdolabından doğru malzemeleri topla.')}`);
 }
@@ -3058,17 +3162,21 @@ function showWardrobePicker(m) {
   G('objects-wrap').style.display = 'none'; G('word-card').classList.remove('show');
   document.querySelectorAll('.wardrobe-picker').forEach(e => e.remove());
   const pick = document.createElement('div'); pick.className = 'wardrobe-picker';
-  pick.innerHTML = `<div style="font-family:'DM Mono',monospace;font-size:.45rem;letter-spacing:.2em;text-transform:uppercase;color:var(--teal);margin-bottom:.5rem">Mission</div>
-    <div style="font-size:.86rem;color:var(--text-bright);margin-bottom:.22rem">${m.label}</div>
-    <div style="font-size:.7rem;color:var(--text-tr);font-style:italic;margin-bottom:.82rem">${m.labelTr}</div>
-    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:.36rem">
-      ${shuffled.map(c=>`<button onclick="pickClothing('${c}','${m.correct}','${m.key}','${m.em}')"
-        style="background:var(--card2);border:1.5px solid var(--border2);border-radius:10px;padding:.52rem;font-size:1.4rem;cursor:pointer;transition:all .18s"
-        onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border2)'">${c}${m.em}</button>`).join('')}
-    </div>`;
+  var btns = '';
+  shuffled.forEach(function(c) {
+    btns += '<button onclick="pickClothing(\'' + c + '\',\'' + m.correct + '\',\'' + m.key + '\',\'' + m.em + '\')" ' +
+      'style="background:var(--card2);border:1.5px solid var(--border2);border-radius:10px;padding:.52rem;font-size:1.4rem;cursor:pointer;transition:all .18s" ' +
+      'onmouseover="this.style.borderColor=\'var(--accent)\'" onmouseout="this.style.borderColor=\'var(--border2)\'">' +
+      c + m.em + '</button>';
+  });
+  pick.innerHTML =
+    '<div style="font-family:\'DM Mono\',monospace;font-size:.45rem;letter-spacing:.2em;text-transform:uppercase;color:var(--teal);margin-bottom:.5rem">Mission</div>' +
+    '<div style="font-size:.86rem;color:var(--text-bright);margin-bottom:.22rem">' + m.label + '</div>' +
+    '<div style="font-size:.7rem;color:var(--text-tr);font-style:italic;margin-bottom:.82rem">' + m.labelTr + '</div>' +
+    '<div style="display:grid;grid-template-columns:repeat(5,1fr);gap:.36rem">' + btns + '</div>';
   G('objects-wrap').insertAdjacentElement('afterend', pick);
   AUD.speak(m.label);
-  fadeText(G('scene-text'), `<span class="scene-en">${m.label}</span><span class="scene-tr-line">${m.labelTr}</span>`);
+  fadeText(G('scene-text'), '<span class="scene-en">' + m.label + '</span><span class="scene-tr-line">' + m.labelTr + '</span>');
 }
 
 function pickClothing(picked, correct, key, em) {
@@ -3183,96 +3291,65 @@ function filterDict() {
 }
 
 function renderDictList(keys) {
-  const list = G('dict-list'); if (!list) return;
-  const countEl = G('dict-count');
-  const validKeys = keys.filter(k => OBJ[k]);
+  var list = G('dict-list'); if (!list) return;
+  var countEl = G('dict-count');
+  var validKeys = keys.filter(function(k) { return OBJ[k]; });
   if (countEl) countEl.textContent = validKeys.length + ' word' + (validKeys.length !== 1 ? 's' : '');
   if (!validKeys.length) {
-    list.innerHTML = `<p style="color:var(--text-dim);font-size:.72rem;text-align:center;padding:.8rem 0">${biLine('No words yet. Keep exploring!','Henüz kelime yok. Keşfetmeye devam et!')}</p>`;
+    list.innerHTML = '<p style="color:var(--text-dim);font-size:.72rem;text-align:center;padding:.8rem 0">' + biLine('No words yet. Keep exploring!', 'Henuz kelime yok.') + '</p>';
     return;
   }
-  list.innerHTML = validKeys.map(k => {
-    const o = OBJ[k];
-    const badgeClass = o.d === 'easy' ? 'dict-badge-easy' : o.d === 'hard' ? 'dict-badge-hard' : 'dict-badge-medium';
-    return `<div class="dict-card">
-      <span class="dict-card-em">${o.em||'📝'}</span>
-      <div class="dict-card-body">
-        <span class="dict-card-en">${o.en}</span>
-        <span class="dict-card-tr">${o.tr}</span>
-        <span class="dict-card-ctx">${o.ctx||''}</span>
-      </div>
-      <span class="dict-card-badge ${badgeClass}">${o.d}</span>
-    </div>`;
-  }).join('');
-}
-
-// ══════════════════════════════════════════════════════
-//  COMPUTER — AI SENTENCE GENERATOR
-// ══════════════════════════════════════════════════════
-async function fetchComputerSentence(level) {
-  const st = G('scene-text'); if (!st) return;
-  // Loading state
-  st.innerHTML = `<div class="computer-panel">
-    <div class="computer-level-row">${['A1','A2','B1','B2'].map(l =>
-      `<button class="computer-level-btn${l===level?' active':''}" onclick="fetchComputerSentence('${l}')">${l}</button>`
-    ).join('')}</div>
-    <div class="computer-loading">💻 Generating sentence...</div>
-  </div>`;
-  GS.hobby.computerLevel = level;
-  try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'anthropic-dangerous-direct-browser-access': 'true',
-      },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 300,
-        system: 'You are an English teacher. Return ONLY valid JSON, no markdown, no explanation.',
-        messages: [{ role: 'user', content: `Generate 1 English sentence at ${level} level with Turkish translation and 3-5 key words from the sentence. Format exactly: {"sentence":"...","translation":"...","words":[{"en":"...","tr":"...","em":"..."}]}` }]
-      })
-    });
-    const data = await res.json();
-    const raw = data.content?.map(i => i.text||'').join('').trim();
-    const parsed = JSON.parse(raw.replace(/```json|```/g,'').trim());
-    _renderComputerResult(parsed, level);
-  } catch(e) {
-    st.innerHTML = `<div class="computer-panel">
-      <div class="computer-level-row">${['A1','A2','B1','B2'].map(l =>
-        `<button class="computer-level-btn${l===level?' active':''}" onclick="fetchComputerSentence('${l}')">${l}</button>`
-      ).join('')}</div>
-      <div class="computer-loading">⚠️ ${biLine('Could not connect. Try again.','Bağlanılamadı. Tekrar dene.')}</div>
-      <button class="computer-new-btn" onclick="fetchComputerSentence('${level}')">↺ ${biLine('Try Again','Tekrar Dene')}</button>
-    </div>`;
-  }
-}
-
-function _renderComputerResult(data, level) {
-  const st = G('scene-text'); if (!st) return;
-  // Kelimeleri inventory'e ekle
-  (data.words||[]).forEach(w => {
-    const key = 'pc_' + w.en.toLowerCase().replace(/\s+/g,'_');
-    if (!GS.player.inventory.includes(key)) {
-      GS.player.inventory.push(key);
-      GS.progression.learnedWordsCount++;
-      addXP(2);
-      // OBJ'e dinamik ekle
-      if (!OBJ[key]) OBJ[key] = { d:'medium', em:w.em||'💬', en:w.en, tr:w.tr, ctx:data.sentence, recall:{c:w.tr, o:[w.tr,'Kelime','Sözcük','İfade']}, act:null, ex:{en:w.en, tr:w.tr} };
-    }
+  var html = '';
+  validKeys.forEach(function(k) {
+    var o = OBJ[k];
+    var badgeClass = o.d === 'easy' ? 'dict-badge-easy' : o.d === 'hard' ? 'dict-badge-hard' : 'dict-badge-medium';
+    html += '<div class="dict-card">';
+    html += '<span class="dict-card-em">' + (o.em || '') + '</span>';
+    html += '<div class="dict-card-body">';
+    html += '<span class="dict-card-en">' + o.en + '</span>';
+    html += '<span class="dict-card-tr">' + o.tr + '</span>';
+    html += '<span class="dict-card-ctx">' + (o.ctx || '') + '</span>';
+    html += '</div>';
+    html += '<span class="dict-card-badge ' + badgeClass + '">' + o.d + '</span>';
+    html += '</div>';
   });
-  const wordChips = (data.words||[]).map(w =>
-    `<span class="computer-word-chip" onclick="showWordCard(OBJ['pc_${w.en.toLowerCase().replace(/\s+/g,'_')}']||{em:'💬',en:'${w.en}',tr:'${w.tr}',ctx:'${data.sentence}',recall:{c:'${w.tr}',o:['${w.tr}','Kelime','Sözcük','İfade']},ex:{en:'${w.en}',tr:'${w.tr}'}}, 'pc_${w.en.toLowerCase().replace(/\s+/g,'_')}', null)">${w.em||'💬'} ${w.en}</span>`
-  ).join('');
-  st.innerHTML = `<div class="computer-panel">
-    <div class="computer-level-row">${['A1','A2','B1','B2'].map(l =>
-      `<button class="computer-level-btn${l===level?' active':''}" onclick="fetchComputerSentence('${l}')">${l}</button>`
-    ).join('')}</div>
-    <div class="computer-sentence">${data.sentence}</div>
-    <div class="computer-translation">${data.translation}</div>
-    <div class="computer-words">${wordChips}</div>
-    <button class="computer-new-btn" onclick="fetchComputerSentence('${level}')">↺ ${biLine('New Sentence','Yeni Cümle')}</button>
-  </div>`;
+  list.innerHTML = html;
+}
+
+// ══════════════════════════════════════════════════════
+//  COMPUTER — Kitaplıktan Rastgele Cümle
+// ══════════════════════════════════════════════════════
+function fetchComputerSentence(level) {
+  var st = G('scene-text'); if (!st) return;
+  GS.hobby.computerLevel = level;
+  var books = LIBRARY_BOOKS[level] || [];
+  var allSentences = [];
+  books.forEach(function(b) { allSentences = allSentences.concat(b.sentences); });
+  var levelBtns = '';
+  ['A1','A2','B1','B2'].forEach(function(l) {
+    levelBtns += '<button class="computer-level-btn' + (l === level ? ' active' : '') + '" onclick="fetchComputerSentence(\'' + l + '\')">' + l + '</button>';
+  });
+  if (!allSentences.length) {
+    st.innerHTML = '<div class="computer-panel"><div class="computer-level-row">' + levelBtns + '</div>' +
+      '<div class="computer-loading">' + biLine('No sentences at this level yet.', 'Bu seviyede henuz cumle yok.') + '</div></div>';
+    return;
+  }
+  var s = allSentences[Math.floor(Math.random() * allSentences.length)];
+  var words = s.en.replace(/[^a-zA-Z\s]/g, '').split(/\s+/).filter(function(w) { return w.length > 2; });
+  var seen = {};
+  var chips = '';
+  words.forEach(function(w) {
+    if (seen[w]) return;
+    seen[w] = true;
+    chips += '<span class="computer-word-chip" onclick="showReaderWord(\'' + w + '\')">' + w + '</span>';
+  });
+  st.innerHTML = '<div class="computer-panel">' +
+    '<div class="computer-level-row">' + levelBtns + '</div>' +
+    '<div class="computer-sentence">' + s.en + '</div>' +
+    '<div class="computer-translation">' + s.tr + '</div>' +
+    '<div class="computer-words">' + chips + '</div>' +
+    '<button class="computer-new-btn" onclick="fetchComputerSentence(\'' + level + '\')">&#8635; ' + biLine('New Sentence', 'Yeni Cumle') + '</button>' +
+    '</div>';
 }
 
 // ══════════════════════════════════════════════════════
@@ -3315,16 +3392,21 @@ function closeRadio() {
 
 function renderRadioList() {
   const list = G('radio-list'); if (!list) return;
-  list.innerHTML = RADIO_STATIONS.map((s, i) =>
-    `<div class="radio-card${i===_radioCurrentIdx?' playing':''}" onclick="playStation(${i})">
-      <span class="radio-card-em">${s.em}</span>
-      <div style="flex:1">
-        <span class="radio-card-name">${s.name}</span>
-        <span class="radio-card-genre">${s.genre}</span>
-      </div>
-      <span class="radio-card-live">${i===_radioCurrentIdx?'▶ ON AIR':'LIVE'}</span>
-    </div>`
-  ).join('');
+  list.innerHTML = '';
+  RADIO_STATIONS.forEach((s, i) => {
+    const isPlaying = i === _radioCurrentIdx;
+    const div = document.createElement('div');
+    div.className = 'radio-card' + (isPlaying ? ' playing' : '');
+    div.onclick = () => playStation(i);
+    div.innerHTML =
+      '<span class="radio-card-em">' + s.em + '</span>' +
+      '<div style="flex:1">' +
+        '<span class="radio-card-name">' + s.name + '</span>' +
+        '<span class="radio-card-genre">' + s.genre + '</span>' +
+      '</div>' +
+      '<span class="radio-card-live">' + (isPlaying ? '▶ ON AIR' : 'LIVE') + '</span>';
+    list.appendChild(div);
+  });
 }
 
 function playStation(idx) {
@@ -3358,25 +3440,353 @@ function stopRadio() {
 }
 
 // ══════════════════════════════════════════════════════
-//  LIBRARY (Kitaplık) — İskelet, içerik gelince dolacak
+//  LIBRARY (Kitaplık)
 // ══════════════════════════════════════════════════════
 const LIBRARY_BOOKS = {
-  A1: [],  // İçerik gelince buraya eklenecek
-  A2: [],
+  A1: [
+    {
+      id: 'fox_grapes',
+      title: 'The Fox and the Grapes',
+      level: 'A1',
+      emoji: '🦊',
+      character: '🍇',
+      endMessage: { en: 'Sometimes we want what we cannot have!', tr: 'Bazen ulasamadigimiz seyleri istemeyiz.' },
+      sentences: [
+        { en: 'One hot summer day, a Fox was walking through an orchard.', tr: 'Sicak bir yaz gununde, bir tilki meyve bahcesinde yuruyordu.' },
+        { en: 'He saw a bunch of ripe grapes hanging from a vine.', tr: 'Bir asmanin uzerinde duran olgun uzum salkimini gordu.' },
+        { en: 'The grapes looked fresh and juicy.', tr: 'Uzumler taze ve sulu gorununyordu.' },
+        { en: 'The Fox wanted them very much.', tr: 'Tilki onlari cok istedi.' },
+        { en: 'He stepped back, ran forward, and jumped.', tr: 'Geri cekindi, ileri kosup zipliadi.' },
+        { en: 'But he could not reach the grapes.', tr: 'Ama uzumlere ulasamadi.' },
+        { en: 'He tried again.', tr: 'Tekrar denedi.' },
+        { en: 'And again.', tr: 'Ve yine.' },
+        { en: 'Each time he jumped, he missed them.', tr: 'Her zipladiginda uzumleri kaciryordu.' },
+        { en: 'After many attempts, the Fox became tired.', tr: 'Pek cok denemeden sonra tilki yoruldu.' },
+        { en: 'He looked at the grapes one last time.', tr: 'Uzumlere son bir kez baktı.' },
+        { en: 'Then he turned away.', tr: 'Sonra dondu ve gitti.' },
+        { en: 'He said the grapes were probably sour.', tr: 'Uzumlerin buyuk ihtimalle eksi oldugunu soyledi.' },
+        { en: 'And with that, he walked away.', tr: 'Ve bu sozlerle, uzaklasti.' },
+      ],
+      questions: [
+        { q: 'Where was the Fox walking?', tr: 'Tilki nerede yuruyordu?', options: ['In an orchard','In a forest','Near a river','On a hill'], options_tr: ['Meyve bahcesinde','Ormanda','Nehir kenarinda','Tepede'], answer: 0 },
+        { q: 'Why did the Fox walk away?', tr: 'Tilki neden gitti?', options: ['He could not reach the grapes','He was not hungry','He found better food','It started raining'], options_tr: ['Uzumlere ulasamadi','Ac degildi','Daha iyi yiyecek buldu','Yagmur basladi'], answer: 0 },
+        { q: 'What did the Fox say about the grapes?', tr: 'Tilki uzumler hakkinda ne dedi?', options: ['They were probably sour','They were too high','They were not ripe','They were beautiful'], options_tr: ['Buyuk ihtimalle eksiydi','Cok yuksekteydi','Olgun degildi','Guzeldi'], answer: 0 },
+      ],
+    },
+    {
+      id: 'tortoise_hare',
+      title: 'The Tortoise and the Hare',
+      level: 'A1',
+      emoji: '🐢',
+      character: '🏆',
+      endMessage: { en: 'Slow and steady wins the race!', tr: 'Yavas ve istikrarli olan yarisi kazanir!' },
+      sentences: [
+        { en: 'A Hare was making fun of the Tortoise one day for being so slow.', tr: 'Bir gun Tavsan, Kaplumbagayi cok yavas oldugu icin alay etti.' },
+        { en: 'The Hare laughed and asked if the Tortoise ever got anywhere.', tr: 'Tavsan guldü ve Kaplumbaganin bir yere ulasip ulasamadigini sordu.' },
+        { en: 'The Tortoise replied that he did and said he would race the Hare to prove it.', tr: 'Kaplumbaga bunu yapabilecegini soyledi ve bunu kanitlamak icin Tavsan ile yaris yapacagini belirtti.' },
+        { en: 'The Hare thought the idea was very funny, but he agreed to the race.', tr: 'Tavsan fikri cok komik buldu ama yarisi kabul etti.' },
+        { en: 'A Fox was chosen to be the judge.', tr: 'Hakem olarak bir Tilki secildi.' },
+        { en: 'When the race began, the Hare ran very quickly and soon left the Tortoise far behind.', tr: 'Yaris basladiginda Tavsan cok hizli kosti ve kisa surede Kaplumbagayi geride birakti.' },
+        { en: 'Feeling confident that he would win, the Hare decided to rest.', tr: 'Kazanacagindan emin olan Tavsan dinlenmeye karar verdi.' },
+        { en: 'He lay down under a tree and fell asleep.', tr: 'Bir agacin altina uzandi ve uyuya kaldi.' },
+        { en: 'The Tortoise kept moving.', tr: 'Kaplumbaga yurmeye devam etti.' },
+        { en: 'He walked slowly, but he never stopped.', tr: 'Yavas yuruyordu ama hic durmadi.' },
+        { en: 'Step by step, he continued toward the finish line.', tr: 'Adim adim bitis cizgisine dogru ilerledi.' },
+        { en: 'After some time, the Hare woke up.', tr: 'Bir sure sonra Tavsan uyandi.' },
+        { en: 'He saw that the Tortoise was close to the finish line.', tr: 'Kaplumbaganin bitis cizgisine yakin oldugunu gordu.' },
+        { en: 'The Hare ran as fast as he could.', tr: 'Tavsan elinden geldiğince hizli kosti.' },
+        { en: 'But it was too late.', tr: 'Ama cok gecti.' },
+        { en: 'The Tortoise crossed the finish line first and won the race.', tr: 'Kaplumbaga bitis cizgisini ilk gecti ve yarisi kazandi.' },
+      ],
+      questions: [
+        { q: 'Why did the Hare stop during the race?', tr: 'Tavsan neden yaris sirasinda durdu?', options: ['To rest and sleep','He was injured','He lost his way','He was hungry'], options_tr: ['Dinlenmek ve uyumak icin','Yaralanmisti','Yolunu kaybetti','Acikti'], answer: 0 },
+        { q: 'Who won the race?', tr: 'Yarisi kim kazandi?', options: ['The Tortoise','The Hare','The Fox','Nobody'], options_tr: ['Kaplumbaga','Tavsan','Tilki','Kimse'], answer: 0 },
+        { q: 'Who was the judge of the race?', tr: 'Yarisın hakemi kimdi?', options: ['A Fox','A Bear','A Wolf','A Bird'], options_tr: ['Bir Tilki','Bir Ayi','Bir Kurt','Bir Kus'], answer: 0 },
+      ],
+    },
+    {
+      id: 'boy_wolf',
+      title: 'The Boy Who Cried Wolf',
+      level: 'A1',
+      emoji: '🐺',
+      character: '👦',
+      endMessage: { en: 'Nobody believes a liar, even when telling the truth!', tr: 'Kimse yalanciya inanmaz, gercegi soylese bile!' },
+      sentences: [
+        { en: 'A young shepherd boy watched a flock of sheep near a village.', tr: 'Genc bir coban oglan, bir koy yakininda koyun surusunu gozetliyordu.' },
+        { en: 'Every day, he sat on a hill and looked after the sheep.', tr: 'Her gun bir tepenin uzerinde oturup koyunlara bakiyordu.' },
+        { en: 'The boy often felt bored because nothing exciting happened.', tr: 'Oglan, heyecan verici bir sey olmadigi icin sikca sikiliryordu.' },
+        { en: 'One day, he had an idea.', tr: 'Bir gun aklina bir fikir geldi.' },
+        { en: 'He ran toward the village shouting that a wolf was attacking the sheep.', tr: 'Kurtun koyunlara saldirdigini bagirarak koye dogru kosti.' },
+        { en: 'The villagers heard his cries and rushed to help him.', tr: 'Koy hali bagrislarini duydu ve ona yardim etmek icin kostular.' },
+        { en: 'When they arrived, they found no wolf.', tr: 'Vardıklarında kurt yoktu.' },
+        { en: 'The boy laughed because he had tricked them.', tr: 'Oglan, onlari kandirdigı icin guldu.' },
+        { en: 'A few days later, the boy did the same thing again.', tr: 'Birkac gun sonra oglan ayni seyi tekrar yapti.' },
+        { en: 'He shouted that a wolf was attacking the sheep.', tr: 'Kurtun koyunlara saldirdigini bagirdi.' },
+        { en: 'Once again, the villagers ran to help.', tr: 'Bir kez daha koylüler yardima kosti.' },
+        { en: 'When they reached the hill, there was no wolf.', tr: 'Tepeye ulastıklarinda kurt yoktu.' },
+        { en: 'The boy laughed at them again.', tr: 'Oglan yine onlara guldu.' },
+        { en: 'Then one evening, a real wolf appeared near the flock.', tr: 'O aksam gercek bir kurt surunun yakininda belirdi.' },
+        { en: 'The wolf began chasing the sheep.', tr: 'Kurt koyunlari kovalamaya basladi.' },
+        { en: 'The boy became frightened.', tr: 'Oglan korktu.' },
+        { en: 'He shouted for help as loudly as he could.', tr: 'Elinden geldigince yuksek sesle yardim istedi.' },
+        { en: 'The villagers heard him, but they remembered the boy\'s earlier tricks.', tr: 'Koylüler onu duydular ama oglun onceki hilelerini hatirladi.' },
+        { en: 'They thought he was lying again.', tr: 'Yine yalan soyledigini dusunduler.' },
+        { en: 'No one came to help.', tr: 'Kimse yardima gelmedi.' },
+        { en: 'The wolf attacked the flock, and the boy could do nothing to stop it.', tr: 'Kurt surüye saldirdi ve oglan bunu durdurmak icin hicbir sey yapamadi.' },
+      ],
+      questions: [
+        { q: 'Why did the boy shout wolf the first time?', tr: 'Oglan neden ilk seferinde kurt diye bagrdi?', options: ['He was bored and wanted fun','A wolf was really there','He was scared','He wanted food'], options_tr: ['Sikild ve eglenmek istedi','Gercekten kurt vardi','Korktu','Yemek istedi'], answer: 0 },
+        { q: 'What happened when a real wolf came?', tr: 'Gercek bir kurt geldiginde ne oldu?', options: ['Nobody came to help','The villagers came quickly','The boy ran away','The wolf left alone'], options_tr: ['Kimse yardima gelmedi','Koylüler hizlica geldi','Oglan kacti','Kurt tek basina gitti'], answer: 0 },
+        { q: 'What is the lesson of this story?', tr: 'Bu hikayenin dersi nedir?', options: ['Do not lie','Always run fast','Wolves are dangerous','Stay near the village'], options_tr: ['Yalan soyleme','Her zaman hizli kos','Kurtlar tehlikelidir','Koye yakin kal'], answer: 0 },
+      ],
+    },
+  ],
+  A2: [{
+    id: 'lion_mouse',
+    title: 'The Lion and the Mouse',
+    level: 'A2',
+    emoji: '\u{1F981}',
+    character: '\u{1F42D}',
+    endMessage: { en: 'Thank you for reading my story!', tr: 'Hikayemi okudugun icin tesekkurler!' },
+    sentences: [
+      { en: 'One day, a lion was sleeping in the forest.', tr: 'Bir gun, bir aslan ormanda uyuyordu.' },
+      { en: 'A little mouse ran across the lion paw.', tr: 'Kucuk bir fare aslanin pencesinin uzerinden kostu.' },
+      { en: 'The lion woke up and caught the mouse.', tr: 'Aslan uyandi ve fareyi yakaladi.' },
+      { en: 'The mouse was very afraid.', tr: 'Fare cok korktu.' },
+      { en: 'Please let me go, said the mouse.', tr: 'Lutfen beni birak, dedi fare.' },
+      { en: 'Maybe one day I can help you.', tr: 'Belki bir gun sana yardim edebilirim.' },
+      { en: 'The lion laughed.', tr: 'Aslan guldu.' },
+      { en: 'You are so small. How can you help me?', tr: 'Sen cok kucuksun. Bana nasil yardim edebilirsin?' },
+      { en: 'But the lion let the mouse go.', tr: 'Ama aslan fareyi birakti.' },
+      { en: 'A few days later, the lion was caught in a hunters net.', tr: 'Birkac gun sonra, aslan bir avcinin agina yakalandi.' },
+      { en: 'The lion tried to escape, but he could not.', tr: 'Aslan kacmaya calisti ama kacamadi.' },
+      { en: 'The mouse heard the lion.', tr: 'Fare aslani duydu.' },
+      { en: 'The mouse ran to the net and bit the ropes.', tr: 'Fare aga kostu ve ipleri isirdi.' },
+      { en: 'Soon, the lion was free.', tr: 'Kisa sure sonra aslan ozgur oldu.' },
+      { en: 'Thank you, said the lion.', tr: 'Tesekkur ederim, dedi aslan.' },
+      { en: 'You helped me.', tr: 'Bana yardim ettin.' },
+      { en: 'The mouse smiled.', tr: 'Fare gulumesedi.' },
+    ],
+    questions: [
+      { q: 'What was the lion doing at the beginning?', tr: 'Aslan baslangicta ne yapiyordu?', options: ['Sleeping','Eating','Running','Swimming'], options_tr: ['Uyuyordu','Yiyordu','Kosuyordu','Yuzuyordu'], answer: 0 },
+      { q: 'How did the mouse help the lion?', tr: 'Fare aslana nasil yardim etti?', options: ['Bit the ropes','Called for help','Brought food','Scared the hunter'], options_tr: ['Ipleri isirdi','Yardim cagirdi','Yiyecek getirdi','Avciyi korkuttu'], answer: 0 },
+      { q: 'What did the lion do for the mouse?', tr: 'Aslan fare icin ne yapti?', options: ['Let the mouse go','Gave food','Taught it','Ignored it'], options_tr: ['Fareyi birakti','Yiyecek verdi','Ogretti','Yok saydi'], answer: 0 },
+    ],
+  }],
   B1: [],
   B2: [],
 };
 
+let _libLevel = 'A2';
+let _currentBook = null;
+let _readerWordEl = null;
+
 function openLibrary() {
-  const st = G('scene-text'); if (!st) return;
-  const levels = ['A1','A2','B1','B2'];
-  const hasContent = levels.some(l => LIBRARY_BOOKS[l].length > 0);
-  if (!hasContent) {
-    fadeText(st, `<span class="scene-hi">📚 ${biLine('Library coming soon! New books will be added.','Kitaplık yakında! Yeni kitaplar eklenecek.')}</span>`);
+  _libLevel = 'A2';
+  switchScreen('screen-library');
+  renderLibBooks(_libLevel);
+  document.querySelectorAll('.lib-level-btn').forEach(function(b) {
+    b.classList.toggle('active', b.textContent === _libLevel);
+  });
+}
+
+function closeLibrary() { switchScreen('screen-game'); }
+
+function selectLibLevel(level) {
+  _libLevel = level;
+  document.querySelectorAll('.lib-level-btn').forEach(function(b) {
+    b.classList.toggle('active', b.textContent === level);
+  });
+  renderLibBooks(level);
+}
+
+function renderLibBooks(level) {
+  var wrap = G('lib-books'); if (!wrap) return;
+  var books = LIBRARY_BOOKS[level] || [];
+  if (!books.length) {
+    wrap.innerHTML = '<div class="lib-empty">' + biLine('No books yet at this level.', 'Bu seviyede henuz kitap yok.') + '</div>';
     return;
   }
-  // İçerik gelince burada kitap listesi açılacak
+  var html = '';
+  for (var i = 0; i < books.length; i++) {
+    var b = books[i];
+    html += '<div class="lib-book-card" onclick="openBook(\'' + level + '\',' + i + ')">';
+    html += '<span class="lib-book-em">' + b.emoji + '</span>';
+    html += '<div style="flex:1"><div class="lib-book-title">' + b.title + '</div>';
+    html += '<div style="display:flex;gap:.4rem;margin-top:.2rem">';
+    html += '<span class="lib-book-level">' + b.level + '</span>';
+    html += '<span style="font-size:.6rem;color:var(--text-dim)">' + b.sentences.length + ' sentences</span>';
+    html += '</div></div>';
+    html += '<span style="color:var(--text-dim)">&rarr;</span></div>';
+  }
+  wrap.innerHTML = html;
+}
+
+function openBook(level, idx) {
+  var book = (LIBRARY_BOOKS[level] || [])[idx];
+  if (!book) return;
+  _currentBook = book;
+  var rt = G('reader-title'); if (rt) rt.textContent = book.title;
+  var rb = G('reader-level-badge'); if (rb) rb.textContent = book.level;
+  var rq = G('reader-quiz'); if (rq) { rq.style.display = 'none'; rq.innerHTML = ''; }
+  var re = G('reader-end'); if (re) { re.style.display = 'none'; re.innerHTML = ''; }
+  renderReaderSentences(book);
+  updateReaderProgress(book.sentences.length, book.sentences.length);
+  var pi = G('reader-page-info'); if (pi) pi.textContent = book.sentences.length + ' sentences';
+  switchScreen('screen-reader');
+}
+
+function renderReaderSentences(book) {
+  var wrap = G('reader-sentences'); if (!wrap) return;
+  var html = '';
+  for (var i = 0; i < book.sentences.length; i++) {
+    var s = book.sentences[i];
+    var parts = s.en.split(' ');
+    var wordHtml = '';
+    for (var j = 0; j < parts.length; j++) {
+      var w = parts[j];
+      var clean = w.replace(/[^a-zA-Z]/g, '');
+      if (clean.length > 1) {
+        wordHtml += '<span class="reader-word" onclick="showReaderWord(\'' + clean + '\')">' + w + '</span> ';
+      } else {
+        wordHtml += w + ' ';
+      }
+    }
+    html += '<div class="reader-sentence" id="rsent-' + i + '">';
+    html += '<span class="reader-sentence-en">' + wordHtml.trim() + '</span>';
+    html += '<span class="reader-sentence-tr" id="rtr-' + i + '">' + s.tr + '</span>';
+    html += '</div>';
+  }
+  html += '<div style="margin-top:1rem;text-align:center">';
+  html += '<button class="reader-end-btn" onclick="startQuiz()">';
+  html += '\u{1F4DD} ' + biLine('Take the Quiz', 'Teste Gir');
+  html += '</button></div>';
+  wrap.innerHTML = html;
+}
+
+function updateReaderProgress(current, total) {
+  var bar = G('reader-progress');
+  if (bar) bar.style.width = Math.round((current / total) * 100) + '%';
+}
+
+function showReaderWord(word) {
+  if (!word || word.length < 2) return;
+  var popup = G('reader-word-popup'); if (!popup) return;
+  var key = word.toLowerCase();
+  var tr = '';
+  var objMatch = Object.values(OBJ).find(function(o) { return o.en.toLowerCase() === key; });
+  if (objMatch) {
+    tr = objMatch.tr;
+  } else if (_currentBook) {
+    var sent = _currentBook.sentences.find(function(s) { return s.en.toLowerCase().includes(key); });
+    tr = sent ? sent.tr : '';
+  }
+  G('rwp-word').textContent = word;
+  G('rwp-tr').textContent = tr || '?';
+  _readerWordEl = word;
+  popup.style.display = 'flex';
+  AUD.speak(word);
+  var invKey = 'book_' + key;
+  if (!GS.player.inventory.includes(invKey)) {
+    GS.player.inventory.push(invKey);
+    GS.progression.learnedWordsCount++;
+    addXP(1);
+    if (!OBJ[invKey]) {
+      OBJ[invKey] = { d: 'easy', em: '\u{1F4D6}', en: word, tr: tr || '', ctx: _currentBook ? _currentBook.title : '', recall: { c: tr || word, o: [tr || word, 'Kelime', 'Sozcuk', 'Ifade'] }, act: null, ex: { en: word, tr: tr || '' } };
+    }
+  }
+}
+
+function closeReaderWordPopup() {
+  var popup = G('reader-word-popup');
+  if (popup) popup.style.display = 'none';
+}
+
+function readerSpeakWord() { if (_readerWordEl) AUD.speak(_readerWordEl); }
+
+function readerListenCurrent() {
+  if (!_currentBook) return;
+  var text = _currentBook.sentences.map(function(s) { return s.en; }).join(' ');
+  AUD.speak(text);
+}
+
+var _quizScore = 0;
+var _quizIdx = 0;
+
+function startQuiz() {
+  if (!_currentBook || !_currentBook.questions.length) return;
+  _quizScore = 0;
+  _quizIdx = 0;
+  var rq = G('reader-quiz'); if (!rq) return;
+  rq.style.display = 'flex';
+  var rs = G('reader-sentences'); if (rs) rs.style.display = 'none';
+  var rl = G('reader-listen-row'); if (rl) rl.style.display = 'none';
+  renderQuizQuestion();
+  rq.scrollIntoView({ behavior: 'smooth' });
+}
+
+function renderQuizQuestion() {
+  var rq = G('reader-quiz'); if (!rq || !_currentBook) return;
+  var q = _currentBook.questions[_quizIdx];
+  if (!q) { finishQuiz(); return; }
+  var opts = '';
+  for (var i = 0; i < q.options.length; i++) {
+    opts += '<button class="quiz-opt" onclick="answerQuiz(' + i + ',' + q.answer + ',this)">';
+    opts += q.options[i];
+    opts += ' <span style="font-size:.6rem;color:var(--text-dim)"> &middot; ' + q.options_tr[i] + '</span>';
+    opts += '</button>';
+  }
+  rq.innerHTML =
+    '<div class="quiz-title">Question ' + (_quizIdx + 1) + ' / ' + _currentBook.questions.length + '</div>' +
+    '<div class="quiz-question">' + q.q + '</div>' +
+    '<div class="quiz-question-tr">' + q.tr + '</div>' +
+    '<div class="quiz-options">' + opts + '</div>';
+}
+
+function answerQuiz(chosen, correct, btn) {
+  var opts = btn.closest('.quiz-options').querySelectorAll('.quiz-opt');
+  opts.forEach(function(b) { b.disabled = true; });
+  if (chosen === correct) {
+    btn.classList.add('correct');
+    _quizScore++;
+    addXP(15);
+    showToast('Dogru! +15 XP');
+  } else {
+    btn.classList.add('wrong');
+    opts[correct].classList.add('correct');
+    showToast('Yanlis!');
+  }
+  setTimeout(function() {
+    _quizIdx++;
+    renderQuizQuestion();
+  }, 1200);
+}
+
+function finishQuiz() {
+  var rq = G('reader-quiz'); if (rq) rq.style.display = 'none';
+  var re = G('reader-end'); if (!re) return;
+  var book = _currentBook;
+  var totalXP = (_quizScore * 15) + 20;
+  addXP(20);
+  GS.hobby.books_read = (GS.hobby.books_read || 0) + 1;
+  autoSave();
+  re.style.display = 'flex';
+  re.innerHTML =
+    '<div class="reader-end-char">' + book.character + '</div>' +
+    '<div class="reader-end-msg">' + book.endMessage.en + '</div>' +
+    '<div class="reader-end-msg-tr">' + book.endMessage.tr + '</div>' +
+    '<div class="reader-end-xp">' + _quizScore + '/' + book.questions.length + ' dogru &middot; +' + totalXP + ' XP</div>' +
+    '<button class="reader-end-btn" onclick="closeReader()">' + biLine('Back to Library', 'Kutuphaney Don') + '</button>';
+  AUD.speak(book.endMessage.en);
+  re.scrollIntoView({ behavior: 'smooth' });
+}
+
+function closeReader() {
+  closeReaderWordPopup();
+  var rs = G('reader-sentences'); if (rs) rs.style.display = 'flex';
+  var rl = G('reader-listen-row'); if (rl) rl.style.display = 'flex';
   switchScreen('screen-library');
+  renderLibBooks(_libLevel);
 }
 
 function activateFreeMode() {
@@ -3540,13 +3950,11 @@ function devRenderQuestList() {
 
     const row = document.createElement('div');
     row.className = 'dev-qtask' + (done ? ' qt-done' : active ? ' qt-active' : ' qt-locked');
-
     const icon = done ? '✓' : active ? '▶' : '·';
-    row.innerHTML = `
-      <span class="dev-qt-icon">${icon}</span>
-      <span class="dev-qt-label">${t.en}</span>
-      ${active ? `<button class="dev-qt-jump" onclick="devJumpToTask('${q}','${t.id}')">▶ Run</button>` : ''}
-    `;
+    row.innerHTML =
+      '<span class="dev-qt-icon">' + icon + '</span>' +
+      '<span class="dev-qt-label">' + t.en + '</span>' +
+      (active ? '<button class="dev-qt-jump" onclick="devJumpToTask(\'' + q + '\',\'' + t.id + '\')">&#9654; Run</button>' : '');
     listEl.appendChild(row);
   });
 }
