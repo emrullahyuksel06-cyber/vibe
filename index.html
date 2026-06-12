@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>vibe</title>
 <link rel="icon" type="image/x-icon" href="assets/icons/favicon.ico">
 <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
 <link rel="icon" type="image/png" sizes="96x96" href="assets/icons/favicon-96x96.png">
-<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-icon.png">
 <link rel="manifest" href="assets/icons/site.webmanifest">
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#080c18">
-<title>vibe</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Vibe">
+<meta name="mobile-web-app-capable" content="yes">
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -520,6 +524,31 @@ body{background:var(--bg);min-height:100vh;display:flex;align-items:center;justi
 /* Level badge in reader */
 .reader-level-badge{font-family:'DM Mono',monospace;font-size:.46rem;background:var(--teal-dim);color:var(--teal);border-radius:5px;padding:.1rem .32rem;}
 
+/* ── Book cover image (kitaplık kart) ── */
+.lib-book-cover{
+  width:52px;height:52px;border-radius:8px;object-fit:cover;
+  background:var(--card2);border:1px solid var(--border2);flex-shrink:0;
+}
+.lib-book-cover-fallback{
+  width:52px;height:52px;border-radius:8px;
+  background:var(--card2);border:1px solid var(--border2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.6rem;flex-shrink:0;
+}
+
+/* ── Reader hero banner ── */
+.reader-hero{
+  width:100%;max-height:160px;object-fit:cover;display:block;
+  border-bottom:1px solid var(--border);
+}
+.reader-hero-fallback{
+  width:100%;height:80px;
+  background:linear-gradient(135deg,var(--card2) 0%,var(--card3) 100%);
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  font-size:2.5rem;
+}
+
 /* Radio Modal */
 #radio-modal{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(.88);background:var(--card2);border:1.5px solid var(--purple);border-radius:18px;padding:1.2rem 1.3rem;z-index:961;width:300px;max-height:80vh;display:flex;flex-direction:column;gap:.5rem;opacity:0;pointer-events:none;transition:all .35s cubic-bezier(.34,1.56,.64,1);box-shadow:0 0 50px rgba(155,109,255,.18);}
 #radio-modal.show{opacity:1;transform:translate(-50%,-50%) scale(1);pointer-events:all;}
@@ -527,6 +556,9 @@ body{background:var(--bg);min-height:100vh;display:flex;align-items:center;justi
 @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.7;}}
 .radio-stop-btn{margin-left:auto;background:var(--red-dim);border:1px solid var(--red);color:var(--red);border-radius:6px;padding:.2rem .5rem;font-size:.8rem;cursor:pointer;}
 .radio-list{display:flex;flex-direction:column;gap:.38rem;overflow-y:auto;max-height:48vh;}
+.radio-country-tabs{display:flex;gap:.4rem;margin-bottom:.5rem;}
+.radio-tab{flex:1;padding:.35rem .5rem;border-radius:8px;border:1px solid var(--border2);background:var(--card2);color:var(--text-dim);font-size:.65rem;font-weight:600;cursor:pointer;transition:all .15s;}
+.radio-tab.active{background:var(--teal-dim);border-color:var(--teal);color:var(--teal);}
 .radio-card{display:flex;align-items:center;gap:.6rem;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.46rem .6rem;cursor:pointer;transition:all .2s;}
 .radio-card:hover{border-color:var(--purple);background:var(--purple-dim);}
 .radio-card.playing{border-color:var(--purple);background:var(--purple-dim);}
@@ -882,6 +914,7 @@ body{background:var(--bg);min-height:100vh;display:flex;align-items:center;justi
   <div class="reader-sentences" id="reader-sentences"></div>
   <div class="reader-listen-row">
     <button class="reader-listen-btn" id="reader-listen-btn" onclick="readerListenCurrent()">🔊 Dinle</button>
+    <button class="reader-listen-btn" id="reader-stop-btn" onclick="readerStopListen()" style="display:none;background:var(--red-dim);border-color:var(--red);color:var(--red)">⏹ Durdur</button>
     <span class="reader-page-info" id="reader-page-info"></span>
   </div>
   <!-- QUIZ -->
@@ -1140,6 +1173,13 @@ body{background:var(--bg);min-height:100vh;display:flex;align-items:center;justi
     </div>
     <button class="radio-stop-btn" onclick="stopRadio()">⏹</button>
   </div>
+  <div class="radio-country-tabs">
+    <button class="radio-tab active" onclick="selectRadioCountry('tr',this)">🇹🇷 Türkçe</button>
+    <button class="radio-tab" onclick="selectRadioCountry('pl',this)">🇵🇱 Lehçe</button>
+    <button class="radio-tab" onclick="selectRadioCountry('ru',this)">🇷🇺 Rusça</button>
+    <button class="radio-tab" onclick="selectRadioCountry('de',this)">🇩🇪 Almanca</button>
+    <button class="radio-tab" onclick="selectRadioCountry('fr',this)">🇫🇷 Fransızca</button>
+  </div>
   <div id="radio-list" class="radio-list"></div>
   <audio id="radio-audio" preload="none"></audio>
   <button class="ach-btn" onclick="closeRadio()" style="margin-top:.6rem">Kapat ✕</button>
@@ -1262,6 +1302,13 @@ body{background:var(--bg);min-height:100vh;display:flex;align-items:center;justi
 // Anthropic API key'ini buraya gir:
 window.ANTHROPIC_API_KEY = 'BURAYA_API_KEY_GIRINIZ';
 // ────────────────────────────────────────────────────
+
+// ── Görsel Deposu ──────────────────────────────────
+const ASSET_BASE = 'https://raw.githubusercontent.com/emrullahyuksel06-cyber/assets/main/';
+// Kullanım: ASSET_BASE + 'countries/turkey.jpg'
+//           ASSET_BASE + 'stories/fox_grapes.jpg'
+// ────────────────────────────────────────────────────
+
 'use strict';
 
 // ══════════════════════════════════════════════════════
@@ -3373,14 +3420,63 @@ const FREE_ROOMS = [
 //  RADIO
 // ══════════════════════════════════════════════════════
 const RADIO_STATIONS = [
-  { em:'🇹🇷', name:'TRT FM',        genre:'Pop / Mixed',     url:'https://radio.trt.net.tr/trtfm/trtfm96k.mp3' },
-  { em:'🎵', name:'Power FM',        genre:'Dance / Hits',    url:'https://listen.powerapp.com.tr/powerfm/abr/powerfm/128/icecast.audio' },
-  { em:'🎸', name:'Kiss FM',         genre:'Rock / Pop',      url:'https://topradio-de-hz-fal-stream03-cluster01.radiohost.de/kissfm-tuerkisch_aac-64' },
-  { em:'👑', name:'Number 1 Dance',  genre:'Dance / EDM',     url:'https://n10101m.mediatriple.net/videoonlylive/mtkgeuihrlfwlive/u_stream_5c9e33b514f52_1/playlist.m3u8' },
-  { em:'🌊', name:'Number 1 Classic',genre:'Klasik / Mixed',  url:'https://n10101m.mediatriple.net/videoonlylive/mtkgeuihrlfwlive/u_stream_5c9e34bfc5042_1/playlist.m3u8' },
-  { em:'🎤', name:'Power Smooth Jazz',genre:'Jazz / Lounge',  url:'https://listen.powerapp.com.tr/powersmoothjazz/abr/powersmoothjazz/128/playlist.m3u8' },
-  { em:'🎷', name:'Doksanlar',       genre:'90s / Nostalji',  url:'https://moondigitaledge.radyotvonline.net/radyolanddoksanlar/playlist.m3u8' },
+  { em:'📻', name:'TRT FM',           genre:'Pop / Mixed',          url:'https://trt.radyotvonline.net/trtfm',                                                         rgId:null },
+  { em:'🎸', name:'TRT Türkü',        genre:'Türk Halk Müziği',     url:'https://rd-trtturku.medya.trt.com.tr/master_128.m3u8',                                       rgId:null },
+  { em:'🌙', name:'Slow Türk',        genre:'Slow / Türkçe Pop',    url:'https://radyo.duhnet.tv/ak_dtvh_slowturk',                                                    rgId:null },
+  { em:'🔥', name:'Alem FM',          genre:'Türkçe Pop / Dans',    url:'https://turkmedya.radyotvonline.net/alemfmaac',                                               rgId:null },
+  { em:'⚡', name:'Power FM',         genre:'Dance / Hits',         url:'https://listen.powerapp.com.tr/powerfm/256/chunks.m3u8',                                      rgId:null },
+  { em:'🎤', name:'Power Smooth Jazz',genre:'Jazz / Lounge',        url:'https://listen.powerapp.com.tr/powersmoothjazz/abr/powersmoothjazz/128/playlist.m3u8',       rgId:null },
+  { em:'🎷', name:'Doksanlar',        genre:'90s / Nostalji',       url:'https://moondigitaledge.radyotvonline.net/radyolanddoksanlar/playlist.m3u8',                  rgId:null },
 ];
+
+const RADIO_STATIONS_RU = [
+  { em:'🌍', name:'Europa Plus',      genre:'Pop / Hit',            url:'https://ep256.hostingradio.ru:8052/europaplus256.mp3',   rgId:null },
+  { em:'🎵', name:'Russkoye Radio',   genre:'Rusça Pop',            url:'https://rusradio.hostingradio.ru/rusradio96.aacp',        rgId:null },
+  { em:'🎛️', name:'Radio Record',    genre:'Dance / EDM',          url:'https://air.radiorecord.ru:805/rr_320',                   rgId:null },
+  { em:'🔥', name:'Hit FM Russia',    genre:'Güncel Hitler',        url:'https://hitfm.hostingradio.ru/hitfm96.aacp',              rgId:null },
+  { em:'💃', name:'DFM',              genre:'Dance / Club',         url:'https://dfm.hostingradio.ru/dfm96.aacp',                  rgId:null },
+  { em:'🎸', name:'Radio Maximum',    genre:'Rock / Pop',           url:'https://maximum.hostingradio.ru/maximum96.aacp',          rgId:null },
+  { em:'🤘', name:'Nashe Radio',      genre:'Rus Rock',             url:'https://nashe1.hostingradio.ru/nashe',                    rgId:null },
+];
+
+const RADIO_STATIONS_DE = [
+  { em:'🎵', name:'Antenne Bayern',   genre:'Pop / Hit',            url:'https://stream.antenne.de/antenne',                           rgId:null },
+  { em:'🌟', name:'BAYERN 3',         genre:'Pop / Top 40',         url:'https://dispatcher.rndfnk.com/br/br3/live/mp3/high',           rgId:null },
+  { em:'📻', name:'1LIVE',            genre:'Pop / Charts',         url:'https://wdr-1live-live.icecast.wdr.de/wdr/1live/live/mp3/128/stream.mp3', rgId:null },
+  { em:'🎙️', name:'SWR3',            genre:'Pop / Güncel Hits',    url:'https://liveradio.swr.de/sw282p3/swr3/play.mp3',              rgId:null },
+  { em:'🎧', name:'N-JOY',            genre:'Pop / Charts',         url:'https://icecast.ndr.de/ndr/njoy/live/mp3/128/stream.mp3',     rgId:null },
+  { em:'🔥', name:'bigFM',            genre:'Pop / Hip-Hop',        url:'https://streams.bigfm.de/bigfm-deutschland-128-mp3',          rgId:null },
+  { em:'🎸', name:'ROCK ANTENNE',     genre:'Rock',                 url:'https://s1-webradio.rockantenne.de/rockantenne',               rgId:null },
+];
+
+const RADIO_STATIONS_FR = [
+  { em:'🎵', name:'NRJ France',       genre:'Pop / Hit',            url:'https://scdn.nrjaudio.fm/audio1/fr/30001/mp3_128.mp3',          rgId:null },
+  { em:'🎤', name:'Skyrock',          genre:'Rap / Hip-Hop',        url:'https://icecast.skyrock.net/s/natio_mp3_128k',                   rgId:null },
+  { em:'💃', name:'Fun Radio',        genre:'Dance / Electro',      url:'https://streaming.radio.funradio.fr/fun-1-44-128',               rgId:null },
+  { em:'🎸', name:'RTL 2',            genre:'Pop / Rock',           url:'https://streaming.radio.rtl2.fr/rtl2-1-44-128',                  rgId:null },
+  { em:'🌍', name:'Europe 2',         genre:'Pop / Rock',           url:'https://europe2.lmn.fm/europe2.mp3',                            rgId:null },
+  { em:'🎷', name:'FIP',              genre:'Eclectic / Jazz',      url:'https://icecast.radiofrance.fr/fip-hifi.aac',                   rgId:null },
+  { em:'🎶', name:'Radio Nova',       genre:'Alternative / Indie',  url:'https://novazz.ice.infomaniak.ch/novazz-128.mp3',               rgId:null },
+];
+
+const RADIO_STATIONS_PL = [
+  { em:'🎵', name:'RMF FM',           genre:'Pop / Haber',          url:'https://rs6-krk2.rmfstream.pl/RMFFM48',                         rgId:null },
+  { em:'⭐', name:'Radio ZET',         genre:'Pop / Hit',            url:'https://zt01.cdn.eurozet.pl/zet-net.mp3',                       rgId:null },
+  { em:'🔥', name:'Radio ESKA',       genre:'Pop / Charts',         url:'https://ic1.smcdn.pl/2380-1.mp3',                               rgId:null },
+  { em:'💥', name:'RMF MAXX',         genre:'Güncel Hits',          url:'https://rs6-krk2.rmfstream.pl/RMFMAXXX48',                      rgId:null },
+  { em:'📰', name:'TOK FM',           genre:'Haber / Sohbet',       url:'https://radiostream.pl/tuba10-1.mp3',                           rgId:null },
+  { em:'🎸', name:'Antyradio',        genre:'Rock',                 url:'https://an01-krk-cdn.eurozet.pl/ant-waw.mp3',                   rgId:null },
+  { em:'🎶', name:'Polskie Radio Trójka', genre:'Alternatif / Kültür', url:'https://stream3.polskieradio.pl:8904/;',                     rgId:null },
+];
+
+var _radioCountry = 'tr';
+
+function selectRadioCountry(country, btn) {
+  _radioCountry = country;
+  document.querySelectorAll('.radio-tab').forEach(function(b){ b.classList.remove('active'); });
+  if (btn) btn.classList.add('active');
+  renderRadioList();
+}
 
 let _radioCurrentIdx = -1;
 
@@ -3398,8 +3494,9 @@ function closeRadio() {
 
 function renderRadioList() {
   const list = G('radio-list'); if (!list) return;
+  const stations = _radioCountry === 'ru' ? RADIO_STATIONS_RU : _radioCountry === 'de' ? RADIO_STATIONS_DE : _radioCountry === 'fr' ? RADIO_STATIONS_FR : _radioCountry === 'pl' ? RADIO_STATIONS_PL : RADIO_STATIONS;
   list.innerHTML = '';
-  RADIO_STATIONS.forEach((s, i) => {
+  stations.forEach((s, i) => {
     const isPlaying = i === _radioCurrentIdx;
     const div = document.createElement('div');
     div.className = 'radio-card' + (isPlaying ? ' playing' : '');
@@ -3415,29 +3512,76 @@ function renderRadioList() {
   });
 }
 
+// hls.js yükle (m3u8 desteği için)
+(function() {
+  if (window.Hls) return;
+  var s = document.createElement('script');
+  s.src = 'https://cdnjs.cloudflare.com/ajax/libs/hls.js/1.4.12/hls.min.js';
+  document.head.appendChild(s);
+})();
+
+var _hlsInstance = null;
+
 function playStation(idx) {
-  const station = RADIO_STATIONS[idx]; if (!station) return;
+  const stations = _radioCountry === 'ru' ? RADIO_STATIONS_RU : _radioCountry === 'de' ? RADIO_STATIONS_DE : _radioCountry === 'fr' ? RADIO_STATIONS_FR : _radioCountry === 'pl' ? RADIO_STATIONS_PL : RADIO_STATIONS;
+  const station = stations[idx]; if (!station) return;
   const audio = G('radio-audio'); if (!audio) return;
   _radioCurrentIdx = idx;
-  audio.src = station.url;
-  audio.play().then(() => {
-    // Başarılı
+
+  if (_hlsInstance) { _hlsInstance.destroy(); _hlsInstance = null; }
+  audio.pause(); audio.src = '';
+
+  function onSuccess() {
     const status = G('radio-status'); if(status) status.textContent = '▶ on air';
     const np = G('radio-now-playing'); if(np) np.style.display = 'flex';
     const sn = G('radio-station-name'); if(sn) sn.textContent = station.name;
     const sg = G('radio-station-genre'); if(sg) sg.textContent = station.genre;
     const se = G('radio-station-em'); if(se) se.textContent = station.em;
     renderRadioList();
-  }).catch(() => {
-    // Stream açılmadıysa toast göster
+  }
+  function onFail() {
     showToast('⚠️ Bu istasyon şu an erişilemiyor.');
     _radioCurrentIdx = -1;
     renderRadioList();
-  });
+  }
+
+  function startStream(streamUrl) {
+    const isHLS = streamUrl.includes('.m3u8');
+    if (isHLS && window.Hls && Hls.isSupported()) {
+      _hlsInstance = new Hls();
+      _hlsInstance.loadSource(streamUrl);
+      _hlsInstance.attachMedia(audio);
+      _hlsInstance.on(Hls.Events.MANIFEST_PARSED, function() {
+        audio.play().then(onSuccess).catch(onFail);
+      });
+      _hlsInstance.on(Hls.Events.ERROR, function(ev, data) {
+        if (data.fatal) onFail();
+      });
+    } else {
+      audio.src = streamUrl;
+      audio.play().then(onSuccess).catch(onFail);
+    }
+  }
+
+  if (station.rgId) {
+    // Radio.garden API üzerinden stream URL al
+    fetch('https://radio.garden/api/ara/content/channel/' + station.rgId + '/stream', {
+      method: 'HEAD', redirect: 'follow'
+    }).then(function(res) {
+      if (res.ok || res.redirected) {
+        startStream(res.url);
+      } else { onFail(); }
+    }).catch(function() { onFail(); });
+  } else if (station.url) {
+    startStream(station.url);
+  } else {
+    onFail();
+  }
 }
 
 function stopRadio() {
   const audio = G('radio-audio'); if (!audio) return;
+  if (_hlsInstance) { _hlsInstance.destroy(); _hlsInstance = null; }
   audio.pause(); audio.src = '';
   _radioCurrentIdx = -1;
   const status = G('radio-status'); if(status) status.textContent = 'off';
@@ -3452,6 +3596,7 @@ const LIBRARY_BOOKS = {
   A1: [
     {
       id: 'fox_grapes',
+      image: 'stories/fox_grapes.jpg',
       title: 'The Fox and the Grapes',
       level: 'A1',
       emoji: '🦊',
@@ -3481,6 +3626,7 @@ const LIBRARY_BOOKS = {
     },
     {
       id: 'tortoise_hare',
+      image: 'stories/tortoise_hare.jpg',
       title: 'The Tortoise and the Hare',
       level: 'A1',
       emoji: '🐢',
@@ -3512,6 +3658,7 @@ const LIBRARY_BOOKS = {
     },
     {
       id: 'boy_wolf',
+      image: 'stories/boy_wolf.jpg',
       title: 'The Boy Who Cried Wolf',
       level: 'A1',
       emoji: '🐺',
@@ -3549,6 +3696,7 @@ const LIBRARY_BOOKS = {
   ],
   A2: [{
     id: 'lion_mouse',
+    image: 'stories/lion_mouse.jpg',
     title: 'The Lion and the Mouse',
     level: 'A2',
     emoji: '\u{1F981}',
@@ -3616,8 +3764,16 @@ function renderLibBooks(level) {
   var html = '';
   for (var i = 0; i < books.length; i++) {
     var b = books[i];
+    var coverHtml;
+    if (b.image) {
+      var src = ASSET_BASE + b.image;
+      coverHtml = '<img class="lib-book-cover" src="' + src + '" alt="' + b.title + '" onerror="this.style.display=\'none\';this.nextSibling.style.display=\'flex\'">' +
+                  '<div class="lib-book-cover-fallback" style="display:none">' + b.emoji + '</div>';
+    } else {
+      coverHtml = '<div class="lib-book-cover-fallback">' + b.emoji + '</div>';
+    }
     html += '<div class="lib-book-card" onclick="openBook(\'' + level + '\',' + i + ')">';
-    html += '<span class="lib-book-em">' + b.emoji + '</span>';
+    html += coverHtml;
     html += '<div style="flex:1"><div class="lib-book-title">' + b.title + '</div>';
     html += '<div style="display:flex;gap:.4rem;margin-top:.2rem">';
     html += '<span class="lib-book-level">' + b.level + '</span>';
@@ -3636,6 +3792,22 @@ function openBook(level, idx) {
   var rb = G('reader-level-badge'); if (rb) rb.textContent = book.level;
   var rq = G('reader-quiz'); if (rq) { rq.style.display = 'none'; rq.innerHTML = ''; }
   var re = G('reader-end'); if (re) { re.style.display = 'none'; re.innerHTML = ''; }
+  // Hero banner — üstte kitap görseli
+  var heroEl = G('reader-hero-wrap');
+  if (!heroEl) {
+    heroEl = document.createElement('div');
+    heroEl.id = 'reader-hero-wrap';
+    var progressWrap = document.querySelector('#screen-reader .reader-progress-wrap');
+    if (progressWrap) progressWrap.parentNode.insertBefore(heroEl, progressWrap);
+  }
+  if (book.image) {
+    var src = ASSET_BASE + book.image;
+    heroEl.innerHTML = '<img class="reader-hero" src="' + src + '" alt="' + book.title + '" ' +
+      'onerror="this.style.display=\'none\';this.nextSibling.style.display=\'flex\'">' +
+      '<div class="reader-hero-fallback" style="display:none">' + book.emoji + '</div>';
+  } else {
+    heroEl.innerHTML = '<div class="reader-hero-fallback">' + book.emoji + '</div>';
+  }
   renderReaderSentences(book);
   updateReaderProgress(book.sentences.length, book.sentences.length);
   var pi = G('reader-page-info'); if (pi) pi.textContent = book.sentences.length + ' sentences';
@@ -3714,6 +3886,28 @@ function readerListenCurrent() {
   if (!_currentBook) return;
   var text = _currentBook.sentences.map(function(s) { return s.en; }).join(' ');
   AUD.speak(text);
+  var listenBtn = G('reader-listen-btn');
+  var stopBtn   = G('reader-stop-btn');
+  if (listenBtn) listenBtn.style.display = 'none';
+  if (stopBtn)   stopBtn.style.display   = 'inline-flex';
+  // TTS bitince butonları sıfırla
+  if (AUD.synth) {
+    var check = setInterval(function() {
+      if (!AUD.synth.speaking) {
+        clearInterval(check);
+        if (listenBtn) listenBtn.style.display = 'inline-flex';
+        if (stopBtn)   stopBtn.style.display   = 'none';
+      }
+    }, 400);
+  }
+}
+
+function readerStopListen() {
+  if (AUD.synth) AUD.synth.cancel();
+  var listenBtn = G('reader-listen-btn');
+  var stopBtn   = G('reader-stop-btn');
+  if (listenBtn) listenBtn.style.display = 'inline-flex';
+  if (stopBtn)   stopBtn.style.display   = 'none';
 }
 
 var _quizScore = 0;
@@ -3791,6 +3985,7 @@ function closeReader() {
   closeReaderWordPopup();
   var rs = G('reader-sentences'); if (rs) rs.style.display = 'flex';
   var rl = G('reader-listen-row'); if (rl) rl.style.display = 'flex';
+  var hero = G('reader-hero-wrap'); if (hero) hero.innerHTML = '';
   switchScreen('screen-library');
   renderLibBooks(_libLevel);
 }
