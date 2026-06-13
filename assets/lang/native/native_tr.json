@@ -1,0 +1,1074 @@
+{
+  "obj": {
+    "bed": {
+      "tr": "Yatak",
+      "recall_c": "Yatak",
+      "recall_o": [
+        "Sandalye",
+        "Yatak",
+        "Masa",
+        "Yorgan"
+      ]
+    },
+    "window": {
+      "tr": "Pencere",
+      "recall_c": "Pencere",
+      "recall_o": [
+        "Kapı",
+        "Tavan",
+        "Pencere",
+        "Duvar"
+      ]
+    },
+    "chair": {
+      "tr": "Sandalye",
+      "recall_c": "Sandalye",
+      "recall_o": [
+        "Kanepe",
+        "Sandalye",
+        "Yastık",
+        "Tabure"
+      ]
+    },
+    "desk": {
+      "tr": "Masa",
+      "recall_c": "Masa",
+      "recall_o": [
+        "Dolap",
+        "Çekmece",
+        "Masa",
+        "Raf"
+      ]
+    },
+    "cup": {
+      "tr": "Bardak",
+      "recall_c": "Bardak",
+      "recall_o": [
+        "Tabak",
+        "Bardak",
+        "Şişe",
+        "Kavanoz"
+      ]
+    },
+    "pencil": {
+      "tr": "Kalem",
+      "recall_c": "Kalem",
+      "recall_o": [
+        "Kalem",
+        "Defter",
+        "Silgi",
+        "Cetvel"
+      ]
+    },
+    "pencilholder": {
+      "tr": "Kalemlik",
+      "recall_c": "Kalemlik",
+      "recall_o": [
+        "Kalemlik",
+        "Çanta",
+        "Kutu",
+        "Dosya"
+      ]
+    },
+    "door_k": {
+      "tr": "Kapı",
+      "recall_c": "Kapı",
+      "recall_o": [
+        "Kapı",
+        "Pencere",
+        "Duvar",
+        "Merdiven"
+      ]
+    },
+    "cabinet": {
+      "tr": "Dolap",
+      "recall_c": "Dolap",
+      "recall_o": [
+        "Dolap",
+        "Çekmece",
+        "Raf",
+        "Kutu"
+      ]
+    },
+    "drawer": {
+      "tr": "Çekmece",
+      "recall_c": "Çekmece",
+      "recall_o": [
+        "Dolap",
+        "Çekmece",
+        "Raf",
+        "Kutu"
+      ]
+    },
+    "kettle": {
+      "tr": "Ketıl",
+      "recall_c": "Ketıl",
+      "recall_o": [
+        "Tencere",
+        "Ketıl",
+        "Fırın",
+        "Ocak"
+      ]
+    },
+    "fridge": {
+      "tr": "Buzdolabı",
+      "recall_c": "Buzdolabı",
+      "recall_o": [
+        "Fırın",
+        "Tencere",
+        "Buzdolabı",
+        "Dolap"
+      ]
+    },
+    "sink": {
+      "tr": "Lavabo",
+      "recall_c": "Lavabo",
+      "recall_o": [
+        "Fırın",
+        "Lavabo",
+        "Banyo",
+        "Musluk"
+      ]
+    },
+    "tap": {
+      "tr": "Musluk",
+      "recall_c": "Musluk",
+      "recall_o": [
+        "Duş",
+        "Boru",
+        "Musluk",
+        "Vana"
+      ]
+    },
+    "napkin": {
+      "tr": "Peçete",
+      "recall_c": "Peçete",
+      "recall_o": [
+        "Peçete",
+        "Havlu",
+        "Kağıt",
+        "Mendil"
+      ]
+    },
+    "hand_towel": {
+      "tr": "El Havlusu",
+      "recall_c": "El Havlusu",
+      "recall_o": [
+        "Havlu",
+        "Peçete",
+        "El Havlusu",
+        "Önlük"
+      ]
+    },
+    "liquid_soap": {
+      "tr": "Sıvı Sabun",
+      "recall_c": "Sıvı Sabun",
+      "recall_o": [
+        "Sıvı Sabun",
+        "Şampuan",
+        "Losyon",
+        "Krem"
+      ]
+    },
+    "door_b": {
+      "tr": "Kapı",
+      "recall_c": "Kapı",
+      "recall_o": [
+        "Kapı",
+        "Pencere",
+        "Duvar",
+        "Merdiven"
+      ]
+    },
+    "door_free": {
+      "tr": "Kapı",
+      "recall_c": "Kapı",
+      "recall_o": [
+        "Kapı",
+        "Pencere",
+        "Duvar",
+        "Merdiven"
+      ]
+    },
+    "fridge_b": {
+      "tr": "Buzdolabı",
+      "recall_c": "Buzdolabı",
+      "recall_o": [
+        "Fırın",
+        "Tencere",
+        "Buzdolabı",
+        "Dolap"
+      ]
+    },
+    "table": {
+      "tr": "Masa",
+      "recall_c": "Masa",
+      "recall_o": [
+        "Sandalye",
+        "Masa",
+        "Tezgah",
+        "Raf"
+      ]
+    },
+    "fork": {
+      "tr": "Çatal",
+      "recall_c": "Çatal",
+      "recall_o": [
+        "Kaşık",
+        "Çatal",
+        "Bıçak",
+        "Kepçe"
+      ]
+    },
+    "knife": {
+      "tr": "Bıçak",
+      "recall_c": "Bıçak",
+      "recall_o": [
+        "Makas",
+        "Bıçak",
+        "Çatal",
+        "Kaşık"
+      ]
+    },
+    "spoon": {
+      "tr": "Kaşık",
+      "recall_c": "Kaşık",
+      "recall_o": [
+        "Çatal",
+        "Bıçak",
+        "Kaşık",
+        "Kepçe"
+      ]
+    },
+    "bread": {
+      "tr": "Ekmek",
+      "recall_c": "Ekmek",
+      "recall_o": [
+        "Ekmek",
+        "Peynir",
+        "Domates",
+        "Marul"
+      ]
+    },
+    "cheese": {
+      "tr": "Peynir",
+      "recall_c": "Peynir",
+      "recall_o": [
+        "Ekmek",
+        "Peynir",
+        "Yoğurt",
+        "Tereyağı"
+      ]
+    },
+    "tomato": {
+      "tr": "Domates",
+      "recall_c": "Domates",
+      "recall_o": [
+        "Biber",
+        "Salatalık",
+        "Domates",
+        "Soğan"
+      ]
+    },
+    "lettuce": {
+      "tr": "Marul",
+      "recall_c": "Marul",
+      "recall_o": [
+        "Lahana",
+        "Marul",
+        "Ispanak",
+        "Roka"
+      ]
+    },
+    "mayo": {
+      "tr": "Mayonez",
+      "recall_c": "Mayonez",
+      "recall_o": [
+        "Ketçap",
+        "Mayonez",
+        "Hardal",
+        "Sos"
+      ]
+    },
+    "egg": {
+      "tr": "Yumurta",
+      "recall_c": "Yumurta",
+      "recall_o": [
+        "Yumurta",
+        "Süt",
+        "Un",
+        "Şeker"
+      ]
+    },
+    "butter": {
+      "tr": "Tereyağı",
+      "recall_c": "Tereyağı",
+      "recall_o": [
+        "Zeytinyağı",
+        "Tereyağı",
+        "Margarin",
+        "Yağ"
+      ]
+    },
+    "salt": {
+      "tr": "Tuz",
+      "recall_c": "Tuz",
+      "recall_o": [
+        "Tuz",
+        "Şeker",
+        "Biber",
+        "Baharat"
+      ]
+    },
+    "pepper": {
+      "tr": "Karabiber",
+      "recall_c": "Karabiber",
+      "recall_o": [
+        "Tuz",
+        "Karabiber",
+        "Baharat",
+        "Safran"
+      ]
+    },
+    "dough": {
+      "tr": "Hamur",
+      "recall_c": "Hamur",
+      "recall_o": [
+        "Hamur",
+        "Un",
+        "Ekmek",
+        "Pide"
+      ]
+    },
+    "pizza_sauce": {
+      "tr": "Domates Sosu",
+      "recall_c": "Domates Sosu",
+      "recall_o": [
+        "Domates Sosu",
+        "Ketçap",
+        "Sos",
+        "Salça"
+      ]
+    },
+    "mozzarella": {
+      "tr": "Mozzarella",
+      "recall_c": "Mozzarella",
+      "recall_o": [
+        "Mozzarella",
+        "Cheddar",
+        "Kaşar",
+        "Parmesan"
+      ]
+    },
+    "mushroom": {
+      "tr": "Mantar",
+      "recall_c": "Mantar",
+      "recall_o": [
+        "Mantar",
+        "Soğan",
+        "Biber",
+        "Zeytin"
+      ]
+    },
+    "olive": {
+      "tr": "Zeytin",
+      "recall_c": "Zeytin",
+      "recall_o": [
+        "Zeytin",
+        "Mantar",
+        "Biber",
+        "Soğan"
+      ]
+    },
+    "rice": {
+      "tr": "Pirinç",
+      "recall_c": "Pirinç",
+      "recall_o": [
+        "Pirinç",
+        "Bulgur",
+        "Makarna",
+        "Ekmek"
+      ]
+    },
+    "seaweed": {
+      "tr": "Yosun",
+      "recall_c": "Yosun",
+      "recall_o": [
+        "Yosun",
+        "Salata",
+        "Ispanak",
+        "Fesleğen"
+      ]
+    },
+    "salmon": {
+      "tr": "Somon",
+      "recall_c": "Somon",
+      "recall_o": [
+        "Somon",
+        "Ton",
+        "Levrek",
+        "Hamsi"
+      ]
+    },
+    "avocado": {
+      "tr": "Avokado",
+      "recall_c": "Avokado",
+      "recall_o": [
+        "Avokado",
+        "Salatalık",
+        "Havuç",
+        "Turp"
+      ]
+    },
+    "cucumber": {
+      "tr": "Salatalık",
+      "recall_c": "Salatalık",
+      "recall_o": [
+        "Salatalık",
+        "Havuç",
+        "Turp",
+        "Kabak"
+      ]
+    },
+    "pot": {
+      "tr": "Tencere",
+      "recall_c": "Tencere",
+      "recall_o": [
+        "Tencere",
+        "Tava",
+        "Güveç",
+        "Kepçe"
+      ]
+    },
+    "pan": {
+      "tr": "Tava",
+      "recall_c": "Tava",
+      "recall_o": [
+        "Tencere",
+        "Tava",
+        "Tepsi",
+        "Izgara"
+      ]
+    },
+    "toaster": {
+      "tr": "Tost Makinesi",
+      "recall_c": "Tost Makinesi",
+      "recall_o": [
+        "Fırın",
+        "Tost Makinesi",
+        "Mikro Dalga",
+        "Ocak"
+      ]
+    },
+    "oven": {
+      "tr": "Fırın",
+      "recall_c": "Fırın",
+      "recall_o": [
+        "Fırın",
+        "Ocak",
+        "Tost Makinesi",
+        "Mangal"
+      ]
+    },
+    "stove": {
+      "tr": "Ocak",
+      "recall_c": "Ocak",
+      "recall_o": [
+        "Ocak",
+        "Fırın",
+        "Tost Makinesi",
+        "Izgara"
+      ]
+    },
+    "counter": {
+      "tr": "Tezgah",
+      "recall_c": "Tezgah",
+      "recall_o": [
+        "Tezgah",
+        "Masa",
+        "Raf",
+        "Dolap"
+      ]
+    },
+    "apple": {
+      "tr": "Elma",
+      "recall_c": "Elma",
+      "recall_o": [
+        "Elma",
+        "Armut",
+        "Portakal",
+        "Üzüm"
+      ]
+    },
+    "orange": {
+      "tr": "Portakal",
+      "recall_c": "Portakal",
+      "recall_o": [
+        "Elma",
+        "Portakal",
+        "Muz",
+        "Çilek"
+      ]
+    },
+    "carrot": {
+      "tr": "Havuç",
+      "recall_c": "Havuç",
+      "recall_o": [
+        "Havuç",
+        "Turp",
+        "Kabak",
+        "Soğan"
+      ]
+    },
+    "milk_b": {
+      "tr": "Süt",
+      "recall_c": "Süt",
+      "recall_o": [
+        "Su",
+        "Süt",
+        "Meyve Suyu",
+        "Ayran"
+      ]
+    },
+    "jam_x": {
+      "tr": "Reçel",
+      "recall_c": "Reçel",
+      "recall_o": [
+        "Reçel",
+        "Bal",
+        "Pekmez",
+        "Marmelat"
+      ]
+    },
+    "ketchup_x": {
+      "tr": "Ketçap",
+      "recall_c": "Ketçap",
+      "recall_o": [
+        "Sos",
+        "Ketçap",
+        "Hardal",
+        "Mayonez"
+      ]
+    },
+    "toothbrush": {
+      "tr": "Diş Fırçası",
+      "recall_c": "Diş Fırçası",
+      "recall_o": [
+        "Diş Fırçası",
+        "Tarak",
+        "Sabun",
+        "Havlu"
+      ]
+    },
+    "toothpaste": {
+      "tr": "Diş Macunu",
+      "recall_c": "Diş Macunu",
+      "recall_o": [
+        "Diş Macunu",
+        "Şampuan",
+        "Sabun",
+        "Krem"
+      ]
+    },
+    "soap": {
+      "tr": "Sabun",
+      "recall_c": "Sabun",
+      "recall_o": [
+        "Sabun",
+        "Şampuan",
+        "Krem",
+        "Losyon"
+      ]
+    },
+    "towel": {
+      "tr": "Havlu",
+      "recall_c": "Havlu",
+      "recall_o": [
+        "Havlu",
+        "Çarşaf",
+        "Yorgan",
+        "Önlük"
+      ]
+    },
+    "comb": {
+      "tr": "Tarak",
+      "recall_c": "Tarak",
+      "recall_o": [
+        "Tarak",
+        "Fırça",
+        "Makas",
+        "Ütü"
+      ]
+    },
+    "shower": {
+      "tr": "Duş",
+      "recall_c": "Duş",
+      "recall_o": [
+        "Banyo",
+        "Duş",
+        "Küvet",
+        "Havuz"
+      ]
+    },
+    "mirror": {
+      "tr": "Ayna",
+      "recall_c": "Ayna",
+      "recall_o": [
+        "Ayna",
+        "Pencere",
+        "Resim",
+        "Cam"
+      ]
+    },
+    "faucet_b": {
+      "tr": "Musluk",
+      "recall_c": "Musluk",
+      "recall_o": [
+        "Duş",
+        "Boru",
+        "Musluk",
+        "Vana"
+      ]
+    },
+    "toilet": {
+      "tr": "Tuvalet",
+      "recall_c": "Tuvalet",
+      "recall_o": [
+        "Lavabo",
+        "Tuvalet",
+        "Banyo",
+        "Duş"
+      ]
+    },
+    "toilet_paper": {
+      "tr": "Tuvalet Kağıdı",
+      "recall_c": "Tuvalet Kağıdı",
+      "recall_o": [
+        "Peçete",
+        "Tuvalet Kağıdı",
+        "Havlu",
+        "Mendil"
+      ]
+    },
+    "shampoo": {
+      "tr": "Şampuan",
+      "recall_c": "Şampuan",
+      "recall_o": [
+        "Şampuan",
+        "Sabun",
+        "Krem",
+        "Losyon"
+      ]
+    },
+    "bathtub": {
+      "tr": "Küvet",
+      "recall_c": "Küvet",
+      "recall_o": [
+        "Küvet",
+        "Duş",
+        "Lavabo",
+        "Banyo"
+      ]
+    },
+    "wall_clock": {
+      "tr": "Duvar Saati",
+      "recall_c": "Duvar Saati",
+      "recall_o": [
+        "Duvar Saati",
+        "Takvim",
+        "Termometre",
+        "Tablo"
+      ]
+    },
+    "tv": {
+      "tr": "Televizyon",
+      "recall_c": "Televizyon",
+      "recall_o": [
+        "Radyo",
+        "Televizyon",
+        "Bilgisayar",
+        "Telefon"
+      ]
+    },
+    "painting": {
+      "tr": "Tablo",
+      "recall_c": "Tablo",
+      "recall_o": [
+        "Ayna",
+        "Tablo",
+        "Poster",
+        "Çerçeve"
+      ]
+    },
+    "lamp": {
+      "tr": "Lamba",
+      "recall_c": "Lamba",
+      "recall_o": [
+        "Mum",
+        "Lamba",
+        "Fener",
+        "Ampul"
+      ]
+    },
+    "radio": {
+      "tr": "Radyo",
+      "recall_c": "Radyo",
+      "recall_o": [
+        "Televizyon",
+        "Radyo",
+        "Hoparlör",
+        "Müzik Seti"
+      ]
+    },
+    "hr_radio": {
+      "tr": "Radyo",
+      "recall_c": "Radyo",
+      "recall_o": [
+        "Radyo",
+        "Hoparlör",
+        "Televizyon",
+        "Müzik Seti"
+      ]
+    },
+    "bookshelf": {
+      "tr": "Kitaplık",
+      "recall_c": "Kitaplık",
+      "recall_o": [
+        "Dolap",
+        "Kitaplık",
+        "Raf",
+        "Çekmece"
+      ]
+    },
+    "sofa": {
+      "tr": "Kanepe",
+      "recall_c": "Kanepe",
+      "recall_o": [
+        "Sandalye",
+        "Kanepe",
+        "Puf",
+        "Tabure"
+      ]
+    },
+    "coffee_table": {
+      "tr": "Sehpa",
+      "recall_c": "Sehpa",
+      "recall_o": [
+        "Masa",
+        "Sehpa",
+        "Tezgah",
+        "Raf"
+      ]
+    },
+    "newspaper": {
+      "tr": "Gazete",
+      "recall_c": "Gazete",
+      "recall_o": [
+        "Dergi",
+        "Gazete",
+        "Kitap",
+        "Not"
+      ]
+    },
+    "lr_table": {
+      "tr": "Masa",
+      "recall_c": "Masa",
+      "recall_o": [
+        "Sandalye",
+        "Masa",
+        "Sehpa",
+        "Tezgah"
+      ]
+    },
+    "lr_chair": {
+      "tr": "Sandalye",
+      "recall_c": "Sandalye",
+      "recall_o": [
+        "Kanepe",
+        "Sandalye",
+        "Tabure",
+        "Puf"
+      ]
+    },
+    "remote": {
+      "tr": "Kumanda",
+      "recall_c": "Kumanda",
+      "recall_o": [
+        "Kumanda",
+        "Telefon",
+        "Tablet",
+        "Joystick"
+      ]
+    },
+    "door_lr": {
+      "tr": "Kapı",
+      "recall_c": "Kapı",
+      "recall_o": [
+        "Kapı",
+        "Pencere",
+        "Duvar",
+        "Merdiven"
+      ]
+    },
+    "hr_computer_parts": {
+      "tr": "Bilgisayar Parçaları",
+      "recall_c": "Bilgisayar Parçaları",
+      "recall_o": [
+        "Bilgisayar Parçaları",
+        "Alet Çantası",
+        "Oyun Kutusu",
+        "Kitap"
+      ]
+    },
+    "hr_monitor": {
+      "tr": "Monitör",
+      "recall_c": "Monitör",
+      "recall_o": [
+        "Monitör",
+        "Televizyon",
+        "Tablet",
+        "Projeksiyon"
+      ]
+    },
+    "hr_keyboard": {
+      "tr": "Klavye",
+      "recall_c": "Klavye",
+      "recall_o": [
+        "Klavye",
+        "Fare",
+        "Joystick",
+        "Touchpad"
+      ]
+    },
+    "hr_mouse": {
+      "tr": "Fare",
+      "recall_c": "Fare",
+      "recall_o": [
+        "Fare",
+        "Klavye",
+        "Joystick",
+        "Trackball"
+      ]
+    },
+    "hr_headset": {
+      "tr": "Kulaklık",
+      "recall_c": "Kulaklık",
+      "recall_o": [
+        "Kulaklık",
+        "Hoparlör",
+        "Mikrofon",
+        "Amplifikatör"
+      ]
+    },
+    "hr_case": {
+      "tr": "Bilgisayar Kasası",
+      "recall_c": "Bilgisayar Kasası",
+      "recall_o": [
+        "Bilgisayar Kasası",
+        "Monitör",
+        "Klavye",
+        "Fare"
+      ]
+    },
+    "hr_computer": {
+      "tr": "Bilgisayar",
+      "recall_c": "Bilgisayar",
+      "recall_o": [
+        "Bilgisayar",
+        "Konsol",
+        "Tablet",
+        "Televizyon"
+      ]
+    },
+    "hr_bookshelf": {
+      "tr": "Kitaplık",
+      "recall_c": "Kitaplık",
+      "recall_o": [
+        "Kitaplık",
+        "Dolap",
+        "Raf",
+        "Çekmece"
+      ]
+    },
+    "hr_dictionary": {
+      "tr": "Sözlük",
+      "recall_c": "Sözlük",
+      "recall_o": [
+        "Sözlük",
+        "Kitap",
+        "Defter",
+        "Ansiklopedi"
+      ]
+    },
+    "hr_trophy": {
+      "tr": "Kupa",
+      "recall_c": "Kupa",
+      "recall_o": [
+        "Kupa",
+        "Madalya",
+        "Rozet",
+        "Ödül"
+      ]
+    },
+    "hr_phone": {
+      "tr": "Telefon",
+      "recall_c": "Telefon",
+      "recall_o": [
+        "Telefon",
+        "Tablet",
+        "Bilgisayar",
+        "Kumanda"
+      ]
+    },
+    "hr_guitar": {
+      "tr": "Gitar",
+      "recall_c": "Gitar",
+      "recall_o": [
+        "Gitar",
+        "Keman",
+        "Piyano",
+        "Davul"
+      ]
+    },
+    "wardrobe": {
+      "tr": "Gardırop",
+      "recall_c": "Gardırop",
+      "recall_o": [
+        "Dolap",
+        "Gardırop",
+        "Raf",
+        "Çekmece"
+      ]
+    },
+    "window_w": {
+      "tr": "Pencere",
+      "recall_c": "Pencere",
+      "recall_o": [
+        "Kapı",
+        "Tavan",
+        "Pencere",
+        "Duvar"
+      ]
+    }
+  },
+  "strings": {
+    "cup_picked": "You picked up the cup.",
+    "go_kitchen_hint": "Now go to the kitchen. Click the door.",
+    "need_cup": "You need a cup first!",
+    "need_kettle": "Turn on the kettle first!",
+    "kettle_on": "Kettle is on! Water boiling...",
+    "go_tap": "Now go to the tap.",
+    "water_drunk": "You filled the cup and drank the water!",
+    "coffee_intro": "\"I need coffee to fully wake up.\"",
+    "need_coffee_drawer": "Get coffee from the drawer first!",
+    "need_milk": "Get milk powder too!",
+    "ingredients_ready": "Ingredients ready!",
+    "coffee_ready": "Coffee is ready!",
+    "coffee_hungry": "\"I am starving! I need to eat something.\"",
+    "hungry_exclaim": "I am starving!",
+    "open_fridge_hint": "Open the fridge and choose what to make.",
+    "not_in_recipe": "Not in this recipe!",
+    "collect_ingredients": "Collect the right ingredients from the fridge.",
+    "wrong_recipe": "Not in this recipe!",
+    "toothbrush_picked": "Toothbrush picked up! 🪥",
+    "apply_paste_hint": "Now apply toothpaste to the brush.",
+    "apply_paste_first": "Apply toothpaste first!",
+    "pick_brush_first": "Pick up the toothbrush first!",
+    "toothpaste_applied": "Toothpaste applied! 🧴",
+    "brush_click_hint": "Now click the toothbrush to brush.",
+    "teeth_brushed": "Teeth brushed! 🦷✨",
+    "rinse_hint": "Now rinse your mouth at the faucet.",
+    "mouth_rinsed": "Mouth rinsed! 💧😁",
+    "wash_hands_hint": "Now wash your hands.",
+    "pick_soap_wash_hint": "Now pick up the soap and wash your hands!",
+    "pick_soap_first": "Pick up the soap first!",
+    "brush_teeth_first": "Brush your teeth first!",
+    "hands_clean": "Water running + Soap = Hands clean! 🧼💧",
+    "soap_picked": "Soap picked up! 🧼",
+    "faucet_hint": "Now turn on the faucet.",
+    "faucet_use": "Now use the faucet!",
+    "hands_washed": "Hands washed! 🧼✨",
+    "look_mirror_hint": "Now look in the mirror.",
+    "toilet_done": "Used the toilet.",
+    "bathroom_smells": "\"The bathroom smells bad! 🤢\"",
+    "what_open": "What do you open?",
+    "window_opened": "Window opened! 🪟 Fresh air!",
+    "shower_time": "Time to shower! 🚿",
+    "shampoo_bathtub_hint": "Pick up the shampoo, then use the bathtub.",
+    "shampoo_picked": "Shampoo picked up! 🧴",
+    "use_bathtub_hint": "Now use the bathtub!",
+    "pick_shampoo_first": "Pick up the shampoo first!",
+    "shower_done": "Shower done! 🚿✨ Fresh and clean!",
+    "toilet_time": "Well done! Toilet time. 🚽",
+    "pan_taken": "Pan taken! 🍳",
+    "pan_stove_hint": "Now put the pan on the stove!",
+    "table_hint": "There is something on the table!",
+    "remote_look": "Look closer... The remote control!",
+    "remote_found": "Remote control found! 📱✨",
+    "watch_tv": "You can now watch TV!",
+    "toast_ready": "Toast is ready! Your sandwich is perfect!",
+    "pizza_ready": "Pizza is in the oven! 🔥 Smells amazing!",
+    "omelette_ready": "Omelette sizzling on the stove! 🔥 Delicious!",
+    "sushi_ready": "Sushi rolled! Perfect technique!",
+    "ing_ready_toaster": "Find the toaster and use it!",
+    "ing_ready_oven": "Put the pizza in the oven!",
+    "ing_ready_sushi": "Roll the sushi on the counter!",
+    "pan_from_cabinet": "Now get the pan from the cabinet!",
+    "ing_ready_generic": "Ingredients ready!"
+  },
+  "scene": {
+    "you open your eyes.": "gözlerini açıyorsun.",
+    "You are in the bedroom.": "Yatak odasındasın.",
+    "Your throat is dry. You are very thirsty.": "Boğazın kuruyuyor. Çok susamışsın.",
+    "Look at the objects around you.": "Etrafındaki nesnelere bak.",
+    "You entered the kitchen.": "Mutfağa girdin.",
+    "Find the tap and fill your cup with water.": "Musluğu bul ve bardağını suyla doldur.",
+    "Open the fridge and choose what to make.": "Buzdolabını aç ve ne yapacağını seç.",
+    "Time to make coffee!": "Kahve yapma zamanı!",
+    "Find and open the drawer.": "Çekmeceyi bul ve aç.",
+    "You entered the bathroom.": "Banyoya girdin.",
+    "Time to get dressed!": "Giyinme zamanı!",
+    "Open the wardrobe.": "Gardırobu aç.",
+    "You enter the living room.": "Salona giriyorsun.",
+    "Now go to the kitchen. Click the door.": "Şimdi mutfağa git. Kapıya tıkla.",
+    "Now go to the tap.": "Şimdi musluğa git.",
+    "Now turn on the faucet.": "Şimdi musluğu aç.",
+    "Now wash your hands.": "Şimdi ellerini yıka.",
+    "Look closer... The remote control!": "Dikkatli bak... Kumanda!",
+    "You can now watch TV!": "Artık TV izleyebilirsin!",
+    "A door appeared! Use the door to go to the Hobby Room.": "Bir kapı belirdi! Hobi Odasına geçmek için kapıyı kullan.",
+    "You opened the box!": "Kutuyu açtın!",
+    "Pick up all the parts to build your PC.": "Tüm parçaları toplayarak bilgisayarını kur.",
+    "Monitor placed!": "Monitör yerleştirildi!",
+    "Keyboard connected!": "Klavye bağlandı!",
+    "Mouse connected!": "Fare bağlandı!",
+    "PC Case mounted!": "Kasa yerleştirildi!",
+    "Headset on!": "Kulaklık takıldı!",
+    "You head to the Hobby Room!": "Hobi Odasına geçiyorsun!",
+    "Now turn on the kettle.": "Şimdi ketılı çalıştır.",
+    "Collect the right ingredients from the fridge.": "Buzdolabından doğru malzemeleri topla.",
+    "Now rinse your mouth at the faucet.": "Şimdi musluğa git ve ağzını çalkala.",
+    "Now look in the mirror.": "Şimdi aynaya bak.",
+    "Well done! Toilet time. 🚽": "Aferin! Tuvalet zamanı. 🚽",
+    "What do you open?": "Ne açarsın?",
+    "Pick up the shampoo, then use the bathtub.": "Şampuanı al, sonra küveti kullan.",
+    "Welcome to the living room!": "Salona hoş geldin!",
+    "Welcome to your Hobby Room!": "Hobi Odana hoş geldin!",
+    "Find the box of computer parts and build your PC!": "Bilgisayar parcalarini bul ve PC kur!",
+    "All parts collected! Your PC is ready!": "Tüm parçalar toplandı! Bilgisayarın hazır!",
+    "No trophies yet. Keep playing!": "Henüz kupa yok. Oynamaya devam et!",
+    "No words yet. Keep exploring!": "Henuz kelime yok.",
+    "No sentences at this level yet.": "Bu seviyede henuz cumle yok.",
+    "New Sentence": "Yeni Cumle",
+    "No books yet at this level.": "Bu seviyede henuz kitap yok.",
+    "Take the Quiz": "Teste Gir",
+    "Back to Library": "Kutuphaney Don",
+    "Free mode unlocked! Use the door to explore all rooms.": "Serbest mod açıldı! Tüm odaları gezmek için kapıyı kullan."
+  },
+  "ui": {
+    "kesfet": "Keşfet · Tıkla",
+    "bag_empty": "boş",
+    "recall_question": "Bu kelime Türkçe'de ne anlama gelir?",
+    "lang_name": "Türkçe"
+  }
+}
