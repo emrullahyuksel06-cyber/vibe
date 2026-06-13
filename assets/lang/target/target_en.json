@@ -1,0 +1,383 @@
+{
+  "obj": {
+    "bed": {
+      "d": "easy",
+      "em": "🛏️",
+      "en": "Bed",
+      "ctx": "Where you sleep every night.",
+      "ex": "This is your bed."
+    },
+    "chair": {
+      "d": "easy",
+      "em": "🪑",
+      "en": "Chair",
+      "ctx": "A simple wooden chair.",
+      "ex": "A simple wooden chair."
+    },
+    "cup": {
+      "d": "easy",
+      "em": "🥤",
+      "en": "Cup",
+      "ctx": "An empty cup. Fill it with water.",
+      "ex": "An empty cup! Pick it up."
+    },
+    "pencilholder": {
+      "d": "easy",
+      "em": "🗃️",
+      "en": "Pencil Holder",
+      "ctx": "Holds all your pens and pencils.",
+      "ex": "Pencil holder."
+    },
+    "cabinet": {
+      "d": "medium",
+      "em": "🗄️",
+      "en": "Cabinet",
+      "ctx": "The kitchen cabinet. Open it to explore.",
+      "ex": "The cabinet. Open and explore!"
+    },
+    "kettle": {
+      "d": "medium",
+      "em": "🫖",
+      "en": "Kettle",
+      "ctx": "Electric kettle. Boil water for coffee.",
+      "ex": "Electric kettle. Turn it on."
+    },
+    "sink": {
+      "d": "easy",
+      "em": "🚰",
+      "en": "Sink",
+      "ctx": "The kitchen sink for washing.",
+      "ex": "The kitchen sink."
+    },
+    "napkin": {
+      "d": "easy",
+      "em": "🧻",
+      "en": "Napkin",
+      "ctx": "Paper napkin. Wipe your hands.",
+      "ex": "A paper napkin."
+    },
+    "liquid_soap": {
+      "d": "medium",
+      "em": "🧴",
+      "en": "Liquid Soap",
+      "ctx": "Liquid soap pump. Clean your hands.",
+      "ex": "Liquid soap."
+    },
+    "door_free": {
+      "d": "easy",
+      "em": "🚪",
+      "en": "Door",
+      "ctx": "Where would you like to go?",
+      "ex": "The door. Where to?"
+    },
+    "table": {
+      "d": "easy",
+      "em": "🪵",
+      "en": "Table",
+      "ctx": "The kitchen table.",
+      "ex": "The kitchen table."
+    },
+    "knife": {
+      "d": "easy",
+      "em": "🔪",
+      "en": "Knife",
+      "ctx": "A sharp kitchen knife.",
+      "ex": "A kitchen knife."
+    },
+    "bread": {
+      "d": "easy",
+      "em": "🍞",
+      "en": "Bread",
+      "ctx": "Sliced bread. The base of a sandwich.",
+      "ex": "Bread!"
+    },
+    "tomato": {
+      "d": "easy",
+      "em": "🍅",
+      "en": "Tomato",
+      "ctx": "Fresh red tomato.",
+      "ex": "Tomato!"
+    },
+    "mayo": {
+      "d": "medium",
+      "em": "🫙",
+      "en": "Mayonnaise",
+      "ctx": "Creamy mayonnaise sauce.",
+      "ex": "Mayonnaise!"
+    },
+    "butter": {
+      "d": "easy",
+      "em": "🧈",
+      "en": "Butter",
+      "ctx": "Butter for the pan.",
+      "ex": "Butter!"
+    },
+    "pepper": {
+      "d": "easy",
+      "em": "🌶️",
+      "en": "Black Pepper",
+      "ctx": "Grind some black pepper.",
+      "ex": "Pepper!"
+    },
+    "pizza_sauce": {
+      "d": "medium",
+      "em": "🫙",
+      "en": "Tomato Sauce",
+      "ctx": "Tomato sauce for the pizza base.",
+      "ex": "Tomato sauce!"
+    },
+    "mushroom": {
+      "d": "medium",
+      "em": "🍄",
+      "en": "Mushroom",
+      "ctx": "Fresh mushrooms. Great pizza topping.",
+      "ex": "Mushroom!"
+    },
+    "rice": {
+      "d": "easy",
+      "em": "🍚",
+      "en": "Rice",
+      "ctx": "Japanese sushi rice.",
+      "ex": "Rice!"
+    },
+    "salmon": {
+      "d": "easy",
+      "em": "🐟",
+      "en": "Salmon",
+      "ctx": "Fresh salmon fillet.",
+      "ex": "Salmon!"
+    },
+    "cucumber": {
+      "d": "easy",
+      "em": "🥒",
+      "en": "Cucumber",
+      "ctx": "Sliced cucumber. Crispy and fresh.",
+      "ex": "Cucumber!"
+    },
+    "pan": {
+      "d": "medium",
+      "em": "🍳",
+      "en": "Pan",
+      "ctx": "A frying pan. Perfect for omelette.",
+      "ex": "A frying pan!"
+    },
+    "oven": {
+      "d": "medium",
+      "em": "♨️",
+      "en": "Oven",
+      "ctx": "The oven. Bake your pizza inside!",
+      "ex": "The oven!"
+    },
+    "counter": {
+      "d": "medium",
+      "em": "🪨",
+      "en": "Counter",
+      "ctx": "The kitchen counter. Roll your sushi here!",
+      "ex": "The kitchen counter!"
+    },
+    "orange": {
+      "d": "easy",
+      "em": "🍊",
+      "en": "Orange",
+      "ctx": "Juicy orange full of vitamin C.",
+      "ex": "A juicy orange."
+    },
+    "milk_b": {
+      "d": "easy",
+      "em": "🥛",
+      "en": "Milk",
+      "ctx": "Cold fresh milk.",
+      "ex": "Cold milk."
+    },
+    "ketchup_x": {
+      "d": "easy",
+      "em": "🍶",
+      "en": "Ketchup",
+      "ctx": "Ketchup. Not for this recipe.",
+      "ex": "Not in this recipe!"
+    },
+    "toothpaste": {
+      "d": "medium",
+      "em": "🧴",
+      "en": "Toothpaste",
+      "ctx": "Toothpaste. Apply to the toothbrush first.",
+      "ex": "Toothpaste."
+    },
+    "towel": {
+      "d": "easy",
+      "em": "🛁",
+      "en": "Towel",
+      "ctx": "Soft towel. Dry yourself.",
+      "ex": "A soft towel."
+    },
+    "shower": {
+      "d": "easy",
+      "em": "🚿",
+      "en": "Shower",
+      "ctx": "Take a refreshing shower.",
+      "ex": "The shower."
+    },
+    "faucet_b": {
+      "d": "medium",
+      "em": "💧",
+      "en": "Faucet",
+      "ctx": "Turn on the faucet for water.",
+      "ex": "Turn on the faucet."
+    },
+    "toilet_paper": {
+      "d": "medium",
+      "em": "🧻",
+      "en": "Toilet Paper",
+      "ctx": "Always use toilet paper.",
+      "ex": "Toilet paper."
+    },
+    "bathtub": {
+      "d": "medium",
+      "em": "🛁",
+      "en": "Bathtub",
+      "ctx": "The bathtub. Get in for your shower!",
+      "ex": "The bathtub!"
+    },
+    "tv": {
+      "d": "easy",
+      "em": "📺",
+      "en": "Television",
+      "ctx": "A flat screen TV. Watch it later.",
+      "ex": "The television."
+    },
+    "lamp": {
+      "d": "easy",
+      "em": "💡",
+      "en": "Lamp",
+      "ctx": "A standing lamp. Lights up the room.",
+      "ex": "A floor lamp."
+    },
+    "hr_radio": {
+      "d": "easy",
+      "em": "📻",
+      "en": "Radio",
+      "ctx": "A vintage radio. Tune in to live stations!",
+      "ex": "A vintage radio!"
+    },
+    "sofa": {
+      "d": "easy",
+      "em": "🛋️",
+      "en": "Sofa",
+      "ctx": "A comfortable sofa. Relax on it.",
+      "ex": "A comfortable sofa."
+    },
+    "newspaper": {
+      "d": "easy",
+      "em": "📰",
+      "en": "Newspaper",
+      "ctx": "The morning newspaper. Already read.",
+      "ex": "A newspaper."
+    },
+    "lr_chair": {
+      "d": "easy",
+      "em": "🪑",
+      "en": "Chair",
+      "ctx": "A chair near the table.",
+      "ex": "A dining chair."
+    },
+    "door_lr": {
+      "d": "easy",
+      "em": "🚪",
+      "en": "Door",
+      "ctx": "Back to the bedroom.",
+      "ex": "Back to bedroom."
+    },
+    "hr_monitor": {
+      "d": "medium",
+      "em": "🖥️",
+      "en": "Monitor",
+      "ctx": "The monitor. The screen of your PC.",
+      "ex": "Monitor!"
+    },
+    "hr_mouse": {
+      "d": "medium",
+      "em": "🖱️",
+      "en": "Mouse",
+      "ctx": "Gaming mouse. Precision aim.",
+      "ex": "Mouse!"
+    },
+    "hr_case": {
+      "d": "medium",
+      "em": "🖧",
+      "en": "PC Case",
+      "ctx": "The main case. Everything goes inside here.",
+      "ex": "PC Case!"
+    },
+    "hr_bookshelf": {
+      "d": "easy",
+      "em": "📚",
+      "en": "Bookshelf",
+      "ctx": "A bookshelf full of books. Tap to browse.",
+      "ex": "The bookshelf! Tap to read."
+    },
+    "hr_trophy": {
+      "d": "easy",
+      "em": "🏆",
+      "en": "Trophy",
+      "ctx": "Your trophy shelf. Earned achievements.",
+      "ex": "Your trophy shelf!"
+    },
+    "hr_guitar": {
+      "d": "easy",
+      "em": "🎸",
+      "en": "Guitar",
+      "ctx": "An acoustic guitar. Strum the strings!",
+      "ex": "An acoustic guitar!"
+    },
+    "window_w": {
+      "d": "easy",
+      "em": "🪟",
+      "en": "Window",
+      "ctx": "Open the window for fresh air.",
+      "ex": "The bedroom window."
+    },
+    "sandwich": {
+      "d": "",
+      "em": "",
+      "en": "Sandwich Apprentice",
+      "ctx": "",
+      "ex": ""
+    },
+    "pizza": {
+      "d": "",
+      "em": "",
+      "en": "Pizza Chef",
+      "ctx": "",
+      "ex": ""
+    }
+  },
+  "library": {
+    "A1": [
+      {
+        "id": "fox_grapes",
+        "title": "The Fox and the Grapes",
+        "sentences": []
+      },
+      {
+        "id": "tortoise_hare",
+        "title": "The Tortoise and the Hare",
+        "sentences": []
+      },
+      {
+        "id": "boy_wolf",
+        "title": "The Boy Who Cried Wolf",
+        "sentences": []
+      }
+    ],
+    "A2": [
+      {
+        "id": "lion_mouse",
+        "title": "The Lion and the Mouse",
+        "sentences": []
+      }
+    ],
+    "B1": [],
+    "B2": []
+  },
+  "tts_lang": "en-US"
+}
