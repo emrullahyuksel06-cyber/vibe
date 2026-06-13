@@ -1,0 +1,1074 @@
+{
+  "obj": {
+    "bed": {
+      "tr": "Кровать",
+      "recall_c": "Кровать",
+      "recall_o": [
+        "Стул",
+        "Кровать",
+        "Стол",
+        "Одеяло"
+      ]
+    },
+    "window": {
+      "tr": "Окно",
+      "recall_c": "Окно",
+      "recall_o": [
+        "Дверь",
+        "Потолок",
+        "Окно",
+        "Стена"
+      ]
+    },
+    "chair": {
+      "tr": "Стул",
+      "recall_c": "Стул",
+      "recall_o": [
+        "Диван",
+        "Стул",
+        "Подушка",
+        "Табурет"
+      ]
+    },
+    "desk": {
+      "tr": "Стол",
+      "recall_c": "Стол",
+      "recall_o": [
+        "Шкаф",
+        "Ящик",
+        "Стол",
+        "Полка"
+      ]
+    },
+    "cup": {
+      "tr": "Стакан",
+      "recall_c": "Bardak",
+      "recall_o": [
+        "Tabak",
+        "Bardak",
+        "Şişe",
+        "Kavanoz"
+      ]
+    },
+    "pencil": {
+      "tr": "Карандаш",
+      "recall_c": "Карандаш",
+      "recall_o": [
+        "Карандаш",
+        "Тетрадь",
+        "Ластик",
+        "Линейка"
+      ]
+    },
+    "pencilholder": {
+      "tr": "Подставка для карандашей",
+      "recall_c": "Подставка",
+      "recall_o": [
+        "Подставка",
+        "Сумка",
+        "Коробка",
+        "Папка"
+      ]
+    },
+    "door_k": {
+      "tr": "Дверь",
+      "recall_c": "Дверь",
+      "recall_o": [
+        "Дверь",
+        "Окно",
+        "Стена",
+        "Лестница"
+      ]
+    },
+    "cabinet": {
+      "tr": "Шкаф",
+      "recall_c": "Шкаф",
+      "recall_o": [
+        "Шкаф",
+        "Ящик",
+        "Полка",
+        "Коробка"
+      ]
+    },
+    "drawer": {
+      "tr": "Ящик",
+      "recall_c": "Ящик",
+      "recall_o": [
+        "Шкаф",
+        "Ящик",
+        "Полка",
+        "Коробка"
+      ]
+    },
+    "kettle": {
+      "tr": "Чайник",
+      "recall_c": "Чайник",
+      "recall_o": [
+        "Кастрюля",
+        "Чайник",
+        "Духовка",
+        "Плита"
+      ]
+    },
+    "fridge": {
+      "tr": "Холодильник",
+      "recall_c": "Холодильник",
+      "recall_o": [
+        "Духовка",
+        "Кастрюля",
+        "Холодильник",
+        "Шкаф"
+      ]
+    },
+    "sink": {
+      "tr": "Раковина",
+      "recall_c": "Раковина",
+      "recall_o": [
+        "Духовка",
+        "Раковина",
+        "Banyo",
+        "Кран"
+      ]
+    },
+    "tap": {
+      "tr": "Кран",
+      "recall_c": "Кран",
+      "recall_o": [
+        "Душ",
+        "Труба",
+        "Кран",
+        "Клапан"
+      ]
+    },
+    "napkin": {
+      "tr": "Салфетка",
+      "recall_c": "Салфетка",
+      "recall_o": [
+        "Салфетка",
+        "Полотенце",
+        "Бумага",
+        "Платок"
+      ]
+    },
+    "hand_towel": {
+      "tr": "Полотенце",
+      "recall_c": "Полотенце",
+      "recall_o": [
+        "Полотенце",
+        "Салфетка",
+        "Полотенце",
+        "Фартук"
+      ]
+    },
+    "liquid_soap": {
+      "tr": "Жидкое мыло",
+      "recall_c": "Жидкое мыло",
+      "recall_o": [
+        "Жидкое мыло",
+        "Шампунь",
+        "Лосьон",
+        "Крем"
+      ]
+    },
+    "door_b": {
+      "tr": "Дверь",
+      "recall_c": "Дверь",
+      "recall_o": [
+        "Дверь",
+        "Окно",
+        "Стена",
+        "Лестница"
+      ]
+    },
+    "door_free": {
+      "tr": "Дверь",
+      "recall_c": "Дверь",
+      "recall_o": [
+        "Дверь",
+        "Окно",
+        "Стена",
+        "Лестница"
+      ]
+    },
+    "fridge_b": {
+      "tr": "Холодильник",
+      "recall_c": "Холодильник",
+      "recall_o": [
+        "Духовка",
+        "Кастрюля",
+        "Холодильник",
+        "Шкаф"
+      ]
+    },
+    "table": {
+      "tr": "Стол",
+      "recall_c": "Стол",
+      "recall_o": [
+        "Стул",
+        "Стол",
+        "Tezgah",
+        "Полка"
+      ]
+    },
+    "fork": {
+      "tr": "Вилка",
+      "recall_c": "Вилка",
+      "recall_o": [
+        "Ложка",
+        "Вилка",
+        "Нож",
+        "Половник"
+      ]
+    },
+    "knife": {
+      "tr": "Нож",
+      "recall_c": "Нож",
+      "recall_o": [
+        "Makas",
+        "Нож",
+        "Вилка",
+        "Ложка"
+      ]
+    },
+    "spoon": {
+      "tr": "Ложка",
+      "recall_c": "Ложка",
+      "recall_o": [
+        "Вилка",
+        "Нож",
+        "Ложка",
+        "Половник"
+      ]
+    },
+    "bread": {
+      "tr": "Хлеб",
+      "recall_c": "Хлеб",
+      "recall_o": [
+        "Хлеб",
+        "Сыр",
+        "Помидор",
+        "Салат"
+      ]
+    },
+    "cheese": {
+      "tr": "Сыр",
+      "recall_c": "Сыр",
+      "recall_o": [
+        "Хлеб",
+        "Сыр",
+        "Yoğurt",
+        "Tereyağı"
+      ]
+    },
+    "tomato": {
+      "tr": "Помидор",
+      "recall_c": "Помидор",
+      "recall_o": [
+        "Перец",
+        "Огурец",
+        "Помидор",
+        "Лук"
+      ]
+    },
+    "lettuce": {
+      "tr": "Салат",
+      "recall_c": "Салат",
+      "recall_o": [
+        "Капуста",
+        "Салат",
+        "Шпинат",
+        "Руккола"
+      ]
+    },
+    "mayo": {
+      "tr": "Mayonnaise",
+      "recall_c": "Mayonez",
+      "recall_o": [
+        "Кетчуп",
+        "Mayonez",
+        "Hardal",
+        "Соус"
+      ]
+    },
+    "egg": {
+      "tr": "Яйцо",
+      "recall_c": "Яйцо",
+      "recall_o": [
+        "Яйцо",
+        "Süt",
+        "Un",
+        "Şeker"
+      ]
+    },
+    "butter": {
+      "tr": "Butter",
+      "recall_c": "Tereyağı",
+      "recall_o": [
+        "Zeytinyağı",
+        "Tereyağı",
+        "Margarin",
+        "Yağ"
+      ]
+    },
+    "salt": {
+      "tr": "Salt",
+      "recall_c": "Tuz",
+      "recall_o": [
+        "Tuz",
+        "Şeker",
+        "Перец",
+        "Baharat"
+      ]
+    },
+    "pepper": {
+      "tr": "Black Pepper",
+      "recall_c": "Karabiber",
+      "recall_o": [
+        "Tuz",
+        "Karabiber",
+        "Baharat",
+        "Safran"
+      ]
+    },
+    "dough": {
+      "tr": "Dough",
+      "recall_c": "Hamur",
+      "recall_o": [
+        "Hamur",
+        "Un",
+        "Хлеб",
+        "Pide"
+      ]
+    },
+    "pizza_sauce": {
+      "tr": "Томатный соус",
+      "recall_c": "Томатный соус",
+      "recall_o": [
+        "Томатный соус",
+        "Кетчуп",
+        "Соус",
+        "Паста"
+      ]
+    },
+    "mozzarella": {
+      "tr": "Моцарелла",
+      "recall_c": "Mozzarella",
+      "recall_o": [
+        "Mozzarella",
+        "Cheddar",
+        "Kaşar",
+        "Parmesan"
+      ]
+    },
+    "mushroom": {
+      "tr": "Mushroom",
+      "recall_c": "Гриб",
+      "recall_o": [
+        "Гриб",
+        "Лук",
+        "Перец",
+        "Маслина"
+      ]
+    },
+    "olive": {
+      "tr": "Olive",
+      "recall_c": "Маслина",
+      "recall_o": [
+        "Маслина",
+        "Гриб",
+        "Перец",
+        "Лук"
+      ]
+    },
+    "rice": {
+      "tr": "Рис",
+      "recall_c": "Рис",
+      "recall_o": [
+        "Рис",
+        "Bulgur",
+        "Makarna",
+        "Хлеб"
+      ]
+    },
+    "seaweed": {
+      "tr": "Морская капуста",
+      "recall_c": "Yosun",
+      "recall_o": [
+        "Yosun",
+        "Salata",
+        "Шпинат",
+        "Fesleğen"
+      ]
+    },
+    "salmon": {
+      "tr": "Salmon",
+      "recall_c": "Somon",
+      "recall_o": [
+        "Somon",
+        "Ton",
+        "Levrek",
+        "Hamsi"
+      ]
+    },
+    "avocado": {
+      "tr": "Avocado",
+      "recall_c": "Avokado",
+      "recall_o": [
+        "Avokado",
+        "Огурец",
+        "Havuç",
+        "Turp"
+      ]
+    },
+    "cucumber": {
+      "tr": "Cucumber",
+      "recall_c": "Огурец",
+      "recall_o": [
+        "Огурец",
+        "Havuç",
+        "Turp",
+        "Kabak"
+      ]
+    },
+    "pot": {
+      "tr": "Pot",
+      "recall_c": "Кастрюля",
+      "recall_o": [
+        "Кастрюля",
+        "Tava",
+        "Güveç",
+        "Половник"
+      ]
+    },
+    "pan": {
+      "tr": "Pan",
+      "recall_c": "Tava",
+      "recall_o": [
+        "Кастрюля",
+        "Tava",
+        "Tepsi",
+        "Izgara"
+      ]
+    },
+    "toaster": {
+      "tr": "Toaster",
+      "recall_c": "Tost Makinesi",
+      "recall_o": [
+        "Духовка",
+        "Tost Makinesi",
+        "Mikro Dalga",
+        "Плита"
+      ]
+    },
+    "oven": {
+      "tr": "Oven",
+      "recall_c": "Духовка",
+      "recall_o": [
+        "Духовка",
+        "Плита",
+        "Tost Makinesi",
+        "Mangal"
+      ]
+    },
+    "stove": {
+      "tr": "Stove",
+      "recall_c": "Плита",
+      "recall_o": [
+        "Плита",
+        "Духовка",
+        "Tost Makinesi",
+        "Izgara"
+      ]
+    },
+    "counter": {
+      "tr": "Counter",
+      "recall_c": "Tezgah",
+      "recall_o": [
+        "Tezgah",
+        "Стол",
+        "Полка",
+        "Шкаф"
+      ]
+    },
+    "apple": {
+      "tr": "Apple",
+      "recall_c": "Elma",
+      "recall_o": [
+        "Elma",
+        "Armut",
+        "Portakal",
+        "Üzüm"
+      ]
+    },
+    "orange": {
+      "tr": "Orange",
+      "recall_c": "Portakal",
+      "recall_o": [
+        "Elma",
+        "Portakal",
+        "Muz",
+        "Çilek"
+      ]
+    },
+    "carrot": {
+      "tr": "Carrot",
+      "recall_c": "Havuç",
+      "recall_o": [
+        "Havuç",
+        "Turp",
+        "Kabak",
+        "Лук"
+      ]
+    },
+    "milk_b": {
+      "tr": "Milk",
+      "recall_c": "Süt",
+      "recall_o": [
+        "Su",
+        "Süt",
+        "Meyve Suyu",
+        "Ayran"
+      ]
+    },
+    "jam_x": {
+      "tr": "Jam",
+      "recall_c": "Reçel",
+      "recall_o": [
+        "Reçel",
+        "Мёд",
+        "Pekmez",
+        "Джем"
+      ]
+    },
+    "ketchup_x": {
+      "tr": "Ketchup",
+      "recall_c": "Кетчуп",
+      "recall_o": [
+        "Соус",
+        "Кетчуп",
+        "Hardal",
+        "Mayonez"
+      ]
+    },
+    "toothbrush": {
+      "tr": "Зубная щётка",
+      "recall_c": "Зубная щётка",
+      "recall_o": [
+        "Зубная щётка",
+        "Tarak",
+        "Мыло",
+        "Полотенце"
+      ]
+    },
+    "toothpaste": {
+      "tr": "Зубная паста",
+      "recall_c": "Зубная паста",
+      "recall_o": [
+        "Зубная паста",
+        "Шампунь",
+        "Мыло",
+        "Крем"
+      ]
+    },
+    "soap": {
+      "tr": "Мыло",
+      "recall_c": "Мыло",
+      "recall_o": [
+        "Мыло",
+        "Шампунь",
+        "Крем",
+        "Лосьон"
+      ]
+    },
+    "towel": {
+      "tr": "Towel",
+      "recall_c": "Полотенце",
+      "recall_o": [
+        "Полотенце",
+        "Çarşaf",
+        "Одеяло",
+        "Фартук"
+      ]
+    },
+    "comb": {
+      "tr": "Comb",
+      "recall_c": "Tarak",
+      "recall_o": [
+        "Tarak",
+        "Fırça",
+        "Makas",
+        "Ütü"
+      ]
+    },
+    "shower": {
+      "tr": "Душ",
+      "recall_c": "Душ",
+      "recall_o": [
+        "Banyo",
+        "Душ",
+        "Ванна",
+        "Havuz"
+      ]
+    },
+    "mirror": {
+      "tr": "Зеркало",
+      "recall_c": "Зеркало",
+      "recall_o": [
+        "Зеркало",
+        "Окно",
+        "Рисунок",
+        "Стекло"
+      ]
+    },
+    "faucet_b": {
+      "tr": "Кран",
+      "recall_c": "Кран",
+      "recall_o": [
+        "Душ",
+        "Труба",
+        "Кран",
+        "Клапан"
+      ]
+    },
+    "toilet": {
+      "tr": "Туалет",
+      "recall_c": "Туалет",
+      "recall_o": [
+        "Раковина",
+        "Туалет",
+        "Banyo",
+        "Душ"
+      ]
+    },
+    "toilet_paper": {
+      "tr": "Toilet Paper",
+      "recall_c": "Tuvalet Kağıdı",
+      "recall_o": [
+        "Салфетка",
+        "Tuvalet Kağıdı",
+        "Полотенце",
+        "Платок"
+      ]
+    },
+    "shampoo": {
+      "tr": "Шампунь",
+      "recall_c": "Шампунь",
+      "recall_o": [
+        "Шампунь",
+        "Мыло",
+        "Крем",
+        "Лосьон"
+      ]
+    },
+    "bathtub": {
+      "tr": "Ванна",
+      "recall_c": "Ванна",
+      "recall_o": [
+        "Ванна",
+        "Душ",
+        "Раковина",
+        "Banyo"
+      ]
+    },
+    "wall_clock": {
+      "tr": "Настенные часы",
+      "recall_c": "Настенные часы",
+      "recall_o": [
+        "Настенные часы",
+        "Календарь",
+        "Термометр",
+        "Картина"
+      ]
+    },
+    "tv": {
+      "tr": "Телевизор",
+      "recall_c": "Телевизор",
+      "recall_o": [
+        "Радио",
+        "Телевизор",
+        "Компьютер",
+        "Телефон"
+      ]
+    },
+    "painting": {
+      "tr": "Картина",
+      "recall_c": "Картина",
+      "recall_o": [
+        "Зеркало",
+        "Картина",
+        "Poster",
+        "Çerçeve"
+      ]
+    },
+    "lamp": {
+      "tr": "Лампа",
+      "recall_c": "Лампа",
+      "recall_o": [
+        "Свеча",
+        "Лампа",
+        "Фонарь",
+        "Лампочка"
+      ]
+    },
+    "radio": {
+      "tr": "Радио",
+      "recall_c": "Радио",
+      "recall_o": [
+        "Телевизор",
+        "Радио",
+        "Колонка",
+        "Муз. центр"
+      ]
+    },
+    "hr_radio": {
+      "tr": "Радио",
+      "recall_c": "Радио",
+      "recall_o": [
+        "Радио",
+        "Колонка",
+        "Телевизор",
+        "Муз. центр"
+      ]
+    },
+    "bookshelf": {
+      "tr": "Книжный шкаф",
+      "recall_c": "Книжный шкаф",
+      "recall_o": [
+        "Шкаф",
+        "Книжный шкаф",
+        "Полка",
+        "Ящик"
+      ]
+    },
+    "sofa": {
+      "tr": "Диван",
+      "recall_c": "Диван",
+      "recall_o": [
+        "Стул",
+        "Диван",
+        "Puf",
+        "Табурет"
+      ]
+    },
+    "coffee_table": {
+      "tr": "Журнальный столик",
+      "recall_c": "Журнальный столик",
+      "recall_o": [
+        "Стол",
+        "Журнальный столик",
+        "Tezgah",
+        "Полка"
+      ]
+    },
+    "newspaper": {
+      "tr": "Газета",
+      "recall_c": "Газета",
+      "recall_o": [
+        "Журнал",
+        "Газета",
+        "Книга",
+        "Записка"
+      ]
+    },
+    "lr_table": {
+      "tr": "Стол",
+      "recall_c": "Стол",
+      "recall_o": [
+        "Стул",
+        "Стол",
+        "Журнальный столик",
+        "Tezgah"
+      ]
+    },
+    "lr_chair": {
+      "tr": "Стул",
+      "recall_c": "Стул",
+      "recall_o": [
+        "Диван",
+        "Стул",
+        "Табурет",
+        "Puf"
+      ]
+    },
+    "remote": {
+      "tr": "Пульт управления",
+      "recall_c": "Пульт",
+      "recall_o": [
+        "Пульт",
+        "Телефон",
+        "Планшет",
+        "Джойстик"
+      ]
+    },
+    "door_lr": {
+      "tr": "Дверь",
+      "recall_c": "Дверь",
+      "recall_o": [
+        "Дверь",
+        "Окно",
+        "Стена",
+        "Лестница"
+      ]
+    },
+    "hr_computer_parts": {
+      "tr": "Детали компьютера",
+      "recall_c": "Детали ПК",
+      "recall_o": [
+        "Детали ПК",
+        "Инструменты",
+        "Игровая приставка",
+        "Книга"
+      ]
+    },
+    "hr_monitor": {
+      "tr": "Монитор",
+      "recall_c": "Монитор",
+      "recall_o": [
+        "Монитор",
+        "Телевизор",
+        "Планшет",
+        "Проектор"
+      ]
+    },
+    "hr_keyboard": {
+      "tr": "Клавиатура",
+      "recall_c": "Клавиатура",
+      "recall_o": [
+        "Клавиатура",
+        "Мышь",
+        "Джойстик",
+        "Тачпад"
+      ]
+    },
+    "hr_mouse": {
+      "tr": "Мышь",
+      "recall_c": "Мышь",
+      "recall_o": [
+        "Мышь",
+        "Клавиатура",
+        "Джойстик",
+        "Трекбол"
+      ]
+    },
+    "hr_headset": {
+      "tr": "Наушники",
+      "recall_c": "Наушники",
+      "recall_o": [
+        "Наушники",
+        "Колонка",
+        "Микрофон",
+        "Усилитель"
+      ]
+    },
+    "hr_case": {
+      "tr": "Корпус ПК",
+      "recall_c": "Корпус ПК",
+      "recall_o": [
+        "Корпус ПК",
+        "Монитор",
+        "Клавиатура",
+        "Мышь"
+      ]
+    },
+    "hr_computer": {
+      "tr": "Компьютер",
+      "recall_c": "Компьютер",
+      "recall_o": [
+        "Компьютер",
+        "Консоль",
+        "Планшет",
+        "Телевизор"
+      ]
+    },
+    "hr_bookshelf": {
+      "tr": "Книжный шкаф",
+      "recall_c": "Книжный шкаф",
+      "recall_o": [
+        "Книжный шкаф",
+        "Шкаф",
+        "Полка",
+        "Ящик"
+      ]
+    },
+    "hr_dictionary": {
+      "tr": "Словарь",
+      "recall_c": "Словарь",
+      "recall_o": [
+        "Словарь",
+        "Книга",
+        "Тетрадь",
+        "Энциклопедия"
+      ]
+    },
+    "hr_trophy": {
+      "tr": "Кубок",
+      "recall_c": "Кубок",
+      "recall_o": [
+        "Кубок",
+        "Медаль",
+        "Rozet",
+        "Награда"
+      ]
+    },
+    "hr_phone": {
+      "tr": "Телефон",
+      "recall_c": "Телефон",
+      "recall_o": [
+        "Телефон",
+        "Планшет",
+        "Компьютер",
+        "Пульт"
+      ]
+    },
+    "hr_guitar": {
+      "tr": "Гитара",
+      "recall_c": "Гитара",
+      "recall_o": [
+        "Гитара",
+        "Скрипка",
+        "Пианино",
+        "Барабан"
+      ]
+    },
+    "wardrobe": {
+      "tr": "Гардероб",
+      "recall_c": "Гардероб",
+      "recall_o": [
+        "Шкаф",
+        "Гардероб",
+        "Полка",
+        "Ящик"
+      ]
+    },
+    "window_w": {
+      "tr": "Окно",
+      "recall_c": "Окно",
+      "recall_o": [
+        "Дверь",
+        "Потолок",
+        "Окно",
+        "Стена"
+      ]
+    }
+  },
+  "strings": {
+    "cup_picked": "Ты взял стакан.",
+    "go_kitchen_hint": "Теперь иди на кухню. Нажми на дверь.",
+    "need_cup": "Сначала тебе нужен стакан!",
+    "need_kettle": "Сначала включи чайник!",
+    "kettle_on": "Чайник включён! Вода кипит...",
+    "go_tap": "Теперь иди к крану.",
+    "water_drunk": "Ты наполнил стакан и выпил воду!",
+    "coffee_intro": "\"Мне нужен кофе, чтобы окончательно проснуться.\"",
+    "need_coffee_drawer": "Сначала достань кофе из ящика!",
+    "need_milk": "Возьми ещё сухое молоко!",
+    "ingredients_ready": "Ингредиенты готовы!",
+    "coffee_ready": "Кофе готов!",
+    "coffee_hungry": "\"Я очень голоден! Мне нужно поесть.\"",
+    "hungry_exclaim": "Я очень голоден!",
+    "open_fridge_hint": "Открой холодильник и выбери, что приготовить.",
+    "not_in_recipe": "Это не для этого рецепта!",
+    "collect_ingredients": "Собери нужные ингредиенты из холодильника.",
+    "wrong_recipe": "Это не для этого рецепта!",
+    "toothbrush_picked": "Зубная щётка взята! 🪥",
+    "apply_paste_hint": "Теперь нанеси зубную пасту на щётку.",
+    "apply_paste_first": "Сначала нанеси зубную пасту!",
+    "pick_brush_first": "Сначала возьми зубную щётку!",
+    "toothpaste_applied": "Зубная паста нанесена! 🧴",
+    "brush_click_hint": "Теперь нажми на щётку, чтобы чистить зубы.",
+    "teeth_brushed": "Зубы почищены! 🦷✨",
+    "rinse_hint": "Теперь прополощи рот у крана.",
+    "mouth_rinsed": "Рот прополощен! 💧😁",
+    "wash_hands_hint": "Теперь вымой руки.",
+    "pick_soap_wash_hint": "Теперь возьми мыло и вымой руки!",
+    "pick_soap_first": "Сначала возьми мыло!",
+    "brush_teeth_first": "Сначала почисти зубы!",
+    "hands_clean": "Вода + Мыло = Чистые руки! 🧼💧",
+    "soap_picked": "Мыло взято! 🧼",
+    "faucet_hint": "Теперь включи кран.",
+    "faucet_use": "Теперь используй кран!",
+    "hands_washed": "Руки вымыты! 🧼✨",
+    "look_mirror_hint": "Теперь посмотри в зеркало.",
+    "toilet_done": "Туалет использован.",
+    "bathroom_smells": "\"В ванной плохо пахнет! 🤢\"",
+    "what_open": "Что ты откроешь?",
+    "window_opened": "Окно открыто! 🪟 Свежий воздух!",
+    "shower_time": "Время принять душ! 🚿",
+    "shampoo_bathtub_hint": "Возьми шампунь, затем используй ванну.",
+    "shampoo_picked": "Шампунь взят! 🧴",
+    "use_bathtub_hint": "Теперь используй ванну!",
+    "pick_shampoo_first": "Сначала возьми шампунь!",
+    "shower_done": "Душ принят! 🚿✨ Свежо и чисто!",
+    "toilet_time": "Молодец! Время в туалет. 🚽",
+    "pan_taken": "Сковорода взята! 🍳",
+    "pan_stove_hint": "Теперь поставь сковороду на плиту!",
+    "table_hint": "На столе что-то есть!",
+    "remote_look": "Присмотрись... Пульт управления!",
+    "remote_found": "Пульт найден! 📱✨",
+    "watch_tv": "Теперь ты можешь смотреть телевизор!",
+    "toast_ready": "Тост готов! Отличный сэндвич!",
+    "pizza_ready": "Пицца в духовке! 🔥 Потрясающий запах!",
+    "omelette_ready": "Омлет шкворчит на плите! 🔥 Вкусно!",
+    "sushi_ready": "Суши свёрнуты! Отличная техника!",
+    "ing_ready_toaster": "Найди тостер и используй его!",
+    "ing_ready_oven": "Положи пиццу в духовку!",
+    "ing_ready_sushi": "Сверни суши на стойке!",
+    "pan_from_cabinet": "Теперь достань сковороду из шкафа!",
+    "ing_ready_generic": "Ингредиенты готовы!"
+  },
+  "scene": {
+    "you open your eyes.": "ты открываешь глаза.",
+    "You are in the bedroom.": "Ты в спальне.",
+    "Your throat is dry. You are very thirsty.": "В горле пересохло. Ты очень хочешь пить.",
+    "Look at the objects around you.": "Посмотри на предметы вокруг.",
+    "You entered the kitchen.": "Ты вошёл на кухню.",
+    "Find the tap and fill your cup with water.": "Найди кран и наполни стакан водой.",
+    "Open the fridge and choose what to make.": "Открой холодильник и выбери, что приготовить.",
+    "Time to make coffee!": "Время варить кофе!",
+    "Find and open the drawer.": "Найди и открой ящик.",
+    "You entered the bathroom.": "Ты вошёл в ванную.",
+    "Time to get dressed!": "Время одеваться!",
+    "Open the wardrobe.": "Открой шкаф.",
+    "You enter the living room.": "Ты входишь в гостиную.",
+    "Now go to the kitchen. Click the door.": "Теперь иди на кухню. Нажми на дверь.",
+    "Now go to the tap.": "Теперь иди к крану.",
+    "Now turn on the faucet.": "Теперь включи кран.",
+    "Now wash your hands.": "Теперь вымой руки.",
+    "Look closer... The remote control!": "Присмотрись... Пульт управления!",
+    "You can now watch TV!": "Теперь ты можешь смотреть телевизор!",
+    "A door appeared! Use the door to go to the Hobby Room.": "Появилась дверь! Используй её, чтобы попасть в комнату хобби.",
+    "You opened the box!": "Ты открыл коробку!",
+    "Pick up all the parts to build your PC.": "Собери все части, чтобы собрать компьютер.",
+    "Monitor placed!": "Монитор установлен!",
+    "Keyboard connected!": "Клавиатура подключена!",
+    "Mouse connected!": "Мышь подключена!",
+    "PC Case mounted!": "Корпус установлен!",
+    "Headset on!": "Наушники надеты!",
+    "You head to the Hobby Room!": "Ты идёшь в комнату хобби!",
+    "Now turn on the kettle.": "Теперь включи чайник.",
+    "Collect the right ingredients from the fridge.": "Собери нужные ингредиенты из холодильника.",
+    "Now rinse your mouth at the faucet.": "Теперь прополощи рот у крана.",
+    "Now look in the mirror.": "Теперь посмотри в зеркало.",
+    "Well done! Toilet time. 🚽": "Молодец! Время в туалет. 🚽",
+    "What do you open?": "Что ты откроешь?",
+    "Pick up the shampoo, then use the bathtub.": "Возьми шампунь, затем используй ванну.",
+    "Welcome to the living room!": "Добро пожаловать в гостиную!",
+    "Welcome to your Hobby Room!": "Добро пожаловать в твою комнату хобби!",
+    "Find the box of computer parts and build your PC!": "Найди коробку с деталями и собери компьютер!",
+    "All parts collected! Your PC is ready!": "Все части собраны! Твой компьютер готов!",
+    "No trophies yet. Keep playing!": "Пока нет трофеев. Продолжай играть!",
+    "No words yet. Keep exploring!": "Пока нет слов. Продолжай исследовать!",
+    "No sentences at this level yet.": "На этом уровне пока нет предложений.",
+    "New Sentence": "Новое предложение",
+    "No books yet at this level.": "На этом уровне пока нет книг.",
+    "Take the Quiz": "Пройти тест",
+    "Back to Library": "В библиотеку",
+    "Free mode unlocked! Use the door to explore all rooms.": "Свободный режим открыт! Используй дверь, чтобы исследовать все комнаты."
+  },
+  "ui": {
+    "kesfet": "Исследуй · Нажми",
+    "bag_empty": "пусто",
+    "recall_question": "Что означает это слово по-русски?",
+    "lang_name": "Русский"
+  }
+}
