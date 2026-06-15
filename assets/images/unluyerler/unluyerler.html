@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GeoQuiz - Global Challenge</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --text-color: #ffffff;
+            --primary-color: #ffffff; 
+            --accent-color: #e74c3c;
+            --success-color: #2ecc71;
+            --warning-color: #f1c40f;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Dinamik Sayfa Kaplayan Netleştirilmiş Arka Plan */
+        .bg-blur-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-size: cover;
+            background-position: center;
+            filter: blur(3px); /* Blur azaltıldı, görsel artık net ve anlaşılır */
+            opacity: 0.4; /* Görselin detaylarını öne çıkarmak için opaklık optimize edildi */
+            z-index: -1;
+            transition: background-image 0.5s ease-in-out;
+        }
+
+        /* Beyaz alanları kaldırılmış transparan oyun alanı */
+        .game-container {
+            background-color: transparent; /* Beyaz blok tamamen kaldırıldı */
+            width: 100%;
+            max-width: 500px;
+            padding: 25px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        /* Giriş Ekranı */
+        #start-screen {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6)), url('girs.webp');
+            background-size: cover;
+            background-position: center;
+            border-radius: 16px;
+            padding: 40px 20px;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 400px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .lang-select-container {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .lang-dropdown {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            border: 2px solid white;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        .lang-dropdown option {
+            color: #2c3e50;
+            background: white;
+        }
+
+        .start-btn {
+            background-color: var(--success-color);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 20px;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.4);
+            transition: transform 0.2s;
+        }
+
+        .start-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* Süre Barı */
+        .timer-container {
+            width: 100%;
+            height: 6px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 3px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+
+        .timer-bar {
+            width: 100%;
+            height: 100%;
+            background-color: var(--success-color);
+            transition: width 0.1s linear, background-color 0.5s;
+        }
+
+        /* Görsel Alanı */
+        .image-container {
+            width: auto;
+            max-width: 100%;
+            height: auto;
+            max-height: 45vh; 
+            aspect-ratio: 9 / 16; 
+            margin: 0 auto 15px auto;
+            border-radius: 16px;
+            overflow: hidden;
+            background-color: transparent; 
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* 9:16 modunda tam ekran hissi için optimize edildi */
+        }
+
+        .landmark-name {
+            font-size: 20px;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            min-height: 26px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8); /* Arka planda net okunma sağlamak için gölge */
+        }
+
+        .top-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 15px;
+            font-weight: bold;
+            color: #ffffff;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+        }
+
+        /* Seçenekler Grid (Yarı Şeffaf Minimal Tasarım) */
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .btn {
+            background-color: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            color: #ffffff;
+            padding: 14px;
+            font-size: 15px;
+            font-weight: 600;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+        }
+
+        .btn:hover:not(:disabled) {
+            border-color: #ffffff;
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .correct {
+            background-color: var(--success-color) !important;
+            color: white !important;
+            border-color: var(--success-color) !important;
+            text-shadow: none;
+        }
+
+        .wrong {
+            background-color: var(--accent-color) !important;
+            color: white !important;
+            border-color: var(--accent-color) !important;
+            text-shadow: none;
+        }
+
+        #result-message {
+            font-size: 16px;
+            font-weight: bold;
+            min-height: 24px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+        }
+
+        .action-btn {
+            background-color: var(--success-color);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 25px;
+            cursor: pointer;
+            margin: 8px;
+            box-shadow: 0 4px 10px rgba(46, 204, 113, 0.3);
+            transition: background-color 0.2s;
+        }
+        
+        .vibe-btn {
+            background-color: #9b59b6;
+            box-shadow: 0 4px 10px rgba(155, 89, 182, 0.3);
+        }
+
+        .next-lvl-btn {
+            background-color: #3498db;
+            box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
+        }
+
+        /* Mobil Ekran Uyumluluğu */
+        @media (max-width: 480px) {
+            .options-grid {
+                grid-template-columns: 1fr; 
+            }
+            .image-container {
+                max-height: 40vh; 
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div id="dynamic-bg" class="bg-blur-container"></div>
+
+<div class="game-container">
+    <div id="start-screen">
+        <div class="lang-select-container">
+            <select class="lang-dropdown" id="lang-menu" onchange="setLanguage(this.value)">
+                <option value="tr">Türkçe (TR)</option>
+                <option value="en">English (EN)</option>
+                <option value="ja">日本語 (JA)</option>
+                <option value="fr">Français (FR)</option>
+                <option value="ru">Русский (RU)</option>
+                <option value="de">Deutsch (DE)</option>
+                <option value="es">Español (ES)</option>
+                <option value="pt">Português (PT)</option>
+                <option value="hi">हिन्दी (HI)</option>
+                <option value="zh">中文 (ZH)</option>
+                <option value="ar">العربية (AR)</option>
+                <option value="pl">Polski (PL)</option>
+            </select>
+        </div>
+        <div>
+            <h1 id="welcome-title" style="margin-bottom: 5px; text-shadow: 0 2px 4px rgba(0,0,0,0.6);">Şehri Tahmin Et!</h1>
+            <p id="welcome-sub" style="margin-top: 0; font-size: 14px; text-shadow: 0 1px 3px rgba(0,0,0,0.6);">Dünyayı ne kadar iyi tanıyorsun?</p>
+        </div>
+        <div>
+            <button class="start-btn" id="start-action" onclick="startGame()">BAŞLA</button>
+        </div>
+    </div>
+
+    <div id="main-game" style="display: none;">
+        <div class="top-meta">
+            <span id="level-counter">Seviye: 1</span>
+            <span id="question-counter">1 / 14</span>
+        </div>
+
+        <div class="timer-container">
+            <div class="timer-bar" id="t-bar"></div>
+        </div>
+
+        <div class="image-container">
+            <img id="city-image" src="" alt="Geoguessr Visual">
+        </div>
+        <div class="landmark-name" id="landmark-title"></div>
+        
+        <div class="options-grid" id="options-box"></div>
+        <div id="result-message"></div>
+    </div>
+</div>
+
+<script>
+    const STRINGS = {
+        tr: { title: "Şehri Tahmin Et!", sub: "Dünyayı ne kadar iyi tanıyorsun?", start: "BAŞLA", correctMsg: "Doğru! Sıradaki görsele geçiliyor...", wrongMsg: "Yanlış! Doğru cevap gösteriliyor...", timeOutMsg: "Süre Doldu! Boş bırakıldı...", ended: "Oyun Bitti! 🎯", score: "Skorunuz:", correct: "Doğru", wrong: "Yanlış", empty: "Boş", restart: "Yeniden Başlat", returnVibe: "Vibe'a Geri Dön", lvl: "Seviye", nextLvl: "2. Seviyeye Geç 🚀", lvlFail: "2. Seviye için en az 8 doğru gerekiyor." },
+        en: { title: "Guess the City!", sub: "How well do you know the world?", start: "START", correctMsg: "Correct! Moving to the next image...", wrongMsg: "Wrong! Showing the correct answer...", timeOutMsg: "Time's Up! Left blank...", ended: "Game Over! 🎯", score: "Your Score:", correct: "Correct", wrong: "Wrong", empty: "Blank", restart: "Restart Game", returnVibe: "Back to Vibe", lvl: "Level", nextLvl: "Go to Level 2 🚀", lvlFail: "At least 8 correct answers required for Level 2." },
+        ja: { title: "都市を推測する！", sub: "あなたは世界をどれだけ知っていますか？", start: "スタート", correctMsg: "正解！次の画像に進みます...", wrongMsg: "不正解！正解を表示しています...", timeOutMsg: "時間切れ！空白のまま...", ended: "ゲーム終了！🎯", score: "あなたのスコア：", correct: "正解", wrong: "不正解", empty: "空白", restart: "もう一度プレイ", returnVibe: "Vibeに戻る", lvl: "レベル", nextLvl: "レベル2に進む 🚀", lvlFail: "レベル2には少なくとも8つの正解が必要です。" },
+        fr: { title: "Devine la Ville !", sub: "Connaissez-vous bien le monde ?", start: "COMMENCER", correctMsg: "Correct ! Passage à l'image suivante...", wrongMsg: "Faux ! Affichage de la réponse correcte...", timeOutMsg: "Temps écoulé ! Laissé vide...", ended: "Fin du jeu ! 🎯", score: "Votre Score :", correct: "Correct", wrong: "Faux", empty: "Vide", restart: "Rejouer", returnVibe: "Retour à Vibe", lvl: "Niveau", nextLvl: "Passer au Niveau 2 🚀", lvlFail: "Au moins 8 bonnes réponses sont requises für le Niveau 2." },
+        ru: { title: "Угадай город!", sub: "Насколько хорошо вы знаете мир?", start: "НАЧАТЬ", correctMsg: "Правильно! Переход к следующему фото...", wrongMsg: "Неверно! Показываем правильный ответ...", timeOutMsg: "Время вышло! Оставлено пустым...", ended: "Игра окончена! 🎯", score: "Ваш результат:", correct: "Правильно", wrong: "Неверно", empty: "Пусто", restart: "Играть снова", returnVibe: "Вернуться в Vibe", lvl: "Уровень", nextLvl: "Перейти на Уровень 2 🚀", lvlFail: "Для Уровня 2 требуется не менее 8 правильных ответов." },
+        de: { title: "Errate die Stadt!", sub: "Wie gut kennst du die Welt?", start: "START", correctMsg: "Richtig! Weiter zum nächsten Bild...", wrongMsg: "Falsch! Richtige Antwort wird angezeigt...", timeOutMsg: "Zeit abgelaufen! Leer gelassen...", ended: "Spiel vorbei! 🎯", score: "Ihr Ergebnis:", correct: "Richtig", wrong: "Falsch", empty: "Leer", restart: "Erneut starten", returnVibe: "Zurück zu Vibe", lvl: "Stufe", nextLvl: "Zu Stufe 2 wechseln 🚀", lvlFail: "Für Stufe 2 sind mindestens 8 richtige Antworten erforderlich." },
+        es: { title: "¡Adivina la Ciudad!", sub: "¿Qué tan bien conoces el mundo?", start: "COMENZAR", correctMsg: "¡Correcto! Pasando a la siguiente imagen...", wrongMsg: "¡Incorrecto! Mostrando respuesta correcta...", timeOutMsg: "¡Tiempo agotado! Dejado en blanco...", ended: "¡Fin del juego! 🎯", score: "Tu Puntuación:", correct: "Correcto", wrong: "Incorrecto", empty: "Blanco", restart: "Reiniciar Juego", returnVibe: "Volver a Vibe", lvl: "Nivel", nextLvl: "Ir al Nivel 2 🚀", lvlFail: "Se requieren al menos 8 respuestas correctas para el Nivel 2." },
+        pt: { title: "Adivinhe a Cidade!", sub: "Quão bem você conhece o mundo?", start: "COMEÇAR", correctMsg: "Correto! Próxima imagem...", wrongMsg: "Incorreto! Mostrando a resposta correta...", timeOutMsg: "Tempo esgotado! Deixado em branco...", ended: "Fim de jogo! 🎯", score: "Sua Pontuação:", correct: "Correto", wrong: "Incorreto", empty: "Em branco", restart: "Jogar Novamente", returnVibe: "Voltar para Vibe", lvl: "Nível", nextLvl: "Ir para o Nível 2 🚀", lvlFail: "São necessárias pelo menos 8 respostas corretas para o Nivel 2." },
+        hi: { title: "शहर का अनुमान लगाएं!", sub: "आप दुनिया को कितना जानते हैं?", start: "शुरू करें", correctMsg: "सही! अगली छवि पर जा रहे हैं...", wrongMsg: "गलत! सही उत्तर दिखाया जा रहा है...", timeOutMsg: "समय समाप्त! खाली छोड़ दिया...", ended: "खेल समाप्त! 🎯", score: "आपका स्कोर:", correct: "सही", wrong: "गलत", empty: "खाली", restart: "फिर से खेलें", returnVibe: "Vibe पर वापस जाएं", lvl: "स्तर", nextLvl: "स्तर 2 पर जाएं 🚀", lvlFail: "स्तर 2 के लिए कम से कम 8 सही उत्तर आवश्यक हैं।" },
+        zh: { title: "猜猜这是哪座城市！", sub: "你对这个世界了解多少？", start: "开始游戏", correctMsg: "正确！正在载入下一张图片...", wrongMsg: "错误！正在显示正确答案...", timeOutMsg: "时间到！已留空...", ended: "游戏结束！🎯", score: "您的得分：", correct: "正确", wrong: "错误", empty: "留空", restart: "重新开始", returnVibe: "返回 Vibe", lvl: "级别", nextLvl: "进入第 2 级别 🚀", lvlFail: "解锁第 2 级别需要至少 8 个正确答案。" },
+        ar: { title: "خمن المدينة!", sub: "ما مدى معرفتك بالعالم？", start: "ابدأ", correctMsg: "صحيح! الانتقال إلى الصورة التالية...", wrongMsg: "خطأ! يتم عرض الإجابة الصحيحة...", timeOutMsg: "انتهى الوقت! تركت فارغة...", ended: "انتهت اللعبة! 🎯", score: "نتيجتك:", correct: "صحيح", wrong: "خطأ", empty: "فارغ", restart: "إعادة اللعب", returnVibe: "العودة إلى Vibe", lvl: "المستوى", nextLvl: "الانتقال للمستوى 2 🚀", lvlFail: "يتطلب الانتقال للمستوى الثاني 8 إجابات صحيحة على الأقل." },
+        pl: { title: "Zgadnij miasto!", sub: "Jak dobrze znasz świat?", start: "START", correctMsg: "Prawidłowo! Przejście do kolejnego zdjęcia...", wrongMsg: "Błąd! Pokazywanie prawidłowej odpowiedzi...", timeOutMsg: "Koniec czasu! Pozostawiono puste...", ended: "Koniec gry! 🎯", score: "Twój wynik:", correct: "Dobrze", wrong: "Źle", empty: "Puste", restart: "Zacznij od nowa", returnVibe: "Wróć do Vibe", lvl: "Poziom", nextLvl: "Przejdź do Poziomu 2 🚀", lvlFail: "Wymagane są co najmniej 8 prawidłowych odpowiedzi, aby odblokować Poziom 2." }
+    };
+
+    const seviye1_sorulari = [
+        { gorsel: "1.webp", eser: { tr: "Peri Bacaları", en: "Fairy Chimneys", ja: "妖精の煙突", fr: "Cheminées de fée", ru: "Волшебные дымоходы", de: "Feenkamine", es: "Chas de las hadas", pt: "Chaminés de fada", hi: "परी चिमनियाँ", zh: "仙人烟囱", ar: "مداخن الجنيات", pl: "Baśniowe Kominy" }, secenekler: { tr: ["Ürgüp", "Nevşehir", "Göreme", "Kapadokya"], en: ["Urgup", "Nevsehir", "Goreme", "Cappadocia"], ja: ["ウルギュップ", "ネヴシェヒル", "ギョレメ", "カッパドキア"], fr: ["Urgup", "Nevsehir", "Göreme", "Cappadoce"], ru: ["Ургюп", "Невшехир", "Гёреме", "Каппадокия"], de: ["Ürgüp", "Nevşehir", "Göreme", "Kappadokien"], es: ["Urgup", "Nevsehir", "Göreme", "Capadocia"], pt: ["Urgup", "Nevsehir", "Göreme", "Capadócia"], hi: ["उर्गुप", "नेvशेهر", "गोरेम", "कप्पादुकिया"], zh: ["乌尔居普", "内夫谢希尔", "格雷梅", "卡帕多奇亚"], ar: ["أورغوب", "نوشهر", "غوريم", "كبادوكيا"], pl: ["Urgup", "Nevsehir", "Göreme", "Kapadocja"] }, dogru: { tr: "Kapadokya", en: "Cappadocia", ja: "カッパドキア", fr: "Cappadoce", ru: "Каппадокия", de: "Kappadokien", es: "Capadocia", pt: "Capadócia", hi: "कप्पादुकिया", zh: "卡帕多奇亚", ar: "كبادوكيا", pl: "Kapadocja" } },
+        { gorsel: "2.webp", eser: { tr: "Eyfel Kulesi", en: "Eiffel Tower", ja: "エッフェル塔", fr: "Tour Eiffel", ru: "Эйфелева башня", de: "Eiffelturm", es: "Torre Eiffel", pt: "Torre Eiffel", hi: "एफil टॉवर", zh: "埃菲尔铁塔", ar: "برج إيفل", pl: "Wieża Eiffla" }, secenekler: { tr: ["Paris", "Londra", "Lyon", "Berlin"], en: ["Paris", "London", "Lyon", "Berlin"], ja: ["パリ", "ロンドン", "リヨン", "ベルリン"], fr: ["Paris", "Londres", "Lyon", "Berlin"], ru: ["Париж", "Лондон", "Лион", "Берлин"], de: ["Paris", "London", "Lyon", "Berlin"], es: ["París", "Londres", "Lyon", "Berlín"], pt: ["Paris", "Londres", "Lyon", "Berlim"], hi: ["पेरिस", "लंदन", "ल्यों", "برلن"], zh: ["巴黎", "伦敦", "里昂", "柏林"], ar: ["باريس", "لندن", "ليون", "برلين"], pl: ["Paryż", "Londyn", "Lyon", "Berlin"] }, dogru: { tr: "Paris", en: "Paris", ja: "パリ", fr: "Paris", ru: "Париж", de: "Paris", es: "París", pt: "Paris", hi: "पेरिस", zh: "巴黎", ar: "باريس", pl: "Paryż" } },
+        { gorsel: "3.webp", eser: { tr: "Tac Mahal", en: "Taj Mahal", ja: "タージ・マハル", fr: "Taj Mahal", ru: "Тадж-Махал", de: "Taj Mahal", es: "Taj Mahal", pt: "Taj Mahal", hi: "ताज महल", zh: "泰姬陵", ar: "تاج محل", pl: "Tadź Mahal" }, secenekler: { tr: ["Yeni Delhi", "Agra", "Mumbay", "Kahire"], en: ["New Delhi", "Agra", "Mumbai", "Cairo"], ja: ["ニューデリー", "アグラ", "ムンバイ", "カイロ"], fr: ["New Delhi", "Agra", "Mumbai", "Le Caire"], ru: ["Нью-Дели", "Агра", "Мумбаи", "Каир"], de: ["Neu-Delhi", "Agra", "Mumbai", "Kairo"], es: ["Nueva Delhi", "Agra", "Mumbai", "El Cairo"], pt: ["Nova Deli", "Agra", "Bombaim", "Cairo"], hi: ["नई दिल्ली", "आगरा", "मुंबई", "काहिरा"], zh: ["新德里", "阿格拉", "孟买", "开罗"], ar: ["نيودلهي", "أغرة", "مومباي", "القاهرة"], pl: ["New Delhi", "Agra", "Bombaj", "Kair"] }, dogru: { tr: "Agra", en: "Agra", ja: "アグラ", fr: "Agra", ru: "Агра", de: "Agra", es: "Agra", pt: "Agra", hi: "आगरा", zh: "阿格拉", ar: "أغرة", pl: "Agra" } },
+        { gorsel: "4.webp", eser: { tr: "Özgürlük Anıtı", en: "Statue of Liberty", ja: "自由の女神像", fr: "Statue de la Liberté", ru: "Статуя Свободы", de: "Freiheitsstatue", es: "Estatua de la Libertad", pt: "Estátua da Liberdade", hi: "स्वतंत्रता की प्रतिमा", zh: "自由女神像", ar: "تمثال الحرية", pl: "Statuła Wolności" }, secenekler: { tr: ["Los Angeles", "Londra", "New York", "Washington"], en: ["Los Angeles", "London", "New York", "Washington"], ja: ["ロサンゼルス", "ロンドン", "ニューヨーク", "ワシントン"], fr: ["Los Angeles", "Londres", "New York", "Washington"], ru: ["Лос-Анджелес", "Лондон", "Нью-Йорк", "Вашингтон"], de: ["Los Angeles", "London", "New York", "Washington"], es: ["Los Ángeles", "Londres", "Nueva York", "Washington"], pt: ["Los Angeles", "Londres", "Nova Iorque", "Washington"], hi: ["लॉस एंजिल्स", "लंदन", "न्यूयोर्क", "वाशिंगटन"], zh: ["洛杉矶", "伦敦", "纽约", "华盛顿"], ar: ["لوس أنجلوس", "لندن", "نيويورك", "واشنطن"], pl: ["Los Angeles", "Londyn", "Nowy Jork", "Waszyngton"] }, dogru: { tr: "New York", en: "New York", ja: "ニューヨーク", fr: "New York", ru: "Нью-Йорк", de: "New York", es: "Nueva York", pt: "Nova Iorque", hi: "न्यूयोrk", zh: "纽约", ar: "نيويورك", pl: "Nowy Jork" } },
+        { gorsel: "5.webp", eser: { tr: "Gize Piramitleri", en: "Pyramids of Giza", ja: "ギザのピラミッド", fr: "Pyramides de Gizeh", ru: "Пирамыды Гизы", de: "Pyramiden von Gizeh", es: "Pirámides de Giza", pt: "Pirâmides de Gizé", hi: "गीज़ा के piрамид", zh: "吉萨金字塔", ar: "أهرامات الجيزة", pl: "Piramidy w Gizie" }, secenekler: { tr: ["İskenderiye", "Kahire", "Gize", "Luksor"], en: ["Alexandria", "Cairo", "Giza", "Luxor"], ja: ["アレクサンドリア", "カイロ", "ギザ", "ルクソール"], fr: ["Alexandrie", "Le Caire", "Gizeh", "Louxor"], ru: ["Авины", "Мадрид", "Милан", "Рим"], de: ["Athen", "Madrid", "Mailand", "Rom"], es: ["Atenas", "Madrid", "Milán", "Roma"], pt: ["Atenas", "Madrid", "Milão", "Roma"], hi: ["एथेंस", "मैड्रिड", "मिलan", "роли"], zh: ["雅典", "马德里", "米兰", "罗马"], ar: ["أثينا", "مدريد", "ميلان", "روما"], pl: ["Ateny", "Madryt", "Mediolan", "Rzym"] }, dogru: { tr: "Gize", en: "Giza", ja: "ギザ", fr: "Gizeh", ru: "Гиза", de: "Gizeh", es: "Giza", pt: "Gizé", hi: "गीज़ा", zh: "吉萨", ar: "الجيزة", pl: "Giza" } },
+        { gorsel: "6.webp", eser: { tr: "Kolezyum", en: "Colosseum", ja: "コロッセオ", fr: "Colisée", ru: "Колизей", de: "Kolosseum", es: "Coliseo", pt: "Coliseu", hi: "कोलोज़ियम", zh: "罗马斗兽场", ar: "الكولوسيوم", pl: "Koloseum" }, secenekler: { tr: ["Atina", "Madrid", "Milano", "Roma"], en: ["Athens", "Madrid", "Milan", "Rome"], ja: ["アテネ", "マドリード", "ミラノ", "ローマ"], fr: ["Athènes", "Madrid", "Milan", "Rome"], ru: ["Авины", "Мадрид", "Милан", "Рим"], de: ["Athen", "Madrid", "Mailand", "Rom"], es: ["Atenas", "Madrid", "Milán", "Roma"], pt: ["Atenas", "Madrid", "Milão", "Roma"], hi: ["एथेंस", "मैdruिड", "मिलлан", "роли"], zh: ["雅典", "马德里", "米兰", "罗马"], ar: ["أثينا", "مدريد", "ميلان", "روما"], pl: ["Ateny", "Madryt", "Mediolan", "Rzym"] }, dogru: { tr: "Roma", en: "Rome", ja: "ローマ", fr: "Rome", ru: "Рим", de: "Rom", es: "Roma", pt: "Roma", hi: "роли", zh: "罗马", ar: "روما", pl: "Rzym" } },
+        { gorsel: "7.webp", eser: { tr: "Machu Picchu", en: "Machu Picchu", ja: "マチュ・ピチュ", fr: "Machu Picchu", ru: "Мачу-Пикчу", de: "Machu Picchu", es: "Machu Picchu", pt: "Machu Picchu", hi: "माचू पिच्चू", zh: "马丘比丘", ar: "ماتشو بيتشو", pl: "Machu Picchu" }, secenekler: { tr: ["Cusco", "Machu Picchu", "Lima", "Bogota"], en: ["Cusco", "Machu Picchu", "Lima", "Bogota"], ja: ["クスコ", "マチュ・ピチュ", "リマ", "ボゴタ"], fr: ["Cusco", "Machu Picchu", "Lima", "Bogota"], ru: ["Куско", "Мачу-Пикчу", "Лима", "Богота"], de: ["Cusco", "Machu Picchu", "Lima", "Bogota"], es: ["Cusco", "Machu Picchu", "Lima", "Bogotá"], pt: ["Cusco", "Machu Picchu", "Lima", "Bogotá"], hi: ["कुस्को", "माचू पिच्चू", "लीमा", "बोगोटा"], zh: ["库斯科", "马丘比丘", "利马", "波哥大"], ar: ["كوسكو", "ماتشو بيتشو", "ليما", "بوغوتا"], pl: ["Cusco", "Machu Picchu", "Lima", "Bogota"] }, dogru: { tr: "Machu Picchu", en: "Machu Picchu", ja: "マチュ・ピチュ", fr: "Machu Picchu", ru: "Мачу-Пикчу", de: "Machu Picchu", es: "Machu Picchu", pt: "Machu Picchu", hi: "माचू पिच्चू", zh: "马丘比丘", ar: "ماتشو بيتشو", pl: "Machu Picchu" } },
+        { gorsel: "8.webp", eser: { tr: "Stonehenge", en: "Stonehenge", ja: "ストーンヘンジ", fr: "Stonehenge", ru: "Стоунхендж", de: "Stonehenge", es: "Stonehenge", pt: "Stonehenge", hi: "स्टोनहेंज", zh: "巨石阵", ar: "ستونهنج", pl: "Stonehenge" }, secenekler: { tr: ["Londra", "Salisbury", "Manchester", "Liverpool"], en: ["London", "Salisbury", "Manchester", "Liverpool"], ja: ["ロンドン", "ソールズベリー", "マンチェスター", "リヴァプール"], fr: ["Londres", "Salisbury", "Manchester", "Liverpool"], ru: ["Лондон", "Солсбери", "Манчестер", "Ливерпуль"], de: ["London", "Salisbury", "Manchester", "Liverpool"], es: ["Londres", "Salisbury", "Mánchester", "Liverpool"], pt: ["Londres", "Salisbury", "Manchester", "Liverpool"], hi: ["लंदन", "सैलisбари", "मैनчестер", "लिवरपูล"], zh: ["浅敦", "索尔兹伯里", "曼彻斯特", "利物浦"], ar: ["لندن", "سالزبوري", "مانشستر", "ليفربول"], pl: ["Londyn", "Salisbury", "Manchester", "Liverpool"] }, dogru: { tr: "Salisbury", en: "Salisbury", ja: "ソールズベリー", fr: "Salisbury", ru: "Солсбери", de: "Salisbury", es: "Salisbury", pt: "Salisbury", hi: "सैलिसबरी", zh: "索尔兹伯里", ar: "سالزبوري", pl: "Salisbury" } },
+        { gorsel: "9.webp", eser: { tr: "Big Ben", en: "Big Ben", ja: "ビッグ・ベン", fr: "Big Ben", ru: "Биг-Бен", de: "Big Ben", es: "Big Ben", pt: "Big Ben", hi: "ビッグ बेन", zh: "大本钟", ar: "بيغ بن", pl: "Big Ben" }, secenekler: { tr: ["Londra", "Dublin", "Edinburgh", "Cardiff"], en: ["London", "Dublin", "Edinburgh", "Cardiff"], ja: ["ロンドン", "ダブリン", "エディンバラ", "カーディフ"], fr: ["Londres", "Dublin", "Édimbourg", "Cardiff"], ru: ["Лондон", "Дублин", "Эдинбург", "Кардифф"], de: ["London", "Dublin", "Edinburgh", "Cardiff"], es: ["Londres", "Dublín", "Edimburgo", "Cardiff"], pt: ["Londres", "Dublin", "Edimburgo", "Cardiff"], hi: ["लंदन", "डब्लिन", "एडिनबर्ग", "कार्डिफ़"], zh: ["伦敦", "都柏林", "爱丁堡", "加迪夫"], ar: ["لندن", "دبلن", "إدنبرة", "كارديف"], pl: ["Londyn", "Dublin", "Edynburg", "Cardiff"] }, dogru: { tr: "Londra", en: "London", ja: "ロンドン", fr: "Londres", ru: "Лондон", de: "London", es: "Londres", pt: "Londres", hi: "लंदन", zh: "伦敦", ar: "لندن", pl: "Londyn" } },
+        { gorsel: "10.webp", eser: { tr: "Pisa Kulesi", en: "Leaning Tower of Pisa", ja: "ピサの斜塔", fr: "Tour de Pise", ru: "Пизанская башня", de: "Schiefer Turm von Pisa", es: "Torre de Pisa", pt: "Torre de Pisa", hi: "पीसा की झुकी मीनार", zh: "比萨斜塔", ar: "برج بيزا المائل", pl: "Krzywa Wieża w Pizie" }, secenekler: { tr: ["Floransa", "Roma", "Venedik", "Pisa"], en: ["Florence", "Rome", "Venice", "Pisa"], ja: ["フィレンツェ", "ローマ", "ベネチア", "ピサ"], fr: ["Florence", "Rome", "Venise", "Pise"], ru: ["Флоренция", "Рим", "Венеция", "Пиза"], de: ["Florenz", "Rom", "Venedig", "Pisa"], es: ["Florencia", "Roma", "Venecia", "Pisa"], pt: ["Florença", "Roma", "Veneza", "Pisa"], hi: ["पीसा की झुकी मीनार", "रोम", "वेनيس", "पीसा"], zh: ["佛罗伦萨", "罗马", "威尼斯", "比萨"], ar: ["فلورنسا", "روما", "البندقية", "بيزا"], pl: ["Florencja", "Rzym", "Wenecja", "Piza"] }, dogru: { tr: "Pisa", en: "Pisa", ja: "ピサ", fr: "Pise", ru: "Пиза", de: "Pisa", es: "Pisa", pt: "Pisa", hi: "पीसा", zh: "比萨", ar: "بيزا", pl: "Piza" } },
+        { gorsel: "11.webp", eser: { tr: "Burç Halife", en: "Burj Khalifa", ja: "ブルジュ・ハリファ", fr: "Burj Khalifa", ru: "Бурдж-Халифа", de: "Burj Khalifa", es: "Burj Khalifa", pt: "Burj Khalifa", hi: "बुर्ज खलीफा", zh: "哈利法塔", ar: "برج خليفة", pl: "Burdż Chalifa" }, secenekler: { tr: ["Abu Dabi", "Doha", "Riyad", "Dubai"], en: ["Abu Dhabi", "Doha", "Riyadh", "Dubai"], ja: ["アブダビ", "ドーハ", "リヤド", "ドバイ"], fr: ["Abu Dhabi", "Doha", "Riyad", "Dubaï"], ru: ["Абу-Даби", "Доха", "Эр-Рияд", "Дубай"], de: ["Abu Dhabi", "Doha", "Riad", "Dubai"], es: ["Abu Dabi", "Doha", "Riad", "Dubái"], pt: ["Abu Dhabi", "Doha", "Riade", "Dubai"], hi: ["अबू धाबी", "दोहा", "रियाद", "दुबई"], zh: ["阿布扎比", "多哈", "利雅得", "迪拜"], ar: ["أبو ظبي", "الدوحة", "الرياض", "دبي"], pl: ["Abu Zabi", "Doha", "Rijad", "Dubaj"] }, dogru: { tr: "Dubai", en: "Dubai", ja: "ドバイ", fr: "Dubaï", ru: "Дубай", de: "Dubai", es: "Dubái", pt: "Dubai", hi: "दुबई", zh: "迪拜", ar: "دبي", pl: "Dubaj" } },
+        { gorsel: "12.webp", eser: { tr: "El-Hazne (Petra)", en: "Al-Khazneh (Petra)", ja: "エル・ハズネ（ペトラ）", fr: "Al-Khazneh (Pétra)", ru: "Эль-Хазне (Петра)", de: "Al-Khazneh (Petra)", es: "Al-Khazneh (Petra)", pt: "Al-Khazneh (Petra)", hi: "अल-ख़ज़नेeh (पेत्रา)", zh: "卡兹尼神殿 (佩特拉)", ar: "الخزنة (البتراء)", pl: "Skarbiec Faraona (Petra)" }, secenekler: { tr: ["Amman", "Akabe", "Petra", "Kahire"], en: ["Amman", "Aqaba", "Petra", "Cairo"], ja: ["アンマン", "アカバ", "ペトラ", "カイロ"], fr: ["Amman", "Aqaba", "Pétra", "Le Caire"], ru: ["Амман", "Акаба", "Петра", "Каир"], de: ["Amman", "Aqaba", "Petra", "Kairo"], es: ["Amán", "Ákaba", "Petra", "El Cairo"], pt: ["Amã", "Ácaba", "Petra", "Cairo"], hi: ["अम्مان", "अकाबा", "पेत्रा", "काहिरा"], zh: ["安曼", "亚喀巴", "佩特拉", "开罗"], ar: ["عمان", "العقبة", "البتراء", "القاهرة"], pl: ["Amman", "Akaba", "Petra", "Kair"] }, dogru: { tr: "Petra", en: "Petra", ja: "ペトラ", fr: "Pétra", ru: "Петра", de: "Petra", es: "Petra", pt: "Petra", hi: "पेत्रा", zh: "佩特拉", ar: "البتراء", pl: "Petra" } },
+        { gorsel: "13.webp", eser: { tr: "Sidney Opera Binası", en: "Sydney Opera House", ja: "シドニー・オペラハウス", fr: "Opéra de Sydney", ru: "Сиднейский оперный театр", de: "Opernhaus von Sydney", es: "Ópera de Sídney", pt: "Ópera de Sydney", hi: "सिडनी ओपेра हाउस", zh: "悉尼歌剧院", ar: "دار أوبرا سيدني", pl: "Opera w Sydney" }, secenekler: { tr: ["Melbourne", "Sidney", "Brisbane", "Auckland"], en: ["Melbourne", "Sydney", "Brisbane", "Auckland"], ja: ["メルボルン", "シドニー", "ブリスベン", "オークランド"], fr: ["Melbourne", "Sydney", "Brisbane", "Auckland"], ru: ["Мельбурн", "Сидней", "Брисбен", "Окленд"], de: ["Melbourne", "Sydney", "Brisbane", "Auckland"], es: ["Melbourne", "Sídney", "Brisbane", "Auckland"], pt: ["Melbourne", "Sydney", "Brisbane", "Auckland"], hi: ["मेलबर्न", "सिडनी", "ब्रिस्बेन", "ऑकलैंड"], zh: ["墨尔本", "悉尼", "布里斯班", "奥克兰"], ar: ["ملبورن", "سيدني", "بريزبان", "أوكلاند"], pl: ["Melbourne", "Sydney", "Brisbane", "Auckland"] }, dogru: { tr: "Sidney", en: "Sydney", ja: "シドニー", fr: "Sydney", ru: "Сидней", de: "Sydney", es: "Sídney", pt: "Sydney", hi: "सिडनी", zh: "悉尼", ar: "سيدني", pl: "Sydney" } },
+        { gorsel: "14.webp", eser: { tr: "Kurtarıcı İsa Heykeli", en: "Christ the Redeemer", ja: "救世主キリスト像", fr: "Christ Rédempteur", ru: "Статуя Христа-Искупителя", de: "Christus-Erlöser-Statue", es: "Cristo Redentor", pt: "Cristo Redentor", hi: "क्राइस्ट द रिडीमर", zh: "救世基督像", ar: "تمثال المسيح الفادي", pl: "Pomnik Chrystusa Odkupiciela" }, secenekler: { tr: ["Sao Paulo", "Brasilia", "Rio de Janeiro", "Buenos Aires"], en: ["Sao Paulo", "Brasilia", "Rio de Janeiro", "Buenos Aires"], ja: ["サンパウロ", "ブラジリア", "リオデジャネイロ", "ブエノスアイレス"], fr: ["São Paulo", "Brasilia", "Rio de Janeiro", "Buenos Aires"], ru: ["Сан-Паулу", "Бразилиа", "Рио-де-Жанейро", "Буэнос-Айрес"], de: ["São Paulo", "Brasília", "Rio de Janeiro", "Buenos Aires"], es: ["São Paulo", "Brasia", "Río de Janeiro", "Buenos Aires"], pt: ["São Paulo", "Brasília", "Rio de Janeiro", "Buenos Aires"], hi: ["साओ पाउलो", "برازيليا", "रियो डी जनेरियो", "ब्यूनस आयर्स"], zh: ["圣保罗", "巴西利亚", "里约热内卢", "布宜诺斯艾利斯"], ar: ["ساو باولو", "برازيليا", "ريو دي جانيرو", "بوينس آيرس"], pl: ["São Paulo", "Brasília", "Rio de Janeiro", "Buenos Aires"] }, dogru: { tr: "Rio de Janeiro", en: "Rio de Janeiro", ja: "リオデジャネイロ", fr: "Rio de Janeiro", ru: "Рио-де-Жанейро", de: "Rio de Janeiro", es: "Río de Janeiro", pt: "Rio de Janeiro", hi: "रियो डी जनेरियो", zh: "里约热内卢", ar: "ريو دي جانيرو", pl: "Rio de Janeiro" } }
+    ];
+
+    const seviye2_sorulari = [
+        { gorsel: "15.webp", eser: { tr: "Büyük Çin Seddi", en: "Great Wall of China", ja: "万里の長城", fr: "Grande Muraille de Chine", ru: "Великая Китайская стена", de: "Chinesische Mauer", es: "Gran Muralla China", pt: "Grande Muralha da China", hi: "चीन की विशाल दीवार", zh: "万里长城", ar: "سور الصين العظيم", pl: "Wielki Mur Chiński" }, secenekler: { tr: ["Şanghay", "Pekin bölgesi", "Hong Kong", "Xi'an"], en: ["Shanghai", "Beijing region", "Hong Kong", "Xi'an"], ja: ["上海", "北京地域", "香港", "西安"], fr: ["Shanghai", "Région de Pékin", "Hong Kong", "Xi'an"], ru: ["Шанхай", "Пекинский регион", "Гонконг", "Сиань"], de: ["Shanghai", "Peking-Region", "Hongkong", "Xi'an"], es: ["Shanghái", "Región de Pekín", "Hong Kong", "Xi'an"], pt: ["Xangai", "Região de Pequim", "Hong Kong", "Xi'an"], hi: ["शंघाई", "बीजिंग क्षेत्र", "हांगकांग", "शीआन"], zh: ["上海", "北京地区", "香港", "西安"], ar: ["شانغهاي", "منطقة بكين", "هونغ كونغ", "شيان"], pl: ["Szanghaj", "Region Pekin", "Hongkong", "Xi'an"] }, dogru: { tr: "Pekin bölgesi", en: "Beijing region", ja: "北京地域", fr: "Région de Pékin", ru: "Пекинский регион", de: "Peking-Region", es: "Región de Pekín", pt: "Região de Pequim", hi: "बीजिंग क्षेत्र", zh: "北京地区", ar: "منطقة بكين", pl: "Region Pekin" } },
+        { gorsel: "16.webp", eser: { tr: "Akropolis", en: "Acropolis", ja: "アクロポリス", fr: "Acropole", ru: "Акрополь", de: "Akropolis", es: "Acrópolis", pt: "Acrópole", hi: "एक्रोपोलिस", zh: "卫城", ar: "الأكروبوليس", pl: "Akropol" }, secenekler: { tr: ["Selanik", "Atina", "Mikonos", "Santorini"], en: ["Thessaloniki", "Athens", "Mykonos", "Santorini"], ja: ["テッサロニキ", "アテネ", "ミコノス島", "サントリーニ島"], fr: ["Thessalonique", "Athènes", "Mykonos", "Santorin"], ru: ["Салоники", "Афины", "Миконос", "Санторини"], de: ["Thessaloniki", "Athen", "Mykonos", "Santorin"], es: ["Salónica", "Atenas", "Míkonos", "Santorini"], pt: ["Tessalónica", "Atenas", "Mykonos", "Santorini"], hi: ["थिसलोनिकी", "एथेंस", "मायकोनोс", "सेंटोरीनी"], zh: ["塞萨洛尼基", "雅典", "米科诺斯", "圣托里尼"], ar: ["سالونيك", "أثينا", "ميكونوس", "سانتوريني"], pl: ["Saloniki", "Ateny", "Mykonos", "Santorini"] }, dogru: { tr: "Atina", en: "Athens", ja: "アテネ", fr: "Athènes", ru: "Афины", de: "Athen", es: "Atenas", pt: "Atenas", hi: "एथेंस", zh: "雅典", ar: "أثينا", pl: "Ateny" } },
+        { gorsel: "17.webp", eser: { tr: "Aziz Vasil Katedrali", en: "St. Basil's Cathedral", ja: "圣ワシリー大聖堂", fr: "Cathédrale Saint-Basile", ru: "Храм Василия Блаженного", de: "Basilius-Kathedrale", es: "Catedral de San Basilio", pt: "Catedral de São Basílio", hi: "सेंट बेसिल कैथेड्रल", zh: "圣瓦西里主教座堂", ar: "كاتدرائية القديس باسل", pl: "Cerkiew Wasyla Błogosławionego" }, secenekler: { tr: ["St. Petersburg", "Kazan", "Moskova", "Soçi"], en: ["St. Petersburg", "Kazan", "Moscow", "Sochi"], ja: ["サンクトペテルブルк", "カザン", "モスクワ", "ソチ"], fr: ["Saint-Pétersbourg", "Kazan", "Moscou", "Sotchi"], ru: ["Санкт-Петербург", "Казань", "Москва", "Сочи"], de: ["St. Petersburg", "Kasan", "Moskau", "Sotschi"], es: ["San Petersburgo", "Kazán", "Moscú", "Sochi"], pt: ["São Petersburgo", "Kazan", "Moscovo", "Sochi"], hi: ["सेंट पीटर्सबर्ग", "कज़ан", "मास्को", "सोची"], zh: ["圣彼得堡", "喀山", "莫斯科", "索契"], ar: ["سانت بطرسبرغ", "قازان", "موسكو", "سوتشي"], pl: ["Sankt Petersburg", "Kazań", "Moskwa", "Soczi"] }, dogru: { tr: "Moskova", en: "Moscow", ja: "モスクワ", fr: "Moscou", ru: "Москва", de: "Moskau", es: "Moscú", pt: "Moscovo", hi: "ماस्को", zh: "莫斯科", ar: "موسكو", pl: "Moskwa" } },
+        { gorsel: "18.webp", eser: { tr: "Sagrada Familia", en: "Sagrada Família", ja: "サグラダ・ファミリア", fr: "Sagrada Família", ru: "Саграда Фамилия", de: "Sagrada Família", es: "Sagrada Família", pt: "Sagrada Família", hi: "सगराडा फॅमिलीया", zh: "圣家堂", ar: "ساغرادا فاميليا", pl: "Sagrada Família" }, secenekler: { tr: ["Madrid", "Valensiya", "Sevilla", "Barselona"], en: ["Madrid", "Valencia", "Seville", "Barcelona"], ja: ["マドリード", "バレンシア", "セビリア", "バルセロナ"], fr: ["Madrid", "Valence", "Séville", "Barcelone"], ru: ["Мадрид", "Валенсия", "Севилья", "Барселона"], de: ["Madrid", "Valencia", "Sevilla", "Barcelona"], es: ["Madrid", "Valencia", "Sevilla", "Barcelona"], pt: ["Madrid", "Valência", "Sevilha", "Barcelona"], hi: ["मैड्रिड", "वेलेंसिया", "सेविले", "बार्सिलोना"], zh: ["马德里", "瓦伦西亚", "塞维利亚", "巴塞罗那"], ar: ["مدريد", "فالنسيا", "إشبيلية", "برشلونة"], pl: ["Madryt", "Walencja", "Sewilla", "Barcelona"] }, dogru: { tr: "Barselona", en: "Barcelona", ja: "バルセロナ", fr: "Barcelone", ru: "Barselonа", de: "Barcelona", es: "Barcelona", pt: "Barcelona", hi: "बार्सिलोना", zh: "巴塞罗那", ar: "برشلونة", pl: "Barcelona" } },
+        { gorsel: "19.webp", eser: { tr: "Ayasofya", en: "Hagia Sophia", ja: "アヤソフィア", fr: "Sainte-Sophie", ru: "Собор Святой Софии", de: "Hagia Sophia", es: "Santa Sofía", pt: "Santa Sofia", hi: "हाгिया सोफिया", zh: "圣索菲亚大教堂", ar: "آيا صوفيا", pl: "Hagia Sophia" }, secenekler: { tr: ["Ankara", "İstanbul", "İzmir", "Bursa"], en: ["Ankara", "Istanbul", "Izmir", "Bursa"], ja: ["アンカラ", "イスタンブール", "イズミル", "ブルサ"], fr: ["Ankara", "Istanbul", "Izmir", "Bursa"], ru: ["Анкара", "Стамбул", "Измир", "Бурса"], de: ["Ankara", "Istanbul", "Izmir", "Bursa"], es: ["Ankara", "Estambul", "Izmir", "Bursa"], pt: ["Ancara", "Igreja de Istambul", "Izmir", "Bursa"], hi: ["अंकारा", "इस्तांबुल", "इज़मिर", "बढ़िया"], zh: ["安卡拉", "伊斯坦布尔", "伊兹密尔", "布尔萨"], ar: ["أنقرة", "إسطنبول", "إزمير", "بورصة"], pl: ["Ankara", "Stambuł", "Izmir", "Bursa"] }, dogru: { tr: "İstanbul", en: "Istanbul", ja: "イスタンブール", fr: "Istanbul", ru: "Стамбул", de: "Istanbul", es: "Estambul", pt: "Istambul", hi: "इस्तांबुल", zh: "伊斯坦布尔", ar: "إسطنبول", pl: "Stambuł" } },
+        { gorsel: "20.webp", eser: { tr: "Hollywood Yazısı", en: "Hollywood Sign", ja: "ハリウッドサイン", fr: "Panneau Hollywood", ru: "Знак Голливуда", de: "Hollywood-Schriftzug", es: "Letrero de Hollywood", pt: "Letreiro de Hollywood", hi: "हॉलीवुड साइन", zh: "好莱坞标志", ar: "علامة هوليود", pl: "Napis Hollywood" }, secenekler: { tr: ["New York", "Los Angeles", "San Francisco", "Miami"], en: ["New York", "Los Angeles", "San Francisco", "Miami"], ja: ["ニューヨーク", "ロサンゼルス", "サンフランシスコ", "マイアми"], fr: ["New York", "Los Angeles", "San Francisco", "Miami"], ru: ["Нью-Йорк", "Лос-Анджелес", "Сан-Франциско", "Майами"], de: ["New York", "Los Angeles", "San Francisco", "Miami"], es: ["Nueva York", "Los Ángeles", "San Francisco", "Miami"], pt: ["Nova Iorque", "Los Angeles", "São Francisco", "Miami"], hi: ["न्यूयोर्क", "लॉस एंजिल्स", "सन फ्रांसिस्को", "मियामी"], zh: ["纽约", "洛杉矶", "旧金山", "迈阿密"], ar: ["نيويورك", "لوس أنجلوس", "سان فرانسيسكو", "ميامي"], pl: ["Nowy Jork", "Los Angeles", "San Francisco", "Miami"] }, dogru: { tr: "Los Angeles", en: "Los Angeles", ja: "ロサンゼルス", fr: "Los Angeles", ru: "Лос-Анджелес", de: "Los Angeles", es: "Los Ángeles", pt: "Los Angeles", hi: "लॉस एंजिल्स", zh: "洛杉矶", ar: "لوس أنجلوس", pl: "Los Angeles" } },
+        { gorsel: "21.webp", eser: { tr: "Golden Gate Köprüsü", en: "Golden Gate Bridge", ja: "ゴールデン・ゲート・ブリッジ", fr: "Pont du Golden Gate", ru: "Мост Zолотые Ворота", de: "Golden Gate Bridge", es: "Puente Golden Gate", pt: "Pinte Golden Gate", hi: "गोल्डन गेट ब्रिज", zh: "金门大桥", ar: "جسر البوابة الذهبية", pl: "Most Golden Gate" }, secenekler: { tr: ["Seattle", "Los Angeles", "San Francisco", "Boston"], en: ["Seattle", "Los Angeles", "San Francisco", "Boston"], ja: ["シアトル", "ロサンゼルス", "サンフランシスコ", "ボストン"], fr: ["Seattle", "Los Angeles", "San Francisco", "Boston"], ru: ["Сиэтл", "Лос-Анджелес", "Сан-Франциско", "Бостон"], de: ["Seattle", "Los Angeles", "San Francisco", "Boston"], es: ["Seattle", "Los Ángeles", "San Francisco", "Boston"], pt: ["Seattle", "Los Angeles", "São Francisco", "Boston"], hi: ["सिएटल", "लॉस एंजिल्स", "सन फ्रांसिस्को", "बोस्टन"], zh: ["西雅图", "洛杉矶", "旧金山", "波士顿"], ar: ["جسر البوابة الذهبية", "لوس أنجلوس", "سان فرانسيسكو", "بوسطن"], pl: ["Seattle", "Los Angeles", "San Francisco", "Boston"] }, dogru: { tr: "San Francisco", en: "San Francisco", ja: "サンフランシスコ", fr: "San Francisco", ru: "Сан-Франциско", de: "San Francisco", es: "San Francisco", pt: "São Francisco", hi: "सन फ्रांसिस्को", zh: "旧金山", ar: "سان فرانسيسكو", pl: "San Francisco" } },
+        { gorsel: "22.webp", eser: { tr: "Times Square", en: "Times Square", ja: "タイムズスクエア", fr: "Times Square", ru: "Таймс-сквер", de: "Times Square", es: "Times Square", pt: "Times Square", hi: "टाइम्स स्क्वायर", zh: "时代广场", ar: "تايمز سكوير", pl: "Times Square" }, secenekler: { tr: ["Chicago", "Las Vegas", "Washington", "New York"], en: ["Chicago", "Las Vegas", "Washington", "New York"], ja: ["シカゴ", "ラスベガス", "ワシントン", "ニューヨーク"], fr: ["Chicago", "Las Vegas", "Washington", "New York"], ru: ["Чикаго", "Лас-Вегас", "Вашингтон", "Нью-Йорк"], de: ["Chicago", "Las Vegas", "Washington", "New York"], es: ["Chicago", "Las Vegas", "Washington", "Nueva York"], pt: ["Chicago", "Las Vegas", "Washington", "Nova Iorque"], hi: ["शिकागो", "लास् वेगास", "वाशिंगटन", "न्यूयोर्क"], zh: ["芝加哥", "拉斯维加斯", "华盛顿", "纽约"], ar: ["شيكاغو", "لاس فيغاس", "واشنطن", "نيويورك"], pl: ["Chicago", "Las Vegas", "Waszyngton", "Nowy Jork"] }, dogru: { tr: "New York", en: "New York", ja: "ニューヨーク", fr: "New York", ru: "Нью-Йорк", de: "New York", es: "Nueva York", pt: "Nova Iorque", hi: "न्यूयोर्क", zh: "纽约", ar: "نيويورك", pl: "Nowy Jork" } },
+        { gorsel: "23.webp", eser: { tr: "Louvre Müzesi", en: "Louvre Museum", ja: "ルーヴル美術館", fr: "Musée du Louvre", ru: "Лувр", de: "Louvre-Museum", es: "Museo del Louvre", pt: "Museu do Louvre", hi: "लूवर संग्रहालय", zh: "卢浮宫", ar: "متحف اللوفر", pl: "Luwr" }, secenekler: { tr: ["Nice", "Marseille", "Paris", "Lyon"], en: ["Nice", "Marseille", "Paris", "Lyon"], ja: ["ニース", "マルセイユ", "パリ", "リヨン"], fr: ["Nice", "Marseille", "Paris", "Lyon"], ru: ["Ницца", "Марсель", "Париж", "Лион"], de: ["Nizza", "Marseille", "Paris", "Lyon"], es: ["Niza", "Marsella", "París", "Lyon"], pt: ["Nice", "Marselha", "Paris", "Lyon"], hi: ["नाइस", "मार्सिले", "पेरिस", "ल्यों"], zh: ["尼斯", "马赛", "巴黎", "里昂"], ar: ["نيس", "مارسيليا", "باريس", "ليون"], pl: ["Nicea", "Marsylia", "Paryż", "Lyon"] }, dogru: { tr: "Paris", en: "Paris", ja: "パリ", fr: "Paris", ru: "Париж", de: "Paris", es: "París", pt: "Paris", hi: "पेरिस", zh: "巴黎", ar: "باريس", pl: "Paryż" } },
+        { gorsel: "24.webp", eser: { tr: "Yel Değirmenleri", en: "Windmills", ja: "風車", fr: "Moulins à vent", ru: "Ветряные мельницы", de: "Windmühlen", es: "Molinos de viento", pt: "Moinhos de vento", hi: "पवन चक्कियाँ", zh: "风车", ar: "طواحين الهواء", pl: "Wiatraki" }, secenekler: { tr: ["Amsterdam", "Kinderdijk", "Rotterdam", "Lahey"], en: ["Amsterdam", "Kinderdijk", "Rotterdam", "The Hague"], ja: ["アステルダム", "キンデルダイク", "ロッテルダム", "ハーグ"], fr: ["Amsterdam", "Kinderdijk", "Rotterdam", "La Haye"], ru: ["Амстердам", "Киндердейк", "Роттердам", "Гаага"], de: ["Amsterdam", "Kinderdijk", "Rotterdam", "Den Haag"], es: ["Ámsterdam", "Kinderdijk", "Róterdam", "La Haya"], pt: ["Amesterdão", "Kinderdijk", "Roterdão", "Haia"], hi: ["एम्...стردم", "किंडरडिज्к", "रॉटर्डम", "द हेг"], zh: ["阿姆斯特丹", "金德代克", "鹿特丹", "海牙"], ar: ["أمستردام", "كيندرديك", "روتردام", "لاهاي"], pl: ["Amsterdam", "Kinderdijk", "Rotterdam", "Haga"] }, dogru: { tr: "Kinderdijk", en: "Kinderdijk", ja: "キンデルダイク", fr: "Kinderdijk", ru: "Киндердейк", de: "Kinderdijk", es: "Kinderdijk", pt: "Kinderdijk", hi: "किंडरडिज्к", zh: "金德代克", ar: "كيندرديك", pl: "Kinderdijk" } },
+        { gorsel: "25.webp", eser: { tr: "Brandenburg Kapısı", en: "Brandenburg Gate", ja: "ブランデンブルク門", fr: "Porte de Brandebourg", ru: "Бранденбургские ворота", de: "Brandenburger Tor", es: "Puerta de Brandeburgo", pt: "Porta de Brandeburgo", hi: "برانڈنبرگ گیٹ", zh: "勃兰登堡门", ar: "بوابة براندنبورغ", pl: "Brama Brandenburska" }, secenekler: { tr: ["Münih", "Frankfurt", "Hamburg", "Berlin"], en: ["Munich", "Frankfurt", "Hamburg", "Berlin"], ja: ["ミュンヘン", "フランクフルト", "ハンブルク", "ベルリン"], fr: ["Munich", "Francfort", "Hambourg", "Berlin"], ru: ["Мюнхен", "Франкфурт", "Гамбург", "Берлин"], de: ["München", "Frankfurt", "Hamburg", "Berlin"], es: ["Múnich", "Fráncfort", "Hamburgo", "Berlín"], pt: ["Munique", "Frankfurt", "Hamburgo", "Berlim"], hi: ["म्यूनिख", "फ्रैंकفर्ट", "हैम्बर्ग", "برلن"], zh: ["慕尼黑", "法兰克福", "汉堡", "柏林"], ar: ["ميونخ", "فرانكفورت", "هامبورغ", "برلين"], pl: ["Monachium", "Frankfurt", "Hamburg", "Berlin"] }, dogru: { tr: "Berlin", en: "Berlin", ja: "ベルリン", fr: "Berlin", ru: "Берлин", de: "Berlin", es: "Berlín", pt: "Berlim", hi: "برلن", zh: "柏林", ar: "برلين", pl: "Berlin" } },
+        { gorsel: "26.webp", eser: { tr: "Charles Köprüsü", en: "Charles Bridge", ja: "カレル橋", fr: "Pont Charles", ru: "Karlsbrücke", de: "Karlsbrücke", es: "Puente Carlos", pt: "Ponte Carlos", hi: "चार्ल्स ब्रिज", zh: "查理大桥", ar: "جسر تشارلز", pl: "Most Karola" }, secenekler: { tr: ["Prag", "Brno", "Ostrava", "Plzen"], en: ["Prague", "Brno", "Ostrava", "Plzen"], ja: ["プラハ", "ブルノ", "オストラヴァ", "プルゼニ"], fr: ["Prague", "Brno", "Ostrava", "Plzen"], ru: ["Прага", "Брно", "Острава", "Пльзень"], de: ["Prag", "Brünn", "Ostrau", "Pilsen"], es: ["Praga", "Brno", "Ostrava", "Pilsen"], pt: ["Praga", "Brno", "Ostrava", "Plzen"], hi: ["प्राग", "ब्रनो", "ओस्ट్రాवा", "पिल्सेन"], zh: ["布拉格", "布尔诺", "俄斯特拉发", "比尔森"], ar: ["براغ", "برنو", "أوسطرافا", "بلزن"], pl: ["Praga", "Brno", "Ostrawa", "Pilzno"] }, dogru: { tr: "Prag", en: "Prague", ja: "プラハ", fr: "Prague", ru: "Прага", de: "Prag", es: "Praga", pt: "Praga", hi: "प्राग", zh: "布拉格", ar: "براغ", pl: "Praga" } },
+        { gorsel: "27.webp", eser: { tr: "Parlamento Binası", en: "Parliament Building", ja: "国会議事堂", fr: "Parlement", ru: "Здание парламента", de: "Parlamentsgebäude", es: "Edificio del Parlamento", pt: "Edifício do Parlamento", hi: "संसद भवन", zh: "国会大厦", ar: "مبنى البرلمان", pl: "Budynek Parlamentu" }, secenekler: { tr: ["Debrecen", "Miskolc", "Budapeşte", "Pécs"], en: ["Debrecen", "Miskolc", "Budapest", "Pécs"], ja: ["デブレツェン", "ミシュコルツ", "ブダペスト", "ペーチ"], fr: ["Debrecen", "Miskolc", "Budapest", "Pécs"], ru: ["Дебрецен", "Мишкольц", "Будапешт", "Печ"], de: ["Debrecen", "Miskolc", "Budapest", "Pécs"], es: ["Debrecen", "Miskolc", "Budapest", "Pécs"], pt: ["Debrecen", "Miskolc", "Budapeste", "Pécs"], hi: ["डेब्रेकेन", "मिस्कॉल्क", "बुडापेस्ट", "पेक्स"], zh: ["德布勒森", "米什科尔茨", "布达佩斯", "佩奇"], ar: ["دبرتسن", "ميشكولتس", "بودابست", "بيتش"], pl: ["Debreczyn", "Miszkolc", "Budapeszt", "Pecz"] }, dogru: { tr: "Budapeşte", en: "Budapest", ja: "ブダペスト", fr: "Budapest", ru: "Будапешт", de: "Budapest", es: "Budapest", pt: "Budapeste", hi: "बुडापेस्ट", zh: "布达佩斯", ar: "بودابست", pl: "Budapeszt" } },
+        { gorsel: "28.webp", eser: { tr: "Schönbrunn Sarayı", en: "Schönbrunn Palace", ja: "シェーンブルン宮殿", fr: "Château de Schönbrunn", ru: "Дворец Шёнбрунн", de: "Schloss Schönbrunn", es: "Palacio de Schönbrunn", pt: "Palácio de Schönbrunn", hi: "शॉनब्रुन पैलेस", zh: "美泉宫", ar: "قصر شونبرون", pl: "Pałac Schönbrunn" }, secenekler: { tr: ["Salzburg", "Graz", "Linz", "Viyana"], en: ["Salzburg", "Graz", "Linz", "Vienna"], ja: ["ザルツブルク", "グラーツ", "リンツ", "ウィーン"], fr: ["Salzbourg", "Graz", "Linz", "Vienne"], ru: ["Зальцбург", "Грац", "Линц", "Вена"], de: ["Salzburg", "Graz", "Linz", "Wien"], es: ["Salzburgo", "Graz", "Linz", "Viena"], pt: ["Salzburgo", "Graz", "Linz", "Viena"], hi: ["सॉल्ज़बर्ग", "ग्राज़", "लिंज़", "वियना"], zh: ["萨尔茨堡", "格拉茨", "林茨", "维也纳"], ar: ["قصر شونبرون", "غراتس", "لينتس", "فيينا"], pl: ["Salzburg", "Graz", "Linz", "Wiedeń"] }, dogru: { tr: "Viyana", en: "Vienna", ja: "ウィーン", fr: "Vienne", ru: "Вена", de: "Wien", es: "Viena", pt: "Viena", hi: "вйяna", zh: "维也纳", ar: "فيينا", pl: "Wiedeń" } },
+        { gorsel: "29.webp", eser: { tr: "Grand Place", en: "Grand Place", ja: "グラン＝プラス", fr: "Grand-Place", ru: "Гран-Плас", de: "Grand-Place", es: "Grand Place", pt: "Grand-Place", hi: "ग्रैंड प्लेस", zh: "布鲁塞尔大广场", ar: "الساحة الكبرى", pl: "Grand Place" }, secenekler: { tr: ["Anvars", "Gent", "Brüksel", "Brugge"], en: ["Antwerp", "Ghent", "Brussels", "Bruges"], ja: ["アントワープ", "ゲント", "ブリュッセル", "ブルージュ"], fr: ["Anvers", "Gand", "Bruxelles", "Bruges"], ru: ["Антверпен", "Гент", "Брюссель", "Брюгге"], de: ["Antwerpen", "Gent", "Brüssel", "Brügge"], es: ["Amberes", "Gante", "Bruselas", "Brujas"], pt: ["Antuérpia", "Gante", "Bruxelas", "Bruges"], hi: ["एंटवर्प", "घेंट", "ब्रसेल्स", "ब्रुग्स"], zh: ["安特卫普", "根特", "布鲁塞尔", "布鲁日"], ar: ["أنتويرب", "غنت", "بروكسل", "بروج"], pl: ["Antwerpia", "Gandawa", "Bruksela", "Brugia"] }, dogru: { tr: "Brüksel", en: "Brussels", ja: "ブリュッセル", fr: "Bruxelles", ru: "Брюссель", de: "Brüssel", es: "Bruselas", pt: "Bruxelas", hi: "ब्रसेल्स", zh: "布鲁塞尔", ar: "بروكسل", pl: "Bruksela" } },
+        { gorsel: "30.webp", eser: { tr: "Belém Kulesi", en: "Belém Tower", ja: "ベレンの塔", fr: "Tour de Belém", ru: "Башня Белен", de: "Turm von Belém", es: "Torre de Belém", pt: "Torre de Belém", hi: "बेलेम टॉवर", zh: "贝伦塔", ar: "برج بيليم", pl: "Wieża Belém" }, secenekler: { tr: ["Porto", "Lizbon", "Coimbra", "Braga"], en: ["Porto", "Lisbon", "Coimbra", "Braga"], ja: ["ポルト", "リスボン", "コインブラ", "ブラガ"], fr: ["Porto", "Lisbonne", "Coimbra", "Braga"], ru: ["Portu", "Lissabon", "Koimbra", "Braga"], de: ["Porto", "Lissabon", "Coimbra", "Braga"], es: ["Oporto", "Lisboa", "Coímbra", "Braga"], pt: ["Porto", "Lisboa", "Coimbra", "Braga"], hi: ["पोर्टो", "लिस्बन", "कोइम्ब्रा", "براगा"], zh: ["波尔图", "里斯本", "科英布拉", "布拉加"], ar: ["بورتو", "لشبونة", "كويمبرا", "براغا"], pl: ["Porto", "Lizbona", "Coimbra", "Braga"] }, dogru: { tr: "Lizbon", en: "Lisbon", ja: "リスボン", fr: "Lisbonne", ru: "Лиссабон", de: "Lissabon", es: "Lisboa", pt: "Lisboa", hi: "लिस्बन", zh: "里斯本", ar: "لشبونة", pl: "Lizbona" } },
+        { gorsel: "31.webp", eser: { tr: "Cliffs of Moher", en: "Cliffs of Moher", ja: "モハーの断崖", fr: "Falaises de Moher", ru: "Утесы Мохер", de: "Cliffs of Moher", es: "Acantilados de Moher", pt: "Falésias de Moher", hi: "मोहेर की चट्टानें", zh: "莫赫断崖", ar: "منحدرات موهير", pl: "Klify Moheru" }, secenekler: { tr: ["Dublin", "Galway", "Clare", "Cork"], en: ["Dublin", "Galway", "Clare", "Cork"], ja: ["ダブリン", "ゴールウェイ", "クレア", "コーク"], fr: ["Dublin", "Galway", "Clare", "Cork"], ru: ["Дублин", "Голуэй", "Клэр", "Корк"], de: ["Dublin", "Galway", "Clare", "Cork"], es: ["Dublín", "Galway", "Clare", "Cork"], pt: ["Dublin", "Galway", "Clare", "Cork"], hi: ["डब्लิน", "गॉलве", "क्लेयर", "कॉर्क"], zh: ["都バック林", "高威", "克莱尔", "科克"], ar: ["دبلن", "غالواي", "كلير", "كورك"], pl: ["Dublin", "Galway", "Clare", "Cork"] }, dogru: { tr: "Clare", en: "Clare", ja: "クレア", fr: "Clare", ru: "Клэр", de: "Clare", es: "Clare", pt: "Clare", hi: "क्लेयर", zh: "克莱尔", ar: "كلير", pl: "Clare" } }
+    ];
+
+    let currentLang = 'tr';
+    let currentLevel = 1;
+    let mevcutSoruIndex = 0;
+    let tiklanabilir = true;
+    let dogruSayisi = 0;
+    let yanlisSayisi = 0;
+    let bosSayisi = 0; 
+    let timerInterval;
+    let remainingTime = 70; 
+    let sorular = seviye1_sorulari;
+
+    const audioCorrect = new Audio('correct.mp3');
+    const audioWrong = new Audio('wrong.mp3');
+
+    window.onload = function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const langParam = urlParams.get('lang');
+        if (langParam && STRINGS[langParam]) {
+            currentLang = langParam;
+            document.getElementById("lang-menu").value = currentLang;
+        }
+        setLanguage(currentLang);
+    };
+
+    function setLanguage(lang) {
+        currentLang = lang;
+        document.getElementById("welcome-title").innerText = STRINGS[currentLang].title;
+        document.getElementById("welcome-sub").innerText = STRINGS[currentLang].sub;
+        document.getElementById("start-action").innerText = STRINGS[currentLang].start;
+    }
+
+    function startGame() {
+        document.getElementById("start-screen").style.display = "none";
+        document.getElementById("main-game").style.display = "block";
+        sorular = currentLevel === 1 ? seviye1_sorulari : seviye2_sorulari;
+        soruYukle();
+    }
+
+    function startTimer() {
+        clearInterval(timerInterval);
+        remainingTime = 70;
+        const bar = document.getElementById("t-bar");
+        bar.style.width = "100%";
+        bar.style.backgroundColor = "var(--success-color)";
+
+        timerInterval = setInterval(() => {
+            if (!tiklanabilir) {
+                clearInterval(timerInterval);
+                return;
+            }
+            remainingTime--;
+            bar.style.width = (remainingTime * 10 / 7) + "%";
+            if (remainingTime <= 30) bar.style.backgroundColor = "var(--accent-color)";
+
+            if (remainingTime <= 0) {
+                clearInterval(timerInterval);
+                süreDolduMekanizmasi();
+            }
+        }, 100);
+    }
+
+    function soruYukle() {
+        const totalQuestions = sorular.length;
+        document.getElementById("level-counter").innerText = `${STRINGS[currentLang].lvl}: ${currentLevel}`;
+        
+        if (mevcutSoruIndex >= totalQuestions) {
+            oyunBittiPaneli();
+            return;
+        }
+
+        tiklanabilir = true;
+        document.getElementById("result-message").innerText = "";
+        const cBox = document.getElementById("options-box");
+        cBox.innerHTML = "";
+        
+        document.getElementById("question-counter").innerText = `${mevcutSoruIndex + 1} / ${totalQuestions}`;
+
+        const mevcutSoru = sorular[mevcutSoruIndex];
+        
+        document.getElementById("city-image").src = mevcutSoru.gorsel;
+        document.getElementById("dynamic-bg").style.backgroundImage = `url('${mevcutSoru.gorsel}')`;
+        
+        document.getElementById("landmark-title").innerText = mevcutSoru.eser[currentLang] || mevcutSoru.eser['en'];
+
+        const secenekListesi = mevcutSoru.secenekler[currentLang] || mevcutSoru.secenekler['en'];
+        const doğruCevap = mevcutSoru.dogru[currentLang] || mevcutSoru.dogru['en'];
+
+        secenekListesi.forEach(secenek => {
+            const buton = document.createElement("button");
+            buton.innerText = secenek;
+            buton.classList.add("btn");
+            buton.onclick = () => cevapKontrol(buton, secenek, doğruCevap);
+            cBox.appendChild(buton);
+        });
+
+        startTimer();
+    }
+
+    function cevapKontrol(buton, secilen, dogruCevap) {
+        if (!tiklanabilir) return;
+        tiklanabilir = false;
+        clearInterval(timerInterval);
+
+        if (secilen === dogruCevap) {
+            dogruSayisi++;
+            try { audioCorrect.play(); } catch(e){}
+            buton.classList.add("correct");
+            document.getElementById("result-message").innerText = STRINGS[currentLang].correctMsg;
+            document.getElementById("result-message").style.color = "var(--success-color)";
+        } else {
+            yanlisSayisi++;
+            try { audioWrong.play(); } catch(e){}
+            buton.classList.add("wrong");
+            document.getElementById("result-message").innerText = STRINGS[currentLang].wrongMsg;
+            document.getElementById("result-message").style.color = "var(--accent-color)";
+            highlightCorrect(dogruCevap);
+        }
+        nextQuestionDelay();
+    }
+
+    function süreDolduMekanizmasi() {
+        tiklanabilir = false;
+        bosSayisi++; 
+        try { audioWrong.play(); } catch(e){}
+        document.getElementById("result-message").innerText = STRINGS[currentLang].timeOutMsg;
+        document.getElementById("result-message").style.color = "var(--warning-color)";
+        
+        const dogruCevap = sorular[mevcutSoruIndex].dogru[currentLang] || sorular[mevcutSoruIndex].dogru['en'];
+        highlightCorrect(dogruCevap);
+        nextQuestionDelay();
+    }
+
+    function highlightCorrect(dogruCevap) {
+        const butonlar = document.getElementById("options-box").children;
+        Array.from(butonlar).forEach(b => {
+            if (b.innerText === dogruCevap) b.classList.add("correct");
+        });
+    }
+
+    function nextQuestionDelay() {
+        setTimeout(() => {
+            mevcutSoruIndex++;
+            soruYukle();
+        }, 1500);
+    }
+
+    function exitToVibe() {
+        window.location.href = `vibe://back-to-app?correct=${dogruSayisi}&wrong=${yanlisSayisi}&empty=${bosSayisi}`; 
+    }
+
+    function seviyeDegistir() {
+        currentLevel = 2;
+        mevcutSoruIndex = 0;
+        dogruSayisi = 0;
+        yanlisSayisi = 0;
+        bosSayisi = 0;
+        sorular = seviye2_sorulari;
+        
+        document.getElementById("question-counter").style.display = "block";
+        document.getElementById("t-bar").parentElement.style.display = "block";
+        document.getElementById("city-image").parentElement.style.display = "flex";
+        soruYukle();
+    }
+
+    function oyunBittiPaneli() {
+        document.getElementById("question-counter").style.display = "none";
+        document.getElementById("t-bar").parentElement.style.display = "none";
+        document.getElementById("city-image").parentElement.style.display = "none";
+        
+        document.getElementById("dynamic-bg").style.backgroundImage = "none";
+
+        document.getElementById("landmark-title").innerText = STRINGS[currentLang].ended;
+        document.getElementById("options-box").innerHTML = "";
+        
+        let extraButtons = "";
+        
+        if (currentLevel === 1) {
+            if (dogruSayisi >= 8) {
+                extraButtons = `<button class="action-btn next-lvl-btn" onclick="seviyeDegistir()">${STRINGS[currentLang].nextLvl}</button>`;
+            } else {
+                extraButtons = `<p style="color: var(--accent-color); font-size:14px; font-weight:bold;">⚠️ ${STRINGS[currentLang].lvlFail}</p>`;
+            }
+        }
+        
+        document.getElementById("result-message").innerHTML = `
+            <p style="color: var(--text-color); font-size:16px;">${STRINGS[currentLang].score}</p>
+            <p style="color: var(--success-color); font-size:18px; font-weight:bold;">✅ ${STRINGS[currentLang].correct}: ${dogruSayisi}</p>
+            <p style="color: var(--accent-color); font-size:18px; font-weight:bold;">❌ ${STRINGS[currentLang].wrong}: ${yanlisSayisi}</p>
+            <p style="color: var(--warning-color); font-size:18px; font-weight:bold;">🟡 ${STRINGS[currentLang].empty}: ${bosSayisi}</p>
+            <hr style="border: 0; height: 1px; background: rgba(255,255,255,0.2); margin: 20px 0;">
+            
+            ${extraButtons}
+            <button class="action-btn" onclick="oyunuYenidenBaslat()">${STRINGS[currentLang].restart}</button>
+            <button class="action-btn vibe-btn" onclick="exitToVibe()">${STRINGS[currentLang].returnVibe}</button>
+        `;
+    }
+
+    function oyunuYenidenBaslat() {
+        mevcutSoruIndex = 0; dogruSayisi = 0; yanlisSayisi = 0; bosSayisi = 0;
+        if (currentLevel === 2) {
+            currentLevel = 1;
+            sorular = seviye1_sorulari;
+        }
+        document.getElementById("question-counter").style.display = "block";
+        document.getElementById("t-bar").parentElement.style.display = "block";
+        document.getElementById("city-image").parentElement.style.display = "flex";
+        soruYukle();
+    }
+</script>
+</body>
+</html>
