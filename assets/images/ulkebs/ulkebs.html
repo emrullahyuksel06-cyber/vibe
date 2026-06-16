@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GeoQuiz - Ülke & Başkent Challenge</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --text-color: #ffffff;
+            --primary-color: #ffffff; 
+            --accent-color: #e74c3c;
+            --success-color: #2ecc71;
+            --warning-color: #f1c40f;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .bg-blur-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-size: cover;
+            background-position: center;
+            filter: blur(3px);
+            opacity: 0.4;
+            z-index: -1;
+            transition: background-image 0.5s ease-in-out;
+        }
+
+        .game-container {
+            background-color: transparent;
+            width: 100%;
+            max-width: 500px;
+            padding: 25px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        #start-screen {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6)), url('girs.webp');
+            background-size: cover;
+            background-position: center;
+            border-radius: 16px;
+            padding: 40px 20px;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 400px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .lang-select-container {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .lang-dropdown {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            border: 2px solid white;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        .lang-dropdown option {
+            color: #2c3e50;
+            background: white;
+        }
+
+        .start-btn {
+            background-color: var(--success-color);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 20px;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.4);
+            transition: transform 0.2s;
+        }
+
+        .start-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .timer-container {
+            width: 100%;
+            height: 6px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 3px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+
+        .timer-bar {
+            width: 100%;
+            height: 100%;
+            background-color: var(--success-color);
+            transition: width 0.1s linear, background-color 0.5s;
+        }
+
+        .image-container {
+            width: auto;
+            max-width: 100%;
+            height: auto;
+            max-height: 45vh; 
+            aspect-ratio: 9 / 16; 
+            margin: 0 auto 15px auto;
+            border-radius: 16px;
+            overflow: hidden;
+            background-color: transparent; 
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .landmark-space {
+            min-height: 26px;
+            margin-bottom: 15px;
+        }
+
+        .top-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 15px;
+            font-weight: bold;
+            color: #ffffff;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .btn {
+            background-color: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            color: #ffffff;
+            padding: 14px;
+            font-size: 15px;
+            font-weight: 600;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .btn:hover:not(:disabled) {
+            border-color: #ffffff;
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .correct {
+            background-color: var(--success-color) !important;
+            color: white !important;
+            border-color: var(--success-color) !important;
+            text-shadow: none;
+        }
+
+        .wrong {
+            background-color: var(--accent-color) !important;
+            color: white !important;
+            border-color: var(--accent-color) !important;
+            text-shadow: none;
+        }
+
+        #result-message {
+            font-size: 16px;
+            font-weight: bold;
+            min-height: 24px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+        }
+
+        .action-btn {
+            background-color: var(--success-color);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 25px;
+            cursor: pointer;
+            margin: 8px;
+            box-shadow: 0 4px 10px rgba(46, 204, 113, 0.3);
+            transition: background-color 0.2s;
+        }
+        
+        .vibe-btn {
+            background-color: #9b59b6;
+            box-shadow: 0 4px 10px rgba(155, 89, 182, 0.3);
+        }
+
+        .next-lvl-btn {
+            background-color: #3498db;
+            box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
+        }
+
+        .results-layout {
+            grid-column: span 2;
+        }
+    </style>
+</head>
+<body>
+
+<div id="dynamic-bg" class="bg-blur-container"></div>
+
+<div class="game-container">
+    <div id="start-screen">
+        <div class="lang-select-container">
+            <select class="lang-dropdown" id="lang-menu" onchange="setLanguage(this.value)">
+                <option value="TT">Türkçe (TR)</option>
+                <option value="EN">English (EN)</option>
+                <option value="FR">Français (FR)</option>
+                <option value="DE">Deutsch (DE)</option>
+                <option value="ES">Español (ES)</option>
+                <option value="RU">Русский (RU)</option>
+                <option value="JA">日本語 (JA)</option>
+                <option value="PT">Português (PT)</option>
+                <option value="HI">हिन्दी (HI)</option>
+                <option value="ZH">中文 (ZH)</option>
+                <option value="AR">العربية (AR)</option>
+                <option value="PL">Polski (PL)</option>
+            </select>
+        </div>
+        <div>
+            <h1 id="welcome-title" style="margin-bottom: 5px; text-shadow: 0 2px 4px rgba(0,0,0,0.6);">Ülke & Başkent Oyunu</h1>
+            <p id="welcome-sub" style="margin-top: 0; font-size: 14px; text-shadow: 0 1px 3px rgba(0,0,0,0.6);">Başkentleri ne kadar iyi tanıyorsun?</p>
+        </div>
+        <div>
+            <button class="start-btn" id="start-action" onclick="startGame()">BAŞLA</button>
+        </div>
+    </div>
+
+    <div id="main-game" style="display: none;">
+        <div class="top-meta">
+            <span id="level-counter">Seviye: 1</span>
+            <span id="question-counter">1 / 17</span>
+        </div>
+
+        <div class="timer-container">
+            <div class="timer-bar" id="t-bar"></div>
+        </div>
+
+        <div class="image-container">
+            <img id="city-image" src="" alt="Quiz Visual">
+        </div>
+        
+        <div class="landmark-space"></div>
+        
+        <div class="options-grid" id="options-box"></div>
+        <div id="result-message"></div>
+    </div>
+</div>
+
+<script>
+    const STRINGS = {
+        TT: { title: "Ülke & Başkent Oyunu", sub: "Başkentleri ne kadar iyi tanıyorsun?", start: "BAŞLA", correctMsg: "Doğru! Sıradaki ülkeye geçiliyor...", wrongMsg: "Yanlış! Doğru cevap gösteriliyor...", timeOutMsg: "Süre Doldu! Boş bırakıldı...", ended: "Seviye Tamamlandı! 🎯", score: "Skorunuz:", correct: "Doğru", wrong: "Yanlış", empty: "Boş", restart: "Yeniden Başlat", returnVibe: "Vibe'a Geri Dön", lvl: "Seviye", nextLvl2: "2. Seviyeye Geç 🚀", nextLvl3: "3. Seviyeye Geç 🚀", lvlFail2: "2. Seviye için en az 8 doğru gerekiyor.", lvlFail3: "3. Seviye için en az 10 doğru gerekiyor." },
+        EN: { title: "Country & Capital Game", sub: "How well do you know capitals?", start: "START", correctMsg: "Correct! Moving to the next country...", wrongMsg: "Wrong! Showing the correct answer...", timeOutMsg: "Time's Up! Left blank...", ended: "Level Completed! 🎯", score: "Your Score:", correct: "Correct", wrong: "Wrong", empty: "Blank", restart: "Restart Game", returnVibe: "Back to Vibe", lvl: "Level", nextLvl2: "Go to Level 2 🚀", nextLvl3: "Go to Level 3 🚀", lvlFail2: "At least 8 correct answers required for Level 2.", lvlFail3: "At least 10 correct answers required for Level 3." },
+        FR: { title: "Jeu des Pays & Capitales", sub: "Connaissez-vous bien les capitales ?", start: "COMMENCER", correctMsg: "Correct! Pays suivant...", wrongMsg: "Faux! Affichage de la bonne réponse...", timeOutMsg: "Temps écoulé! Laissé vide...", ended: "Niveau Terminez! 🎯", score: "Votre Score:", correct: "Correct", wrong: "Faux", empty: "Vide", restart: "Recommencer", returnVibe: "Retour à Vibe", lvl: "Niveau", nextLvl2: "Passer au Niveau 2 🚀", nextLvl3: "Passer au Niveau 3 🚀", lvlFail2: "Au moins 8 réponses correctes requises pour le Niveau 2.", lvlFail3: "Au moins 10 réponses correctes requises pour le Niveau 3." },
+        DE: { title: "Länder & Hauptstädte Spiel", sub: "Wie gut kennen Sie die Hauptstädte?", start: "START", correctMsg: "Richtig! Nächstes Land...", wrongMsg: "Falsch! Richtige Antwort wird angezeigt...", timeOutMsg: "Zeit abgelaufen! Leer gelassen...", ended: "Stufe abgeschlossen! 🎯", score: "Ihr Ergebnis:", correct: "Richtig", wrong: "Falsch", empty: "Leer", restart: "Neustart", returnVibe: "Zurück zu Vibe", lvl: "Stufe", nextLvl2: "Zu Stufe 2 wechseln 🚀", nextLvl3: "Zu Stufe 3 wechseln 🚀", lvlFail2: "Mindestens 8 richtige Antworten für Stufe 2 erforderlich.", lvlFail3: "Mindestens 10 richtige Antworten für Stufe 3 erforderlich." },
+        ES: { title: "Juego de Países & Capitales", sub: "¿Qué tan bien conoces las capitales?", start: "COMENZAR", correctMsg: "¡Correcto! Pasando al siguiente país...", wrongMsg: "¡Incorrecto! Mostrando la respuesta correcta...", timeOutMsg: "¡Tiempo agotado! Se dejó en blanco...", ended: "¡Nivel Completado! 🎯", score: "Tu Puntuación:", correct: "Correcto", wrong: "Incorrecto", empty: "En blanco", restart: "Reiniciar Juego", returnVibe: "Volver a Vibe", lvl: "Nivel", nextLvl2: "Ir al Nivel 2 🚀", nextLvl3: "Ir al Nivel 3 🚀", lvlFail2: "Se requieren al menos 8 respuestas correctas para el Nivel 2.", lvlFail3: "Se requieren al menos 10 respuestas correctas para el Nivel 3." },
+        RU: { title: "Страны и Столицы", sub: "Как хорошо вы знаете столицы?", start: "СТАРТ", correctMsg: "Правильно! Переход к следующей стране...", wrongMsg: "Неверно! Показ правильного ответа...", timeOutMsg: "Время истекло! Оставлено пустым...", ended: "Уровень завершен! 🎯", score: "Ваш результат:", correct: "Правильно", wrong: "Неправильно", empty: "Пусто", restart: "Начать заново", returnVibe: "Вернуться в Vibe", lvl: "Уровень", nextLvl2: "Перейти на Уровень 2 🚀", nextLvl3: "Перейти на Уровень 3 🚀", lvlFail2: "Для Уровня 2 требуется не менее 8 правильных ответов.", lvlFail3: "Для Уровня 3 требуется не менее 10 правильных ответов." },
+        JA: { title: "国と首都ゲーム", sub: "首都をどれくらい知っていますか？", start: "スタート", correctMsg: "正解！次の国へ進みます...", wrongMsg: "不正解！正解を表示しています...", timeOutMsg: "時間切れ！未回答...", ended: "レベル完了！ 🎯", score: "スコア：", correct: "正解", wrong: "不正解", empty: "未回答", restart: "もう一度プレイ", returnVibe: "Vibeに戻る", lvl: "レベル", nextLvl2: "レベル2へ進む 🚀", nextLvl3: "レベル3へ進む 🚀", lvlFail2: "レベル2に進むには少なくとも8問の正解が必要です。", lvlFail3: "レベル3に進むには少なくとも10問の正解が必要です。" },
+        PT: { title: "Jogo de Países & Capitais", sub: "Quão bem você conhece as capitais?", start: "INICIAR", correctMsg: "Correto! Próximo país...", wrongMsg: "Incorreto! Mostrando a resposta certa...", timeOutMsg: "Tempo Esgotado! Deixado em branco...", ended: "Nível Concluído! 🎯", score: "Sua Pontuação:", correct: "Correto", wrong: "Incorreto", empty: "Em branco", restart: "Reiniciar Jogo", returnVibe: "Voltar para o Vibe", lvl: "Nível", nextLvl2: "Ir para o Nivel 2 🚀", nextLvl3: "Ir para o Nível 3 🚀", lvlFail2: "Pelo menos 8 respostas corretas necessárias para o Nível 2.", lvlFail3: "Pelo menos 10 respostas corretas necessárias para o Nível 3." },
+        HI: { title: "देश और राजधानी खेल", sub: "आप राजधानियों को कितनी अच्छी तरह जानते हैं?", start: "शुरू करें", correctMsg: "सही! अगले देश पर जा रहे हैं...", wrongMsg: "गलत! सही उत्तर दिखाया जा रहा है...", timeOutMsg: "समय समाप्त! खाली छोड़ दिया...", ended: "स्तर पूरा हुआ! 🎯", score: "आपका स्कोर:", correct: "सही", wrong: "गलत", empty: "खाली", restart: "पुनः आरंभ करें", returnVibe: "Vibe पर वापस जाएं", lvl: "स्तर", nextLvl2: "स्तर 2 पर जाएं 🚀", nextLvl3: "स्तर 3 पर जाएं 🚀", lvlFail2: "स्तर 2 के लिए कम से कम 8 सही उत्तर आवश्यक हैं।", lvlFail3: "स्तर 3 के लिए कम से कम 10 सही उत्तर आवश्यक हैं।" },
+        ZH: { title: "国家与首都问答", sub: "你对各国的首都有多了解？", start: "开始", correctMsg: "正确！正在前往下一个国家...", wrongMsg: "错误！显示正确答案...", timeOutMsg: "时间到！已留空...", ended: "关卡完成！ 🎯", score: "您的得分:", correct: "正确", wrong: "错误", empty: "留空", restart: "重新开始", returnVibe: "返回 Vibe", lvl: "关卡", nextLvl2: "进入第 2 关 🚀", nextLvl3: "进入第 3 关 🚀", lvlFail2: "解锁第 2 关需要至少 8 个正确答案。", lvlFail3: "解锁第 3 关需要至少 10 个正确答案。" },
+        AR: { title: "لعبة الدول والعواصم", sub: "ما مدى معرفتك بالعواصم？", start: "ابدأ", correctMsg: "صحيح! الانتقال إلى الدولة التالية...", wrongMsg: "خطأ! إظهار الإجابة الصحيحة...", timeOutMsg: "انتهى الوقت! تركت فارغة...", ended: "اكتمل المستوى! 🎯", score: "نتيجتك:", correct: "صحيح", wrong: "خطأ", empty: "فارغ", restart: "إعادة تشغيل", returnVibe: "العودة إلى Vibe", lvl: "المستوى", nextLvl2: "الانتقال إلى المستوى 2 🚀", nextLvl3: "الانتقال إلى المستوى 3 🚀", lvlFail2: "مطلوب 8 إجابات صحيحة على الأقل للمستوى 2.", lvlFail3: "مطلوب 10 إجابات صحيحة على الأقل للمستوى 3." },
+        PL: { title: "Gra Państwa-Stolice", sub: "Jak dobrze znasz stolice?", start: "START", correctMsg: "Dobrze! Przejście do kolejnego państwa...", wrongMsg: "Błąd! Pokazywanie prawidłowej odpowiedzi...", timeOutMsg: "Koniec czasu! Pozostawiono puste...", ended: "Poziom ukończony! 🎯", score: "Twój wynik:", correct: "Dobrze", wrong: "Błąd", empty: "Puste", restart: "Zacznij od nowa", returnVibe: "Wróć do Vibe", lvl: "Poziom", nextLvl2: "Przejdź do Poziomu 2 🚀", nextLvl3: "Przejdź do Poziomu 3 🚀", lvlFail2: "Wymagane co najmniej 8 poprawnych odpowiedzi dla Poziomu 2.", lvlFail3: "Wymagane co najmniej 10 poprawnych odpowiedzi dla Poziomu 3." }
+    };
+
+    // 50 SORUNUN TAMAMI İÇİN DİL DESTEĞİ SEÇENEKLERİ SİSTEME ENTEGRE EDİLDİ
+    const seviye1_sorulari = [
+        { gorsel: "1.webp", secenekler: { TT: ["Fransa — Paris", "Almanya — Berlin", "İtalya — Roma", "İspanya — Madrid"], EN: ["France — Paris", "Germany — Berlin", "Italy — Rome", "Spain — Madrid"], ES: ["Francia — París", "Alemania — Berlín", "Italia — Roma", "España — Madrid"], RU: ["Франция — Париж", "Германия — Берлин", "Италия — Рим", "Испания — Мадрид"], JA: ["フランス — パリ", "ドイツ — ベルリン", "イタリア — ローマ", "スペイン — マдрид"] }, dogru: "Fransa — Paris" },
+        { gorsel: "2.webp", secenekler: { TT: ["Çin — Pekin", "Güney Kore — Seul", "Japonya — Tokyo", "Tayland — Bangkok"], EN: ["China — Beijing", "South Korea — Seoul", "Japan — Tokyo", "Thailand — Bangkok"], ES: ["China — Pekín", "Corea del Sur — Seúl", "Japón — Tokio", "Tailandia — Bangkok"], RU: ["Китай — Пекин", "Южная Корея — Сеул", "Япония — Токио", "Таиланд — Бангкок"], JA: ["中国 — 北京", "韓国 — ソウル", "日本 — 東京", "タイ — バンコク"] }, dogru: "Japonya — Tokyo" },
+        { gorsel: "3.webp", secenekler: { TT: ["Arjantin — Buenos Aires", "Brezilya — Brasília", "Şili — Santiago", "Kolombiya — Bogotá"], EN: ["Argentina — Buenos Aires", "Brazil — Brasília", "Chile — Santiago", "Colombia — Bogotá"], ES: ["Argentina — Buenos Aires", "Brasil — Brasilia", "Chile — Santiago", "Colombia — Bogotá"], RU: ["Аргентина — Буэнос-Айрес", "Бразилия — Бразилиа", "Чили — Сантьяго", "Колумбия — Богота"], JA: ["アルゼンチン — ブエノスアイレス", "ブラジル — ブラジリア", "チリ — サンティアゴ", "コロンビア — ボゴタ"] }, dogru: "Brezilya — Brasília" },
+        { gorsel: "4.webp", secenekler: { TT: ["Çekya — Prag", "Polonya — Varşova", "Macaristan — Budapeşte", "Romanya — Bükreş"], EN: ["Czechia — Prague", "Poland — Warsaw", "Hungary — Budapest", "Romania — Bucharest"], ES: ["Chequia — Praga", "Polonia — Varsovia", "Hungría — Budapest", "Rumanía — Bucarest"], RU: ["Чехия — Прага", "Польша — Варшава", "Венгрия — Будапешт", "Румыния — Бухарест"], JA: ["チェコ — プラハ", "ポーランド — ワルシャワ", "ハンガリー — ブダペスト", "ルーマニア — ブカレスト"] }, dogru: "Polonya — Varşova" },
+        { gorsel: "5.webp", secenekler: { TT: ["Türkiye — Ankara", "Yunanistan — Atina", "Mısır — Kahire", "Suudi Arabistan — Riyad"], EN: ["Türkiye — Ankara", "Greece — Athens", "Egypt — Cairo", "Saudi Arabia — Riyadh"], ES: ["Turquía — Ankara", "Grecia — Atenas", "Egipto — El Cairo", "Arabia Saudita — Riad"], RU: ["Турция — Анкара", "Греция — Афины", "Египет — Каир", "Саудовская Аравия — Эр-Рияд"], JA: ["トルコ — アンカラ", "ギリシャ — アテネ", "エジプト — カイロ", "サウジアラビア — リヤド"] }, dogru: "Türkiye — Ankara" },
+        { gorsel: "6.webp", secenekler: { TT: ["Kanada — Ottawa", "Birleşik Krallık — Londra", "Avustralya — Canberra", "Hollanda — Amsterdam"], EN: ["Canada — Ottawa", "United Kingdom — London", "Australia — Canberra", "Netherlands — Amsterdam"], ES: ["Canadá — Ottawa", "Reino Unido — Londres", "Australia — Canberra", "Países Bajos — Ámsterdam"], RU: ["Канада — Оттава", "Великобритания — Лондон", "Австралия — Канберра", "Нидерланды — Амстердам"], JA: ["カナダ — オタワ", "イギリス — ロンドン", "オーストラリア — キャンベラ", "オランダ — アムステルダム"] }, dogru: "Kanada — Ottawa" },
+        { gorsel: "7.webp", secenekler: { TT: ["İrlanda — Dublin", "Belçika — Brüksel", "Birleşik Krallık — Londra", "Fransa — Paris"], EN: ["Ireland — Dublin", "Belgium — Brussels", "United Kingdom — London", "France — Paris"], ES: ["Irlanda — Dublín", "Bélgica — Bruselas", "Reino Unido — Londres", "Francia — París"], RU: ["Ирландия — Дублин", "Бельгия — Брюссель", "Великобритания — Лондон", "Франция — Париж"], JA: ["アイルランド — ダブリン", "ベルギー — ブリュッセル", "イギリス — ロンドン", "フランス — パリ"] }, dogru: "Birleşik Krallık — Londra" },
+        { gorsel: "8.webp", secenekler: { TT: ["Avusturya — Viyana", "Almanya — Berlin", "İsviçre — Bern", "Hollanda — Amsterdam"], EN: ["Austria — Vienna", "Germany — Berlin", "Switzerland — Bern", "Netherlands — Amsterdam"], ES: ["Austria — Viena", "Alemania — Berlín", "Suiza — Berna", "Países Bajos — Ámsterdam"], RU: ["Австрия — Вена", "Германия — Берлин", "Швейцария — Берн", "Нидерланды — Амстердам"], JA: ["オーストリア — ウィーン", "ドイツ — ベルリン", "スイス — ベルン", "オランダ — アムステルダム"] }, dogru: "Almanya — Berlin" },
+        { gorsel: "9.webp", secenekler: { TT: ["Yeni Zelanda — Wellington", "Avustralya — Canberra", "Kanada — Ottawa", "Singapur — Singapur"], EN: ["New Zealand — Wellington", "Australia — Canberra", "Canada — Ottawa", "Singapore — Singapore"], ES: ["Nueva Zelanda — Wellington", "Australia — Canberra", "Canadá — Ottawa", "Singapur — Singapur"], RU: ["Новая Зеландия — Веллингтон", "Австралия — Канберра", "Канада — Оттава", "Сингапур — Сингапур"], JA: ["ニュージーランド — ウェリントン", "オーストラリア — キャンベラ", "カナダ — オタワ", "シンガポール — シンガポール"] }, dogru: "Avustralya — Canberra" },
+        { gorsel: "10.webp", secenekler: { TT: ["İspanya — Madrid", "Yunanistan — Atina", "İtalya — Roma", "Fransa — Paris"], EN: ["Spain — Madrid", "Greece — Athens", "Italy — Rome", "France — Paris"], ES: ["España — Madrid", "Grecia — Atenas", "Italia — Roma", "Francia — París"], RU: ["Испания — Мадрид", "Греция — Афины", "Италия — Рим", "Франция — Париж"], JA: ["スペイン — マдрид", "ギリシャ — アテネ", "イタリア — ローマ", "フランス — パリ"] }, dogru: "İtalya — Roma" },
+        { gorsel: "11.webp", secenekler: { TT: ["Portekiz — Lizbon", "İspanya — Madrid", "İtalya — Roma", "Fransa — Paris"], EN: ["Portugal — Lisbon", "Spain — Madrid", "Italy — Rome", "France — Paris"], ES: ["Portugal — Lisboa", "España — Madrid", "Italia — Roma", "Francia — París"], RU: ["Португалия — Лиссабон", "Испания — Мадрид", "Италия — Рим", "Франция — Париж"], JA: ["ポルトガル — リスボン", "スペイン — マдрид", "イタリア — ローマ", "フランス — パリ"] }, dogru: "İspanya — Madrid" },
+        { gorsel: "12.webp", secenekler: { TT: ["Japonya — Tokyo", "Çin — Pekin", "Vietnam — Hanoi", "Güney Kore — Seul"], EN: ["Japan — Tokyo", "China — Beijing", "Vietnam — Hanoi", "South Korea — Seoul"], ES: ["Japón — Tokio", "China — Pekín", "Vietnam — Hanói", "Corea del Sur — Seúl"], RU: ["Япония — Токио", "Китай — Пекин", "Вьетнам — Ханой", "Южная Корея — Сеул"], JA: ["日本 — 東京", "中国 — 北京", "ベトナム — ハノイ", "韓国 — ソウル"] }, dogru: "Çin — Pekin" },
+        { gorsel: "13.webp", secenekler: { TT: ["Ukrayna — Kiev", "Polonya — Varşova", "Rusya — Moskova", "Türkiye — Ankara"], EN: ["Ukraine — Kyiv", "Poland — Warsaw", "Russia — Moscow", "Türkiye — Ankara"], ES: ["Ucrania — Kiev", "Polonia — Varsovia", "Rusia — Moscú", "Turquía — Ankara"], RU: ["Украина — Киев", "Польша — Варшава", "Россия — Москва", "Турция — Анкара"], JA: ["ウクライナ — キエフ", "ポーランド — ワルシャワ", "ロシア — モスクワ", "トルコ — アンカラ"] }, dogru: "Rusya — Moskova" },
+        { gorsel: "14.webp", secenekler: { TT: ["Güney Kore — Seul", "Çin — Pekin", "Japonya — Tokyo", "Endonezya — Cakarta"], EN: ["South Korea — Seoul", "China — Beijing", "Japan — Tokyo", "Indonesia — Jakarta"], ES: ["Corea del Sur — Seúl", "China — Pekín", "Japón — Tokio", "Indonesia — Yakarta"], RU: ["Южная Корея — Сеул", "Китай — Пекин", "Япония — Токио", "Индонезия — Джакарта"], JA: ["韓国 — ソウル", "中国 — 北京", "日本 — 東京", "インドネシア — ジャカルタ"] }, dogru: "Güney Kore — Seul" },
+        { gorsel: "15.webp", secenekler: { TT: ["Pakistan — İslamabad", "Hindistan — Yeni Delhi", "Malezya — Kuala Lumpur", "Tayland — Bangkok"], EN: ["Pakistan — Islamabad", "India — New Delhi", "Malaysia — Kuala Lumpur", "Thailand — Bangkok"], ES: ["Pakistán — Islamabad", "India — Nueva Delhi", "Malasia — Kuala Lumpur", "Tailandia — Bangkok"], RU: ["Пакистан — Исламабад", "Индия — Нью-Дели", "Малайзия — Куала-Лумпур", "Таиланд — Бангкок"], JA: ["パキスタン — イスラマバード", "インド — ニューデリー", "マレーシア — クアラルンプール", "タイ — バンコク"] }, dogru: "Hindistan — Yeni Delhi" },
+        { gorsel: "16.webp", secenekler: { TT: ["Meksika — Meksiko", "Arjantin — Buenos Aires", "Şili — Santiago", "Peru — Lima"], EN: ["Mexico — Mexico City", "Argentina — Buenos Aires", "Chile — Santiago", "Peru — Lima"], ES: ["México — CDMX", "Argentina — Buenos Aires", "Chile — Santiago", "Perú — Lima"], RU: ["Мексика — Мехико", "Аргентина — Буэнос-Айрес", "Чили — Сантьяго", "Перу — Лима"], JA: ["メキシコ — メキシコシティ", "アルゼンチン — ブエノスアイレス", "チリ — サンティアゴ", "ペルー — リマ"] }, dogru: "Meksika — Meksiko" },
+        { gorsel: "17.webp", secenekler: { TT: ["Brezilya — Brasília", "Kolombiya — Bogotá", "Arjantin — Buenos Aires", "Şili — Santiago"], EN: ["Brazil — Brasília", "Colombia — Bogotá", "Argentina — Buenos Aires", "Chile — Santiago"], ES: ["Brasil — Brasilia", "Colombia — Bogotá", "Argentina — Buenos Aires", "Chile — Santiago"], RU: ["Бразилия — Бразилиа", "Колумбия — Богота", "Аргентина — Буэнос-Айрес", "Чили — Сантьяго"], JA: ["ブラジル — ブラジリア", "コロンビア — ボゴタ", "アルゼンチン — ブエノスアイレス", "チリ — サンティアゴ"] }, dogru: "Arjantin — Buenos Aires" }
+    ];
+
+    const seviye2_sorulari = [
+        { gorsel: "18.webp", secenekler: { TT: ["Fas — Rabat", "Mısır — Kahire", "Cezayir — Cezayir", "Tunus — Tunus"], EN: ["Morocco — Rabat", "Egypt — Cairo", "Algeria — Algiers", "Tunisia — Tunis"], ES: ["Marruecos — Rabat", "Egipto — El Cairo", "Argelia — Argel", "Túnez — Túnez"], RU: ["Марокко — Рабат", "Египет — Каир", "Алжир — Алжир", "Тунис — Тунис"], JA: ["モロッコ — ラバト", "Egipto — カイロ", "アルジェリア — アルジェ", "チュニジア — チュニス"] }, dogru: "Mısır — Kahire" },
+        { gorsel: "19.webp", secenekler: { TT: ["Hollanda — Amsterdam", "Belçika — Brüksel", "Danimarka — Kopenhag", "İsveç — Stockholm"], EN: ["Netherlands — Amsterdam", "Belgium — Brussels", "Denmark — Copenhagen", "Sweden — Stockholm"], ES: ["Países Bajos — Ámsterdam", "Bélgica — Bruselas", "Dinamarca — Copenhague", "Suecia — Estocolmo"], RU: ["Нидерланды — Амстердам", "Бельгия — Брюссель", "Дания — Копенгаген", "Швеция — Стокгольм"], JA: ["オランダ — アムステルダム", "ベルギー — ブリュッセル", "デンマーク — コペンハーゲン", "スウェーデン — ストックホルム"] }, dogru: "Hollanda — Amsterdam" },
+        { gorsel: "20.webp", secenekler: { TT: ["Arnavutluk — Tiran", "Bulgaristan — Sofya", "Yunanistan — Atina", "Kıbrıs — Lefkoşa"], EN: ["Albania — Tirana", "Bulgaria — Sofia", "Greece — Athens", "Cyprus — Nicosia"], ES: ["Albania — Tirana", "Bulgaria — Sofía", "Grecia — Atenas", "Chipre — Nicosia"], RU: ["Албания — Тирана", "Болгария — София", "Греция — Афины", "Кипр — Никосия"], JA: ["アルバニア — ティラナ", "ブルガリア — ソフィア", "ギリシャ — アテネ", "キプロス — ニコシア"] }, dogru: "Yunanistan — Atina" },
+        { gorsel: "21.webp", secenekler: { TT: ["Kenya — Nairobi", "Güney Afrika — Pretoria", "Nijerya — Abuja", "Gana — Akra"], EN: ["Kenya — Nairobi", "South Africa — Pretoria", "Nigeria — Abuja", "Ghana — Accra"], ES: ["Kenia — Nairobi", "Sudáfrica — Pretoria", "Nigeria — Abuya", "Ghana — Acra"], RU: ["Кения — Найроби", "ЮАР — Претория", "Нигерия — Абуджа", "Гана — Аккра"], JA: ["ケニア — ナイロビ", "南アフリカ — プレトリア", "ナイジェリア — アブジャ", "ガーナ — アクラ"] }, dogru: "Güney Afrika — Pretoria" },
+        { gorsel: "22.webp", secenekler: { TT: ["Malezya — Kuala Lumpur", "Filipinler — Manila", "Endonezya — Cakarta", "Tayland — Bangkok"], EN: ["Malaysia — Kuala Lumpur", "Philippines — Manila", "Indonesia — Jakarta", "Thailand — Bangkok"], ES: ["Malasia — Kuala Lumpur", "Filipinas — Manila", "Indonesia — Yakarta", "Tailandia — Bangkok"], RU: ["Малайзия — Куала-Лумпур", "Филиппины — Манила", "Индонезия — Джакарта", "Таиланд — Бангкок"], JA: ["マレーシア — クアラルンプール", "フィリピン — マニラ", "インドネシア — ジャカルタ", "タイ — バンコク"] }, dogru: "Endonezya — Cakarta" },
+        { gorsel: "23.webp", secenekler: { TT: ["Belarus — Minsk", "Ukrayna — Kiev", "Romanya — Bükreş", "Polonya — Varşova"], EN: ["Belarus — Minsk", "Ukraine — Kyiv", "Romania — Bucharest", "Poland — Warsaw"], ES: ["Bielorrusia — Minsk", "Ucrania — Kiev", "Rumanía — Bucarest", "Polonia — Varsovia"], RU: ["Беларусь — Минск", "Украина — Киев", "Румыния — Бухарест", "Польша — Варшава"], JA: ["ベラルーシ — ミンスク", "ウクライナ — キエフ", "ルーマニア — ブカレスト", "ポーランド — ワルシャワ"] }, dogru: "Ukrayna — Kiev" },
+        { gorsel: "24.webp", secenekler: { TT: ["BAE — Abu Dabi", "Katar — Doha", "Kuveyt — Kuveyt", "Suudi Arabistan — Riyad"], EN: ["UAE — Abu Dhabi", "Qatar — Doha", "Kuwait — Kuwait City", "Saudi Arabia — Riyadh"], ES: ["EAU — Abu Dabi", "Catar — Doha", "Kuwait — Kuwait", "Arabia Saudita — Riad"], RU: ["ОАЭ — Абу-Даби", "Катар — Доха", "Кувейт — Кувейт", "Саудовская Аравия — Эр-Рияд"], JA: ["UAE — アブダビ", "カタール — ドーハ", "クウェート — クウェートシティ", "サウジアラビア — リヤド"] }, dogru: "Suudi Arabistan — Riyad" },
+        { gorsel: "25.webp", secenekler: { TT: ["İspanya — Madrid", "Portekiz — Lizbon", "Fransa — Paris", "Fas — Rabat"], EN: ["Spain — Madrid", "Portugal — Lisbon", "France — Paris", "Morocco — Rabat"], ES: ["España — Madrid", "Portugal — Lisboa", "Francia — París", "Marruecos — Rabat"], RU: ["Испния — Мадрид", "Португалия — Лиссабон", "Франция — Париж", "Марокко — Рабат"], JA: ["スペイン — マдрид", "ポルトガル — リスボン", "フランス — パリ", "モロッコ — ラバト"] }, dogru: "Portekiz — Lizbon" },
+        { gorsel: "26.webp", secenekler: { TT: ["Norveç — Oslo", "Finlandiya — Helsinki", "İsveç — Stockholm", "Danimarka — Kopenhag"], EN: ["Norway — Oslo", "Finland — Helsinki", "Sweden — Stockholm", "Denmark — Copenhagen"], ES: ["Noruega — Oslo", "Finlandia — Helsinki", "Suecia — Estocolmo", "Dinamarca — Copenhague"], RU: ["Норвегия — Осло", "Финляндия — Хельсинки", "Швеция — Стокгольм", "Дания — Копенгаген"], JA: ["ノルウェー — オスロ", "フィンランド — ヘルシンキ", "スウェーデン — ストックホルム", "デンマーク — コペンハーゲン"] }, dogru: "İsveç — Stockholm" },
+        { gorsel: "27.webp", secenekler: { TT: ["Lüksemburg — Lüksemburg", "Hollanda — Amsterdam", "Fransa — Paris", "Belçika — Brüksel"], EN: ["Luxembourg — Luxembourg", "Netherlands — Amsterdam", "France — Paris", "Belgium — Brussels"], ES: ["Luxemburgo — Luxemburgo", "Países Bajos — Ámsterdam", "Francia — París", "Bélgica — Bruselas"], RU: ["Люксембург — Люксембург", "Нидерланды — Амстердам", "Франция — Париж", "Бельгия — Брюссель"], JA: ["ルクセンブルク — ルクセンブルク", "オランダ — アムステルダム", "フランス — パリ", "ベルギー — ブリュッセル"] }, dogru: "Belçika — Brüksel" },
+        { gorsel: "28.webp", secenekler: { TT: ["Avusturya — Viyana", "İsviçre — Bern", "Almanya — Berlin", "İtalya — Roma"], EN: ["Austria — Vienna", "Switzerland — Bern", "Germany — Berlin", "Italy — Rome"], ES: ["Austria — Viena", "Suiza — Berna", "Alemania — Berlín", "Italia — Roma"], RU: ["Австрия — Вена", "Швейцария — Берн", "Германия — Берлин", "Италия — Рим"], JA: ["オーストリア — ウィーン", "スイス — ベルン", "ドイツ — ベルリン", "イタリア — ローマ"] }, dogru: "İsviçre — Bern" },
+        { gorsel: "29.webp", secenekler: { TT: ["Macaristan — Budapeşte", "Çekya — Prag", "Avusturya — Viyana", "Almanya — Berlin"], EN: ["Hungary — Budapest", "Czechia — Prague", "Austria — Vienna", "Germany — Berlin"], ES: ["Hungría — Budapest", "Chequia — Praga", "Austria — Viena", "Alemania — Berlín"], RU: ["Венгрия — Будапешт", "Чехия — Прага", "Австрия — Вена", "Германия — Берлин"], JA: ["ハンガリー — ブダペスト", "チェコ — プラハ", "オーストリア — ウィーン", "ドイツ — ベルリン"] }, dogru: "Avusturya — Viyana" },
+        { gorsel: "30.webp", secenekler: { TT: ["Norveç — Oslo", "İsveç — Stockholm", "Danimarka — Kopenhag", "İzlanda — Reykjavik"], EN: ["Norway — Oslo", "Sweden — Stockholm", "Denmark — Copenhagen", "Iceland — Reykjavik"], ES: ["Noruega — Oslo", "Suecia — Estocolmo", "Dinamarca — Copenhague", "Islandia — Reikiavik"], RU: ["Норвегия — Осло", "Швеция — Стокгольм", "Дания — Копенгаген", "Исландия — Рейкьявик"], JA: ["ノルウェー — オスロ", "スウェーデン — ストックホルム", "デンマーク — コペンハーゲン", "アイスランド — レイキャビク"] }, dogru: "Norveç — Oslo" },
+        { gorsel: "31.webp", secenekler: { TT: ["Birleşik Krallık — Londra", "İrlanda — Dublin", "İzlanda — Reykjavik", "İskoçya — Edinburgh"], EN: ["United Kingdom — London", "Ireland — Dublin", "Iceland — Reykjavik", "Scotland — Edinburgh"], ES: ["Reino Unido — Londres", "Irlanda — Dublín", "Islandia — Reikiavik", "Escocia — Edimburgo"], RU: ["Великобритания — Лондон", "Ирландия — Дублин", "Исландия — Рейкьявик", "Шотландия — Эдинбург"], JA: ["イギリス — ロンドン", "アイルランド — ダブリン", "アイスランド — レイキャビク", "スコットランド — エディンバラ"] }, dogru: "İrlanda — Dublin" },
+        { gorsel: "32.webp", secenekler: { TT: ["Slovakya — Bratislava", "Polonya — Varşova", "Çekya — Prag", "Macaristan — Budapeşte"], EN: ["Slovakia — Bratislava", "Poland — Warsaw", "Czechia — Prague", "Hungary — Budapest"], ES: ["Eslovaquia — Bratislava", "Polonia — Varsovia", "Chequia — Praga", "Hungría — Budapest"], RU: ["Словакия — Братислава", "Польша — Варшава", "Чехия — Прага", "Венгрия — Будапешт"], JA: ["スロバキア — ブラチスラバ", "ポーランド — ワルシャワ", "チェコ — プラハ", "ハンガリー — ブダペスト"] }, dogru: "Çekya — Prag" },
+        { gorsel: "33.webp", secenekler: { TT: ["Romanya — Bükreş", "Macaristan — Budapeşte", "Sırbistan — Belgrad", "Avusturya — Viyana"], EN: ["Romania — Bucharest", "Hungary — Budapest", "Serbia — Belgrade", "Austria — Vienna"], ES: ["Rumanía — Bucarest", "Hungría — Budapest", "Serbia — Belgrado", "Austria — Viena"], RU: ["Румыния — Бухарест", "Венгрия — Будапешт", "Сербия — Белград", "Австрия — Вена"], JA: ["ルーマニア — ブカレスト", "ハンガリー — ブダペスト", "セルビア — ベオグラード", "オーストリア — ウィーン"] }, dogru: "Macaristan — Budapeşte" },
+        { gorsel: "34.webp", secenekler: { TT: ["Vietnam — Hanoi", "Tayland — Bangkok", "Kamboçya — Phnom Penh", "Malezya — Kuala Lumpur"], EN: ["Vietnam — Hanoi", "Thailand — Bangkok", "Cambodia — Phnom Penh", "Malaysia — Kuala Lumpur"], ES: ["Vietnam — Hanói", "Tailandia — Bangkok", "Camboya — Phnom Penh", "Malasia — Kuala Lumpur"], RU: ["Вьетнам — Ханой", "Таиланд — Бангкок", "Камбоджа — Пномпень", "Малайзия — Куала-Лумпур"], JA: ["ベトナム — ハノイ", "タイ — バンコク", "カンボジア — プノンペン", "マレーシア — クアラルンプール"] }, dogru: "Tayland — Bangkok" }
+    ];
+
+    const seviye3_sorulari = [
+        { gorsel: "35.webp", secenekler: { TT: ["Avustralya — Canberra", "Yeni Zelanda — Wellington", "Fiji — Suva", "Papua Yeni Gine — Port Moresby"], EN: ["Australia — Canberra", "New Zealand — Wellington", "Fiji — Suva", "Papua New Guinea — Port Moresby"], ES: ["Australia — Canberra", "Nueva Zelanda — Wellington", "Fiyi — Suva", "Papúa Nueva Guinea — Puerto Moresby"], RU: ["Австралия — Канберра", "Новая Зеландия — Веллингтон", "Фиджи — Сува", "Папуа-Новая Гвинея — Порт-Морсби"], JA: ["オーストラリア — キャンベラ", "ニュージーランド — ウェリントン", "フィジー — スバ", "パプアニューギニア — ポートモレスビー"] }, dogru: "Yeni Zelanda — Wellington" },
+        { gorsel: "36.webp", secenekler: { TT: ["İsveç — Stockholm", "Norveç — Oslo", "Danimarka — Kopenhag", "Finlandiya — Helsinki"], EN: ["Sweden — Stockholm", "Norway — Oslo", "Denmark — Copenhagen", "Finland — Helsinki"], ES: ["Suecia — Estocolmo", "Noruega — Oslo", "Dinamarca — Copenhague", "Finlandia — Helsinki"], RU: ["Швеция — Стокгольм", "Норвегия — Осло", "Дания — Копенгаген", "Финляндия — Хельсинки"], JA: ["スウェーデン — ストックホルム", "ノルウェー — オスロ", "デンマーク — コペンハーゲン", "フィンランド — ヘルシンキ"] }, dogru: "Danimarka — Kopenhag" },
+        { gorsel: "37.webp", secenekler: { TT: ["Estonya — Tallinn", "Norveç — Oslo", "İzlanda — Reykjavik", "Finlandiya — Helsinki"], EN: ["Estonia — Tallinn", "Norway — Oslo", "Iceland — Reykjavik", "Finland — Helsinki"], ES: ["Estonia — Tallín", "Noruega — Oslo", "Islandia — Reikiavik", "Finlandia — Helsinki"], RU: ["Эстония — Таллин", "Норвегия — Осло", "Исландия — Рейкьявик", "Финляндия — Хельсинки"], JA: ["エストニア — タリン", "ノルウェー — オスロ", "アイスランド — レイキャビク", "フィンランド — ヘルシンキ"] }, dogru: "Finlandiya — Helsinki" },
+        { gorsel: "38.webp", secenekler: { TT: ["Arjantin — Buenos Aires", "Şili — Santiago", "Peru — Lima", "Kolombiya — Bogotá"], EN: ["Argentina — Buenos Aires", "Chile — Santiago", "Peru — Lima", "Colombia — Bogotá"], ES: ["Argentina — Buenos Aires", "Chile — Santiago", "Perú — Lima", "Colombia — Bogotá"], RU: ["Аргентина — Буэнос-Айрес", "Чили — Сантьяго", "Перу — Лима", "Колумбия — Богота"], JA: ["アルゼンチン — ブエノスアイレス", "チリ — サンティアゴ", "ペルー — リマ", "コロンビア — ボゴタ"] }, dogru: "Şili — Santiago" },
+        { gorsel: "39.webp", secenekler: { TT: ["Kolombiya — Bogotá", "Venezuela — Karakas", "Ekvador — Quito", "Peru — Lima"], EN: ["Colombia — Bogotá", "Venezuela — Caracas", "Ecuador — Quito", "Peru — Lima"], ES: ["Colombia — Bogotá", "Venezuela — Caracas", "Ecuador — Quito", "Perú — Lima"], RU: ["Колумбия — Богота", "Венесуэла — Каракас", "Эквадор — Кито", "Перу — Лима"], JA: ["コロンビア — ボゴタ", "ベネズエラ — カラカス", "エクアドル — キト", "ペルー — リマ"] }, dogru: "Kolombiya — Bogotá" },
+        { gorsel: "40.webp", secenekler: { TT: ["Bolivya — Sucre", "Ekvador — Quito", "Peru — Lima", "Şili — Santiago"], EN: ["Bolivia — Sucre", "Ecuador — Quito", "Peru — Lima", "Chile — Santiago"], ES: ["Bolivia — Sucre", "Ecuador — Quito", "Perú — Lima", "Chile — Santiago"], RU: ["Боливия — Сукре", "Эквадор — Кито", "Перу — Лима", "Чили — Сантьяго"], JA: ["ボリビア — スクレ", "エクアドル — キト", "ペルー — リマ", "チリ — サンティアゴ"] }, dogru: "Peru — Lima" },
+        { gorsel: "41.webp", secenekler: { TT: ["Laos — Vientiane", "Kamboçya — Phnom Penh", "Tayland — Bangkok", "Vietnam — Hanoi"], EN: ["Laos — Vientiane", "Cambodia — Phnom Penh", "Thailand — Bangkok", "Vietnam — Hanoi"], ES: ["Laos — Vientián", "Camboya — Phnom Penh", "Tailandia — Bangkok", "Vietnam — Hanói"], RU: ["Лаос — Вьентьян", "Камбоджа — Пномпень", "Таиланд — Бангкок", "Вьетнам — Ханой"], JA: ["ラオス — ビエンチャン", "カンボジア — プノンペン", "タイ — バンコク", "ベトナム — ハノイ"] }, dogru: "Vietnam — Hanoi" },
+        { gorsel: "42.webp", secenekler: { TT: ["Singapur — Singapur", "Malezya — Kuala Lumpur", "Endonezya — Cakarta", "Filipinler — Manila"], EN: ["Singapore — Singapore", "Malaysia — Kuala Lumpur", "Indonesia — Jakarta", "Philippines — Manila"], ES: ["Singapur — Singapur", "Malasia — Kuala Lumpur", "Indonesia — Yakarta", "Filipinas — Manila"], RU: ["Сингапур — Сингапур", "Малайзия — Куала-Лумпур", "Индонезия — Джакарта", "Филиппины — Манила"], JA: ["シンガポール — シンガポール", "マレーシア — クアラルンプール", "インドネシア — ジャカルタ", "フィリピン — マニラ"] }, dogru: "Malezya — Kuala Lumpur" },
+        { gorsel: "43.webp", secenekler: { TT: ["Tayvan — Taipei", "Filipinler — Manila", "Endonezya — Cakarta", "Vietnam — Hanoi"], EN: ["Taiwan — Taipei", "Philippines — Manila", "Indonesia — Jakarta", "Vietnam — Hanoi"], ES: ["Taiwán — Taipéi", "Filipinas — Manila", "Indonesia — Yakarta", "Vietnam — Hanói"], RU: ["Тайвань — Тайбэй", "Филиппины — Манила", "Индонезия — Джакарта", "Вьетнам — Ханой"], JA: ["台湾 — 台北", "フィリピン — マニラ", "インドネシア — ジャカルタ", "ベトナム — ハノイ"] }, dogru: "Filipinler — Manila" },
+        { gorsel: "44.webp", secenekler: { TT: ["Cezayir — Cezayir", "Tunus — Tunus", "Fas — Rabat", "Mısır — Kahire"], EN: ["Algeria — Algiers", "Tunisia — Tunis", "Morocco — Rabat", "Egypt — Cairo"], ES: ["Argelia — Argel", "Túnez — Túnez", "Marruecos — Rabat", "Egipto — El Cairo"], RU: ["Алжир — Алжир", "Тунис — Тунис", "Марокко — Рабат", "Египет — Каир"], JA: ["アルジェリア — アルジェ", "チュニジア — チュニス", "モロッコ — ラバト", "エジプト — カイロ"] }, dogru: "Fas — Rabat" },
+        { gorsel: "45.webp", secenekler: { TT: ["Meksika — Meksiko", "Küba — Havana", "Jamaika — Kingston", "Dominik Cumhuriyeti — Santo Domingo"], EN: ["Mexico — Mexico City", "Cuba — Havana", "Jamaica — Kingston", "Dominican Republic — Santo Domingo"], ES: ["México — CDMX", "Cuba — La Habana", "Jamaica — Kingston", "República Dominicana — Santo Domingo"], RU: ["Мексика — Мехико", "Куба — Гавана", "Ямайка — Кингстон", "Доминиканская Республика — Санто-Доминго"], JA: ["メキシコ — メキシコシティ", "キューバ — ハバナ", "ジャマイカ — キングストン", "ドミニカ共和国 — サントドミンゴ"] }, dogru: "Küba — Havana" },
+        { gorsel: "46.webp", secenekler: { TT: ["İzlanda — Reykjavik", "Grönland — Nuuk", "Norveç — Oslo", "İrlanda — Dublin"], EN: ["Iceland — Reykjavik", "Greenland — Nuuk", "Norway — Oslo", "Ireland — Dublin"], ES: ["Islandia — Reikiavik", "Groenlandia — Nuuk", "Noruega — Oslo", "Irlanda — Dublín"], RU: ["Исландия — Рейкьявик", "Гренландия — Нуук", "Норвегия — Осло", "Ирландия — Дублин"], JA: ["アイスランド — レイキャビク", "グリーンランド — ヌーク", "ノルウェー — オスロ", "アイルランド — ダブリン"] }, dogru: "İzlanda — Reykjavik" },
+        { gorsel: "47.webp", secenekler: { TT: ["Bulgaristan — Sofya", "Sırbistan — Belgrad", "Romanya — Bükreş", "Macaristan — Budapeşte"], EN: ["Bulgaria — Sofia", "Serbia — Belgrade", "Romania — Bucharest", "Hungary — Budapest"], ES: ["Bulgaria — Sofía", "Serbia — Belgrado", "Rumanía — Bucarest", "Hungría — Budapest"], RU: ["Болгария — София", "Сербия — Белград", "Румыния — Бухарест", "Венгрия — Будапешт"], JA: ["ブルガリア — ソフィア", "セルビア — ベオグラード", "ルーマニア — ブカレスト", "ハンガリー — ブダペスト"] }, dogru: "Romanya — Bükreş" },
+        { gorsel: "48.webp", secenekler: { TT: ["Yunanistan — Atina", "Makedonya — Üsküp", "Romanya — Bükreş", "Bulgaristan — Sofya"], EN: ["Greece — Athens", "North Macedonia — Skopje", "Romania — Bucharest", "Bulgaria — Sofia"], ES: ["Grecia — Atenas", "Macedonia del Norte — Skopie", "Rumanía — Bucarest", "Bulgaria — Sofía"], RU: ["Греция — Афины", "Северная Македония — Скопье", "Румыния — Бухарест", "Болия — София"], JA: ["ギリシャ — アテネ", "北マケドニア — スコピエ", "ルーマニア — ブカレスト", "ブルガリア — ソフィア"] }, dogru: "Bulgaristan — Sofya" },
+        { gorsel: "49.webp", secenekler: { TT: ["Afganistan — Kabil", "Pakistan — İslamabad", "Hindistan — Yeni Delhi", "İran — Tahran"], EN: ["Afghanistan — Kabul", "Pakistan — Islamabad", "India — New Delhi", "Iran — Tehran"], ES: ["Afganistán — Kabul", "Pakistán — Islamabad", "India — Nueva Delhi", "Irán — Teherán"], RU: ["Афганистан — Кабул", "Пакистан — Исламабад", "Индия — Нью-Дели", "Иран — Тегеран"], JA: ["アフガニスタン — カブール", "パキスタン — イスラマバード", "インド — ニューデリー", "イラン — テヘラン"] }, dogru: "Pakistan — İslamabad" },
+        { gorsel: "50.webp", secenekler: { TT: ["Ukrayna — Kiev", "Polonya — Varşova", "Belarus — Minsk", "Rusya — Moskova"], EN: ["Ukraine — Kyiv", "Poland — Warsaw", "Belarus — Minsk", "Russia — Moscow"], ES: ["Ucrania — Kiev", "Polonia — Varsovia", "Bielorrusia — Minsk", "Rusia — Moscú"], RU: ["Украина — Киев", "Польша — Варшава", "Беларусь — Минск", "Россия — Москва"], JA: ["ウクライナ — キエフ", "ポーランド — ワルシャワ", "ベラルーシ — ミンスク", "ロシア — モスクワ"] }, dogru: "Ukrayna — Kiev" }
+    ];
+
+    let mevcutSeviye = 1;
+    let aktifSoruListesi = [];
+    let mevcutSoruIndex = 0;
+    
+    let dogruSayisi = 0;
+    let yanlisSayisi = 0;
+    let bosSayisi = 0;
+    
+    let kalanSure = 7;
+    let zamanlayici = null;
+    let secimYapildi = false;
+    let secilenDil = "TT";
+
+    function setLanguage(lang) {
+        secilenDil = lang;
+        const UI = STRINGS[secilenDil] || STRINGS["TT"];
+        document.getElementById("welcome-title").textContent = UI.title;
+        document.getElementById("welcome-sub").textContent = UI.sub;
+        document.getElementById("start-action").textContent = UI.start;
+    }
+
+    function initLevel(lvl) {
+        mevcutSeviye = lvl;
+        mevcutSoruIndex = 0;
+        dogruSayisi = 0;
+        yanlisSayisi = 0;
+        bosSayisi = 0;
+        
+        if (lvl === 1) aktifSoruListesi = seviye1_sorulari;
+        else if (lvl === 2) aktifSoruListesi = seviye2_sorulari;
+        else if (lvl === 3) aktifSoruListesi = seviye3_sorulari;
+
+        const UI = STRINGS[secilenDil] || STRINGS["TT"];
+        document.getElementById("level-counter").textContent = `${UI.lvl}: ${mevcutSeviye}`;
+    }
+
+    function startGame() {
+        document.getElementById("start-screen").style.display = "none";
+        document.getElementById("main-game").style.display = "block";
+        initLevel(1);
+        soruYukle();
+    }
+
+    function soruYukle() {
+        if (mevcutSoruIndex >= aktifSoruListesi.length) {
+            seviyeBittiEkrani();
+            return;
+        }
+
+        secimYapildi = false;
+        document.getElementById("result-message").textContent = "";
+        document.getElementById("question-counter").textContent = `${mevcutSoruIndex + 1} / ${aktifSoruListesi.length}`;
+
+        const soru = aktifSoruListesi[mevcutSoruIndex];
+        
+        document.getElementById("city-image").src = soru.gorsel;
+        document.getElementById("dynamic-bg").style.backgroundImage = `url('${soru.gorsel}')`;
+
+        const optionsBox = document.getElementById("options-box");
+        optionsBox.innerHTML = "";
+
+        // Seçilen dil soruda varsa o dili, yoksa alternatif olarak İngilizceyi yükler
+        const soruDili = soru.secenekler[secilenDil] ? secilenDil : "EN";
+        
+        const guncelSecenekler = soru.secenekler[soruDili];
+        
+        // Doğru cevabın indeksini bulup seçilen dildeki karşılığını eşleştiriyoruz
+        const dogruIndex = soru.secenekler["TT"].indexOf(soru.dogru);
+        const guncelDogruCevap = guncelSecenekler[dogruIndex !== -1 ? dogruIndex : 0];
+
+        guncelSecenekler.forEach(secenek => {
+            const btn = document.createElement("button");
+            btn.className = "btn";
+            btn.textContent = secenek;
+            btn.onclick = () => cevapKontrol(secenek, guncelDogruCevap, btn);
+            optionsBox.appendChild(btn);
+        });
+
+        sureyiBaslat();
+    }
+
+    function sureyiBaslat() {
+        clearInterval(zamanlayici);
+        kalanSure = 7;
+        const bar = document.getElementById("t-bar");
+        bar.style.width = "100%";
+        bar.style.backgroundColor = "var(--success-color)";
+
+        zamanlayici = setInterval(() => {
+            kalanSure -= 0.1;
+            const yuzde = (kalanSure / 7) * 100;
+            bar.style.width = `${yuzde}%`;
+
+            if (kalanSure <= 3) {
+                bar.style.backgroundColor = "var(--accent-color)";
+            } else if (kalanSure <= 5) {
+                bar.style.backgroundColor = "var(--warning-color)";
+            }
+
+            if (kalanSure <= 0) {
+                clearInterval(zamanlayici);
+                sureDoldu();
+            }
+        }, 100);
+    }
+
+    function cevapKontrol(secilenCevap, dogruCevap, buton) {
+        if (secimYapildi) return;
+        secimYapildi = true;
+        clearInterval(zamanlayici);
+
+        const buttons = document.querySelectorAll("#options-box .btn");
+        const UI = STRINGS[secilenDil] || STRINGS["TT"];
+
+        if (secilenCevap === dogruCevap) {
+            buton.classList.add("correct");
+            document.getElementById("result-message").textContent = UI.correctMsg;
+            document.getElementById("result-message").style.color = "var(--success-color)";
+            dogruSayisi++;
+        } else {
+            buton.classList.add("wrong");
+            document.getElementById("result-message").textContent = UI.wrongMsg;
+            document.getElementById("result-message").style.color = "var(--accent-color)";
+            yanlisSayisi++;
+            
+            buttons.forEach(b => {
+                if (b.textContent === dogruCevap) b.classList.add("correct");
+            });
+        }
+
+        buttons.forEach(b => b.disabled = true);
+        setTimeout(() => { mevcutSoruIndex++; soruYukle(); }, 2000);
+    }
+
+    function sureDoldu() {
+        if (secimYapildi) return;
+        secimYapildi = true;
+        bosSayisi++;
+
+        const soru = aktifSoruListesi[mevcutSoruIndex];
+        const soruDili = soru.secenekler[secilenDil] ? secilenDil : "EN";
+        const dogruIndex = soru.secenekler["TT"].indexOf(soru.dogru);
+        const guncelDogruCevap = soru.secenekler[soruDili][dogruIndex !== -1 ? dogruIndex : 0];
+        const buttons = document.querySelectorAll("#options-box .btn");
+        const UI = STRINGS[secilenDil] || STRINGS["TT"];
+
+        document.getElementById("result-message").textContent = UI.timeOutMsg;
+        document.getElementById("result-message").style.color = "var(--warning-color)";
+
+        buttons.forEach(b => {
+            if (b.textContent === guncelDogruCevap) b.classList.add("correct");
+            b.disabled = true;
+        });
+
+        setTimeout(() => { mevcutSoruIndex++; soruYukle(); }, 2000);
+    }
+
+    function seviyeBittiEkrani() {
+        clearInterval(zamanlayici);
+        document.getElementById("result-message").textContent = "";
+        
+        const optionsBox = document.getElementById("options-box");
+        const UI = STRINGS[secilenDil] || STRINGS["TT"];
+
+        optionsBox.innerHTML = `
+            <div class="results-layout" style="font-size: 16px; margin-bottom: 20px; text-align: left; background: rgba(0,0,0,0.4); padding: 15px; border-radius: 12px; line-height: 1.6;">
+                <strong>${UI.score}</strong><br>
+                ✅ ${UI.correct}: ${dogruSayisi}<br>
+                ❌ ${UI.wrong}: ${yanlisSayisi}<br>
+                ⚪ ${UI.empty}: ${bosSayisi}
+            </div>
+        `;
+
+        let actionWrapper = document.createElement("div");
+        actionWrapper.className = "results-layout";
+
+        if (mevcutSeviye === 1) {
+            if (dogruSayisi >= 8) {
+                actionWrapper.innerHTML += `<button class="action-btn next-lvl-btn" onclick="seviyeDegistir(2)">${UI.nextLvl2}</button>`;
+            } else {
+                actionWrapper.innerHTML += `<p style="color: var(--accent-color); font-weight: bold; font-size: 14px;">⚠️ ${UI.lvlFail2}</p>`;
+            }
+        } else if (mevcutSeviye === 2) {
+            if (dogruSayisi >= 10) {
+                actionWrapper.innerHTML += `<button class="action-btn next-lvl-btn" onclick="seviyeDegistir(3)">${UI.nextLvl3}</button>`;
+            } else {
+                actionWrapper.innerHTML += `<p style="color: var(--accent-color); font-weight: bold; font-size: 14px;">⚠️ ${UI.lvlFail3}</p>`;
+            }
+        }
+
+        actionWrapper.innerHTML += `
+            <button class="action-btn" onclick="oyunuYenidenBaslat()">${UI.restart}</button>
+            <button class="action-btn vibe-btn" onclick="vibeUygulamasinaDon()">${UI.returnVibe}</button>
+        `;
+        
+        optionsBox.appendChild(actionWrapper);
+    }
+
+    function seviyeDegistir(hedefLvl) {
+        initLevel(hedefLvl);
+        soruYukle();
+    }
+
+    function oyunuYenidenBaslat() {
+        initLevel(1);
+        soruYukle();
+    }
+
+    function vibeUygulamasinaDon() {
+        window.location.href = "vibe://back"; 
+    }
+</script>
+</body>
+</html>
