@@ -728,7 +728,7 @@ const TTDICT = {
   fill:'doldur', go:'git', tap:'musluk', fresh:'taze', from:'dan/den',
   the:'(belirli)', door:'kapı', to:'e/a', get:'al', back:'geri',
   kitchen:'mutfak', open:'aç', cabinet:'dolap', drawer:'çekmece',
-  kettle:'ketıl', make:'yap', coffee:'kahve', find:'bul',
+  kettle:'su ısıtıcısı', make:'yap', coffee:'kahve', find:'bul',
   brush:'fırçala', teeth:'dişler', wash:'yıka', hands:'eller',
   wear:'giy', blue:'mavi', socks:'çoraplar', red:'kırmızı', shirt:'gömlek',
   black:'siyah', jeans:'kot', smell:'koku', bad:'kötü', air:'hava',
@@ -775,8 +775,8 @@ const STRINGS = {
     cup_picked:           'Bardağı aldın.',
     go_kitchen_hint:      'Şimdi mutfağa git. Kapıya tıkla.',
     need_cup:             'Önce bardağı alman lazım!',
-    need_kettle:          'Önce ketılı çalıştır!',
-    kettle_on:            'Ketıl açık! Su kaynıyor...',
+    need_kettle:          'Önce su ısıtıcısıı çalıştır!',
+    kettle_on:            'Su ısıtıcısı açık! Su kaynıyor...',
     go_tap:               'Şimdi musluğa git.',
     water_drunk:          'Bardağı doldurup içtin!',
     // Kahve quest
@@ -1334,7 +1334,7 @@ const QUEST_DEFS = {
   coffee: { title:'☕ Quest: Make Coffee', tasks:[
     { id:'drawer', en:'Find and open the drawer', tr:'Çekmeceyi bul ve aç',ru:'Find and open the drawer',     deps:[] },
     { id:'items',  en:'Take coffee & milk powder',tr:'Kahve ve süt tozu al',ru:'Take coffee & milk powder',     deps:['drawer'] },
-    { id:'kettle', en:'Turn on the kettle',       tr:'Ketılı çalıştır',ru:'Включи чайник',           deps:['items'] },
+    { id:'kettle', en:'Turn on the kettle',       tr:'Su ısıtıcısıı çalıştır',ru:'Включи чайник',           deps:['items'] },
     { id:'brew',   en:'Add water and brew',       tr:'Su ekle ve demle',ru:'Add water and brew',          deps:['kettle'] },
   ]},
   breakfast: { title:'🍳 Quest: Make Breakfast', tasks:[] },
@@ -1452,7 +1452,7 @@ const OBJ = {
   // KITCHEN
   cabinet:     {d:'medium',em:'🗄️',en:'Cabinet',       tr:'Dolap',ru:'Шкаф',          ctx:'The kitchen cabinet. Open it to explore.',     recall:{c:'Dolap',       o:['Dolap','Çekmece','Raf','Kutu'],c_ru:'Шкаф',o_ru:['Шкаф','Ящик','Полка','Коробка']},          act:'open_cabinet',   ex:{en:'The cabinet. Open and explore!',tr:'Dolap. Aç ve keşfet!',ru:'The cabinet. Open and explore!'}},
   drawer:      {d:'medium',em:'🔲',en:'Drawer',         tr:'Çekmece',ru:'Ящик',        ctx:'The kitchen drawer. Open it.',                 recall:{c:'Çekmece',     o:['Dolap','Çekmece','Raf','Kutu'],c_ru:'Ящик',o_ru:['Шкаф','Ящик','Полка','Коробка']},          act:'open_drawer',    ex:{en:'The drawer! Open it.',      tr:'Çekmece! Aç bakalım.',ru:'The drawer! Open it.'}},
-  kettle:      {d:'medium',em:'🫖',en:'Kettle',         tr:'Su ısıtıcısı',ru:'Чайник',          ctx:'Electric kettle. Boil water for coffee.',      recall:{c:'Su ısıtıcısı',       o:['Tencere','Su ısıtıcısı','Fırın','Ocak'],c_ru:'Чайник',o_ru:['Кастрюля','Чайник','Духовка','Плита']},        act:'use_kettle',     ex:{en:'Electric kettle. Turn it on.',tr:'Elektrikli ketıl. Çalıştır.',ru:'Electric kettle. Turn it on.'}},
+  kettle:      {d:'medium',em:'🫖',en:'Kettle',         tr:'Su ısıtıcısı',ru:'Чайник',          ctx:'Electric kettle. Boil water for coffee.',      recall:{c:'Su ısıtıcısı',       o:['Tencere','Su ısıtıcısı','Fırın','Ocak'],c_ru:'Чайник',o_ru:['Кастрюля','Чайник','Духовка','Плита']},        act:'use_kettle',     ex:{en:'Electric kettle. Turn it on.',tr:'Elektrikli su ısıtıcısı. Çalıştır.',ru:'Electric kettle. Turn it on.'}},
   fridge:      {bg:4,d:'medium',em:'🧊',en:'Fridge',         tr:'Buzdolabı',ru:'Холодильник',      ctx:'The fridge keeps your food fresh.',            recall:{c:'Buzdolabı',   o:['Fırın','Tencere','Buzdolabı','Dolap'],c_ru:'Холодильник',o_ru:['Духовка','Кастрюля','Холодильник','Шкаф']},   act:'open_fridge',    ex:{en:'The fridge.',               tr:'Buzdolabı.',ru:'The fridge.'}},
   sink:        {d:'easy',  em:'🚰',en:'Sink',           tr:'Lavabo',ru:'Раковина',         ctx:'The kitchen sink for washing.',                recall:{c:'Lavabo',      o:['Fırın','Lavabo','Banyo','Musluk'],c_ru:'Раковина',o_ru:['Духовка','Раковина','Banyo','Кран']},        act:null,             ex:{en:'The kitchen sink.',         tr:'Mutfak lavabosu.',ru:'The kitchen sink.'}},
   tap:         {d:'easy',  em:'💧',en:'Tap',            tr:'Musluk',ru:'Кран',         ctx:'Turn on the tap for fresh cold water.',        recall:{c:'Musluk',      o:['Duş','Boru','Musluk','Vana'],c_ru:'Кран',o_ru:['Душ','Труба','Кран','Клапан']},             act:'use_tap',        ex:{en:'Fresh water from the tap.', tr:'Musluktan taze su.',ru:'Fresh water from the tap.'}},
@@ -1820,8 +1820,12 @@ function renderObjects(keys) {
     const examined = GS.examined.has(key), inInv = GS.sessionInv.includes(key);
     // Lock check
     let locked = false;
-    if (key === 'door_k' && GS.quest === 'water' && !QD.water?.cup) locked = true;
-    if (key === 'door_b' && !canUseDoor()) locked = true;
+    if (GS.freeMode) {
+      locked = false; // Serbest modda hiçbir nesne kilitli değil
+    } else {
+      if (key === 'door_k' && GS.quest === 'water' && !QD.water?.cup) locked = true;
+      if (key === 'door_b' && !canUseDoor()) locked = true;
+    }
     if (key === 'door_free') locked = false; // Serbest mod kapısı her zaman açık
     const btn = document.createElement('button');
     btn.className = 'obj-btn' + (examined&&!inInv?' used':'') + (inInv?' in-inv used':'') + (locked?' locked':'');
@@ -2041,7 +2045,14 @@ function handleAction(act, key, btn) {
       fadeText(st, `<span class="scene-ok">🫖 ${ST('kettle_on')}</span><span class="scene-tr-line">${S('kettle_on')}</span><span class="scene-gap"></span>${biLine({en:'Now go to the tap.',tr:'Şimdi musluğa git.',ru:'Теперь иди к крану.'})}`);
       break;
     case 'open_fridge':
-      G('fridge-choice').classList.add('show'); G('objects-wrap').style.display = 'none'; break;
+      if (GS.freeMode && GS.quest !== 'breakfast') {
+        // Serbest modda fridge açılıyor ama quest yok — breakfast quest'i başlat
+        GS.quest = 'breakfast';
+        G('fridge-choice').classList.add('show'); G('objects-wrap').style.display = 'none';
+      } else {
+        G('fridge-choice').classList.add('show'); G('objects-wrap').style.display = 'none';
+      }
+      break;
     case 'open_cabinet':
       openCabinetModal(); break;
     case 'take_ing': handleIngredient(key, btn); break;
@@ -2379,7 +2390,7 @@ function closeDrawer() {
     const idx = ROOMS.kitchen.obs.indexOf('fridge');
     ROOMS.kitchen.obs.splice(idx >= 0 ? idx : 2, 0, 'kettle');
   }
-  fadeText(G('scene-text'), `<span class="scene-ok">✓ ${ST('ingredients_ready')}</span><span class="scene-tr-line">${S('ingredients_ready')}</span><span class="scene-gap"></span>${biLine({en:'Now turn on the kettle.',tr:'Şimdi ketılı çalıştır.',ru:'Теперь включи чайник.'})}`);
+  fadeText(G('scene-text'), `<span class="scene-ok">✓ ${ST('ingredients_ready')}</span><span class="scene-tr-line">${S('ingredients_ready')}</span><span class="scene-gap"></span>${biLine({en:'Now turn on the kettle.',tr:'Şimdi su ısıtıcısıı çalıştır.',ru:'Теперь включи чайник.'})}`);
   renderObjects(ROOMS.kitchen.obs);
 }
 
