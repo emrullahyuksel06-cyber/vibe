@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GeoQuiz - Hayvanlar Challenge</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --text-color: #ffffff;
+            --primary-color: #ffffff; 
+            --accent-color: #e74c3c;
+            --success-color: #2ecc71;
+            --warning-color: #f1c40f;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .bg-blur-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-size: cover;
+            background-position: center;
+            filter: blur(3px);
+            opacity: 0.4;
+            z-index: -1;
+            transition: background-image 0.5s ease-in-out;
+        }
+
+        .game-container {
+            background-color: transparent;
+            width: 100%;
+            max-width: 500px;
+            padding: 25px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        #start-screen {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6)), url('girs.webp');
+            background-size: cover;
+            background-position: center;
+            border-radius: 16px;
+            padding: 40px 20px;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 400px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .lang-select-container {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .lang-dropdown {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            border: 2px solid white;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        .lang-dropdown option {
+            color: #2c3e50;
+            background: white;
+        }
+
+        .start-btn {
+            background-color: var(--success-color);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 20px;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.4);
+            transition: transform 0.2s;
+        }
+
+        .start-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .timer-container {
+            width: 100%;
+            height: 6px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 3px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+
+        .timer-bar {
+            width: 100%;
+            height: 100%;
+            background-color: var(--success-color);
+            transition: width 0.1s linear, background-color 0.5s;
+        }
+
+        .image-container {
+            width: auto;
+            max-width: 100%;
+            height: auto;
+            max-height: 45vh; 
+            aspect-ratio: 9 / 16; 
+            margin: 0 auto 15px auto;
+            border-radius: 16px;
+            overflow: hidden;
+            background-color: transparent; 
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .landmark-space {
+            min-height: 26px;
+            margin-bottom: 15px;
+        }
+
+        .top-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 15px;
+            font-weight: bold;
+            color: #ffffff;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .btn {
+            background-color: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            color: #ffffff;
+            padding: 14px;
+            font-size: 15px;
+            font-weight: 600;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .btn:hover:not(:disabled) {
+            border-color: #ffffff;
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .correct {
+            background-color: var(--success-color) !important;
+            color: white !important;
+            border-color: var(--success-color) !important;
+            text-shadow: none;
+        }
+
+        .wrong {
+            background-color: var(--accent-color) !important;
+            color: white !important;
+            border-color: var(--accent-color) !important;
+            text-shadow: none;
+        }
+
+        #result-message {
+            font-size: 16px;
+            font-weight: bold;
+            min-height: 24px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+        }
+
+        .action-btn {
+            background-color: var(--success-color);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 25px;
+            cursor: pointer;
+            margin: 8px;
+            box-shadow: 0 4px 10px rgba(46, 204, 113, 0.3);
+            transition: background-color 0.2s;
+        }
+        
+        .vibe-btn {
+            background-color: #9b59b6;
+            box-shadow: 0 4px 10px rgba(155, 89, 182, 0.3);
+        }
+
+        .next-lvl-btn {
+            background-color: #3498db;
+            box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
+        }
+
+        .results-layout {
+            grid-column: span 2;
+        }
+    </style>
+</head>
+<body>
+
+<div id="dynamic-bg" class="bg-blur-container"></div>
+
+<div class="game-container">
+    <div id="start-screen">
+        <div class="lang-select-container">
+            <select class="lang-dropdown" id="lang-menu" onchange="setLanguage(this.value)">
+                <option value="TT">Türkçe (TR)</option>
+                <option value="EN">English (EN)</option>
+                <option value="JA">日本語 (JA)</option>
+                <option value="FR">Français (FR)</option>
+                <option value="RU">Русский (RU)</option>
+                <option value="DE">Deutsch (DE)</option>
+                <option value="ES">Español (ES)</option>
+                <option value="PT">Português (PT)</option>
+                <option value="HI">हिन्दी (HI)</option>
+                <option value="ZH">中文 (ZH)</option>
+                <option value="AR">العربية (AR)</option>
+                <option value="PL">Polski (PL)</option>
+            </select>
+        </div>
+        <div>
+            <h1 id="welcome-title" style="margin-bottom: 5px; text-shadow: 0 2px 4px rgba(0,0,0,0.6);">Hayvan Bilgisi Oyunu</h1>
+            <p id="welcome-sub" style="margin-top: 0; font-size: 14px; text-shadow: 0 1px 3px rgba(0,0,0,0.6);">Hayvanları ne kadar iyi tanıyorsun?</p>
+        </div>
+        <div>
+            <button class="start-btn" id="start-action" onclick="startGame()">BAŞLA</button>
+        </div>
+    </div>
+
+    <div id="main-game" style="display: none;">
+        <div class="top-meta">
+            <span id="level-counter">Seviye: 1</span>
+            <span id="question-counter">1 / 18</span>
+        </div>
+
+        <div class="timer-container">
+            <div class="timer-bar" id="t-bar"></div>
+        </div>
+
+        <div class="image-container">
+            <img id="city-image" src="" alt="Quiz Visual">
+        </div>
+        
+        <div class="landmark-space"></div>
+        
+        <div class="options-grid" id="options-box"></div>
+        <div id="result-message"></div>
+    </div>
+</div>
+
+<script>
+    const STRINGS = {
+        TT: { title: "Hayvan Bilgisi Oyunu", sub: "Hayvanları ne kadar iyi tanıyorsun?", start: "BAŞLA", correctMsg: "Doğru! Sıradaki hayvana geçiliyor...", wrongMsg: "Yanlış! Doğru cevap gösteriliyor...", timeOutMsg: "Süre Doldu! Boş bırakıldı...", ended: "Seviye Tamamlandı! 🎯", score: "Skorunuz:", correct: "Doğru", wrong: "Yanlış", empty: "Boş", restart: "Yeniden Başlat", returnVibe: "Vibe'a Geri Dön", lvl: "Seviye", nextLvl2: "2. Seviyeye Geç 🚀", nextLvl3: "3. Seviyeye Geç 🚀", lvlFail2: "2. Seviye için en az 10 doğru gerekiyor.", lvlFail3: "3. Seviye için en az 10 doğru gerekiyor." },
+        EN: { title: "Animal Quiz Game", sub: "How well do you know animals?", start: "START", correctMsg: "Correct! Moving to the next animal...", wrongMsg: "Wrong! Showing the correct answer...", timeOutMsg: "Time's Up! Left blank...", ended: "Level Completed! 🎯", score: "Your Score:", correct: "Correct", wrong: "Wrong", empty: "Blank", restart: "Restart Game", returnVibe: "Back to Vibe", lvl: "Level", nextLvl2: "Go to Level 2 🚀", nextLvl3: "Go to Level 3 🚀", lvlFail2: "At least 10 correct answers required for Level 2.", lvlFail3: "At least 10 correct answers required for Level 3." },
+        JA: { title: "動物クイズゲーム", sub: "動物のことをどれくらい知っていますか？", start: "スタート", correctMsg: "正解！次の動物に進みます...", wrongMsg: "不正解！正解を表示しています...", timeOutMsg: "時間切れ！未回答...", ended: "レベル完了！🎯", score: "あなたのスコア:", correct: "正解", wrong: "不正解", empty: "未回答", restart: "もう一度プレイ", returnVibe: "Vibeに戻る", lvl: "レベル", nextLvl2: "レベル2に進む 🚀", nextLvl3: "レベル3に進む 🚀", lvlFail2: "レベル2に進むには少なくとも10問の正解が必要です。", lvlFail3: "レベル3に進むには少なくとも10問の正解が必要です。" },
+        FR: { title: "Jeu de Quiz sur les Animaux", sub: "Connaissez-vous bien les animaux ?", start: "COMMENCER", correctMsg: "Correct! Animal suivant...", wrongMsg: "Faux! Affichage de la bonne réponse...", timeOutMsg: "Temps écoulé! Laissé vide...", ended: "Niveau Terminé! 🎯", score: "Votre Score:", correct: "Correct", wrong: "Faux", empty: "Vide", restart: "Recommencer", returnVibe: "Retour à Vibe", lvl: "Niveau", nextLvl2: "Passer au Niveau 2 🚀", nextLvl3: "Passer au Niveau 3 🚀", lvlFail2: "Au moins 10 réponses correctes requises pour le Niveau 2.", lvlFail3: "Au moins 10 réponses correctes requises pour le Niveau 3." },
+        RU: { title: "Игра Знаток Животных", sub: "Как хорошо вы знаете животных?", start: "НАЧАТЬ", correctMsg: "Правильно! Переход к следующему животному...", wrongMsg: "Неправильно! Показываем правильный ответ...", timeOutMsg: "Время вышло! Оставлено без ответа...", ended: "Уровень завершен! 🎯", score: "Ваш результат:", correct: "Правильно", wrong: "Неправильно", empty: "Пропущено", restart: "Начать заново", returnVibe: "Вернуться в Vibe", lvl: "Уровень", nextLvl2: "Перейти на Уровень 2 🚀", nextLvl3: "Перейти на Уровень 3 🚀", lvlFail2: "Для Уровня 2 требуется не менее 10 правильных ответов.", lvlFail3: "Для Уровня 3 требуется не менее 10 правильных ответов." },
+        DE: { title: "Tier-Quizspiel", sub: "Wie gut kennen Sie die Tiere?", start: "START", correctMsg: "Richtig! Nächstes Tier...", wrongMsg: "Falsch! Richtige Antwort wird angezeigt...", timeOutMsg: "Zeit abgelaufen! Leer gelassen...", ended: "Stufe abgeschlossen! 🎯", score: "Ihr Ergebnis:", correct: "Richtig", wrong: "Falsch", empty: "Leer", restart: "Neustart", returnVibe: "Zurück zu Vibe", lvl: "Stufe", nextLvl2: "Zu Stufe 2 wechseln 🚀", nextLvl3: "Zu Stufe 3 wechseln 🚀", lvlFail2: "Mindestens 10 richtige Antworten für Stufe 2 erforderlich.", lvlFail3: "Mindestens 10 richtige Antworten für Stufe 3 erforderlich." },
+        ES: { title: "Juego de Quiz de Animales", sub: "¿Qué tan bien conoces a los animales?", start: "COMENZAR", correctMsg: "¡Correcto! Pasando al siguiente animal...", wrongMsg: "¡Incorrecto! Mostrando la respuesta correcta...", timeOutMsg: "¡Tiempo agotado! Dejado en blanco...", ended: "¡Nivel Completado! 🎯", score: "Tu Puntuación:", correct: "Correcto", wrong: "Incorrecto", empty: "En blanco", restart: "Reiniciar Juego", returnVibe: "Volver a Vibe", lvl: "Nivel", nextLvl2: "Ir al Nivel 2 🚀", nextLvl3: "Ir al Nivel 3 🚀", lvlFail2: "Se requieren al menos 10 respuestas correctas para el Nivel 2.", lvlFail3: "Se requieren al menos 10 respuestas correctas para el Nivel 3." },
+        PT: { title: "Quiz de Animais", sub: "Quão bem você conhece os animais?", start: "INICIAR", correctMsg: "Correto! Próximo animal...", wrongMsg: "Incorreto! Mostrando a resposta certa...", timeOutMsg: "Tempo Esgotado! Deixado em branco...", ended: "Nível Concluído! 🎯", score: "Sua Pontuação:", correct: "Correto", wrong: "Incorreto", empty: "Em branco", restart: "Reiniciar Jogo", returnVibe: "Voltar para o Vibe", lvl: "Nível", nextLvl2: "Ir para o Nível 2 🚀", nextLvl3: "Ir para o Nível 3 🚀", lvlFail2: "Pelo menos 10 respostas corretas necessárias para o Nível 2.", lvlFail3: "Pelo menos 10 respostas corretas necessárias para o Nível 3." },
+        HI: { title: "पशु प्रश्नोत्तरी खेल", sub: "आप जानवरों को कितनी अच्छी तरह जानते हैं?", start: "शुरू करें", correctMsg: "सही! अगले जानवर पर जा रहे हैं...", wrongMsg: "गलत! सही उत्तर दिखाया जा रहा है...", timeOutMsg: "समय समाप्त! खाली छोड़ दिया...", ended: "स्तर पूरा हुआ! 🎯", score: "आपका स्कोर:", correct: "सही", wrong: "गलत", empty: "खाली", restart: "पुनः आरंभ करें", returnVibe: "Vibe पर वापस जाएं", lvl: "स्तर", nextLvl2: "स्तर 2 पर जाएं 🚀", nextLvl3: "स्तर 3 पर जाएं 🚀", lvlFail2: "स्तर 2 के लिए कम से कम 10 सही उत्तर आवश्यक हैं।", lvlFail3: "स्तर 3 के लिए कम से कम 10 सही उत्तर आवश्यक हैं।" },
+        ZH: { title: "动物知识问答", sub: "你对动物了解多少？", start: "开始", correctMsg: "正确！正在前往下一个动物...", wrongMsg: "错误！显示正确答案...", timeOutMsg: "时间到！已留空...", ended: "关卡完成！ 🎯", score: "您的得分:", correct: "正确", wrong: "错误", empty: "留空", restart: "重新开始", returnVibe: "返回 Vibe", lvl: "关卡", nextLvl2: "进入第 2 关 🚀", nextLvl3: "进入第 3 关 🚀", lvlFail2: "解锁第 2 关需要至少 10 个正确答案。", lvlFail3: "解锁第 3 关需要至少 10 个正确答案。" },
+        AR: { title: "لعبة مسابقة الحيوانات", sub: "ما مدى معرفتك بالحيوانات؟", start: "ابدأ", correctMsg: "صحيح! الانتقال إلى الحيوان التالي...", wrongMsg: "خطأ! إظهار الإجابة الصحيحة...", timeOutMsg: "انتهى الوقت! تركت فارغة...", ended: "اكتمل المستوى! 🎯", score: "نتيجتك:", correct: "صحيح", wrong: "خطأ", empty: "فارغ", restart: "إعادة تشغيل", returnVibe: "العودة إلى Vibe", lvl: "المستوى", nextLvl2: "الانتقال إلى المستوى 2 🚀", nextLvl3: "الانتقال إلى المستوى 3 🚀", lvlFail2: "مطلوب 10 إجابات صحيحة على الأثل للمستوى 2.", lvlFail3: "مطلوب 10 إجابات صحيحة على الأقل للمستوى 3." },
+        PL: { title: "Quiz o Zwierzętach", sub: "Jak dobrze znasz zwierzęta?", start: "START", correctMsg: "Dobrze! Przejście do kolejnego zwierzęcia...", wrongMsg: "Błąd! Pokazywanie prawidłowej odpowiedzi...", timeOutMsg: "Koniec czasu! Pozostawiono puste...", ended: "Poziom ukończony! 🎯", score: "Twój wynik:", correct: "Dobrze", wrong: "Błąd", empty: "Puste", restart: "Zacznij od nowa", returnVibe: "Wróć do Vibe", lvl: "Poziom", nextLvl2: "Przejdź do Poziomu 2 🚀", nextLvl3: "Przejdź do Poziomu 3 🚀", lvlFail2: "Wymagane co najmniej 10 poprawnych odpowiedzi dla Poziomu 2.", lvlFail3: "Wymagane co najmniej 10 poprawnych odpowiedzi dla Poziomu 3." }
+    };
+
+    // Tüm 55 Hayvanın Dil Datası (JA ve ES eklenmiş haliyle)
+    const ANIMAL_DATA = [
+        { id: 1,  TT: "Ördek", EN: "Duck", JA: "アヒル", FR: "Canard", RU: "Утка", DE: "Ente", ES: "Pato", PT: "Pato", HI: "बतख", ZH: "鸭子", AR: "بطة", PL: "Kaczka" },
+        { id: 2,  TT: "Aslan", EN: "Lion", JA: "ライオン", FR: "Lion", RU: "Лев", DE: "Löwe", ES: "León", PT: "Leão", HI: "शेर", ZH: "狮子", AR: "أسد", PL: "Lew" },
+        { id: 3,  TT: "Domuz", EN: "Pig", JA: "ブタ", FR: "Cochon", RU: "Свинья", DE: "Schwein", ES: "Cerdo", PT: "Porco", HI: "सूअर", ZH: "猪", AR: "خنزير", PL: "Świnia" },
+        { id: 4,  TT: "Kuğu", EN: "Swan", JA: "白鳥", FR: "Cygne", RU: "Лебедь", DE: "Schwan", ES: "Cisne", PT: "Cisne", HI: "हंस", ZH: "天鹅", AR: "بجع", PL: "Łabędź" },
+        { id: 5,  TT: "Kanguru", EN: "Kangaroo", JA: "カンガルー", FR: "Kangourou", RU: "Кенгуру", DE: "Känguru", ES: "Canguro", PT: "Canguru", HI: "कंगारू", ZH: "袋鼠", AR: "كانغرو", PL: "Kangur" },
+        { id: 6,  TT: "Gergedan", EN: "Rhinoceros", JA: "サイ", FR: "Rhinocéros", RU: "Носорог", DE: "Nashorn", ES: "Rinoceronte", PT: "Rinoceronte", HI: "गेंडा", ZH: "犀牛", AR: "وحيد القرن", PL: "Nosorożec" },
+        { id: 7,  TT: "Tavuk", EN: "Chicken", JA: "ニワトリ", FR: "Poulet", RU: "Курица", DE: "Huhn", ES: "Pollo", PT: "Galinha", HI: "मुर्गी", ZH: "鸡", AR: "دجاجة", PL: "Kurczak" },
+        { id: 8,  TT: "Kedi", EN: "Cat", JA: "ネコ", FR: "Chat", RU: "Кошка", DE: "Katze", ES: "Gato", PT: "Gato", HI: "बिल्ली", ZH: "猫", AR: "قطة", PL: "Kot" },
+        { id: 9,  TT: "Sincap", EN: "Squirrel", JA: "リス", FR: "Écureuil", RU: "Белка", DE: "Eichhörnchen", ES: "Ardilla", PT: "Esquilo", HI: "गिलहरी", ZH: "松鼠", AR: "سنجاب", PL: "Wiewiórka" },
+        { id: 10, TT: "Karınca", EN: "Ant", JA: "アリ", FR: "Fourmi", RU: "Муравей", DE: "Ameise", ES: "Hormiga", PT: "Formiga", HI: "चींटी", ZH: "蚂蚁", AR: "نملة", PL: "Mrówka" },
+        { id: 11, TT: "Yunus", EN: "Dolphin", JA: "イルカ", FR: "Dauphin", RU: "Дельфин", DE: "Delphin", ES: "Delfín", PT: "Golfinho", HI: "डॉल्फिन", ZH: "海豚", AR: "دولفين", PL: "Delfin" },
+        { id: 12, TT: "Kertenkele", EN: "Lizard", JA: "トカゲ", FR: "Lézard", RU: "Ящерица", DE: "Eidechse", ES: "Lagartija", PT: "Lagarto", HI: "छिपकली", ZH: "蜥蜴", AR: "سحلية", PL: "Jaszczurka" },
+        { id: 13, TT: "Penguen", EN: "Penguin", JA: "ペンギン", FR: "Manchot", RU: "Пингвин", DE: "Pinguin", ES: "Pingüino", PT: "Pinguim", HI: "पेंगुइन", ZH: "企鹅", AR: "بطريق", PL: "Pingwin" },
+        { id: 14, TT: "Keçi", EN: "Goat", JA: "ヤギ", FR: "Chèvre", RU: "Козел", DE: "Ziege", ES: "Cabra", PT: "Cabra", HI: "बकरी", ZH: "山羊", AR: "ماعز", PL: "Koza" },
+        { id: 15, TT: "Panda", EN: "Panda", JA: "パンダ", FR: "Panda", RU: "Панда", DE: "Panda", ES: "Panda", PT: "Panda", HI: "पांडा", ZH: "熊猫", AR: "باندا", PL: "Panda" },
+        { id: 16, TT: "Ayı", EN: "Bear", JA: "クマ", FR: "Ours", RU: "Медведь", DE: "Bär", ES: "Oso", PT: "Urso", HI: "भालू", ZH: "熊", AR: "دب", PL: "Niedźwiedź" },
+        { id: 17, TT: "Çita", EN: "Cheetah", JA: "チーター", FR: "Guépard", RU: "Гепард", DE: "Gepard", ES: "Guepardo", PT: "Guepardo", HI: "चीता", ZH: "猎豹", AR: "فهد", PL: "Gepard" },
+        { id: 18, TT: "Deve", EN: "Camel", JA: "ラクダ", FR: "Chameau", RU: "Верблюд", DE: "Kamel", ES: "Camello", PT: "Camelo", HI: "ऊंट", ZH: "骆驼", AR: "جمل", PL: "Wielbłąd" },
+        { id: 19, TT: "Yılan", EN: "Snake", JA: "ヘビ", FR: "Serpent", RU: "Змея", DE: "Schlange", ES: "Serpiente", PT: "Cobra", HI: "साँप", ZH: "蛇", AR: "ثعبان", PL: "Wąż" },
+        { id: 20, TT: "Balina", EN: "Whale", JA: "クジラ", FR: "Baleine", RU: "Кит", DE: "Wal", ES: "Ballena", PT: "Baleia", HI: "व्हेल", ZH: "鲸鱼", AR: "حوت", PL: "Wieloryb" },
+        { id: 21, TT: "Horoz", EN: "Rooster", JA: "オンドリ", FR: "Coq", RU: "Петух", DE: "Hahn", ES: "Gallo", PT: "Galo", HI: "मुर्गा", ZH: "公鸡", AR: "ديك", PL: "Kogut" },
+        { id: 22, TT: "Zürafa", EN: "Giraffe", JA: "キリン", FR: "Girafe", RU: "Жираф", DE: "Giraffe", ES: "Jirafa", PT: "Girafa", HI: "जिराफ़", ZH: "长颈鹿", AR: "زرافة", PL: "Żyrafa" },
+        { id: 23, TT: "Sivri sinek", EN: "Mosquito", JA: "蚊", FR: "Moustique", RU: "Комар", DE: "Mücke", ES: "Mosquito", PT: "Mosquito", HI: "मच्छर", ZH: "蚊子", AR: "بعوضة", PL: "Komar" },
+        { id: 24, TT: "Filamingo", EN: "Flamingo", JA: "フラミンゴ", FR: "Flamant", RU: "Фламинго", DE: "Flamingo", ES: "Flamenco", PT: "Flamingo", HI: "राजहंस", ZH: "火烈鸟", AR: "فلامنغو", PL: "Flaming" },
+        { id: 25, TT: "Maymun", EN: "Monkey", JA: "サル", FR: "Singe", RU: "Обезьяна", DE: "Affe", ES: "Mono", PT: "Macaco", HI: "बंदर", ZH: "猴子", AR: "قرد", PL: "Małpa" },
+        { id: 26, TT: "Kaplan", EN: "Tiger", JA: "トラ", FR: "Tigre", RU: "Тигр", DE: "Tiger", ES: "Tigre", PT: "Tigre", HI: "बाघ", ZH: "老虎", AR: "نمر", PL: "Tygrys" },
+        { id: 27, TT: "Kartal", EN: "Eagle", JA: "ワシ", FR: "Aigle", RU: "Орел", DE: "Adler", ES: "Águila", PT: "Águia", HI: "चील", ZH: "老鹰", AR: "نسر", PL: "Orzeł" },
+        { id: 28, TT: "Fil", EN: "Elephant", JA: "ゾウ", FR: "Éléphant", RU: "Слон", DE: "Elefant", ES: "Elefante", PT: "Elefante", HI: "हाथी", ZH: "大象", AR: "فيل", PL: "Słoń" },
+        { id: 29, TT: "Papağan", EN: "Parrot", JA: "オウム", FR: "Perroquet", RU: "Попугай", DE: "Papagei", ES: "Loro", PT: "Papagaio", HI: "तोता", ZH: "鹦鹉", AR: "ببغاء", PL: "Papuga" },
+        { id: 30, TT: "Kaplumbağa", EN: "Turtle", JA: "ウミガメ", FR: "Tortue", RU: "Черепаха", DE: "Schildkröte", ES: "Tortuga", PT: "Tartaruga", HI: "कछुआ", ZH: "乌龟", AR: "سلحفاة", PL: "Żółw" },
+        { id: 31, TT: "Lama", EN: "Llama", JA: "ラマ", FR: "Lama", RU: "Лама", DE: "Lama", ES: "Llama", PT: "Lama", HI: "लामो", ZH: "羊驼", AR: "لاما", PL: "Lama" },
+        { id: 32, TT: "Eşek", EN: "Donkey", JA: "ロバ", FR: "Âne", RU: "Осел", DE: "Esel", ES: "Burro", PT: "Burro", HI: "गधा", ZH: "驴", AR: "حمار", PL: "Osioł" },
+        { id: 33, TT: "Yarasa", EN: "Bat", JA: "コウモリ", FR: "Chauve-souris", RU: "Летучая мышь", DE: "Fledermaus", ES: "Murciélago", PT: "Morcego", HI: "चमगादड़", ZH: "蝙蝠", AR: "خفاش", PL: "Nietoperz" },
+        { id: 34, TT: "Tavuz Kuşu", EN: "Peacock", JA: "クジャク", FR: "Paon", RU: "Павлин", DE: "Pfau", ES: "Pavo real", PT: "Pavão", HI: "मोर", ZH: "孔雀", AR: "طاووس", PL: "Paw" },
+        { id: 35, TT: "At", EN: "Horse", JA: "ウマ", FR: "Cheval", RU: "Лошадь", DE: "Pferd", ES: "Caballo", PT: "Cavalo", HI: "घोड़ा", ZH: "马", AR: "حصان", PL: "Koń" },
+        { id: 36, TT: "Tavşan", EN: "Rabbit", JA: "ウサギ", FR: "Lapin", RU: "Кролик", DE: "Hase", ES: "Conejo", PT: "Coelho", HI: "खरगोश", ZH: "兔子", AR: "أرنب", PL: "Królik" },
+        { id: 37, TT: "Zebra", EN: "Zebra", JA: "シマウマ", FR: "Zèbre", RU: "Зебра", DE: "Zebra", ES: "Cebra", PT: "Zebra", HI: "जेब्रा", ZH: "斑马", AR: "حمار وحشي", PL: "Zebra" },
+        { id: 38, TT: "İnek", EN: "Cow", JA: "ウシ", FR: "Vache", RU: "Корова", DE: "Kuh", ES: "Vaca", PT: "Vaca", HI: "गाय", ZH: "奶牛", AR: "بقرة", PL: "Krowa" },
+        { id: 39, TT: "Karga", EN: "Crow", JA: "カラス", FR: "Corbeau", RU: "Ворона", DE: "Krähe", ES: "Cuervo", PT: "Corvo", HI: "कौआ", ZH: "乌鸦", AR: "غراب", PL: "Wrona" },
+        { id: 40, TT: "Su aygırı", EN: "Hippopotamus", JA: "カバ", FR: "Hippopotame", RU: "Бегемот", DE: "Flusspferd", ES: "Hipopótamo", PT: "Hipopótamo", HI: "दरियाई घोड़ा", ZH: "河马", AR: "فرس النهر", PL: "Hipopotam" },
+        { id: 41, TT: "Ahtapot", EN: "Octopus", JA: "タコ", FR: "Pieuvre", RU: "Осьминог", DE: "Krake", ES: "Pulpo", PT: "Polvo", HI: "अष्टबाहु", ZH: "章鱼", AR: "أخطبوط", PL: "Ośmiornica" },
+        { id: 42, TT: "Kirpi", EN: "Hedgehog", JA: "ハリネズミ", FR: "Hérisson", RU: "Еж", DE: "Igel", ES: "Erizo", PT: "Oriço", HI: "साही", ZH: "刺猬", AR: "قنفذ", PL: "Jeż" },
+        { id: 43, TT: "Köpekbalığı", EN: "Shark", JA: "サメ", FR: "Requin", RU: "Акула", DE: "Hai", ES: "Tiburón", PT: "Tubarão", HI: "शार्क", ZH: "鲨鱼", AR: "قرش", PL: "Rekin" },
+        { id: 44, TT: "Köpek", EN: "Dog", JA: "イヌ", FR: "Chien", RU: "Собака", DE: "Hund", ES: "Perro", PT: "Cão", HI: "कुत्ता", ZH: "狗", AR: "كلб", PL: "Pies" },
+        { id: 45, TT: "Tilki", EN: "Fox", JA: "キツネ", FR: "Renard", RU: "Лиса", DE: "Fuchs", ES: "Zorro", PT: "Raposa", HI: "लोमड़ी", ZH: "狐狸", AR: "ثعلب", PL: "Lis" },
+        { id: 46, TT: "Koyun", EN: "Sheep", JA: "ヒツジ", FR: "Mouton", RU: "Овца", DE: "Schaf", ES: "Oveja", PT: "Ovelha", HI: "भेड़", ZH: "绵羊", AR: "خروف", PL: "Owca" },
+        { id: 47, TT: "Baykuş", EN: "Owl", JA: "フクロウ", FR: "Hibou", RU: "Сова", DE: "Eule", ES: "Búho", PT: "Coruja", HI: "उल्लू", ZH: "猫头鹰", AR: "بومة", PL: "Sowa" },
+        { id: 48, TT: "Kurbağa", EN: "Frog", JA: "カエル", FR: "Grenouille", RU: "Лягушка", DE: "Frosch", ES: "Rana", PT: "Rã", HI: "मेढक", ZH: "青蛙", AR: "ضفدع", PL: "Żaba" },
+        { id: 49, TT: "Kurt", EN: "Wolf", JA: "オオカミ", FR: "Loup", RU: "Волк", DE: "Wolf", ES: "Lobo", PT: "Lobo", HI: "भेड़िया", ZH: "狼", AR: "ذئب", PL: "Wilk" },
+        { id: 50, TT: "Jaguar", EN: "Jaguar", JA: "ジャガー", FR: "Jaguar", RU: "Ягуар", DE: "Jaguar", ES: "Jaguar", PT: "Jaguar", HI: "जगुआर", ZH: "美洲豹", AR: "جاغوار", PL: "Jaguar" },
+        { id: 51, TT: "Kelebek", EN: "Butterfly", JA: "チョウ", FR: "Papillon", RU: "Бабочка", DE: "Schmetterling", ES: "Mariposa", PT: "Borboleta", HI: "तितली", ZH: "蝴蝶", AR: "فراشة", PL: "Motyl" },
+        { id: 52, TT: "Kuş", EN: "Bird", JA: "トリ", FR: "Oiseau", RU: "Птица", DE: "Vogel", ES: "Pájaro", PT: "Pássaro", HI: "पक्षी", ZH: "鸟", AR: "طائر", PL: "Ptak" },
+        { id: 53, TT: "Timsah", EN: "Crocodile", JA: "ワニ", FR: "Crocodile", RU: "Крокодил", DE: "Krokodil", ES: "Cocodrilo", PT: "Crocodilo", HI: "مغرمच्छ", ZH: "鳄鱼", AR: "تمساح", PL: "Krokodyl" },
+        { id: 54, TT: "Geyik", EN: "Deer", JA: "シカ", FR: "Cerf", RU: "Олень", DE: "Hirsch", ES: "Ciervo", PT: "Veado", HI: "हिरण", ZH: "鹿", AR: "غزال", PL: "Jeleń" },
+        { id: 55, TT: "Koala", EN: "Koala", JA: "コアラ", FR: "Koala", RU: "Коала", DE: "Koala", ES: "Koala", PT: "Coala", HI: "कोआला", ZH: "考拉", AR: "كوالا", PL: "Koala" }
+    ];
+
+    // OYUN MOTORU DEĞİŞKENLERİ
+    let mevcutSeviye = 1;
+    let aktifSoruListesi = [];
+    let mevcutSoruIndex = 0;
+    
+    let dogruSayisi = 0;
+    let yanlisSayisi = 0;
+    let bosSayisi = 0;
+    
+    let kalanSure = 7;
+    let zamanlayici = null;
+    let secimYapildi = false;
+    let secilenDil = "TT";
+
+    function setLanguage(lang) {
+        secilenDil = lang;
+        const UI = STRINGS[secilenDil] || STRINGS["TT"];
+        document.getElementById("welcome-title").textContent = UI.title;
+        document.getElementById("welcome-sub").textContent = UI.sub;
+        document.getElementById("start-action").textContent = UI.start;
+    }
+
+    // Rastgele yanlış şık üretme fonksiyonu
+    function getWrongOptions(correctName, lang) {
+        let pool = ANIMAL_DATA.map(item => item[lang] || item["TT"]);
+        pool = pool.filter(name => name !== correctName);
+        
+        let uniquePool = [...new Set(pool)];
+        
+        let wrongs = [];
+        while(wrongs.length < 3 && uniquePool.length > 0) {
+            let randIdx = Math.floor(Math.random() * uniquePool.length);
+            wrongs.push(uniquePool.splice(randIdx, 1)[0]);
+        }
+        return wrongs;
+    }
+
+    function initLevel(lvl) {
+        mevcutSeviye = lvl;
+        mevcutSoruIndex = 0;
+        dogruSayisi = 0;
+        yanlisSayisi = 0;
+        bosSayisi = 0;
+        
+        if (lvl === 1) {
+            aktifSoruListesi = ANIMAL_DATA.slice(0, 18);
+        } else if (lvl === 2) {
+            aktifSoruListesi = ANIMAL_DATA.slice(18, 36);
+        } else if (lvl === 3) {
+            aktifSoruListesi = ANIMAL_DATA.slice(36, 55);
+        }
+
+        const UI = STRINGS[secilenDil] || STRINGS["TT"];
+        document.getElementById("level-counter").textContent = `${UI.lvl}: ${mevcutSeviye}`;
+    }
+
+    function startGame() {
+        document.getElementById("start-screen").style.display = "none";
+        document.getElementById("main-game").style.display = "block";
+        initLevel(1);
+        soruYukle();
+    }
+
+    function soruYukle() {
+        if (mevcutSoruIndex >= aktifSoruListesi.length) {
+            seviyeBittiEkrani();
+            return;
+        }
+
+        secimYapildi = false;
+        document.getElementById("result-message").textContent = "";
+        document.getElementById("question-counter").textContent = `${mevcutSoruIndex + 1} / ${aktifSoruListesi.length}`;
+
+        const veri = aktifSoruListesi[mevcutSoruIndex];
+        const gorselAdi = `${veri.id}.webp`;
+        
+        document.getElementById("city-image").src = gorselAdi;
+        document.getElementById("dynamic-bg").style.backgroundImage = `url('${gorselAdi}')`;
+
+        const optionsBox = document.getElementById("options-box");
+        optionsBox.innerHTML = "";
+
+        const soruDili = veri[secilenDil] ? secilenDil : "TT";
+        const guncelDogruCevap = veri[soruDili];
+
+        let yanlislar = getWrongOptions(guncelDogruCevap, soruDili);
+        let tumSecenekler = [guncelDogruCevap, ...yanlislar];
+        
+        for (let i = tumSecenekler.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [tumSecenekler[i], tumSecenekler[j]] = [tumSecenekler[j], tumSecenekler[i]];
+        }
+
+        tumSecenekler.forEach(secenek => {
+            const btn = document.createElement("button");
+            btn.className = "btn";
+            btn.textContent = secenek;
+            btn.onclick = () => cevapKontrol(secenek, guncelDogruCevap, btn);
+            optionsBox.appendChild(btn);
+        });
+
+        sureyiBaslat();
+    }
+
+    function sureyiBaslat() {
+        clearInterval(zamanlayici);
+        kalanSure = 7;
+        const bar = document.getElementById("t-bar");
+        bar.style.width = "100%";
+        bar.style.backgroundColor = "var(--success-color)";
+
+        zamanlayici = setInterval(() => {
+            kalanSure -= 0.1;
+            const yuzde = (kalanSure / 7) * 100;
+            bar.style.width = `${yuzde}%`;
+
+            if (kalanSure <= 3) {
+                bar.style.backgroundColor = "var(--accent-color)";
+            } else if (kalanSure <= 5) {
+                bar.style.backgroundColor = "var(--warning-color)";
+            }
+
+            if (kalanSure <= 0) {
+                clearInterval(zamanlayici);
+                sureDoldu();
+            }
+        }, 100);
+    }
+
+    function cevapKontrol(secilenCevap, dogruCevap, buton) {
+        if (secimYapildi) return;
+        secimYapildi = true;
+        clearInterval(zamanlayici);
+
+        const buttons = document.querySelectorAll("#options-box .btn");
+        const UI = STRINGS[secilenDil] || STRINGS["TT"];
+
+        if (secilenCevap === dogruCevap) {
+            buton.classList.add("correct");
+            document.getElementById("result-message").textContent = UI.correctMsg;
+            document.getElementById("result-message").style.color = "var(--success-color)";
+            dogruSayisi++;
+        } else {
+            buton.classList.add("wrong");
+            document.getElementById("result-message").textContent = UI.wrongMsg;
+            document.getElementById("result-message").style.color = "var(--accent-color)";
+            yanlisSayisi++;
+            
+            buttons.forEach(b => {
+                if (b.textContent === dogruCevap) b.classList.add("correct");
+            });
+        }
+
+        buttons.forEach(b => b.disabled = true);
+        setTimeout(() => { mevcutSoruIndex++; soruYukle(); }, 2000);
+    }
+
+    function sureDoldu() {
+        if (secimYapildi) return;
+        secimYapildi = true;
+        bosSayisi++;
+
+        const veri = aktifSoruListesi[mevcutSoruIndex];
+        const soruDili = veri[secilenDil] ? secilenDil : "TT";
+        const guncelDogruCevap = veri[soruDili];
+        const buttons = document.querySelectorAll("#options-box .btn");
+        const UI = STRINGS[secilenDil] || STRINGS["TT"];
+
+        document.getElementById("result-message").textContent = UI.timeOutMsg;
+        document.getElementById("result-message").style.color = "var(--warning-color)";
+
+        buttons.forEach(b => {
+            if (b.textContent === guncelDogruCevap) b.classList.add("correct");
+            b.disabled = true;
+        });
+
+        setTimeout(() => { mevcutSoruIndex++; soruYukle(); }, 2000);
+    }
+
+    function seviyeBittiEkrani() {
+        clearInterval(zamanlayici);
+        document.getElementById("result-message").textContent = "";
+        
+        const optionsBox = document.getElementById("options-box");
+        const UI = STRINGS[secilenDil] || STRINGS["TT"];
+
+        optionsBox.innerHTML = `
+            <div class="results-layout" style="font-size: 16px; margin-bottom: 20px; text-align: left; background: rgba(0,0,0,0.4); padding: 15px; border-radius: 12px; line-height: 1.6;">
+                <strong>${UI.score}</strong><br>
+                ✅ ${UI.correct}: ${dogruSayisi}<br>
+                ❌ ${UI.wrong}: ${yanlisSayisi}<br>
+                ⚪ ${UI.empty}: ${bosSayisi}
+            </div>
+        `;
+
+        let actionWrapper = document.createElement("div");
+        actionWrapper.className = "results-layout";
+
+        if (mevcutSeviye === 1) {
+            if (dogruSayisi >= 10) {
+                actionWrapper.innerHTML += `<button class="action-btn next-lvl-btn" onclick="seviyeDegistir(2)">${UI.nextLvl2}</button>`;
+            } else {
+                actionWrapper.innerHTML += `<p style="color: var(--accent-color); font-weight: bold; font-size: 14px;">⚠️ ${UI.lvlFail2}</p>`;
+            }
+        } else if (mevcutSeviye === 2) {
+            if (dogruSayisi >= 10) {
+                actionWrapper.innerHTML += `<button class="action-btn next-lvl-btn" onclick="seviyeDegistir(3)">${UI.nextLvl3}</button>`;
+            } else {
+                actionWrapper.innerHTML += `<p style="color: var(--accent-color); font-weight: bold; font-size: 14px;">⚠️ ${UI.lvlFail3}</p>`;
+            }
+        }
+
+        actionWrapper.innerHTML += `
+            <button class="action-btn" onclick="oyunuYenidenBaslat()">${UI.restart}</button>
+            <button class="action-btn vibe-btn" onclick="vibeUygulamasinaDon()">${UI.returnVibe}</button>
+        `;
+        
+        optionsBox.appendChild(actionWrapper);
+    }
+
+    function seviyeDegistir(hedefLvl) {
+        initLevel(hedefLvl);
+        soruYukle();
+    }
+
+    function oyunuYenidenBaslat() {
+        initLevel(1);
+        soruYukle();
+    }
+
+    function vibeUygulamasinaDon() {
+        window.location.href = "vibe://back"; 
+    }
+</script>
+</body>
+</html>
