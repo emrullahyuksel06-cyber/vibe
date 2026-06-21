@@ -54,7 +54,7 @@
         }
 
         #start-screen {
-            background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6)), url('girs.webp');
+            background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6)), url('https://raw.githubusercontent.com/emrullahyuksel06-cyber/vibe/main/assets/images/hayvan/girs.webp');
             background-size: cover;
             background-position: center;
             border-radius: 16px;
@@ -377,6 +377,7 @@
     let dogruSayisi = 0;
     let yanlisSayisi = 0;
     let bosSayisi = 0;
+    let totalDogru = 0;
     
     let kalanSure = 7;
     let zamanlayici = null;
@@ -428,6 +429,7 @@
     function startGame() {
         document.getElementById("start-screen").style.display = "none";
         document.getElementById("main-game").style.display = "block";
+        totalDogru = 0;
         initLevel(1);
         soruYukle();
     }
@@ -445,8 +447,8 @@
         const veri = aktifSoruListesi[mevcutSoruIndex];
         const gorselAdi = `${veri.id}.webp`;
         
-        document.getElementById("city-image").src = gorselAdi;
-        document.getElementById("dynamic-bg").style.backgroundImage = `url('${gorselAdi}')`;
+        document.getElementById("city-image").src = 'https://raw.githubusercontent.com/emrullahyuksel06-cyber/vibe/main/assets/images/hayvan/' + gorselAdi;
+        document.getElementById("dynamic-bg").style.backgroundImage = "url('https://raw.githubusercontent.com/emrullahyuksel06-cyber/vibe/main/assets/images/hayvan/' + gorselAdi)";
 
         const optionsBox = document.getElementById("options-box");
         optionsBox.innerHTML = "";
@@ -590,17 +592,25 @@
     }
 
     function seviyeDegistir(hedefLvl) {
+        totalDogru += dogruSayisi;
         initLevel(hedefLvl);
         soruYukle();
     }
 
     function oyunuYenidenBaslat() {
+        totalDogru = 0;
         initLevel(1);
         soruYukle();
     }
 
     function vibeUygulamasinaDon() {
-        window.location.href = "vibe://back"; 
+        totalDogru += dogruSayisi;
+        const xp = totalDogru * 3;
+        if (window.parent && window.parent !== window) {
+            window.parent.postMessage({ type: 'GEOQUIZ_DONE', correct: totalDogru, xp: xp, game: 'hayvan' }, '*');
+        } else {
+            window.history.back();
+        }
     }
 </script>
 </body>
