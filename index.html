@@ -1959,6 +1959,11 @@ function examineObj(key, btn) {
     showToast('⚡ Enerjin yok! Yemek yap veya bekle.');
     return;
   }
+  // Yatakta uyku hazırsa direkt çalıştır (recall atla)
+  if (key === 'bed' && GS._sleepReady) {
+    showDay1Complete();
+    return;
+  }
   GS.recallDone = false;
   energyCostObj(key);
   const sceneEl = G('scene-text');
