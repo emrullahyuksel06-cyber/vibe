@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GeoQuiz - Meslekler Challenge</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --text-color: #ffffff;
+            --primary-color: #ffffff; 
+            --accent-color: #e74c3c;
+            --success-color: #2ecc71;
+            --warning-color: #f1c40f;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .bg-blur-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-size: cover;
+            background-position: center;
+            filter: blur(3px);
+            opacity: 0.4;
+            z-index: -1;
+            transition: background-image 0.5s ease-in-out;
+        }
+
+        .game-container {
+            background-color: transparent;
+            width: 100%;
+            max-width: 500px;
+            padding: 25px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        #start-screen {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6)), url('girs.webp');
+            background-size: cover;
+            background-position: center;
+            border-radius: 16px;
+            padding: 40px 20px;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 400px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .lang-select-container {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .lang-dropdown {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            border: 2px solid white;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        .lang-dropdown option {
+            color: #2c3e50;
+            background: white;
+        }
+
+        .start-btn {
+            background-color: var(--success-color);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 20px;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.4);
+            transition: transform 0.2s;
+        }
+
+        .start-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .timer-container {
+            width: 100%;
+            height: 6px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 3px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+
+        .timer-bar {
+            width: 100%;
+            height: 100%;
+            background-color: var(--success-color);
+            transition: width 0.1s linear, background-color 0.5s;
+        }
+
+        .image-container {
+            width: auto;
+            max-width: 100%;
+            height: auto;
+            max-height: 45vh; 
+            aspect-ratio: 9 / 16; 
+            margin: 0 auto 15px auto;
+            border-radius: 16px;
+            overflow: hidden;
+            background-color: transparent; 
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .landmark-space {
+            min-height: 26px;
+            margin-bottom: 15px;
+        }
+
+        .top-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 15px;
+            font-weight: bold;
+            color: #ffffff;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .btn {
+            background-color: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            color: #ffffff;
+            padding: 14px;
+            font-size: 15px;
+            font-weight: 600;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .btn:hover:not(:disabled) {
+            border-color: #ffffff;
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .correct {
+            background-color: var(--success-color) !important;
+            color: white !important;
+            border-color: var(--success-color) !important;
+            text-shadow: none;
+        }
+
+        .wrong {
+            background-color: var(--accent-color) !important;
+            color: white !important;
+            border-color: var(--accent-color) !important;
+            text-shadow: none;
+        }
+
+        #result-message {
+            font-size: 16px;
+            font-weight: bold;
+            min-height: 24px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+        }
+
+        .action-btn {
+            background-color: var(--success-color);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 25px;
+            cursor: pointer;
+            margin: 8px;
+            box-shadow: 0 4px 10px rgba(46, 204, 113, 0.3);
+            transition: background-color 0.2s;
+        }
+        
+        .vibe-btn {
+            background-color: #9b59b6;
+            box-shadow: 0 4px 10px rgba(155, 89, 182, 0.3);
+        }
+
+        .next-lvl-btn {
+            background-color: #3498db;
+            box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
+        }
+
+        .results-layout {
+            grid-column: span 2;
+        }
+    </style>
+</head>
+<body>
+
+<div id="dynamic-bg" class="bg-blur-container"></div>
+
+<div class="game-container">
+    <div id="start-screen">
+        <div class="lang-select-container">
+            <select class="lang-dropdown" id="lang-menu" onchange="setLanguage(this.value)">
+                <option value="TT">Türkçe (TR)</option>
+                <option value="EN">English (EN)</option>
+                <option value="JA">日本語 (JA)</option>
+                <option value="ES">Español (ES)</option>
+                <option value="FR">Français (FR)</option>
+                <option value="DE">Deutsch (DE)</option>
+                <option value="PT">Português (PT)</option>
+                <option value="HI">हिन्दी (HI)</option>
+                <option value="ZH">中文 (ZH)</option>
+                <option value="AR">العربية (AR)</option>
+                <option value="PL">Polski (PL)</option>
+            </select>
+        </div>
+        <div>
+            <h1 id="welcome-title" style="margin-bottom: 5px; text-shadow: 0 2px 4px rgba(0,0,0,0.6);">Meslekler Oyunu</h1>
+            <p id="welcome-sub" style="margin-top: 0; font-size: 14px; text-shadow: 0 1px 3px rgba(0,0,0,0.6);">Görseldeki mesleği ne kadar iyi tanıyorsun?</p>
+        </div>
+        <div>
+            <button class="start-btn" id="start-action" onclick="startGame()">BAŞLA</button>
+        </div>
+    </div>
+
+    <div id="main-game" style="display: none;">
+        <div class="top-meta">
+            <span id="level-counter">Seviye: 1</span>
+            <span id="question-counter">1 / 16</span>
+        </div>
+
+        <div class="timer-container">
+            <div class="timer-bar" id="t-bar"></div>
+        </div>
+
+        <div class="image-container">
+            <img id="city-image" src="" alt="Quiz Visual">
+        </div>
+        
+        <div class="landmark-space"></div>
+        
+        <div class="options-grid" id="options-box"></div>
+        <div id="result-message"></div>
+    </div>
+</div>
+
+<script>
+    const STRINGS = {
+        TT: { title: "Meslekler Oyunu", sub: "Görseldeki mesleği ne kadar iyi tanıyorsun?", start: "BAŞLA", correctMsg: "Doğru! Sıradaki soruya geçiliyor...", wrongMsg: "Yanlış! Doğru cevap gösteriliyor...", timeOutMsg: "Süre Doldu! Boş bırakıldı...", ended: "Seviye Tamamlandı! 🎯", score: "Skorunuz:", correct: "Doğru", wrong: "Yanlış", empty: "Boş", restart: "Yeniden Başlat", returnVibe: "Vibe'a Geri Dön", lvl: "Seviye", nextLvl2: "2. Seviyeye Geç 🚀", nextLvl3: "3. Seviyeye Geç 🚀", lvlFail2: "2. Seviye için en az 10 doğru gerekiyor.", lvlFail3: "3. Seviye için en az 10 doğru gerekiyor." },
+        EN: { title: "Jobs & Occupations Game", sub: "How well do you know the profession?", start: "START", correctMsg: "Correct! Moving to the next question...", wrongMsg: "Wrong! Showing the correct answer...", timeOutMsg: "Time's Up! Left blank...", ended: "Level Completed! 🎯", score: "Your Score:", correct: "Correct", wrong: "Wrong", empty: "Blank", restart: "Restart Game", returnVibe: "Back to Vibe", lvl: "Level", nextLvl2: "Go to Level 2 🚀", nextLvl3: "Go to Level 3 🚀", lvlFail2: "At least 10 correct answers required for Level 2.", lvlFail3: "At least 10 correct answers required for Level 3." },
+        JA: { title: "職業クイズゲーム", sub: "写真の職業をどれくらい知っていますか？", start: "スタート", correctMsg: "正解！次の質問に進みます...", wrongMsg: "不正解！正解を表示しています...", timeOutMsg: "時間切れ！未回答...", ended: "レベルクリア！ 🎯", score: "あなたのスコア:", correct: "正解", wrong: "不正解", empty: "未回答", restart: "もう一度プレイ", returnVibe: "Vibeに戻る", lvl: "レベル", nextLvl2: "レベル2へ進む 🚀", nextLvl3: "レベル3へ進む 🚀", lvlFail2: "レベル2に進むには少なくとも10問の正解が必要です。", lvlFail3: "レベル3に進むには少なくとも10問の正解が必要です。" },
+        ES: { title: "Juego de Profesiones", sub: "¿Qué tan bien conoces la profesión en la imagen?", start: "COMENZAR", correctMsg: "¡Correcto! Pasando a la siguiente pregunta...", wrongMsg: "¡Incorrecto! Mostrando la respuesta correcta...", timeOutMsg: "¡Tiempo agotado! Dejado en blanco...", ended: "¡Nivel Completado! 🎯", score: "Tu Puntuación:", correct: "Correcto", wrong: "Incorrecto", empty: "En blanco", restart: "Reiniciar Juego", returnVibe: "Volver a Vibe", lvl: "Nivel", nextLvl2: "Ir al Nivel 2 🚀", nextLvl3: "Ir al Nivel 3 🚀", lvlFail2: "Se requieren al menos 10 respuestas correctas para el Nivel 2.", lvlFail3: "Se requieren al menos 10 respuestas correctas para el Nivel 3." },
+        FR: { title: "Jeu des Métiers", sub: "Connaissez-vous bien la profession ?", start: "COMMENCER", correctMsg: "Correct! Question suivante...", wrongMsg: "Faux! Affichage de la bonne réponse...", timeOutMsg: "Temps écoulé! Laissé vide...", ended: "Niveau Terminé! 🎯", score: "Votre Score:", correct: "Correct", wrong: "Faux", empty: "Vide", restart: "Recommencer", returnVibe: "Retour à Vibe", lvl: "Niveau", nextLvl2: "Passer au Niveau 2 🚀", nextLvl3: "Passer au Niveau 3 🚀", lvlFail2: "Au moins 10 réponses correctes requises pour le Niveau 2.", lvlFail3: "Au moins 10 réponses correctes requises pour le Niveau 3." },
+        DE: { title: "Berufe-Ratespiel", sub: "Wie gut kennen Sie den Beruf auf dem Bild?", start: "START", correctMsg: "Richtig! Nächste Frage...", wrongMsg: "Falsch! Richtige Antwort wird angezeigt...", timeOutMsg: "Zeit abgelaufen! Leer gelassen...", ended: "Stufe abgeschlossen! 🎯", score: "Ihr Ergebnis:", correct: "Richtig", wrong: "Falsch", empty: "Leer", restart: "Neustart", returnVibe: "Zurück zu Vibe", lvl: "Stufe", nextLvl2: "Zu Stufe 2 wechseln 🚀", nextLvl3: "Zu Stufe 3 wechseln 🚀", lvlFail2: "Mindestens 10 richtige Antworten für Stufe 2 erforderlich.", lvlFail3: "Mindestens 10 richtige Antworten für Stufe 3 erforderlich." },
+        PT: { title: "Jogo das Profissões", sub: "Quão bem você conhece a profissão?", start: "INICIAR", correctMsg: "Correto! Próxima pergunta...", wrongMsg: "Incorreto! Mostrando a resposta certa...", timeOutMsg: "Tempo Esgotado! Deixado em branco...", ended: "Nível Concluído! 🎯", score: "Sua Pontuação:", correct: "Correto", wrong: "Incorreto", empty: "Em branco", restart: "Reiniciar Jogo", returnVibe: "Voltar para o Vibe", lvl: "Nível", nextLvl2: "Ir para o Nível 2 🚀", nextLvl3: "Ir para o Nível 3 🚀", lvlFail2: "Pelo menos 10 respostas corretas necessárias para o Nível 2.", lvlFail3: "Pelo menos 10 respostas corretas necessárias para o Nível 3." },
+        HI: { title: "व्यवसाय खेल", sub: "आप तस्वीर में दिख रहे पेशे को कितनी अच्छी तरह जानते हैं?", start: "शुरू करें", correctMsg: "सही! अगले प्रश्न पर जा रहे हैं...", wrongMsg: "गलत! सही उत्तर दिखाया जा रहा है...", timeOutMsg: "समय समाप्त! खाली छोड़ दिया...", ended: "स्तर पूरा हुआ! 🎯", score: "आपका स्कोर:", correct: "सही", wrong: "गलत", empty: "खाली", restart: "पुun: आरंभ करें", returnVibe: "Vibe पर वापस जाएं", lvl: "स्तर", nextLvl2: "स्तर 2 पर जाएं 🚀", nextLvl3: "स्तर 3 पर जाएं 🚀", lvlFail2: "स्तर 2 के लिए कम से कम 10 सही उत्तर आवश्यक हैं।", lvlFail3: "स्तर 3 के लिए कम से कम 10 सही उत्तर आवश्यक हैं।" },
+        ZH: { title: "职业问答游戏", sub: "你对图片中的职业有多了解？", start: "开始", correctMsg: "正确！正在前往下一题...", wrongMsg: "错误！显示正确答案...", timeOutMsg: "时间到！已留空...", ended: "关卡完成！ 🎯", score: "您的得分:", correct: "正确", wrong: "错误", empty: "留空", restart: "重新开始", returnVibe: "返回 Vibe", lvl: "关卡", nextLvl2: "进入第 2 关 🚀", nextLvl3: "进入第 3 关 🚀", lvlFail2: "解锁第 2 关需要至少 10 个正确答案。", lvlFail3: "解锁第 3 关需要至少 10 个正确答案。" },
+        AR: { title: "لعبة المهن والوظائف", sub: "ما مدى معرفتك بالمهنة الموجودة في الصورة？", start: "ابدأ", correctMsg: "صحيح! الانتقال إلى السؤال التالي...", wrongMsg: "خطأ! إظهار الإجابة الصحيحة...", timeOutMsg: "انتهى الوقت! تركت فارغة...", ended: "اكتمل المستوى! 🎯", score: "نتيجتك:", correct: "صحيح", wrong: "خطأ", empty: "فارغة", restart: "إعادة تشغيل", returnVibe: "العودة إلى Vibe", lvl: "المستوى", nextLvl2: "الانتقال إلى المستوى 2 🚀", nextLvl3: "الانتقال إلى المستوى 3 🚀", lvlFail2: "مطلوب 10 إجابات صحيحة على الأقل للمستوى 2.", lvlFail3: "مطلوب 10 إجابات صحいحة على الأقل للمستوى 3." },
+        PL: { title: "Gra o Zawodach", sub: "Jak dobrze znasz zawód na zdjęciu?", start: "START", correctMsg: "Dobrze! Przejście do kolejnego pytania...", wrongMsg: "Błąd! Pokazywanie prawidłowej odpowiedzi...", timeOutMsg: "Koniec czasu! Pozostawiono puste...", ended: "Poziom ukończony! 🎯", score: "Twój wynik:", correct: "Dobrze", wrong: "Błąd", empty: "Puste", restart: "Zacznij od nowa", returnVibe: "Wróć do Vibe", lvl: "Poziom", nextLvl2: "Przejdź do Poziomu 2 🚀", nextLvl3: "Przejdź do Poziomu 3 🚀", lvlFail2: "Wymagane co najmniej 10 poprawnych odpowiedzi dla Poziomu 2.", lvlFail3: "Wymagane co najmniej 10 poprawnych odpowiedzi dla Poziomu 3." }
+    };
+
+    // Tüm dillerde meslek isimleri havuzu (Multi-Language Dataset)
+    const MESLEKLER = [
+        { id: 1, TT: "Resepsiyonist", EN: "Receptionist", JA: "受付係", ES: "Recepcionista", FR: "Réceptionniste", DE: "Empfangsmitarbeiter", PT: "Recepcionista", HI: "स्वागतकर्ता", ZH: "接待员", AR: "موظف استقبال", PL: "Recepcjonista" },
+        { id: 2, TT: "Kamyon Şoförü", EN: "Truck Driver", JA: "トラック運転手", ES: "Camionero", FR: "Chauffeur de camion", DE: "Lkw-Fahrer", PT: "Caminhoneiro", HI: "ट्रक चालक", ZH: "卡车司机", AR: "سائق شاحنة", PL: "Kierowca ciężarówki" },
+        { id: 3, TT: "Eczacı", EN: "Pharmacist", JA: "薬剤師", ES: "Farmacéutico", FR: "Pharmacien", DE: "Apotheker", PT: "Farmacêutico", HI: "फार्मासिस्ट", ZH: "药剂师", AR: "صيدلي", PL: "Farmaceuta" },
+        { id: 4, TT: "Bayan Kuaför", EN: "Hairdresser", JA: "美容師", ES: "Peluquero", FR: "Coiffeur", DE: "Friseur", PT: "Cabeleireiro", HI: "हेयरड्रेसर", ZH: "美发师", AR: "مصفف شعر", PL: "Fryzjer" },
+        { id: 5, TT: "Tren Makinisti", EN: "Train Driver", JA: "電車の運転士", ES: "Maquinista de tren", FR: "Conducteur de train", DE: "Lokführer", PT: "Maquinista de trem", HI: "ट्रेन चालक", ZH: "火车司机", AR: "سائق قطار", PL: "Maszynista pociągu" },
+        { id: 6, TT: "Garson", EN: "Waiter", JA: "ウェイター", ES: "Camarero", FR: "Serveur", DE: "Kellner", PT: "Garçom", HI: "वेटर", ZH: "服务员", AR: "نادل", PL: "Kelner" },
+        { id: 7, TT: "Elektrikçi", EN: "Electrician", JA: "電気技師", ES: "Electricista", FR: "Électricien", DE: "Elektriker", PT: "Eletricista", HI: "बिजली मिस्त्री", ZH: "电工", AR: "كهربائي", PL: "Elektryk" },
+        { id: 8, TT: "Polis", EN: "Police Officer", JA: "警察官", ES: "Policía", FR: "Policier", DE: "Polizist", PT: "Policial", HI: "पुलिस कर्मी", ZH: "警察", AR: "شرطي", PL: "Policjant" },
+        { id: 9, TT: "Kütüphaneci", EN: "Librarian", JA: "司書", ES: "Bibliotecario", FR: "Bibliothécaire", DE: "Bibliothekar", PT: "Bibliotecário", HI: "पुस्तकालय अध्यक्ष", ZH: "图书管理员", AR: "أمين مكتبة", PL: "Bibliotekarz" },
+        { id: 10, TT: "Temizlikçi", EN: "Cleaner", JA: "清掃員", ES: "Limpiador", FR: "Nettoyeur", DE: "Reinigungskraft", PT: "Faxineiro", HI: "सफाई कर्मचारी", ZH: "清洁工", AR: "عامل نظافة", PL: "Sprzątacz" },
+        { id: 11, TT: "Aşçı", EN: "Chef", JA: "シェフ", ES: "Chef", FR: "Chef cuisinier", DE: "Koch", PT: "Chefe de cozinha", HI: "शेफ", ZH: "厨师", AR: "طاهي", PL: "Szef kuchni" },
+        { id: 12, TT: "Araba Tamircisi", EN: "Car Mechanic", JA: "自動車整備士", ES: "Mecánico de autos", FR: "Mécanicien automobile", DE: "Kfz-Mechaniker", PT: "Mecânico de automóveis", HI: "कार मैकेनिक", ZH: "汽车修理工", AR: "ميكانيكي سيارات", PL: "Mechanik samochodowy" },
+        { id: 13, TT: "Bankacı", EN: "Banker", JA: "銀行員", ES: "Banquero", FR: "Banquier", DE: "Bankier", PT: "Bancário", HI: "बैंकर", ZH: "银行家", AR: "مصرفي", PL: "Bankier" },
+        { id: 14, TT: "Çiftçi", EN: "Farmer", JA: "農家", ES: "Agricultor", FR: "Agriculteur", DE: "Bauer", PT: "Fazendeiro", HI: "किसान", ZH: "农民", AR: "مزارع", PL: "Rolnik" },
+        { id: 15, TT: "Kurye", EN: "Courier", JA: "配達員", ES: "Mensajero", FR: "Coursier", DE: "Kurier", PT: "Entregador", HI: "कूरियर", ZH: "快递员", AR: "ساعي", PL: "Kurier" },
+        { id: 16, TT: "Mühendis", EN: "Engineer", JA: "エンジニア", ES: "Ingeniero", FR: "Ingénieur", DE: "Ingenieur", PT: "Engenheiro", HI: "इंजीनियर", ZH: "工程师", AR: "مهندس", PL: "Inżynier" },
+        { id: 17, TT: "Dedektif", EN: "Detective", JA: "探偵", ES: "Detective", FR: "Détective", DE: "Detektiv", PT: "Detetive", HI: "जासूस", ZH: "侦探", AR: "محقق", PL: "Detektyw" },
+        { id: 18, TT: "Doktor", EN: "Doctor", JA: "医師", ES: "Médico", FR: "Médecin", DE: "Arzt", PT: "Médico", HI: "डॉक्टर", ZH: "医生", AR: "طبيب", PL: "Lekarz" },
+        { id: 19, TT: "Barista", EN: "Barista", JA: "バリスタ", ES: "Barista", FR: "Barista", DE: "Barista", PT: "Barista", HI: "बारीस्ता", ZH: "咖啡师", AR: "باريستا", PL: "Barista" },
+        { id: 20, TT: "Öğretmen", EN: "Teacher", JA: "教師", ES: "Profesor", FR: "Enseignant", DE: "Lehrer", PT: "Professor", HI: "शिक्षक", ZH: "老师", AR: "معلم", PL: "Nauczyciel" },
+        { id: 21, TT: "İnşaat İşçisi", EN: "Construction Worker", JA: "建設作業員", ES: "Obrero de construcción", FR: "Ouvrier du bâtiment", DE: "Bauarbeiter", PT: "Operário de construção", HI: "निर्माण मजदूर", ZH: "建筑工人", AR: "عامل بناء", PL: "Robotnik budowlany" },
+        { id: 22, TT: "Güvenlik", EN: "Security Guard", JA: "警備員", ES: "Guardia de seguridad", FR: "Agent de sécurité", DE: "Sicherheitskraft", PT: "Segurança", HI: "सुरक्षा गार्ड", ZH: "保安", AR: "حارس أمن", PL: "Ochroniarz" },
+        { id: 23, TT: "Postacı", EN: "Postman", JA: "郵便配達員", ES: "Cartero", FR: "Facteur", DE: "Briefträger", PT: "Carteiro", HI: "डाकिया", ZH: "邮递员", AR: "ساعي البريد", PL: "Listonosz" },
+        { id: 24, TT: "Tur Rehberi", EN: "Tour Guide", JA: "ツアーガイド", ES: "Guía turístico", FR: "Guide touristique", DE: "Reiseleiter", PT: "Guia turístico", HI: "टूर गाइड", ZH: "导游", AR: "مرشد سياحي", PL: "Przewodnik turystyczny" },
+        { id: 25, TT: "Mağaza Reyon Görevlisi", EN: "Store Clerk", JA: "店員", ES: "Dependiente", FR: "Vendeur", DE: "Verkäufer", PT: "Balconista", HI: "स्टोर क्लर्क", ZH: "店员", AR: "موظف متجر", PL: "Sprzedawca w sklepie" },
+        { id: 26, TT: "Dişçi", EN: "Dentist", JA: "歯科医師", ES: "Dentista", FR: "Dentiste", DE: "Zahnarzt", PT: "Dentista", HI: "दंत चिकित्सक", ZH: "牙医", AR: "طبيب أسنان", PL: "Dentysta" },
+        { id: 27, TT: "Terzi", EN: "Tailor", JA: "仕立て屋", ES: "Sastre", FR: "Tailleur", DE: "Schneider", PT: "Alfaiate", HI: "दर्जी", ZH: "裁缝", AR: "خياط", PL: "Krawiec" },
+        { id: 28, TT: "Hemşire", EN: "Nurse", JA: "看護师", ES: "Enfermero", FR: "Infirmier", DE: "Pflegekraft", PT: "Enfermeiro", HI: "नर्स", ZH: "护士", AR: "ممرض", PL: "Pielęgniarka" },
+        { id: 29, TT: "Otobüs Şoförü", EN: "Bus Driver", JA: "バス運転手", ES: "Conductor de autobús", FR: "Chauffeur de bus", DE: "Busfahrer", PT: "Motorista de ônibus", HI: "बस चालक", ZH: "公交车司机", AR: "سائق حافلة", PL: "Kierowca autobusu" },
+        { id: 30, TT: "Hakim", EN: "Judge", JA: "裁判官", ES: "Juez", FR: "Juge", DE: "Richter", PT: "Juiz", HI: "न्यायाधीश", ZH: "法官", AR: "قاضي", PL: "Sędzia" },
+        { id: 31, TT: "Dövmeci", EN: "Tattoo Artist", JA: "彫師", ES: "Tatuador", FR: "Tatoueur", DE: "Tätowierer", PT: "Tatuador", HI: "टैटू कलाकार", ZH: "纹身师", AR: "رسام وشم", PL: "Tatuażysta" },
+        { id: 32, TT: "Madenci", EN: "Miner", JA: "炭鉱作業員", ES: "Minero", FR: "Mineur", DE: "Bergarbeiter", PT: "Mineiro", HI: "खनिक", ZH: "矿工", AR: "عامل مناجم", PL: "Górnik" },
+        { id: 33, TT: "Kasiyer", EN: "Cashier", JA: "レジ係", ES: "Cajero", FR: "Caissier", DE: "Kassierer", PT: "Caixa", HI: "कैशियर", ZH: "收银员", AR: "صراف", PL: "Kasjer" },
+        { id: 34, TT: "Barmen", EN: "Bartender", JA: "バーテンダー", ES: "Barman", FR: "Bartender", DE: "Barmann", PT: "Barman", HI: "बारटेंडर", ZH: "调酒师", AR: "ساقي", PL: "Barman" },
+        { id: 35, TT: "Müdür", EN: "Manager", JA: "マネージャー", ES: "Gerente", FR: "Directeur", DE: "Manager", PT: "Gerente", HI: "प्रबंधक", ZH: "经理", AR: "مدير", PL: "Menedżer" },
+        { id: 36, TT: "Balıkçı", EN: "Fisherman", JA: "漁師", ES: "Pescador", FR: "Pêcheur", DE: "Fischer", PT: "Pescador", HI: "मछुआरा", ZH: "渔民", AR: "صياد سمك", PL: "Rybak" },
+        { id: 37, TT: "Berber", EN: "Barber", JA: "理容師", ES: "Barbero", FR: "Barbier", DE: "Herrenfriseur", PT: "Barbeiro", HI: "नाई", ZH: "理发师", AR: "حلاق", PL: "Barber" },
+        { id: 38, TT: "Avukat", EN: "Lawyer", JA: "弁護士", ES: "Abogado", FR: "Avocat", DE: "Anwalt", PT: "Advogado", HI: "वकील", ZH: "律师", AR: "محامٍ", PL: "Prawnik" },
+        { id: 39, TT: "Psikolog", EN: "Psychologist", JA: "心理学者", ES: "Psicólogo", FR: "Psychologue", DE: "Psychologe", PT: "Psicólogo", HI: "मनोवैज्ञानिक", ZH: "心理学家", AR: "أخصائي نفسي", PL: "Psycholog" },
+        { id: 40, TT: "İtfaiyeci", EN: "Firefighter", JA: "消防士", ES: "Bombero", FR: "Pompier", DE: "Feuerwehrmann", PT: "Bombeiro", HI: "दमकलकर्मी", ZH: "消防员", AR: "إطفائي", PL: "Strażak" },
+        { id: 41, TT: "Müzisyenler", EN: "Musicians", JA: "ミュージシャン", ES: "Músicos", FR: "Musiciens", DE: "Musiker", PT: "Músicos", HI: "संगीतकार", ZH: "音乐家", AR: "موسيقيون", PL: "Muzycy" },
+        { id: 42, TT: "Yazılımcı", EN: "Software Developer", JA: "開発者", ES: "Desarrollador", FR: "Développeur", DE: "Entwickler", PT: "Desenvolvedor", HI: "सॉफ्टवेयर डेवलपर", ZH: "软件开发人员", AR: "مطور برامج", PL: "Programista" },
+        { id: 43, TT: "Pilot", EN: "Pilot", JA: "パイロット", ES: "Piloto", FR: "Pilote", DE: "Pilot", PT: "Piloto", HI: "पायलट", ZH: "飞行员", AR: "طيار", PL: "Pilot" },
+        { id: 44, TT: "Trafik Polisi", EN: "Traffic Police", JA: "交通警察", ES: "Policía de tráfico", FR: "Police de la route", DE: "Verkehrspolizist", PT: "Polícia de trânsito", HI: "यातायात पुलिस", ZH: "交通警察", AR: "شرطة المرور", PL: "Policjant drogowy" },
+        { id: 45, TT: "Kaynakçı", EN: "Welder", JA: "溶接工", ES: "Soldador", FR: "Soudeur", DE: "Schweißer", PT: "Soldador", HI: "वेल्डर", ZH: "焊工", AR: "لحام", PL: "Spawacz" },
+        { id: 46, TT: "Veteriner", EN: "Veterinarian", JA: "獣医師", ES: "Veterinario", FR: "Vétérinaire", DE: "Tierarzt", PT: "Veterinário", HI: "पशु चिकित्सक", ZH: "兽医", AR: "طبيب بيطري", PL: "Weterynarz" },
+        { id: 47, TT: "Mimar", EN: "Architect", JA: "建筑家", ES: "Arquitecto", FR: "Architecte", DE: "Architekt", PT: "Arquiteto", HI: "आर्किटेक्ट", ZH: "建筑师", AR: "مهندس معماري", PL: "Architekt" },
+        { id: 48, TT: "Tesisatçı", EN: "Plumber", JA: "配管工", ES: "Fontanero", FR: "Plombier", DE: "Installateur", PT: "Encanador", HI: "नलसाज", ZH: "管道工", AR: "سباك", PL: "Hydraulik" },
+        { id: 49, TT: "Taksi Şoförü", EN: "Taxi Driver", JA: "タクシー運転手", ES: "Taxista", FR: "Chauffeur de taxi", DE: "Taxifahrer", PT: "Taxista", HI: "टैक्सी चालक", ZH: "出租车司机", AR: "سائق تاكسي", PL: "Taksówkarz" }
+    ];
+
+    let mevcutSeviye = 1;
+    let aktifSoruListesi = [];
+    let mevcutSoruIndex = 0;
+    
+    let dogruSayisi = 0;
+    let yanlisSayisi = 0;
+    let bosSayisi = 0;
+    
+    let kalanSure = 7;
+    let zamanlayici = null;
+    let secimYapildi = false;
+    let secilenDil = "TT"; 
+
+    function arrayKaristir(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+    }
+
+    // Dinamik soru oluşturucu motoru - Seçilen dile tam bağımlı hale getirildi
+    function sorularıOlustur(baslangicId, bitisId) {
+        let sorular = [];
+        for (let i = baslangicId; i <= bitisId; i++) {
+            let dogruMeslek = MESLEKLER.find(m => m.id === i);
+            
+            // Yanlış cevapları havuzdan çekme
+            let digerleri = MESLEKLER.filter(m => m.id !== i);
+            digerleri = arrayKaristir(digerleri);
+            let yanlislar = digerleri.slice(0, 3);
+
+            // Tüm dillerin şık paketini dinamik üretiyoruz
+            let seceneklerPaketi = {};
+            const diller = ["TT", "EN", "JA", "ES", "FR", "DE", "PT", "HI", "ZH", "AR", "PL"];
+            
+            diller.forEach(lang => {
+                let havuz = [
+                    dogruMeslek[lang] || dogruMeslek["EN"], 
+                    yanlislar[0][lang] || yanlislar[0["EN"]], 
+                    yanlislar[1][lang] || yanlislar[1["EN"]], 
+                    yanlislar[2][lang] || yanlislar[2["EN"]]
+                ];
+                seceneklerPaketi[lang] = arrayKaristir([...havuz]);
+            });
+
+            sorular.push({
+                id: i,
+                gorsel: `${i}.webp`,
+                secenekler: seceneklerPaketi,
+                dogru: dogruMeslek // Referans olarak tüm dilleri taşır
+            });
+        }
+        return sorular;
+    }
+
+    function setLanguage(lang) {
+        secilenDil = lang;
+        const UI = STRINGS[secilenDil] || STRINGS["TT"];
+        document.getElementById("welcome-title").textContent = UI.title;
+        document.getElementById("welcome-sub").textContent = UI.sub;
+        document.getElementById("start-action").textContent = UI.start;
+    }
+
+    function initLevel(lvl) {
+        mevcutSeviye = lvl;
+        mevcutSoruIndex = 0;
+        dogruSayisi = 0;
+        yanlisSayisi = 0;
+        bosSayisi = 0;
+        
+        if (lvl === 1) aktifSoruListesi = sorularıOlustur(1, 16);
+        else if (lvl === 2) aktifSoruListesi = sorularıOlustur(17, 32);
+        else if (lvl === 3) aktifSoruListesi = sorularıOlustur(33, 49);
+
+        const UI = STRINGS[secilenDil] || STRINGS["TT"];
+        document.getElementById("level-counter").textContent = `${UI.lvl}: ${mevcutSeviye}`;
+    }
+
+    function startGame() {
+        document.getElementById("start-screen").style.display = "none";
+        document.getElementById("main-game").style.display = "block";
+        initLevel(1);
+        soruYukle();
+    }
+
+    function soruYukle() {
+        if (mevcutSoruIndex >= aktifSoruListesi.length) {
+            seviyeBittiEkrani();
+            return;
+        }
+
+        secimYapildi = false;
+        document.getElementById("result-message").textContent = "";
+        document.getElementById("question-counter").textContent = `${mevcutSoruIndex + 1} / ${aktifSoruListesi.length}`;
+
+        const soru = aktifSoruListesi[mevcutSoruIndex];
+        
+        document.getElementById("city-image").src = soru.gorsel;
+        document.getElementById("dynamic-bg").style.backgroundImage = `url('${soru.gorsel}')`;
+
+        const optionsBox = document.getElementById("options-box");
+        optionsBox.innerHTML = "";
+
+        // Şıklar ve Doğru cevap doğrudan aktif seçilen dile göre eşleniyor
+        const guncelSecenekler = soru.secenekler[secilenDil] || soru.secenekler["EN"];
+        const guncelDogruCevap = soru.dogru[secilenDil] || soru.dogru["EN"];
+
+        guncelSecenekler.forEach(secenek => {
+            const btn = document.createElement("button");
+            btn.className = "btn";
+            btn.textContent = secenek;
+            btn.onclick = () => cevapKontrol(secenek, guncelDogruCevap, btn);
+            optionsBox.appendChild(btn);
+        });
+
+        sureyiBaslat();
+    }
+
+    function sureyiBaslat() {
+        clearInterval(zamanlayici);
+        kalanSure = 7;
+        const bar = document.getElementById("t-bar");
+        bar.style.width = "100%";
+        bar.style.backgroundColor = "var(--success-color)";
+
+        zamanlayici = setInterval(() => {
+            kalanSure -= 0.1;
+            const yuzde = (kalanSure / 7) * 100;
+            bar.style.width = `${yuzde}%`;
+
+            if (kalanSure <= 3) {
+                bar.style.backgroundColor = "var(--accent-color)";
+            } else if (kalanSure <= 5) {
+                bar.style.backgroundColor = "var(--warning-color)";
+            }
+
+            if (kalanSure <= 0) {
+                clearInterval(zamanlayici);
+                sureDoldu();
+            }
+        }, 100);
+    }
+
+    function cevapKontrol(secilenCevap, dogruCevap, buton) {
+        if (secimYapildi) return;
+        secimYapildi = true;
+        clearInterval(zamanlayici);
+
+        const buttons = document.querySelectorAll("#options-box .btn");
+        const UI = STRINGS[secilenDil] || STRINGS["TT"];
+
+        if (secilenCevap === dogruCevap) {
+            buton.classList.add("correct");
+            document.getElementById("result-message").textContent = UI.correctMsg;
+            document.getElementById("result-message").style.color = "var(--success-color)";
+            dogruSayisi++;
+        } else {
+            buton.classList.add("wrong");
+            document.getElementById("result-message").textContent = UI.wrongMsg;
+            document.getElementById("result-message").style.color = "var(--accent-color)";
+            yanlisSayisi++;
+            
+            buttons.forEach(b => {
+                if (b.textContent === dogruCevap) b.classList.add("correct");
+            });
+        }
+
+        buttons.forEach(b => b.disabled = true);
+        setTimeout(() => { mevcutSoruIndex++; soruYukle(); }, 2000);
+    }
+
+    function sureDoldu() {
+        if (secimYapildi) return;
+        secimYapildi = true;
+        bosSayisi++;
+
+        const soru = aktifSoruListesi[mevcutSoruIndex];
+        const guncelDogruCevap = soru.dogru[secilenDil] || soru.dogru["EN"];
+        const buttons = document.querySelectorAll("#options-box .btn");
+        const UI = STRINGS[secilenDil] || STRINGS["TT"];
+
+        document.getElementById("result-message").textContent = UI.timeOutMsg;
+        document.getElementById("result-message").style.color = "var(--warning-color)";
+
+        buttons.forEach(b => {
+            if (b.textContent === guncelDogruCevap) b.classList.add("correct");
+            b.disabled = true;
+        });
+
+        setTimeout(() => { mevcutSoruIndex++; soruYukle(); }, 2000);
+    }
+
+    function seviyeBittiEkrani() {
+        clearInterval(zamanlayici);
+        document.getElementById("result-message").textContent = "";
+        
+        const optionsBox = document.getElementById("options-box");
+        const UI = STRINGS[secilenDil] || STRINGS["TT"];
+
+        optionsBox.innerHTML = `
+            <div class="results-layout" style="font-size: 16px; margin-bottom: 20px; text-align: left; background: rgba(0,0,0,0.4); padding: 15px; border-radius: 12px; line-height: 1.6;">
+                <strong>${UI.score}</strong><br>
+                ✅ ${UI.correct}: ${dogruSayisi}<br>
+                ❌ ${UI.wrong}: ${yanlisSayisi}<br>
+                ⚪ ${UI.empty}: ${bosSayisi}
+            </div>
+        `;
+
+        let actionWrapper = document.createElement("div");
+        actionWrapper.className = "results-layout";
+
+        if (mevcutSeviye === 1) {
+            if (dogruSayisi >= 10) {
+                actionWrapper.innerHTML += `<button class="action-btn next-lvl-btn" onclick="seviyeDegistir(2)">${UI.nextLvl2}</button>`;
+            } else {
+                actionWrapper.innerHTML += `<p style="color: var(--accent-color); font-weight: bold; font-size: 14px;">⚠️ ${UI.lvlFail2}</p>`;
+            }
+        } else if (mevcutSeviye === 2) {
+            if (dogruSayisi >= 10) {
+                actionWrapper.innerHTML += `<button class="action-btn next-lvl-btn" onclick="seviyeDegistir(3)">${UI.nextLvl3}</button>`;
+            } else {
+                actionWrapper.innerHTML += `<p style="color: var(--accent-color); font-weight: bold; font-size: 14px;">⚠️ ${UI.lvlFail3}</p>`;
+            }
+        }
+
+        actionWrapper.innerHTML += `
+            <button class="action-btn" onclick="oyunuYenidenBaslat()">${UI.restart}</button>
+            <button class="action-btn vibe-btn" onclick="vibeUygulamasinaDon()">${UI.returnVibe}</button>
+        `;
+        
+        optionsBox.appendChild(actionWrapper);
+    }
+
+    function seviyeDegistir(hedefLvl) {
+        initLevel(hedefLvl);
+        soruYukle();
+    }
+
+    function oyunuYenidenBaslat() {
+        initLevel(1);
+        soruYukle();
+    }
+
+    function vibeUygulamasinaDon() {
+        window.location.href = "vibe://back"; 
+    }
+</script>
+</body>
+</html>
