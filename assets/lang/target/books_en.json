@@ -1,0 +1,80 @@
+{
+  "A1": [
+    {
+      "id": "ant_grasshopper",
+      "title": "The Ant and the Grasshopper",
+      "level": "A1",
+      "emoji": "🐜",
+      "image": "stories/ant_grasshopper.jpg",
+      "sentences": [
+        {"en": "It is summer.", "tr": "Yaz mevsimi."},
+        {"en": "The ant works every day.", "tr": "Karınca her gün çalışır."},
+        {"en": "The grasshopper plays and sings.", "tr": "Çekirge oynar ve şarkı söyler."},
+        {"en": "The ant says: Work now!", "tr": "Karınca der ki: Şimdi çalış!"},
+        {"en": "The grasshopper says: No, I want to play.", "tr": "Çekirge der ki: Hayır, oynamak istiyorum."},
+        {"en": "Winter comes.", "tr": "Kış gelir."},
+        {"en": "The grasshopper is cold and hungry.", "tr": "Çekirge üşür ve acıkır."},
+        {"en": "The ant has food and a warm home.", "tr": "Karıncanın yiyeceği ve sıcak bir evi var."},
+        {"en": "The grasshopper learns an important lesson.", "tr": "Çekirge önemli bir ders öğrenir."},
+        {"en": "Work today, rest tomorrow.", "tr": "Bugün çalış, yarın dinlen."}
+      ],
+      "questions": [
+        {"q": "What does the ant do in summer?", "opts": ["Plays", "Works", "Sleeps", "Sings"], "a": "Works"},
+        {"q": "What does the grasshopper do in summer?", "opts": ["Works", "Cooks", "Plays and sings", "Reads"], "a": "Plays and sings"},
+        {"q": "What happens in winter?", "opts": ["Ant is hungry", "Grasshopper is cold and hungry", "Both play", "Sun shines"], "a": "Grasshopper is cold and hungry"}
+      ]
+    },
+    {
+      "id": "north_wind_sun",
+      "title": "The North Wind and the Sun",
+      "level": "A1",
+      "emoji": "🌬️",
+      "image": "stories/north_wind_sun.jpg",
+      "sentences": [
+        {"en": "The North Wind and the Sun are talking.", "tr": "Kuzey Rüzgarı ve Güneş konuşuyor."},
+        {"en": "They want to know who is stronger.", "tr": "Kimin daha güçlü olduğunu öğrenmek istiyorlar."},
+        {"en": "A man is walking on the road.", "tr": "Bir adam yolda yürüyor."},
+        {"en": "The man is wearing a coat.", "tr": "Adam bir palto giyiyor."},
+        {"en": "The North Wind blows very hard.", "tr": "Kuzey Rüzgarı çok sert eser."},
+        {"en": "The man holds his coat tightly.", "tr": "Adam paltosunu sıkıca tutar."},
+        {"en": "Now the Sun shines warmly.", "tr": "Şimdi Güneş sıcakça parlar."},
+        {"en": "The man feels hot.", "tr": "Adam sıcak hisseder."},
+        {"en": "He takes off his coat.", "tr": "Paltosunu çıkarır."},
+        {"en": "The Sun wins. Kindness is stronger than force.", "tr": "Güneş kazanır. Nezaket, kuvvetten daha güçlüdür."}
+      ],
+      "questions": [
+        {"q": "What is the man wearing?", "opts": ["A hat", "A coat", "Glasses", "Boots"], "a": "A coat"},
+        {"q": "What does the North Wind do?", "opts": ["Shines", "Blows hard", "Rains", "Sings"], "a": "Blows hard"},
+        {"q": "Who wins?", "opts": ["The Wind", "The Man", "The Sun", "Nobody"], "a": "The Sun"}
+      ]
+    }
+  ],
+  "A2": [
+    {
+      "id": "gift_of_magi",
+      "title": "The Gift of the Magi",
+      "level": "A2",
+      "emoji": "🎁",
+      "image": "stories/gift_of_magi.jpg",
+      "sentences": [
+        {"en": "Della and Jim are a young couple.", "tr": "Della ve Jim genç bir çifttir."},
+        {"en": "They do not have much money.", "tr": "Çok paraları yoktur."},
+        {"en": "Christmas is coming soon.", "tr": "Noel yakında gelecek."},
+        {"en": "Della wants to buy Jim a special gift.", "tr": "Della, Jim için özel bir hediye almak istiyor."},
+        {"en": "Jim has a beautiful gold watch.", "tr": "Jim'in güzel bir altın saati var."},
+        {"en": "Della has long, beautiful hair.", "tr": "Della'nın uzun, güzel saçları var."},
+        {"en": "Della sells her hair to get money.", "tr": "Della, para almak için saçlarını satar."},
+        {"en": "She buys a gold chain for Jim's watch.", "tr": "Jim'in saati için altın bir zincir satın alır."},
+        {"en": "Jim sells his watch to buy combs for Della's hair.", "tr": "Jim, Della'nın saçları için tarak almak amacıyla saatini satar."},
+        {"en": "They each gave up their most precious thing for love.", "tr": "Her biri sevgi için en değerli şeyinden vazgeçti."}
+      ],
+      "questions": [
+        {"q": "What does Della sell?", "opts": ["Her watch", "Her ring", "Her hair", "Her coat"], "a": "Her hair"},
+        {"q": "What does Jim sell?", "opts": ["His car", "His gold watch", "His house", "His ring"], "a": "His gold watch"},
+        {"q": "What is the message of the story?", "opts": ["Money is important", "Love means sacrifice", "Gifts are useless", "Hair grows back"], "a": "Love means sacrifice"}
+      ]
+    }
+  ],
+  "B1": [],
+  "B2": []
+}
