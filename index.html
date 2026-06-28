@@ -1814,7 +1814,7 @@ function startGame() {
   const dc=G('dc-name');if(dc)dc.textContent=GS.player.name;
   initVitals(); setQuest('water'); loadRoom('bedroom'); updateXPBar();
   startEnergyRegen();
-  // İlk kullanıcı etkileşimi sonrası müziği başlat
+  fetchBooksFromGitHub();
   document.addEventListener('click', function startMusic() {
     startAmbientMusic();
     document.removeEventListener('click', startMusic);
@@ -2184,7 +2184,9 @@ function handleAction(act, key, btn) {
       }
       break;
     case 'use_soap':
-      if (!GS.bath.soap_picked) {
+      if (!GS.bath.teeth || !GS.bath.rinse) {
+        fadeText(st, `<span class="scene-hi">${ST('brush_teeth_first')}</span><span class="scene-tr-line">${S('brush_teeth_first')}</span>`);
+      } else if (!GS.bath.soap_picked) {
         GS.bath.soap_picked = true;
         fadeText(st, `<span class="scene-ok">✓ ${ST('soap_picked')}</span><span class="scene-tr-line">${S('soap_picked')}</span><span class="scene-gap"></span>${biLine({en:'Now turn on the faucet.',tr:'Şimdi musluğu aç.',ru:'Теперь включи кран.'})}`);
       } else {
@@ -3519,16 +3521,24 @@ function updateFridgeBackBtn() {
   btn.style.opacity = locked ? '0.3' : '1';
   btn.style.cursor = locked ? 'not-allowed' : 'pointer';
 }
+var _ambientPausedByRadio = false;
+
 function openRadio() {
   const modal = G('radio-modal'); if (!modal) return;
   renderRadioList();
   G('radio-backdrop').classList.add('show');
   modal.classList.add('show');
+  if (_ambientAudio && !_ambientAudio.paused) { _ambientAudio.pause(); _ambientPausedByRadio = true; }
 }
 
 function closeRadio() {
   const modal = G('radio-modal'); if(modal) modal.classList.remove('show');
   G('radio-backdrop').classList.remove('show');
+  stopRadio();
+  if (_ambientPausedByRadio && _ambientEnabled && _ambientAudio) {
+    _ambientAudio.play().catch(() => {});
+    _ambientPausedByRadio = false;
+  }
 }
 
 function renderRadioList() {
@@ -3770,6 +3780,30 @@ const LIBRARY_BOOKS = {
 
 let _libLevel = 'A2';
 let _currentBook = null;
+var _readerSentenceIdx = 0;
+
+// GitHub'dan kitapları çek ve LIBRARY_BOOKS'a ekle
+const BOOKS_JSON_URL = 'https://raw.githubusercontent.com/emrullahyuksel06-cyber/vibe/main/assets/lang/target/books_en.json';
+
+function fetchBooksFromGitHub() {
+  fetch(BOOKS_JSON_URL)
+    .then(r => r.ok ? r.json() : null)
+    .catch(() => null)
+    .then(data => {
+      if (!data) return;
+      ['A1','A2','B1','B2'].forEach(level => {
+        if (!data[level] || !data[level].length) return;
+        if (!LIBRARY_BOOKS[level]) LIBRARY_BOOKS[level] = [];
+        data[level].forEach(book => {
+          // Aynı id varsa ekleme
+          if (!LIBRARY_BOOKS[level].find(b => b.id === book.id)) {
+            LIBRARY_BOOKS[level].push(book);
+          }
+        });
+      });
+      console.log('Books loaded from GitHub');
+    });
+}
 let _readerWordEl = null;
 
 function openLibrary() {
@@ -3827,6 +3861,7 @@ function openBook(level, idx) {
   addEnergy(-3, 'book_read');
   showToast('📖 -3 Enerji');
   _currentBook = book;
+  _readerSentenceIdx = 0; // Yeni kitap — baştan başla
   var rt = G('reader-title'); if (rt) rt.textContent = book.title;
   var rb = G('reader-level-badge'); if (rb) rb.textContent = book.level;
   var rq = G('reader-quiz'); if (rq) { rq.style.display = 'none'; rq.innerHTML = ''; }
@@ -3871,6 +3906,7 @@ function renderReaderSentences(book) {
     }
     html += '<div class="reader-sentence" id="rsent-' + i + '">';
     html += '<span class="reader-sentence-en">' + wordHtml.trim() + '</span>';
+    html += '<button onclick="speakSentence(' + i + ')" style="background:none;border:none;cursor:pointer;font-size:.8rem;opacity:.55;padding:0 .3rem;vertical-align:middle;" title="Dinle">🔊</button>';
     html += '<span class="reader-sentence-tr" id="rtr-' + i + '">' + s.tr + '</span>';
     html += '</div>';
   }
@@ -3879,6 +3915,12 @@ function renderReaderSentences(book) {
   html += '\u{1F4DD} ' + biLine({en:'Take the Quiz',tr:'Teste Gir',ru:'Пройти тест'});
   html += '</button></div>';
   wrap.innerHTML = html;
+}
+
+function speakSentence(idx) {
+  if (!_currentBook) return;
+  var s = _currentBook.sentences[idx];
+  if (s) { AUD.speak(s.en); _readerSentenceIdx = idx; }
 }
 
 function updateReaderProgress(current, total) {
@@ -3923,17 +3965,29 @@ function readerSpeakWord() { if (_readerWordEl) AUD.speak(_readerWordEl); }
 
 function readerListenCurrent() {
   if (!_currentBook) return;
-  var text = _currentBook.sentences.map(function(s) { return s.en; }).join(' ');
+  // Kaldığı cümleden devam et
+  var sentences = _currentBook.sentences;
+  if (_readerSentenceIdx >= sentences.length) _readerSentenceIdx = 0;
+  var text = sentences.slice(_readerSentenceIdx).map(function(s) { return s.en; }).join(' ');
   AUD.speak(text);
   var listenBtn = G('reader-listen-btn');
   var stopBtn   = G('reader-stop-btn');
   if (listenBtn) listenBtn.style.display = 'none';
   if (stopBtn)   stopBtn.style.display   = 'inline-flex';
-  // TTS bitince butonları sıfırla
+  // Her cümle geçişini yaklaşık takip et
+  var avgWordTime = 400; // ms per word
+  sentences.slice(_readerSentenceIdx).forEach(function(s, i) {
+    var wordCount = s.en.split(' ').length;
+    var delay = sentences.slice(_readerSentenceIdx, _readerSentenceIdx + i).reduce(function(acc, ps) { return acc + ps.en.split(' ').length * avgWordTime; }, 0);
+    setTimeout(function() {
+      _readerSentenceIdx = (_readerSentenceIdx + i);
+    }, delay);
+  });
   if (AUD.synth) {
     var check = setInterval(function() {
       if (!AUD.synth.speaking) {
         clearInterval(check);
+        _readerSentenceIdx = 0; // Bitti, sıfırla
         if (listenBtn) listenBtn.style.display = 'inline-flex';
         if (stopBtn)   stopBtn.style.display   = 'none';
       }
@@ -3943,6 +3997,7 @@ function readerListenCurrent() {
 
 function readerStopListen() {
   if (AUD.synth) AUD.synth.cancel();
+  // _readerSentenceIdx korunuyor — kaldığı yerden devam eder
   var listenBtn = G('reader-listen-btn');
   var stopBtn   = G('reader-stop-btn');
   if (listenBtn) listenBtn.style.display = 'inline-flex';
@@ -4058,27 +4113,43 @@ function showEndDayBtn() {
 // ── Gün Sonu Eşleştirme Quizi ───────────────────────────────
 function showDay1Complete() {
   GS._sleepReady = false;
-  // End day butonunu kaldır
   const btn = G('end-day-btn'); if (btn) btn.remove();
-  // Day review modal'ı kaldır
   const modal = G('day-review-modal'); if (modal) modal.remove();
 
-  const overlay = document.createElement('div');
-  overlay.id = 'day1-overlay';
-  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(8,12,24,.95);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.2rem;z-index:9999;animation:fadeIn .6s forwards';
-  overlay.innerHTML = `
-    <div style="font-size:3rem">🌙</div>
-    <div style="font-family:'Playfair Display',serif;font-size:1.6rem;color:var(--text-bright);text-align:center">Day 1 Complete!</div>
-    <div style="font-size:.85rem;color:var(--text-dim);text-align:center">Gün 1 tamamlandı!<br>İyi geceler...</div>
-    <div style="font-size:2rem;margin:.5rem 0">⭐⭐⭐</div>
-    <button onclick="document.getElementById('day1-overlay').remove();loadRoom('bedroom');" 
-      style="background:var(--amber);color:#000;border:none;border-radius:12px;padding:.7rem 2rem;font-size:.9rem;font-weight:700;cursor:pointer;margin-top:.5rem">
-      Güne Devam Et →
-    </button>`;
-  document.body.appendChild(overlay);
-  addXP(50);
-  addEnergy(30, 'new_day');
-  showToast('🌙 +50 XP +30 Enerji — Gün 1 tamamlandı!');
+  // Önce ekranı karart
+  const fade = document.createElement('div');
+  fade.style.cssText = 'position:fixed;inset:0;background:#000;z-index:9998;opacity:0;transition:opacity 1.5s';
+  document.body.appendChild(fade);
+
+  requestAnimationFrame(() => {
+    fade.style.opacity = '1';
+    setTimeout(() => {
+      // Karardıktan sonra overlay göster
+      const overlay = document.createElement('div');
+      overlay.id = 'day1-overlay';
+      overlay.style.cssText = 'position:fixed;inset:0;background:linear-gradient(135deg,#0a0e1a 0%,#0d1b2a 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.2rem;z-index:9999;opacity:0;transition:opacity 1s';
+      overlay.innerHTML = `
+        <div style="font-size:4rem;animation:fadeIn .8s forwards">🌙</div>
+        <div style="font-family:'Playfair Display',serif;font-size:1.8rem;color:#fff;text-align:center;font-style:italic">Day 1 Complete</div>
+        <div style="font-size:.9rem;color:rgba(255,255,255,.6);text-align:center">Birinci günü tamamladın!<br>İyi geceler... 😴</div>
+        <div style="display:flex;gap:.8rem;margin:.5rem 0">
+          <span style="font-size:1.5rem">⭐</span>
+          <span style="font-size:1.5rem">⭐</span>
+          <span style="font-size:1.5rem">⭐</span>
+        </div>
+        <div style="font-size:.8rem;color:rgba(255,255,255,.4);margin-top:.3rem">+50 XP · +30 Enerji</div>
+        <button onclick="document.getElementById('day1-overlay').remove();loadRoom('bedroom');" 
+          style="background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;border:none;border-radius:14px;padding:.8rem 2.2rem;font-size:.9rem;font-weight:700;cursor:pointer;margin-top:.8rem;box-shadow:0 4px 20px rgba(99,102,241,.4)">
+          İkinci Güne Başla →
+        </button>`;
+      document.body.appendChild(overlay);
+      fade.remove();
+      requestAnimationFrame(() => { overlay.style.opacity = '1'; });
+      addXP(50);
+      addEnergy(30, 'new_day');
+      showToast('🌙 +50 XP +30 Enerji — Gün 1 tamamlandı!');
+    }, 1800);
+  });
 }
 
 function openDayReview() {
