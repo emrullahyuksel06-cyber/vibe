@@ -19,9 +19,9 @@
         {"en": "Work today, rest tomorrow.", "tr": "Bugün çalış, yarın dinlen."}
       ],
       "questions": [
-        {"q": "What does the ant do in summer?", "opts": ["Plays", "Works", "Sleeps", "Sings"], "a": "Works"},
-        {"q": "What does the grasshopper do in summer?", "opts": ["Works", "Cooks", "Plays and sings", "Reads"], "a": "Plays and sings"},
-        {"q": "What happens in winter?", "opts": ["Ant is hungry", "Grasshopper is cold and hungry", "Both play", "Sun shines"], "a": "Grasshopper is cold and hungry"}
+        {"q": "What does the ant do in summer?", "tr": "Karınca yazın ne yapar?", "options": ["Plays", "Works", "Sleeps", "Sings"], "options_tr": ["Oynar", "Çalışır", "Uyur", "Şarkı söyler"], "answer": 1},
+        {"q": "What does the grasshopper do in summer?", "tr": "Çekirge yazın ne yapar?", "options": ["Works", "Cooks", "Plays and sings", "Reads"], "options_tr": ["Çalışır", "Pişirir", "Oynar ve şarkı söyler", "Okur"], "answer": 2},
+        {"q": "What happens in winter?", "tr": "Kışın ne olur?", "options": ["Ant is hungry", "Grasshopper is cold and hungry", "Both play", "Sun shines"], "options_tr": ["Karınca açtır", "Çekirge üşür ve açtır", "İkisi de oynar", "Güneş parlar"], "answer": 1}
       ]
     },
     {
@@ -43,9 +43,9 @@
         {"en": "The Sun wins. Kindness is stronger than force.", "tr": "Güneş kazanır. Nezaket, kuvvetten daha güçlüdür."}
       ],
       "questions": [
-        {"q": "What is the man wearing?", "opts": ["A hat", "A coat", "Glasses", "Boots"], "a": "A coat"},
-        {"q": "What does the North Wind do?", "opts": ["Shines", "Blows hard", "Rains", "Sings"], "a": "Blows hard"},
-        {"q": "Who wins?", "opts": ["The Wind", "The Man", "The Sun", "Nobody"], "a": "The Sun"}
+        {"q": "What is the man wearing?", "tr": "Adam ne giyiyor?", "options": ["A hat", "A coat", "Glasses", "Boots"], "options_tr": ["Şapka", "Palto", "Gözlük", "Bot"], "answer": 1},
+        {"q": "What does the North Wind do?", "tr": "Kuzey Rüzgarı ne yapar?", "options": ["Shines", "Blows hard", "Rains", "Sings"], "options_tr": ["Parlar", "Sert eser", "Yağmur yağdırır", "Şarkı söyler"], "answer": 1},
+        {"q": "Who wins?", "tr": "Kim kazanır?", "options": ["The Wind", "The Man", "The Sun", "Nobody"], "options_tr": ["Rüzgar", "Adam", "Güneş", "Hiç kimse"], "answer": 2}
       ]
     }
   ],
@@ -69,9 +69,9 @@
         {"en": "They each gave up their most precious thing for love.", "tr": "Her biri sevgi için en değerli şeyinden vazgeçti."}
       ],
       "questions": [
-        {"q": "What does Della sell?", "opts": ["Her watch", "Her ring", "Her hair", "Her coat"], "a": "Her hair"},
-        {"q": "What does Jim sell?", "opts": ["His car", "His gold watch", "His house", "His ring"], "a": "His gold watch"},
-        {"q": "What is the message of the story?", "opts": ["Money is important", "Love means sacrifice", "Gifts are useless", "Hair grows back"], "a": "Love means sacrifice"}
+        {"q": "What does Della sell?", "tr": "Della ne satar?", "options": ["Her watch", "Her ring", "Her hair", "Her coat"], "options_tr": ["Saati", "Yüzüğü", "Saçı", "Paltosu"], "answer": 2},
+        {"q": "What does Jim sell?", "tr": "Jim ne satar?", "options": ["His car", "His gold watch", "His house", "His ring"], "options_tr": ["Arabası", "Altın saati", "Evi", "Yüzüğü"], "answer": 1},
+        {"q": "What is the message of the story?", "tr": "Hikayenin mesajı nedir?", "options": ["Money is important", "Love means sacrifice", "Gifts are useless", "Hair grows back"], "options_tr": ["Para önemlidir", "Sevgi fedakarlık demektir", "Hediyeler işe yaramaz", "Saç tekrar uzar"], "answer": 1}
       ]
     }
   ],
