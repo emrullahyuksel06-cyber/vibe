@@ -203,6 +203,778 @@
           "answer": 2
         }
       ]
+    },
+    {
+      "id": "tortoise_lesson",
+      "title": "The Wise Old Owl",
+      "level": "A1",
+      "emoji": "🦉",
+      "image": "stories/wise_owl.jpg",
+      "sentences": [
+        {
+          "en": "An owl lives in a big tree in the forest.",
+          "tr": "Bir baykuş ormandaki büyük bir ağaçta yaşar."
+        },
+        {
+          "en": "All the animals think the owl is very wise.",
+          "tr": "Bütün hayvanlar baykuşun çok bilge olduğunu düşünür."
+        },
+        {
+          "en": "One day, a young rabbit visits the owl.",
+          "tr": "Bir gün genç bir tavşan baykuşu ziyaret eder."
+        },
+        {
+          "en": "The rabbit asks: How can I become wise like you?",
+          "tr": "Tavşan sorar: Senin gibi nasıl bilge olabilirim?"
+        },
+        {
+          "en": "The owl says: Listen more, talk less.",
+          "tr": "Baykuş der ki: Daha çok dinle, daha az konuş."
+        },
+        {
+          "en": "The rabbit does not understand at first.",
+          "tr": "Tavşan başta anlamaz."
+        },
+        {
+          "en": "The owl explains: Watch the trees, the rivers, and the animals.",
+          "tr": "Baykuş açıklar: Ağaçları, nehirleri ve hayvanları izle."
+        },
+        {
+          "en": "Every day, they teach you something new.",
+          "tr": "Her gün sana yeni bir şey öğretirler."
+        },
+        {
+          "en": "The rabbit starts to watch and listen carefully.",
+          "tr": "Tavşan dikkatlice izlemeye ve dinlemeye başlar."
+        },
+        {
+          "en": "After many months, the rabbit understands the forest better.",
+          "tr": "Birçok ay sonra, tavşan ormanı daha iyi anlar."
+        },
+        {
+          "en": "The other animals start asking the rabbit for advice.",
+          "tr": "Diğer hayvanlar tavşandan tavsiye istemeye başlar."
+        },
+        {
+          "en": "The rabbit thanks the owl for the important lesson.",
+          "tr": "Tavşan baykuşa önemli ders için teşekkür eder."
+        }
+      ],
+      "questions": [
+        {
+          "q": "Where does the owl live?",
+          "tr": "Baykuş nerede yaşar?",
+          "options": [
+            "In a cave",
+            "In a big tree",
+            "Near the river",
+            "In a hole"
+          ],
+          "options_tr": [
+            "Mağarada",
+            "Büyük bir ağaçta",
+            "Nehir kenarında",
+            "Bir delikte"
+          ],
+          "answer": 1
+        },
+        {
+          "q": "What does the owl tell the rabbit to do?",
+          "tr": "Baykuş tavşana ne yapmasını söyler?",
+          "options": [
+            "Run fast",
+            "Listen more, talk less",
+            "Eat more food",
+            "Sleep all day"
+          ],
+          "options_tr": [
+            "Hızlı koş",
+            "Daha çok dinle, az konuş",
+            "Daha çok ye",
+            "Bütün gün uyu"
+          ],
+          "answer": 1
+        },
+        {
+          "q": "What happens after many months?",
+          "tr": "Birçok ay sonra ne olur?",
+          "options": [
+            "The rabbit leaves the forest",
+            "Others ask the rabbit for advice",
+            "The owl moves away",
+            "Nothing changes"
+          ],
+          "options_tr": [
+            "Tavşan ormanı terk eder",
+            "Diğerleri tavşandan tavsiye ister",
+            "Baykuş taşınır",
+            "Hiçbir şey değişmez"
+          ],
+          "answer": 1
+        }
+      ]
+    },
+    {
+      "id": "the_lion_share",
+      "title": "The Lion's Share",
+      "level": "A1",
+      "emoji": "🦁",
+      "image": "stories/lions_share.jpg",
+      "sentences": [
+        {
+          "en": "A lion, a fox, and a wolf go hunting together.",
+          "tr": "Bir aslan, bir tilki ve bir kurt birlikte ava çıkar."
+        },
+        {
+          "en": "They catch a big deer in the forest.",
+          "tr": "Ormanda büyük bir geyik yakalarlar."
+        },
+        {
+          "en": "The wolf says: Let's divide the deer into three parts.",
+          "tr": "Kurt der ki: Geyiği üç parçaya bölelim."
+        },
+        {
+          "en": "The lion becomes very angry at this idea.",
+          "tr": "Aslan bu fikre çok kızar."
+        },
+        {
+          "en": "He roars loudly and takes the whole deer for himself.",
+          "tr": "Yüksek sesle kükrer ve geyiğin tamamını kendine alır."
+        },
+        {
+          "en": "The fox quickly understands the situation.",
+          "tr": "Tilki durumu hızlıca anlar."
+        },
+        {
+          "en": "The wolf learns that the lion is too powerful to share.",
+          "tr": "Kurt, aslanın paylaşmak için çok güçlü olduğunu öğrenir."
+        },
+        {
+          "en": "From that day, they never hunt with the lion again.",
+          "tr": "O günden sonra bir daha aslanla asla avlanmazlar."
+        }
+      ],
+      "questions": [
+        {
+          "q": "Who do they catch?",
+          "tr": "Neyi yakalarlar?",
+          "options": [
+            "A rabbit",
+            "A deer",
+            "A bird",
+            "A fish"
+          ],
+          "options_tr": [
+            "Tavşan",
+            "Geyik",
+            "Kuş",
+            "Balık"
+          ],
+          "answer": 1
+        },
+        {
+          "q": "What does the lion do?",
+          "tr": "Aslan ne yapar?",
+          "options": [
+            "Shares equally",
+            "Takes everything",
+            "Runs away",
+            "Gives it to the fox"
+          ],
+          "options_tr": [
+            "Eşit paylaşır",
+            "Her şeyi alır",
+            "Kaçar",
+            "Tilkiye verir"
+          ],
+          "answer": 1
+        },
+        {
+          "q": "What do the wolf and fox learn?",
+          "tr": "Kurt ve tilki ne öğrenir?",
+          "options": [
+            "To hunt alone",
+            "Not to trust the lion",
+            "To run faster",
+            "To eat less"
+          ],
+          "options_tr": [
+            "Tek başına avlanmayı",
+            "Aslana güvenmemeyi",
+            "Hızlı koşmayı",
+            "Az yemeyi"
+          ],
+          "answer": 1
+        }
+      ]
+    },
+    {
+      "id": "boy_and_apple_tree",
+      "title": "The Boy and the Apple Tree",
+      "level": "A1",
+      "emoji": "🍎",
+      "image": "stories/apple_tree.jpg",
+      "sentences": [
+        {
+          "en": "A boy plays under a big apple tree every day.",
+          "tr": "Bir çocuk her gün büyük bir elma ağacının altında oynar."
+        },
+        {
+          "en": "The tree gives him sweet apples and cool shade.",
+          "tr": "Ağaç ona tatlı elmalar ve serin gölge verir."
+        },
+        {
+          "en": "The boy grows up and stops visiting the tree.",
+          "tr": "Çocuk büyür ve ağacı ziyaret etmeyi bırakır."
+        },
+        {
+          "en": "Years later, the boy returns as a tired man.",
+          "tr": "Yıllar sonra çocuk yorgun bir adam olarak döner."
+        },
+        {
+          "en": "He needs money, so the tree gives him its apples to sell.",
+          "tr": "Paraya ihtiyacı vardır, bu yüzden ağaç satması için ona elmalarını verir."
+        },
+        {
+          "en": "Later, he needs a house, so the tree gives its branches.",
+          "tr": "Sonra evine ihtiyacı vardır, bu yüzden ağaç dallarını verir."
+        },
+        {
+          "en": "Finally, he needs rest, so the tree offers its old trunk.",
+          "tr": "Sonunda dinlenmeye ihtiyacı vardır, bu yüzden ağaç yaşlı gövdesini sunar."
+        },
+        {
+          "en": "The tree gives everything because it loves the boy.",
+          "tr": "Ağaç her şeyi verir çünkü çocuğu sever."
+        }
+      ],
+      "questions": [
+        {
+          "q": "What does the tree give first?",
+          "tr": "Ağaç önce ne verir?",
+          "options": [
+            "Branches",
+            "Apples",
+            "Its trunk",
+            "Leaves"
+          ],
+          "options_tr": [
+            "Dallar",
+            "Elmalar",
+            "Gövdesi",
+            "Yapraklar"
+          ],
+          "answer": 1
+        },
+        {
+          "q": "Why does the man need a house?",
+          "tr": "Adamın eve neden ihtiyacı vardır?",
+          "options": [
+            "He is cold",
+            "He wants to live there",
+            "He sells it",
+            "He paints it"
+          ],
+          "options_tr": [
+            "Üşür",
+            "Orada yaşamak ister",
+            "Satar",
+            "Boyar"
+          ],
+          "answer": 1
+        },
+        {
+          "q": "Why does the tree give everything?",
+          "tr": "Ağaç neden her şeyi verir?",
+          "options": [
+            "It is afraid",
+            "It loves the boy",
+            "It is old",
+            "It has no choice"
+          ],
+          "options_tr": [
+            "Korkar",
+            "Çocuğu sever",
+            "Yaşlıdır",
+            "Seçeneği yoktur"
+          ],
+          "answer": 1
+        }
+      ]
+    },
+    {
+      "id": "the_thirsty_crow",
+      "title": "The Thirsty Crow",
+      "level": "A1",
+      "emoji": "🐦",
+      "image": "stories/thirsty_crow.jpg",
+      "sentences": [
+        {
+          "en": "It is a very hot day in the forest.",
+          "tr": "Ormanda çok sıcak bir gündür."
+        },
+        {
+          "en": "A crow flies for a long time looking for water.",
+          "tr": "Bir karga su aramak için uzun süre uçar."
+        },
+        {
+          "en": "Finally, she sees a tall jug on the ground.",
+          "tr": "Sonunda yerde uzun bir testi görür."
+        },
+        {
+          "en": "There is a little water at the bottom of the jug.",
+          "tr": "Testinin dibinde biraz su vardır."
+        },
+        {
+          "en": "The crow tries to drink, but her beak cannot reach the water.",
+          "tr": "Karga içmeye çalışır ama gagası suya ulaşamaz."
+        },
+        {
+          "en": "She sees some small stones near the jug.",
+          "tr": "Testinin yakınında küçük taşlar görür."
+        },
+        {
+          "en": "The crow drops one stone after another into the jug.",
+          "tr": "Karga taşları birer birer testiye atar."
+        },
+        {
+          "en": "Slowly, the water rises higher and higher.",
+          "tr": "Yavaşça su giderek yükselir."
+        },
+        {
+          "en": "Finally, the crow can drink the cool water easily.",
+          "tr": "Sonunda karga serin suyu kolayca içebilir."
+        }
+      ],
+      "questions": [
+        {
+          "q": "What is the crow looking for?",
+          "tr": "Karga ne arıyor?",
+          "options": [
+            "Food",
+            "Water",
+            "A nest",
+            "A friend"
+          ],
+          "options_tr": [
+            "Yiyecek",
+            "Su",
+            "Yuva",
+            "Arkadaş"
+          ],
+          "answer": 1
+        },
+        {
+          "q": "What does the crow put in the jug?",
+          "tr": "Karga testiye ne koyar?",
+          "options": [
+            "Sticks",
+            "Leaves",
+            "Stones",
+            "Sand"
+          ],
+          "options_tr": [
+            "Dallar",
+            "Yapraklar",
+            "Taşlar",
+            "Kum"
+          ],
+          "answer": 2
+        },
+        {
+          "q": "Why does the water rise?",
+          "tr": "Su neden yükselir?",
+          "options": [
+            "It rains",
+            "The stones push it up",
+            "The jug breaks",
+            "The sun melts it"
+          ],
+          "options_tr": [
+            "Yağmur yağar",
+            "Taşlar yukarı iter",
+            "Testi kırılır",
+            "Güneş eritir"
+          ],
+          "answer": 1
+        }
+      ]
+    },
+    {
+      "id": "the_honest_woodcutter",
+      "title": "The Honest Woodcutter",
+      "level": "A1",
+      "emoji": "🪓",
+      "image": "stories/honest_woodcutter.jpg",
+      "sentences": [
+        {
+          "en": "A poor woodcutter works near a deep river every day.",
+          "tr": "Yoksul bir oduncu her gün derin bir nehrin yanında çalışır."
+        },
+        {
+          "en": "One day, his old axe falls into the water.",
+          "tr": "Bir gün eski baltası suya düşer."
+        },
+        {
+          "en": "The woodcutter sits down and cries because he is very poor.",
+          "tr": "Oduncu çok yoksul olduğu için oturup ağlar."
+        },
+        {
+          "en": "Suddenly, a fairy appears from the river.",
+          "tr": "Aniden nehirden bir peri belirir."
+        },
+        {
+          "en": "She shows him a beautiful golden axe and asks: Is this yours?",
+          "tr": "Ona güzel altın bir balta gösterir ve sorar: Bu senin mi?"
+        },
+        {
+          "en": "The honest woodcutter says: No, that is not my axe.",
+          "tr": "Dürüst oduncu der ki: Hayır, bu benim baltam değil."
+        },
+        {
+          "en": "The fairy then shows him a silver axe, but he says no again.",
+          "tr": "Peri sonra gümüş bir balta gösterir ama yine hayır der."
+        },
+        {
+          "en": "Finally, she shows his old wooden axe, and he happily says yes.",
+          "tr": "Sonunda eski tahta baltasını gösterir ve mutlulukla evet der."
+        },
+        {
+          "en": "The fairy rewards his honesty by giving him all three axes.",
+          "tr": "Peri, dürüstlüğünü ödüllendirmek için üç baltayı da ona verir."
+        }
+      ],
+      "questions": [
+        {
+          "q": "What falls into the river?",
+          "tr": "Nehre ne düşer?",
+          "options": [
+            "A hat",
+            "An axe",
+            "A coin",
+            "A basket"
+          ],
+          "options_tr": [
+            "Şapka",
+            "Balta",
+            "Para",
+            "Sepet"
+          ],
+          "answer": 1
+        },
+        {
+          "q": "Who appears from the river?",
+          "tr": "Nehirden kim belirir?",
+          "options": [
+            "A fish",
+            "A fairy",
+            "Another woodcutter",
+            "A king"
+          ],
+          "options_tr": [
+            "Balık",
+            "Peri",
+            "Başka bir oduncu",
+            "Kral"
+          ],
+          "answer": 1
+        },
+        {
+          "q": "Why does the fairy reward him?",
+          "tr": "Peri onu neden ödüllendirir?",
+          "options": [
+            "He is strong",
+            "He is honest",
+            "He is rich",
+            "He is fast"
+          ],
+          "options_tr": [
+            "Güçlü",
+            "Dürüst",
+            "Zengin",
+            "Hızlı"
+          ],
+          "answer": 1
+        }
+      ]
+    },
+    {
+      "id": "the_lazy_dog",
+      "title": "The Quick Fox and the Lazy Dog",
+      "level": "A1",
+      "emoji": "🦊",
+      "image": "stories/quick_fox.jpg",
+      "sentences": [
+        {
+          "en": "A quick brown fox lives near a small farm.",
+          "tr": "Hızlı kahverengi bir tilki küçük bir çiftliğin yanında yaşar."
+        },
+        {
+          "en": "A lazy dog sleeps in the sun all day long.",
+          "tr": "Tembel bir köpek bütün gün güneşte uyur."
+        },
+        {
+          "en": "The fox often jumps over the dog just for fun.",
+          "tr": "Tilki eğlence olsun diye sık sık köpeğin üzerinden atlar."
+        },
+        {
+          "en": "One day, a hungry wolf comes near the farm.",
+          "tr": "Bir gün aç bir kurt çiftliğe yaklaşır."
+        },
+        {
+          "en": "The lazy dog wakes up and barks very loudly.",
+          "tr": "Tembel köpek uyanır ve çok yüksek sesle havlar."
+        },
+        {
+          "en": "The fox runs quickly to warn the other farm animals.",
+          "tr": "Tilki diğer çiftlik hayvanlarını uyarmak için hızlıca koşar."
+        },
+        {
+          "en": "Together, the dog and fox scare the wolf away.",
+          "tr": "Köpek ve tilki birlikte kurdu korkutup kaçırır."
+        },
+        {
+          "en": "After that day, the dog and fox become good friends.",
+          "tr": "O günden sonra köpek ve tilki iyi arkadaş olur."
+        }
+      ],
+      "questions": [
+        {
+          "q": "What does the dog do all day?",
+          "tr": "Köpek bütün gün ne yapar?",
+          "options": [
+            "Runs",
+            "Sleeps",
+            "Eats",
+            "Plays"
+          ],
+          "options_tr": [
+            "Koşar",
+            "Uyur",
+            "Yer",
+            "Oynar"
+          ],
+          "answer": 1
+        },
+        {
+          "q": "What comes near the farm?",
+          "tr": "Çiftliğe ne yaklaşır?",
+          "options": [
+            "A wolf",
+            "A bird",
+            "A cat",
+            "A horse"
+          ],
+          "options_tr": [
+            "Kurt",
+            "Kuş",
+            "Kedi",
+            "At"
+          ],
+          "answer": 0
+        },
+        {
+          "q": "What happens to the dog and fox?",
+          "tr": "Köpek ve tilkiye ne olur?",
+          "options": [
+            "They fight",
+            "They become friends",
+            "They run away",
+            "They sleep"
+          ],
+          "options_tr": [
+            "Kavga eder",
+            "Arkadaş olur",
+            "Kaçar",
+            "Uyur"
+          ],
+          "answer": 1
+        }
+      ]
+    },
+    {
+      "id": "the_old_man_sea_simple",
+      "title": "The Fisherman and the Net",
+      "level": "A1",
+      "emoji": "🎣",
+      "image": "stories/fisherman_net.jpg",
+      "sentences": [
+        {
+          "en": "An old fisherman lives alone near the sea.",
+          "tr": "Yaşlı bir balıkçı denizin yakınında yalnız yaşar."
+        },
+        {
+          "en": "Every morning, he goes out in his small wooden boat.",
+          "tr": "Her sabah küçük tahta tekneyle dışarı çıkar."
+        },
+        {
+          "en": "For many days, he catches nothing in his net.",
+          "tr": "Birçok gün ağında hiçbir şey yakalayamaz."
+        },
+        {
+          "en": "One morning, he feels something very heavy in his net.",
+          "tr": "Bir sabah ağında çok ağır bir şey hisseder."
+        },
+        {
+          "en": "He pulls and pulls with all his strength.",
+          "tr": "Bütün gücüyle çeker, çeker."
+        },
+        {
+          "en": "Finally, he sees a huge, beautiful fish in the net.",
+          "tr": "Sonunda ağda büyük, güzel bir balık görür."
+        },
+        {
+          "en": "The fisherman smiles and rows happily back to shore.",
+          "tr": "Balıkçı gülümser ve mutlu bir şekilde kıyıya kürek çeker."
+        }
+      ],
+      "questions": [
+        {
+          "q": "Where does the fisherman live?",
+          "tr": "Balıkçı nerede yaşar?",
+          "options": [
+            "In the mountains",
+            "Near the sea",
+            "In a city",
+            "In a forest"
+          ],
+          "options_tr": [
+            "Dağlarda",
+            "Deniz yakınında",
+            "Şehirde",
+            "Ormanda"
+          ],
+          "answer": 1
+        },
+        {
+          "q": "What does he catch one morning?",
+          "tr": "Bir sabah ne yakalar?",
+          "options": [
+            "A boot",
+            "A huge fish",
+            "Seaweed",
+            "Nothing"
+          ],
+          "options_tr": [
+            "Çizme",
+            "Büyük balık",
+            "Deniz yosunu",
+            "Hiçbir şey"
+          ],
+          "answer": 1
+        },
+        {
+          "q": "How does the fisherman feel at the end?",
+          "tr": "Balıkçı sonunda nasıl hisseder?",
+          "options": [
+            "Sad",
+            "Angry",
+            "Happy",
+            "Tired"
+          ],
+          "options_tr": [
+            "Üzgün",
+            "Kızgın",
+            "Mutlu",
+            "Yorgun"
+          ],
+          "answer": 2
+        }
+      ]
+    },
+    {
+      "id": "the_kind_mouse",
+      "title": "The Lion and the Mouse",
+      "level": "A1",
+      "emoji": "🐭",
+      "image": "stories/lion_mouse_a1.jpg",
+      "sentences": [
+        {
+          "en": "A lion sleeps peacefully under a big tree.",
+          "tr": "Bir aslan büyük bir ağacın altında huzurla uyur."
+        },
+        {
+          "en": "A small mouse runs across the lion's back by accident.",
+          "tr": "Küçük bir fare yanlışlıkla aslanın sırtından koşarak geçer."
+        },
+        {
+          "en": "The lion wakes up and catches the mouse with his paw.",
+          "tr": "Aslan uyanır ve fareyi pençesiyle yakalar."
+        },
+        {
+          "en": "The mouse cries: Please let me go! I will help you one day.",
+          "tr": "Fare ağlar: Lütfen bırak beni! Bir gün sana yardım edeceğim."
+        },
+        {
+          "en": "The lion laughs but decides to let the little mouse go free.",
+          "tr": "Aslan güler ama küçük fareyi serbest bırakmaya karar verir."
+        },
+        {
+          "en": "Later, hunters catch the lion in a strong rope net.",
+          "tr": "Daha sonra avcılar aslanı güçlü bir ip ağında yakalar."
+        },
+        {
+          "en": "The mouse hears the lion roaring and runs to help him.",
+          "tr": "Fare aslanın kükremesini duyar ve ona yardım etmek için koşar."
+        },
+        {
+          "en": "She bites through the ropes and the lion is finally free.",
+          "tr": "İpleri ısırarak keser ve aslan sonunda özgür kalır."
+        }
+      ],
+      "questions": [
+        {
+          "q": "What does the mouse promise the lion?",
+          "tr": "Fare aslana ne söz verir?",
+          "options": [
+            "Food",
+            "Help one day",
+            "A new home",
+            "Money"
+          ],
+          "options_tr": [
+            "Yiyecek",
+            "Bir gün yardım",
+            "Yeni yuva",
+            "Para"
+          ],
+          "answer": 1
+        },
+        {
+          "q": "What catches the lion later?",
+          "tr": "Aslanı sonra ne yakalar?",
+          "options": [
+            "Other lions",
+            "A rope net",
+            "A river",
+            "A fire"
+          ],
+          "options_tr": [
+            "Diğer aslanlar",
+            "İp ağı",
+            "Nehir",
+            "Ateş"
+          ],
+          "answer": 1
+        },
+        {
+          "q": "How does the mouse save the lion?",
+          "tr": "Fare aslanı nasıl kurtarır?",
+          "options": [
+            "She calls for help",
+            "She bites the ropes",
+            "She finds a key",
+            "She pulls the net"
+          ],
+          "options_tr": [
+            "Yardım çağırır",
+            "İpleri ısırır",
+            "Anahtar bulur",
+            "Ağı çeker"
+          ],
+          "answer": 1
+        }
+      ]
     }
   ],
   "A2": [
@@ -305,6 +1077,650 @@
             "Saç tekrar uzar"
           ],
           "answer": 1
+        }
+      ]
+    },
+    {
+      "id": "the_open_window",
+      "title": "The Open Window",
+      "level": "A2",
+      "emoji": "🪟",
+      "image": "stories/open_window.jpg",
+      "sentences": [
+        {
+          "en": "Framton Nuttel visits a quiet house in the countryside.",
+          "tr": "Framton Nuttel kırsalda sessiz bir evi ziyaret eder."
+        },
+        {
+          "en": "He is waiting for the lady of the house.",
+          "tr": "Evin hanımını bekliyor."
+        },
+        {
+          "en": "A young girl named Vera talks to him instead.",
+          "tr": "Vera adında genç bir kız onunla konuşur."
+        },
+        {
+          "en": "Vera points to a large open window in the room.",
+          "tr": "Vera odadaki büyük açık pencereyi gösterir."
+        },
+        {
+          "en": "She tells a sad story about her aunt's husband and brothers.",
+          "tr": "Teyzesinin kocası ve kardeşleri hakkında üzücü bir hikaye anlatır."
+        },
+        {
+          "en": "They went hunting three years ago and never came back.",
+          "tr": "Üç yıl önce ava gittiler ve hiç dönmediler."
+        },
+        {
+          "en": "The aunt still believes they will return through that window.",
+          "tr": "Teyzesi hala o pencereden döneceklerine inanıyor."
+        },
+        {
+          "en": "Suddenly, three men walk toward the house from the garden.",
+          "tr": "Aniden üç adam bahçeden eve doğru yürür."
+        },
+        {
+          "en": "Framton is terrified and runs out of the house immediately.",
+          "tr": "Framton dehşete kapılır ve hemen evden kaçar."
+        },
+        {
+          "en": "The aunt is confused about why her guest left so suddenly.",
+          "tr": "Teyze, misafirinin neden bu kadar aniden gittiğini anlamaz."
+        },
+        {
+          "en": "Vera calmly explains that Framton is afraid of dogs.",
+          "tr": "Vera sakince Framton'un köpeklerden korktuğunu açıklar."
+        },
+        {
+          "en": "In fact, the whole story about the hunters was Vera's invention.",
+          "tr": "Aslında avcılarla ilgili bütün hikaye Vera'nın uydurmasıydı."
+        }
+      ],
+      "questions": [
+        {
+          "q": "Who tells Framton the story?",
+          "tr": "Framton'a hikayeyi kim anlatır?",
+          "options": [
+            "The aunt",
+            "Vera",
+            "A hunter",
+            "A servant"
+          ],
+          "options_tr": [
+            "Teyze",
+            "Vera",
+            "Bir avcı",
+            "Bir hizmetçi"
+          ],
+          "answer": 1
+        },
+        {
+          "q": "Why does Framton run away?",
+          "tr": "Framton neden kaçar?",
+          "options": [
+            "He is late",
+            "He sees the men and is scared",
+            "He is angry",
+            "He is bored"
+          ],
+          "options_tr": [
+            "Geç kalmıştır",
+            "Adamları görür ve korkar",
+            "Kızgındır",
+            "Sıkılmıştır"
+          ],
+          "answer": 1
+        },
+        {
+          "q": "What is the truth about the story?",
+          "tr": "Hikaye hakkındaki gerçek nedir?",
+          "options": [
+            "It was real",
+            "Vera invented it",
+            "The aunt invented it",
+            "It happened yesterday"
+          ],
+          "options_tr": [
+            "Gerçekti",
+            "Vera uydurmuştu",
+            "Teyze uydurmuştu",
+            "Dün oldu"
+          ],
+          "answer": 1
+        }
+      ]
+    },
+    {
+      "id": "the_happy_prince",
+      "title": "The Happy Prince",
+      "level": "A2",
+      "emoji": "👑",
+      "image": "stories/happy_prince.jpg",
+      "sentences": [
+        {
+          "en": "A golden statue of a prince stands high above the city.",
+          "tr": "Şehrin üzerinde altın bir prens heykeli durur."
+        },
+        {
+          "en": "His body is covered with thin gold and his eyes are sapphires.",
+          "tr": "Vücudu ince altınla kaplıdır ve gözleri safirdir."
+        },
+        {
+          "en": "A little swallow stops to rest at the statue's feet.",
+          "tr": "Küçük bir kırlangıç heykelin ayaklarında dinlenmek için durur."
+        },
+        {
+          "en": "The prince is crying because he sees so much suffering in the city.",
+          "tr": "Prens, şehirde çok fazla acı gördüğü için ağlamaktadır."
+        },
+        {
+          "en": "He asks the swallow to take a ruby to a poor family.",
+          "tr": "Kırlangıçtan yoksul bir aileye bir yakut götürmesini ister."
+        },
+        {
+          "en": "The swallow agrees, even though winter is coming soon.",
+          "tr": "Kış yakında geleceği halde kırlangıç kabul eder."
+        },
+        {
+          "en": "Night after night, the prince gives away his sapphire eyes too.",
+          "tr": "Gece be gece prens safir gözlerini de verir."
+        },
+        {
+          "en": "Finally, the prince becomes completely gray and loses all his gold.",
+          "tr": "Sonunda prens tamamen griye döner ve tüm altınını kaybeder."
+        },
+        {
+          "en": "The swallow stays with the prince instead of flying to warmer lands.",
+          "tr": "Kırlangıç daha sıcak topraklara uçmak yerine prensle kalır."
+        },
+        {
+          "en": "When the cold finally comes, the little swallow dies at his feet.",
+          "tr": "Soğuk sonunda geldiğinde küçük kırlangıç ayaklarının dibinde ölür."
+        },
+        {
+          "en": "The prince's lead heart breaks from sadness at that moment.",
+          "tr": "Prensin kurşun kalbi o anda üzüntüden kırılır."
+        },
+        {
+          "en": "The city workers melt the statue down because it looks shabby.",
+          "tr": "Şehir işçileri eski göründüğü için heykeli eritir."
+        }
+      ],
+      "questions": [
+        {
+          "q": "What does the prince give first?",
+          "tr": "Prens önce ne verir?",
+          "options": [
+            "A sapphire eye",
+            "A ruby",
+            "Gold leaf",
+            "A crown"
+          ],
+          "options_tr": [
+            "Safir göz",
+            "Yakut",
+            "Altın yaprak",
+            "Taç"
+          ],
+          "answer": 1
+        },
+        {
+          "q": "Why does the swallow stay with the prince?",
+          "tr": "Kırlangıç prensle neden kalır?",
+          "options": [
+            "It is too cold to fly",
+            "It loves the prince",
+            "It is injured",
+            "It is lost"
+          ],
+          "options_tr": [
+            "Uçmak için çok soğuk",
+            "Prensi sever",
+            "Yaralı",
+            "Kaybolmuş"
+          ],
+          "answer": 1
+        },
+        {
+          "q": "What happens to the swallow in the end?",
+          "tr": "Sonunda kırlangıça ne olur?",
+          "options": [
+            "It flies away",
+            "It dies",
+            "It becomes gold",
+            "It finds a family"
+          ],
+          "options_tr": [
+            "Uçup gider",
+            "Ölür",
+            "Altın olur",
+            "Bir aile bulur"
+          ],
+          "answer": 1
+        }
+      ]
+    },
+    {
+      "id": "the_nightingale_rose",
+      "title": "The Nightingale and the Rose",
+      "level": "A2",
+      "emoji": "🌹",
+      "image": "stories/nightingale_rose.jpg",
+      "sentences": [
+        {
+          "en": "A young student is very sad about love.",
+          "tr": "Genç bir öğrenci aşk konusunda çok üzgündür."
+        },
+        {
+          "en": "He needs a red rose to win the heart of a girl.",
+          "tr": "Bir kızın kalbini kazanmak için kırmızı bir güle ihtiyacı vardır."
+        },
+        {
+          "en": "But there are no red roses in his garden this winter.",
+          "tr": "Ama bu kış bahçesinde kırmızı gül yoktur."
+        },
+        {
+          "en": "A nightingale hears the student crying about his problem.",
+          "tr": "Bir bülbül öğrencinin sorunu hakkında ağladığını duyar."
+        },
+        {
+          "en": "She decides to help him because she believes in true love.",
+          "tr": "Gerçek aşka inandığı için ona yardım etmeye karar verir."
+        },
+        {
+          "en": "An old rose tree tells her how to create a red rose.",
+          "tr": "Yaşlı bir gül ağacı ona kırmızı gül yaratmanın yolunu söyler."
+        },
+        {
+          "en": "She must sing all night with a thorn pressed against her heart.",
+          "tr": "Bir dikeni kalbine bastırarak bütün gece şarkı söylemelidir."
+        },
+        {
+          "en": "The nightingale sings beautifully as the thorn goes deeper.",
+          "tr": "Diken derinleştikçe bülbül güzel bir şekilde şarkı söyler."
+        },
+        {
+          "en": "Her blood slowly turns the white rose into deep red.",
+          "tr": "Kanı yavaşça beyaz gülü koyu kırmızıya çevirir."
+        },
+        {
+          "en": "By morning, the nightingale has died, but a perfect red rose blooms.",
+          "tr": "Sabaha kadar bülbül ölmüştür, ama mükemmel bir kırmızı gül açar."
+        },
+        {
+          "en": "The student picks the rose and runs happily to the girl's house.",
+          "tr": "Öğrenci gülü koparır ve mutlu bir şekilde kızın evine koşar."
+        },
+        {
+          "en": "Sadly, the girl rejects the rose because she prefers jewelry instead.",
+          "tr": "Ne yazık ki kız, gül yerine mücevheri tercih ederek gülü reddeder."
+        }
+      ],
+      "questions": [
+        {
+          "q": "What does the student need?",
+          "tr": "Öğrencinin neye ihtiyacı vardır?",
+          "options": [
+            "A red rose",
+            "Money",
+            "A book",
+            "A horse"
+          ],
+          "options_tr": [
+            "Kırmızı gül",
+            "Para",
+            "Kitap",
+            "At"
+          ],
+          "answer": 0
+        },
+        {
+          "q": "How does the nightingale create the red rose?",
+          "tr": "Bülbül kırmızı gülü nasıl yaratır?",
+          "options": [
+            "With water",
+            "With her own blood",
+            "With paint",
+            "With sunlight"
+          ],
+          "options_tr": [
+            "Suyla",
+            "Kendi kanıyla",
+            "Boyayla",
+            "Güneş ışığıyla"
+          ],
+          "answer": 1
+        },
+        {
+          "q": "What does the girl prefer?",
+          "tr": "Kız neyi tercih eder?",
+          "options": [
+            "The rose",
+            "Jewelry",
+            "Nothing",
+            "A different flower"
+          ],
+          "options_tr": [
+            "Gülü",
+            "Mücevheri",
+            "Hiçbirini",
+            "Farklı bir çiçeği"
+          ],
+          "answer": 1
+        }
+      ]
+    },
+    {
+      "id": "the_signal_man",
+      "title": "The Signal-Man",
+      "level": "A2",
+      "emoji": "🚂",
+      "image": "stories/signal_man.jpg",
+      "sentences": [
+        {
+          "en": "A traveler visits a lonely signal-man who works near a deep railway cutting.",
+          "tr": "Bir yolcu, derin bir demiryolu yarmasının yakınında çalışan yalnız bir sinyalciyi ziyaret eder."
+        },
+        {
+          "en": "The signal-man's job is to watch trains pass through a dark tunnel.",
+          "tr": "Sinyalcinin işi, trenlerin karanlık bir tünelden geçişini izlemektir."
+        },
+        {
+          "en": "He seems nervous and tells the traveler about a strange ghost.",
+          "tr": "Endişeli görünür ve yolcuya garip bir hayalet hakkında bilgi verir."
+        },
+        {
+          "en": "The ghost always appears near the tunnel entrance before something terrible happens.",
+          "tr": "Hayalet, korkunç bir şey olmadan önce her zaman tünel girişinin yakınında belirir."
+        },
+        {
+          "en": "He saw the ghost before a terrible train accident a year ago.",
+          "tr": "Bir yıl önce korkunç bir tren kazasından önce hayaleti görmüştür."
+        },
+        {
+          "en": "Recently, the ghost appeared again, but nothing bad has happened yet.",
+          "tr": "Son zamanlarda hayalet tekrar belirdi ama henüz kötü bir şey olmadı."
+        },
+        {
+          "en": "The traveler tries to comfort him but feels uneasy about the story.",
+          "tr": "Yolcu onu rahatlatmaya çalışır ama hikaye konusunda huzursuzluk hisseder."
+        },
+        {
+          "en": "The next evening, the traveler returns to visit the signal-man again.",
+          "tr": "Ertesi akşam yolcu sinyalciyi tekrar ziyaret etmek için döner."
+        },
+        {
+          "en": "He sees a crowd of people gathered near the tunnel entrance.",
+          "tr": "Tünel girişinin yakınında toplanmış bir kalabalık görür."
+        },
+        {
+          "en": "Sadly, he learns that the signal-man was killed by an oncoming train.",
+          "tr": "Üzücü bir şekilde sinyalcinin gelen bir tren tarafından öldürüldüğünü öğrenir."
+        },
+        {
+          "en": "The train driver had waved his arms exactly like the ghost did.",
+          "tr": "Tren sürücüsü tam olarak hayaletin yaptığı gibi kollarını sallamıştı."
+        }
+      ],
+      "questions": [
+        {
+          "q": "What is the signal-man's job?",
+          "tr": "Sinyalcinin işi nedir?",
+          "options": [
+            "Drive trains",
+            "Watch trains through a tunnel",
+            "Sell tickets",
+            "Clean the station"
+          ],
+          "options_tr": [
+            "Tren sürmek",
+            "Trenleri tünelden izlemek",
+            "Bilet satmak",
+            "İstasyonu temizlemek"
+          ],
+          "answer": 1
+        },
+        {
+          "q": "What does the signal-man see before bad events?",
+          "tr": "Sinyalci kötü olaylardan önce ne görür?",
+          "options": [
+            "A bright light",
+            "A ghost",
+            "A bird",
+            "Smoke"
+          ],
+          "options_tr": [
+            "Parlak ışık",
+            "Hayalet",
+            "Kuş",
+            "Duman"
+          ],
+          "answer": 1
+        },
+        {
+          "q": "How does the signal-man die?",
+          "tr": "Sinyalci nasıl ölür?",
+          "options": [
+            "He falls",
+            "A train hits him",
+            "He gets sick",
+            "He is shot"
+          ],
+          "options_tr": [
+            "Düşer",
+            "Tren çarpar",
+            "Hastalanır",
+            "Vurulur"
+          ],
+          "answer": 1
+        }
+      ]
+    },
+    {
+      "id": "the_model_millionaire",
+      "title": "The Model Millionaire",
+      "level": "A2",
+      "emoji": "💰",
+      "image": "stories/model_millionaire.jpg",
+      "sentences": [
+        {
+          "en": "Hughie Erskine is a charming young man with very little money.",
+          "tr": "Hughie Erskine çok az parası olan, çekici genç bir adamdır."
+        },
+        {
+          "en": "He loves a girl named Laura, but her father refuses permission to marry.",
+          "tr": "Laura adında bir kızı sever ama babası evlenmesine izin vermez."
+        },
+        {
+          "en": "One day, Hughie visits his artist friend Alan Trevor in his studio.",
+          "tr": "Bir gün Hughie, ressam arkadaşı Alan Trevor'u stüdyosunda ziyaret eder."
+        },
+        {
+          "en": "Trevor is painting a portrait of an old beggar man.",
+          "tr": "Trevor yaşlı bir dilenci adamın portresini çiziyordur."
+        },
+        {
+          "en": "Hughie feels sorry for the poor old man sitting there.",
+          "tr": "Hughie orada oturan zavallı yaşlı adam için üzülür."
+        },
+        {
+          "en": "He generously gives the beggar his only gold coin.",
+          "tr": "Cömertçe dilenciye tek altın parasını verir."
+        },
+        {
+          "en": "The next day, Trevor reveals an amazing secret to Hughie.",
+          "tr": "Ertesi gün Trevor, Hughie'ye şaşırtıcı bir sır açıklar."
+        },
+        {
+          "en": "The old beggar was actually a millionaire named Baron Hausberg.",
+          "tr": "Yaşlı dilenci aslında Baron Hausberg adında bir milyonerdi."
+        },
+        {
+          "en": "The baron was delighted by Hughie's kindness and generous heart.",
+          "tr": "Baron, Hughie'nin nezaketinden ve cömert kalbinden çok memnun kalmıştı."
+        },
+        {
+          "en": "Soon after, the baron sends Hughie a huge sum of money as a gift.",
+          "tr": "Kısa süre sonra baron, Hughie'ye hediye olarak büyük bir miktar para gönderir."
+        },
+        {
+          "en": "Finally, Hughie has enough money to marry Laura with her father's blessing.",
+          "tr": "Sonunda Hughie, babasının izniyle Laura ile evlenmek için yeterli paraya sahip olur."
+        }
+      ],
+      "questions": [
+        {
+          "q": "Why can't Hughie marry Laura?",
+          "tr": "Hughie neden Laura ile evlenemez?",
+          "options": [
+            "She doesn't love him",
+            "He has too little money",
+            "She is too young",
+            "Her father is dead"
+          ],
+          "options_tr": [
+            "Onu sevmiyor",
+            "Çok az parası var",
+            "Çok genç",
+            "Babası ölmüş"
+          ],
+          "answer": 1
+        },
+        {
+          "q": "What does Hughie give the old beggar?",
+          "tr": "Hughie yaşlı dilenciye ne verir?",
+          "options": [
+            "His coat",
+            "A gold coin",
+            "Food",
+            "A book"
+          ],
+          "options_tr": [
+            "Paltosu",
+            "Altın para",
+            "Yiyecek",
+            "Kitap"
+          ],
+          "answer": 1
+        },
+        {
+          "q": "Who is the old beggar really?",
+          "tr": "Yaşlı dilenci gerçekte kimdir?",
+          "options": [
+            "A painter",
+            "A millionaire",
+            "Laura's father",
+            "A thief"
+          ],
+          "options_tr": [
+            "Ressam",
+            "Milyoner",
+            "Laura'nın babası",
+            "Hırsız"
+          ],
+          "answer": 1
+        }
+      ]
+    },
+    {
+      "id": "the_canterville_ghost",
+      "title": "The Canterville Ghost",
+      "level": "A2",
+      "emoji": "👻",
+      "image": "stories/canterville_ghost.jpg",
+      "sentences": [
+        {
+          "en": "The Otis family buys an old English castle called Canterville Chase.",
+          "tr": "Otis ailesi Canterville Chase adlı eski bir İngiliz şatosu satın alır."
+        },
+        {
+          "en": "A real estate agent warns them that the castle has a ghost.",
+          "tr": "Bir emlakçı onları şatonun bir hayalet olduğu konusunda uyarır."
+        },
+        {
+          "en": "The American family laughs and does not believe in ghosts at all.",
+          "tr": "Amerikalı aile güler ve hayaletlere hiç inanmaz."
+        },
+        {
+          "en": "On the first night, the ghost appears with rattling, ancient chains.",
+          "tr": "İlk gece hayalet, takırdayan eski zincirlerle belirir."
+        },
+        {
+          "en": "Instead of being scared, the twin boys throw pillows at him.",
+          "tr": "Korkmak yerine ikiz çocuklar ona yastık atar."
+        },
+        {
+          "en": "The ghost tries many different scary tricks over several weeks.",
+          "tr": "Hayalet birkaç hafta boyunca birçok farklı korkutucu numara dener."
+        },
+        {
+          "en": "Each time, the practical American family simply ignores his efforts.",
+          "tr": "Her seferinde pratik Amerikan ailesi çabalarını basitçe görmezden gelir."
+        },
+        {
+          "en": "The ghost becomes extremely tired and depressed about his failures.",
+          "tr": "Hayalet başarısızlıkları yüzünden son derece yorgun ve depresif olur."
+        },
+        {
+          "en": "Finally, the young daughter Virginia shows kindness toward the lonely ghost.",
+          "tr": "Sonunda genç kız Virginia yalnız hayalete karşı nezaket gösterir."
+        },
+        {
+          "en": "She helps him find peace and finally rest after three hundred years.",
+          "tr": "Üç yüz yıl sonra huzur bulmasına ve sonunda dinlenmesine yardım eder."
+        }
+      ],
+      "questions": [
+        {
+          "q": "What does the agent warn the family about?",
+          "tr": "Emlakçı aileyi ne konusunda uyarır?",
+          "options": [
+            "A flood",
+            "A ghost",
+            "Bad neighbors",
+            "High taxes"
+          ],
+          "options_tr": [
+            "Sel",
+            "Hayalet",
+            "Kötü komşular",
+            "Yüksek vergiler"
+          ],
+          "answer": 1
+        },
+        {
+          "q": "How do the twin boys react to the ghost?",
+          "tr": "İkiz çocuklar hayalete nasıl tepki verir?",
+          "options": [
+            "They run away",
+            "They throw pillows",
+            "They scream",
+            "They cry"
+          ],
+          "options_tr": [
+            "Kaçarlar",
+            "Yastık atarlar",
+            "Çığlık atarlar",
+            "Ağlarlar"
+          ],
+          "answer": 1
+        },
+        {
+          "q": "Who finally helps the ghost find peace?",
+          "tr": "Sonunda hayaletin huzur bulmasına kim yardım eder?",
+          "options": [
+            "The father",
+            "The twin boys",
+            "Virginia",
+            "The agent"
+          ],
+          "options_tr": [
+            "Baba",
+            "İkiz çocuklar",
+            "Virginia",
+            "Emlakçı"
+          ],
+          "answer": 2
         }
       ]
     }
@@ -513,7 +1929,1010 @@
           "answer": 1
         }
       ]
+    },
+    {
+      "id": "the_last_leaf",
+      "title": "The Last Leaf",
+      "level": "B1",
+      "emoji": "🍂",
+      "image": "stories/last_leaf.jpg",
+      "sentences": [
+        {
+          "en": "Sue and Johnsy are two young artists living together.",
+          "tr": "Sue ve Johnsy birlikte yaşayan iki genç sanatçıdır."
+        },
+        {
+          "en": "In November, Johnsy becomes very sick with pneumonia.",
+          "tr": "Kasımda Johnsy zatürreden çok hasta olur."
+        },
+        {
+          "en": "The doctor says her chance to live is very small.",
+          "tr": "Doktor yaşama şansının çok az olduğunu söyler."
+        },
+        {
+          "en": "Johnsy watches the leaves falling from a vine outside her window.",
+          "tr": "Johnsy penceresinin dışındaki sarmaşıktan dökülen yaprakları izler."
+        },
+        {
+          "en": "She believes she will die when the last leaf falls.",
+          "tr": "Son yaprak düştüğünde öleceğine inanır."
+        },
+        {
+          "en": "Sue is very worried about her friend's strange belief.",
+          "tr": "Sue, arkadaşının garip inancı hakkında çok endişelidir."
+        },
+        {
+          "en": "An old painter named Behrman lives in the same building.",
+          "tr": "Behrman adında yaşlı bir ressam aynı binada yaşar."
+        },
+        {
+          "en": "He has always dreamed of painting a true masterpiece.",
+          "tr": "Her zaman gerçek bir başyapıt çizmeyi hayal etmiştir."
+        },
+        {
+          "en": "One stormy night, the wind blows very hard.",
+          "tr": "Fırtınalı bir gecede rüzgar çok sert eser."
+        },
+        {
+          "en": "The next morning, Johnsy is surprised to see one leaf still on the vine.",
+          "tr": "Ertesi sabah Johnsy sarmaşıkta hala bir yaprağın olduğunu görünce şaşırır."
+        },
+        {
+          "en": "The leaf survives the storm, and Johnsy starts to recover.",
+          "tr": "Yaprak fırtınadan kurtulur ve Johnsy iyileşmeye başlar."
+        },
+        {
+          "en": "Later, Sue learns that Behrman painted the leaf on the wall that night.",
+          "tr": "Sonra Sue, Behrman'ın o gece yaprağı duvara çizdiğini öğrenir."
+        },
+        {
+          "en": "Behrman caught a cold while painting and passed away days later.",
+          "tr": "Behrman resim yaparken üşütmüştü ve günler sonra hayatını kaybetti."
+        },
+        {
+          "en": "His final painting saved Johnsy's life and became his true masterpiece.",
+          "tr": "Son tablosu Johnsy'nin hayatını kurtardı ve gerçek başyapıtı oldu."
+        }
+      ],
+      "questions": [
+        {
+          "q": "What is Johnsy's illness?",
+          "tr": "Johnsy'nin hastalığı nedir?",
+          "options": [
+            "A cold",
+            "Pneumonia",
+            "A headache",
+            "A broken leg"
+          ],
+          "options_tr": [
+            "Soğuk algınlığı",
+            "Zatürre",
+            "Baş ağrısı",
+            "Kırık bacak"
+          ],
+          "answer": 1
+        },
+        {
+          "q": "What does Johnsy believe will happen when the last leaf falls?",
+          "tr": "Johnsy son yaprak düştüğünde ne olacağına inanır?",
+          "options": [
+            "She will get better",
+            "She will die",
+            "Spring will come",
+            "Nothing"
+          ],
+          "options_tr": [
+            "İyileşecek",
+            "Ölecek",
+            "Bahar gelecek",
+            "Hiçbir şey"
+          ],
+          "answer": 1
+        },
+        {
+          "q": "Who really created the last leaf?",
+          "tr": "Son yaprağı gerçekte kim yarattı?",
+          "options": [
+            "Sue",
+            "The vine itself",
+            "Behrman",
+            "The doctor"
+          ],
+          "options_tr": [
+            "Sue",
+            "Sarmaşığın kendisi",
+            "Behrman",
+            "Doktor"
+          ],
+          "answer": 2
+        }
+      ]
+    },
+    {
+      "id": "the_gift_of_rikki",
+      "title": "Rikki-Tikki-Tavi",
+      "level": "B1",
+      "emoji": "🐍",
+      "image": "stories/rikki_tikki.jpg",
+      "sentences": [
+        {
+          "en": "Rikki-Tikki-Tavi is a young mongoose who lives in a garden in India.",
+          "tr": "Rikki-Tikki-Tavi, Hindistan'da bir bahçede yaşayan genç bir mangust."
+        },
+        {
+          "en": "A family rescues him after a flood washes him from his home.",
+          "tr": "Bir sel onu evinden sürükledikten sonra bir aile onu kurtarır."
+        },
+        {
+          "en": "Rikki quickly explores every corner of the new garden.",
+          "tr": "Rikki yeni bahçenin her köşesini hızlıca keşfeder."
+        },
+        {
+          "en": "He meets two dangerous cobras named Nag and Nagaina.",
+          "tr": "Nag ve Nagaina adında iki tehlikeli kobrayla tanışır."
+        },
+        {
+          "en": "The cobras want to kill the family and rule the garden.",
+          "tr": "Kobralar aileyi öldürmek ve bahçeyi yönetmek ister."
+        },
+        {
+          "en": "Rikki understands that he must protect his new family.",
+          "tr": "Rikki yeni ailesini korumak zorunda olduğunu anlar."
+        },
+        {
+          "en": "One night, he fights bravely against the cobra Nag.",
+          "tr": "Bir gece kobra Nag'a karşı cesurca savaşır."
+        },
+        {
+          "en": "He kills Nag in a fierce battle near the bathroom drain.",
+          "tr": "Banyo gideri yakınında şiddetli bir savaşta Nag'ı öldürür."
+        },
+        {
+          "en": "Nagaina becomes furious and threatens to destroy the eggs of the family.",
+          "tr": "Nagaina çok kızar ve ailenin yumurtalarını yok etmekle tehdit eder."
+        },
+        {
+          "en": "Rikki destroys the cobra eggs to stop more snakes from hatching.",
+          "tr": "Daha fazla yılanın çıkmasını önlemek için kobra yumurtalarını yok eder."
+        },
+        {
+          "en": "In the final battle, Rikki chases Nagaina into her underground hole.",
+          "tr": "Son savaşta Rikki, Nagaina'yı yer altındaki deliğine kadar kovalar."
+        },
+        {
+          "en": "He never comes back out immediately, and the family fears the worst.",
+          "tr": "Hemen geri çıkmaz ve aile en kötüsünden korkar."
+        },
+        {
+          "en": "Finally, Rikki emerges victorious and the garden is finally safe.",
+          "tr": "Sonunda Rikki zaferle çıkar ve bahçe sonunda güvenlidir."
+        }
+      ],
+      "questions": [
+        {
+          "q": "What kind of animal is Rikki?",
+          "tr": "Rikki ne tür bir hayvandır?",
+          "options": [
+            "A cat",
+            "A mongoose",
+            "A dog",
+            "A bird"
+          ],
+          "options_tr": [
+            "Kedi",
+            "Mangust",
+            "Köpek",
+            "Kuş"
+          ],
+          "answer": 1
+        },
+        {
+          "q": "Who are Nag and Nagaina?",
+          "tr": "Nag ve Nagaina kimdir?",
+          "options": [
+            "Birds",
+            "Cobras",
+            "Other mongooses",
+            "Children"
+          ],
+          "options_tr": [
+            "Kuşlar",
+            "Kobralar",
+            "Diğer mangustlar",
+            "Çocuklar"
+          ],
+          "answer": 1
+        },
+        {
+          "q": "What does Rikki do to stop more snakes?",
+          "tr": "Rikki daha fazla yılanı önlemek için ne yapar?",
+          "options": [
+            "Builds a wall",
+            "Destroys the eggs",
+            "Calls for help",
+            "Runs away"
+          ],
+          "options_tr": [
+            "Duvar inşa eder",
+            "Yumurtaları yok eder",
+            "Yardım çağırır",
+            "Kaçar"
+          ],
+          "answer": 1
+        }
+      ]
+    },
+    {
+      "id": "the_landlady",
+      "title": "The Landlady",
+      "level": "B1",
+      "emoji": "🏠",
+      "image": "stories/the_landlady.jpg",
+      "sentences": [
+        {
+          "en": "Billy Weaver arrives in a new town looking for cheap accommodation.",
+          "tr": "Billy Weaver ucuz konaklama arayarak yeni bir kasabaya gelir."
+        },
+        {
+          "en": "He notices a charming bed and breakfast with a sign in the window.",
+          "tr": "Penceresinde tabela olan şirin bir pansiyon fark eder."
+        },
+        {
+          "en": "A friendly, elderly landlady welcomes him warmly at the door.",
+          "tr": "Sıcakkanlı, yaşlı bir ev sahibesi onu kapıda sıcak bir şekilde karşılar."
+        },
+        {
+          "en": "The price is surprisingly low, so Billy decides to stay there.",
+          "tr": "Fiyat şaşırtıcı derecede düşüktür, bu yüzden Billy orada kalmaya karar verir."
+        },
+        {
+          "en": "Inside, he notices a strange, sweet smell, like almonds and dust.",
+          "tr": "İçeride badem ve toz gibi garip, tatlı bir koku fark eder."
+        },
+        {
+          "en": "She mentions that she has had only two other guests recently.",
+          "tr": "Son zamanlarda sadece iki misafiri daha olduğunu belirtir."
+        },
+        {
+          "en": "Billy notices their names in the guest book seem strangely familiar.",
+          "tr": "Misafir defterindeki isimlerinin garip bir şekilde tanıdık geldiğini fark eder."
+        },
+        {
+          "en": "He remembers reading about two missing young men in the newspaper.",
+          "tr": "Gazetede kayıp iki genç adam hakkında okuduğunu hatırlar."
+        },
+        {
+          "en": "In the sitting room, he notices a stuffed parrot and a strange dog.",
+          "tr": "Oturma odasında doldurulmuş bir papağan ve garip bir köpek fark eder."
+        },
+        {
+          "en": "Both animals look incredibly lifelike, almost too perfectly preserved.",
+          "tr": "İkisi de inanılmaz canlı görünüyor, neredeyse fazla mükemmel korunmuş."
+        },
+        {
+          "en": "The landlady offers him tea with a strange, bitter taste in it.",
+          "tr": "Ona içinde garip, acı bir tat olan çay sunar."
+        },
+        {
+          "en": "As Billy drinks, the reader understands the terrible truth too late.",
+          "tr": "Billy içerken okuyucu korkunç gerçeği çok geç anlar."
+        }
+      ],
+      "questions": [
+        {
+          "q": "What does Billy notice in the house?",
+          "tr": "Billy evde ne fark eder?",
+          "options": [
+            "Loud music",
+            "A strange smell",
+            "Many guests",
+            "Broken furniture"
+          ],
+          "options_tr": [
+            "Yüksek müzik",
+            "Garip bir koku",
+            "Çok misafir",
+            "Kırık mobilya"
+          ],
+          "answer": 1
+        },
+        {
+          "q": "What does Billy remember about the names?",
+          "tr": "Billy isimler hakkında ne hatırlar?",
+          "options": [
+            "They are his friends",
+            "They are missing men",
+            "They are famous",
+            "They are landlady's family"
+          ],
+          "options_tr": [
+            "Arkadaşları",
+            "Kayıp adamlar",
+            "Ünlüler",
+            "Ev sahibesinin ailesi"
+          ],
+          "answer": 1
+        },
+        {
+          "q": "What is suspicious about the animals?",
+          "tr": "Hayvanlar hakkında neden şüpheli?",
+          "options": [
+            "They are alive",
+            "They look too lifelike",
+            "They are very old",
+            "They are dangerous"
+          ],
+          "options_tr": [
+            "Canlılar",
+            "Fazla canlı görünüyorlar",
+            "Çok yaşlılar",
+            "Tehlikeliler"
+          ],
+          "answer": 1
+        }
+      ]
+    },
+    {
+      "id": "the_gift_of_a_friend",
+      "title": "Where the Heart Is",
+      "level": "B1",
+      "emoji": "💝",
+      "image": "stories/where_heart_is.jpg",
+      "sentences": [
+        {
+          "en": "James moves to a small town and feels lonely at first.",
+          "tr": "James küçük bir kasabaya taşınır ve önce kendini yalnız hisseder."
+        },
+        {
+          "en": "He works at a small shop in the center of town.",
+          "tr": "Kasabanın merkezindeki küçük bir dükkanda çalışır."
+        },
+        {
+          "en": "An elderly neighbor named Mrs. Carter invites him for dinner.",
+          "tr": "Bayan Carter adında yaşlı bir komşu onu yemeğe davet eder."
+        },
+        {
+          "en": "She tells him stories about the town's history and its people.",
+          "tr": "Ona kasabanın tarihi ve insanları hakkında hikayeler anlatır."
+        },
+        {
+          "en": "James slowly begins to feel a connection with his new neighbors.",
+          "tr": "James yavaşça yeni komşularıyla bir bağ hissetmeye başlar."
+        },
+        {
+          "en": "He starts helping at the local community center every weekend.",
+          "tr": "Her hafta sonu yerel toplum merkezinde yardım etmeye başlar."
+        },
+        {
+          "en": "Through this work, he meets many kind and interesting people.",
+          "tr": "Bu iş sayesinde birçok nazik ve ilginç insanla tanışır."
+        },
+        {
+          "en": "When winter comes, the whole town faces a difficult snowstorm together.",
+          "tr": "Kış geldiğinde bütün kasaba zorlu bir kar fırtınasıyla birlikte yüzleşir."
+        },
+        {
+          "en": "Everyone helps each other clear the streets and check on elderly neighbors.",
+          "tr": "Herkes sokakları temizlemek ve yaşlı komşuları kontrol etmek için birbirine yardım eder."
+        },
+        {
+          "en": "James finally understands that home is not a place, but the people around you.",
+          "tr": "James sonunda evin bir yer değil, etrafındaki insanlar olduğunu anlar."
+        }
+      ],
+      "questions": [
+        {
+          "q": "How does James feel when he first arrives?",
+          "tr": "James ilk geldiğinde nasıl hisseder?",
+          "options": [
+            "Excited",
+            "Lonely",
+            "Angry",
+            "Bored"
+          ],
+          "options_tr": [
+            "Heyecanlı",
+            "Yalnız",
+            "Kızgın",
+            "Sıkılmış"
+          ],
+          "answer": 1
+        },
+        {
+          "q": "Who invites James for dinner?",
+          "tr": "James'i kim yemeğe davet eder?",
+          "options": [
+            "His boss",
+            "Mrs. Carter",
+            "A stranger",
+            "His family"
+          ],
+          "options_tr": [
+            "Patronu",
+            "Bayan Carter",
+            "Bir yabancı",
+            "Ailesi"
+          ],
+          "answer": 1
+        },
+        {
+          "q": "What does James learn about home?",
+          "tr": "James ev hakkında ne öğrenir?",
+          "options": [
+            "It is just a building",
+            "It is about the people",
+            "It is expensive",
+            "It needs to be big"
+          ],
+          "options_tr": [
+            "Sadece bir bina",
+            "İnsanlarla ilgili",
+            "Pahalı",
+            "Büyük olmalı"
+          ],
+          "answer": 1
+        }
+      ]
+    },
+    {
+      "id": "the_speckled_band",
+      "title": "The Adventure of the Speckled Band",
+      "level": "B1",
+      "emoji": "🔍",
+      "image": "stories/speckled_band.jpg",
+      "sentences": [
+        {
+          "en": "Helen Stoner visits the famous detective Sherlock Holmes early one morning.",
+          "tr": "Helen Stoner bir sabah erkenden ünlü dedektif Sherlock Holmes'u ziyaret eder."
+        },
+        {
+          "en": "She is terrified and explains that her sister died mysteriously two years ago.",
+          "tr": "Dehşete kapılmıştır ve kız kardeşinin iki yıl önce gizemli bir şekilde öldüğünü açıklar."
+        },
+        {
+          "en": "Before dying, her sister mentioned a strange speckled band and a low whistle.",
+          "tr": "Ölmeden önce kız kardeşi garip benekli bir bant ve alçak bir ıslık bahsetmişti."
+        },
+        {
+          "en": "Now Helen is getting married soon and strange noises have started again.",
+          "tr": "Şimdi Helen yakında evlenecek ve garip sesler tekrar başlamış."
+        },
+        {
+          "en": "Holmes and his friend Watson travel to the old country house to investigate.",
+          "tr": "Holmes ve arkadaşı Watson araştırmak için eski taşra evine gider."
+        },
+        {
+          "en": "Holmes notices a strange ventilator connecting Helen's room to her stepfather's room.",
+          "tr": "Holmes, Helen'ın odasını üvey babasının odasına bağlayan garip bir havalandırma fark eder."
+        },
+        {
+          "en": "He also finds a bell rope that does not actually connect to any bell.",
+          "tr": "Ayrıca aslında hiçbir zile bağlı olmayan bir zil ipi bulur."
+        },
+        {
+          "en": "Holmes realizes the stepfather keeps dangerous snakes in his bedroom.",
+          "tr": "Holmes, üvey babanın yatak odasında tehlikeli yılanlar tuttuğunu fark eder."
+        },
+        {
+          "en": "That night, Holmes and Watson wait quietly in Helen's dark bedroom.",
+          "tr": "O gece Holmes ve Watson Helen'ın karanlık yatak odasında sessizce bekler."
+        },
+        {
+          "en": "They hear the low whistle and discover a venomous snake through the ventilator.",
+          "tr": "Alçak ıslığı duyarlar ve havalandırma boyunca zehirli bir yılan keşfederler."
+        },
+        {
+          "en": "The stepfather had used the snake to murder his stepdaughters for their inheritance.",
+          "tr": "Üvey baba, üvey kızlarını mirasları için öldürmek üzere yılanı kullanmıştı."
+        }
+      ],
+      "questions": [
+        {
+          "q": "What did Helen's sister mention before dying?",
+          "tr": "Helen'ın kız kardeşi ölmeden önce neden bahsetmişti?",
+          "options": [
+            "A name",
+            "A speckled band and whistle",
+            "A treasure",
+            "A map"
+          ],
+          "options_tr": [
+            "Bir isim",
+            "Benekli bant ve ıslık",
+            "Hazine",
+            "Harita"
+          ],
+          "answer": 1
+        },
+        {
+          "q": "What does Holmes find connecting the two rooms?",
+          "tr": "Holmes iki odayı bağlayan ne bulur?",
+          "options": [
+            "A door",
+            "A ventilator",
+            "A staircase",
+            "A window"
+          ],
+          "options_tr": [
+            "Kapı",
+            "Havalandırma",
+            "Merdiven",
+            "Pencere"
+          ],
+          "answer": 1
+        },
+        {
+          "q": "What was the murder weapon?",
+          "tr": "Cinayet silahı neydi?",
+          "options": [
+            "A knife",
+            "Poison",
+            "A venomous snake",
+            "A gun"
+          ],
+          "options_tr": [
+            "Bıçak",
+            "Zehir",
+            "Zehirli yılan",
+            "Silah"
+          ],
+          "answer": 2
+        }
+      ]
     }
   ],
-  "B2": []
+  "B2": [
+    {
+      "id": "the_monkeys_paw",
+      "title": "The Monkey's Paw",
+      "level": "B2",
+      "emoji": "🐾",
+      "image": "stories/monkeys_paw.jpg",
+      "sentences": [
+        {
+          "en": "The White family lives in a comfortable house on a quiet evening.",
+          "tr": "White ailesi sessiz bir akşamda rahat bir evde yaşıyor."
+        },
+        {
+          "en": "An old friend, Sergeant-Major Morris, visits and tells stories about India.",
+          "tr": "Eski bir arkadaş, Çavuş Morris, ziyarete gelir ve Hindistan hakkında hikayeler anlatır."
+        },
+        {
+          "en": "He shows them a small, dried monkey's paw.",
+          "tr": "Onlara küçük, kurutulmuş bir maymun pençesi gösterir."
+        },
+        {
+          "en": "He explains that an old holy man put a magic spell on it.",
+          "tr": "Yaşlı bir kutsal adamın üzerine sihirli bir büyü yaptığını açıklar."
+        },
+        {
+          "en": "The paw grants three wishes to three different owners.",
+          "tr": "Pençe üç farklı sahibine üç dilek verir."
+        },
+        {
+          "en": "Morris warns the family that the wishes always have terrible consequences.",
+          "tr": "Morris aileyi dileklerin her zaman korkunç sonuçları olduğu konusunda uyarır."
+        },
+        {
+          "en": "Despite the warning, Mr. White wishes for two hundred pounds.",
+          "tr": "Uyarıya rağmen Bay White iki yüz pound diler."
+        },
+        {
+          "en": "The next day, a stranger arrives with terrible news.",
+          "tr": "Ertesi gün bir yabancı korkunç bir haberle gelir."
+        },
+        {
+          "en": "Their son Herbert has died in a terrible accident at the factory.",
+          "tr": "Oğulları Herbert fabrikada korkunç bir kazada ölmüştür."
+        },
+        {
+          "en": "The company gives them exactly two hundred pounds as compensation.",
+          "tr": "Şirket onlara tazminat olarak tam olarak iki yüz pound verir."
+        },
+        {
+          "en": "Weeks later, Mrs. White desperately wishes for her son to return.",
+          "tr": "Haftalar sonra Bayan White umutsuzca oğlunun geri dönmesini diler."
+        },
+        {
+          "en": "Late that night, something starts knocking on the front door.",
+          "tr": "O gece geç saatte ön kapıyı bir şey çalmaya başlar."
+        },
+        {
+          "en": "Mr. White realizes the danger and makes a final, desperate wish.",
+          "tr": "Bay White tehlikeyi fark eder ve son, umutsuz bir dilek tutar."
+        },
+        {
+          "en": "When the door finally opens, the street outside is completely empty.",
+          "tr": "Kapı sonunda açıldığında, dışarıdaki sokak tamamen boştur."
+        }
+      ],
+      "questions": [
+        {
+          "q": "What does the monkey's paw grant?",
+          "tr": "Maymun pençesi ne verir?",
+          "options": [
+            "Eternal life",
+            "Three wishes",
+            "Great wealth",
+            "Good luck"
+          ],
+          "options_tr": [
+            "Sonsuz yaşam",
+            "Üç dilek",
+            "Büyük zenginlik",
+            "İyi şans"
+          ],
+          "answer": 1
+        },
+        {
+          "q": "What happens to Herbert?",
+          "tr": "Herbert'a ne olur?",
+          "options": [
+            "He gets married",
+            "He moves away",
+            "He dies in an accident",
+            "He becomes rich"
+          ],
+          "options_tr": [
+            "Evlenir",
+            "Taşınır",
+            "Bir kazada ölür",
+            "Zengin olur"
+          ],
+          "answer": 2
+        },
+        {
+          "q": "What does Mrs. White wish for?",
+          "tr": "Bayan White ne diler?",
+          "options": [
+            "More money",
+            "Her son to return",
+            "A new house",
+            "Good health"
+          ],
+          "options_tr": [
+            "Daha çok para",
+            "Oğlunun geri dönmesi",
+            "Yeni bir ev",
+            "İyi sağlık"
+          ],
+          "answer": 1
+        }
+      ]
+    },
+    {
+      "id": "the_cask_of_amontillado",
+      "title": "The Cask of Amontillado",
+      "level": "B2",
+      "emoji": "🍷",
+      "image": "stories/cask_amontillado.jpg",
+      "sentences": [
+        {
+          "en": "Montresor has suffered countless insults from a man named Fortunato.",
+          "tr": "Montresor, Fortunato adlı bir adamdan sayısız hakaret görmüştür."
+        },
+        {
+          "en": "He swears revenge but decides to act without raising any suspicion.",
+          "tr": "İntikam yemini eder ama hiçbir şüphe uyandırmadan hareket etmeye karar verir."
+        },
+        {
+          "en": "During a carnival celebration, he meets Fortunato in the street.",
+          "tr": "Bir karnaval kutlaması sırasında Fortunato ile sokakta karşılaşır."
+        },
+        {
+          "en": "He tells Fortunato about a rare cask of wine called Amontillado.",
+          "tr": "Fortunato'ya Amontillado adlı nadir bir fıçı şarap hakkında bilgi verir."
+        },
+        {
+          "en": "Fortunato is a wine expert and becomes extremely curious about it.",
+          "tr": "Fortunato bir şarap uzmanıdır ve bu konuda son derece meraklanır."
+        },
+        {
+          "en": "Montresor invites him to taste the wine in his family's underground vaults.",
+          "tr": "Onu ailesinin yer altı mahzenlerinde şarabı tatmaya davet eder."
+        },
+        {
+          "en": "They walk deeper and deeper into the dark, damp catacombs.",
+          "tr": "Karanlık, nemli mezarlıkların derinliklerine doğru yürürler."
+        },
+        {
+          "en": "Fortunato coughs constantly because of the niter on the walls.",
+          "tr": "Duvarlardaki güherçile yüzünden Fortunato sürekli öksürür."
+        },
+        {
+          "en": "Montresor offers him wine repeatedly to keep him moving forward.",
+          "tr": "Onu ileriye doğru hareket ettirmeye devam etmek için tekrar tekrar şarap sunar."
+        },
+        {
+          "en": "Finally, they reach a small chamber at the very end of the crypt.",
+          "tr": "Sonunda mezarın en ucundaki küçük bir odaya ulaşırlar."
+        },
+        {
+          "en": "Montresor suddenly chains Fortunato to the wall before he can react.",
+          "tr": "Montresor, tepki veremeden Fortunato'yu aniden duvara zincirler."
+        },
+        {
+          "en": "He begins building a brick wall to seal his enemy inside forever.",
+          "tr": "Düşmanını sonsuza dek içeride mühürlemek için tuğla duvar örmeye başlar."
+        },
+        {
+          "en": "Fortunato's cries become weaker as each new layer of brick is placed.",
+          "tr": "Her yeni tuğla katmanı yerleştirildikçe Fortunato'nun çığlıkları zayıflar."
+        },
+        {
+          "en": "Fifty years later, Montresor reveals that no one ever discovered the crime.",
+          "tr": "Elli yıl sonra Montresor, kimsenin bu cinayeti hiç keşfetmediğini açıklar."
+        }
+      ],
+      "questions": [
+        {
+          "q": "Why does Montresor want revenge?",
+          "tr": "Montresor neden intikam ister?",
+          "options": [
+            "Fortunato stole money",
+            "Fortunato insulted him",
+            "Fortunato hurt his family",
+            "No reason given"
+          ],
+          "options_tr": [
+            "Fortunato para çaldı",
+            "Fortunato ona hakaret etti",
+            "Fortunato ailesini incitti",
+            "Sebep verilmedi"
+          ],
+          "answer": 1
+        },
+        {
+          "q": "What does Montresor use to lure Fortunato?",
+          "tr": "Montresor Fortunato'yu kandırmak için ne kullanır?",
+          "options": [
+            "Money",
+            "A rare wine",
+            "A woman",
+            "A job offer"
+          ],
+          "options_tr": [
+            "Para",
+            "Nadir bir şarap",
+            "Bir kadın",
+            "İş teklifi"
+          ],
+          "answer": 1
+        },
+        {
+          "q": "How does Montresor trap Fortunato?",
+          "tr": "Montresor Fortunato'yu nasıl tuzağa düşürür?",
+          "options": [
+            "He poisons him",
+            "He chains and walls him in",
+            "He shoots him",
+            "He pushes him"
+          ],
+          "options_tr": [
+            "Zehirler",
+            "Zincirler ve duvarla örer",
+            "Vurur",
+            "İter"
+          ],
+          "answer": 1
+        }
+      ]
+    },
+    {
+      "id": "the_lottery",
+      "title": "The Lottery",
+      "level": "B2",
+      "emoji": "🎟️",
+      "image": "stories/the_lottery.jpg",
+      "sentences": [
+        {
+          "en": "Every year, the villagers gather in the square for a special tradition.",
+          "tr": "Her yıl köylüler özel bir gelenek için meydanda toplanır."
+        },
+        {
+          "en": "Children collect smooth stones while waiting for the event to begin.",
+          "tr": "Çocuklar etkinlik başlarken pürüzsüz taşlar toplar."
+        },
+        {
+          "en": "Mr. Summers organizes the lottery using an old black wooden box.",
+          "tr": "Bay Summers, eski siyah tahta bir kutu kullanarak çekilişi düzenler."
+        },
+        {
+          "en": "Each family sends one member to draw a folded paper slip.",
+          "tr": "Her aile katlanmış bir kağıt parçası çekmek için bir üyesini gönderir."
+        },
+        {
+          "en": "The villagers seem nervous but treat the event as completely normal.",
+          "tr": "Köylüler gergin görünür ama olayı tamamen normal olarak görür."
+        },
+        {
+          "en": "Bill Hutchinson opens his paper and shows a black dot inside.",
+          "tr": "Bill Hutchinson kağıdını açar ve içinde siyah bir nokta gösterir."
+        },
+        {
+          "en": "His wife Tessie protests loudly that the drawing was not fair.",
+          "tr": "Eşi Tessie, çekilişin adil olmadığını yüksek sesle protesto eder."
+        },
+        {
+          "en": "Now, each member of the Hutchinson family must draw again.",
+          "tr": "Şimdi Hutchinson ailesinin her üyesi tekrar çekmek zorundadır."
+        },
+        {
+          "en": "This time, Tessie herself draws the paper with the black mark.",
+          "tr": "Bu sefer Tessie, siyah işaretli kağıdı kendisi çeker."
+        },
+        {
+          "en": "The villagers slowly begin to pick up the stones they collected earlier.",
+          "tr": "Köylüler yavaşça daha önce topladıkları taşları almaya başlar."
+        },
+        {
+          "en": "Tessie screams that this is not fair as the crowd moves toward her.",
+          "tr": "Kalabalık ona doğru ilerlerken Tessie bunun adil olmadığını çığlık atarak söyler."
+        },
+        {
+          "en": "The terrible tradition continues exactly as it has for generations.",
+          "tr": "Korkunç gelenek nesiller boyu olduğu gibi tam olarak devam eder."
+        }
+      ],
+      "questions": [
+        {
+          "q": "What does Mr. Summers use for the lottery?",
+          "tr": "Bay Summers çekiliş için ne kullanır?",
+          "options": [
+            "A hat",
+            "An old black box",
+            "Cards",
+            "A computer"
+          ],
+          "options_tr": [
+            "Şapka",
+            "Eski siyah kutu",
+            "Kartlar",
+            "Bilgisayar"
+          ],
+          "answer": 1
+        },
+        {
+          "q": "Who draws the paper with the black mark?",
+          "tr": "Siyah işaretli kağıdı kim çeker?",
+          "options": [
+            "Mr. Summers",
+            "Bill Hutchinson",
+            "Tessie",
+            "A child"
+          ],
+          "options_tr": [
+            "Bay Summers",
+            "Bill Hutchinson",
+            "Tessie",
+            "Bir çocuk"
+          ],
+          "answer": 2
+        },
+        {
+          "q": "What do the villagers do at the end?",
+          "tr": "Köylüler sonunda ne yapar?",
+          "options": [
+            "They celebrate",
+            "They throw stones",
+            "They go home",
+            "They vote again"
+          ],
+          "options_tr": [
+            "Kutlama yapar",
+            "Taş atar",
+            "Eve gider",
+            "Tekrar oy verir"
+          ],
+          "answer": 1
+        }
+      ]
+    },
+    {
+      "id": "the_yellow_wallpaper",
+      "title": "The Yellow Wallpaper",
+      "level": "B2",
+      "emoji": "🖼️",
+      "image": "stories/yellow_wallpaper.jpg",
+      "sentences": [
+        {
+          "en": "A woman moves into a country house with her husband for the summer.",
+          "tr": "Bir kadın yaz için kocasıyla taşra evine taşınır."
+        },
+        {
+          "en": "Her husband, a doctor, believes she suffers from a nervous condition.",
+          "tr": "Doktor olan kocası, sinirsel bir rahatsızlıktan muzdarip olduğuna inanır."
+        },
+        {
+          "en": "He prescribes complete rest and forbids her from working or writing.",
+          "tr": "Tam dinlenme reçete eder ve çalışmasını ya da yazmasını yasaklar."
+        },
+        {
+          "en": "She is confined to an upstairs room with strange yellow wallpaper.",
+          "tr": "Garip sarı duvar kağıdı olan üst kat odasına kapatılır."
+        },
+        {
+          "en": "Secretly, she keeps a journal describing her thoughts and growing obsession.",
+          "tr": "Gizlice düşüncelerini ve büyüyen takıntısını anlatan bir günlük tutar."
+        },
+        {
+          "en": "She begins to see a strange pattern moving within the wallpaper's design.",
+          "tr": "Duvar kağıdının deseninde hareket eden garip bir desen görmeye başlar."
+        },
+        {
+          "en": "Slowly, she becomes convinced that a woman is trapped behind the pattern.",
+          "tr": "Yavaşça desenin arkasında bir kadının tuzağa düştüğüne ikna olur."
+        },
+        {
+          "en": "Her mental state grows worse each day, despite her husband's confidence in his treatment.",
+          "tr": "Kocasının tedavisine olan güvenine rağmen ruh hali her gün kötüleşir."
+        },
+        {
+          "en": "By the end of summer, she completely believes she is the woman in the wallpaper.",
+          "tr": "Yaz sonunda duvar kağıdındaki kadın olduğuna tamamen inanır."
+        },
+        {
+          "en": "On the final day, she tears at the paper, desperately trying to free this woman.",
+          "tr": "Son günde, bu kadını kurtarmaya çalışarak umutsuzca kağıdı yırtar."
+        },
+        {
+          "en": "Her husband finds her crawling around the room in a state of complete breakdown.",
+          "tr": "Kocası onu tam bir çöküntü halinde odada sürünürken bulur."
+        }
+      ],
+      "questions": [
+        {
+          "q": "Why is the woman confined to the room?",
+          "tr": "Kadın neden odaya kapatılır?",
+          "options": [
+            "She is punished",
+            "Her husband prescribes rest",
+            "She chooses to stay",
+            "She is sick with a cold"
+          ],
+          "options_tr": [
+            "Cezalandırılır",
+            "Kocası dinlenme reçete eder",
+            "Kalmayı seçer",
+            "Soğuk algınlığı var"
+          ],
+          "answer": 1
+        },
+        {
+          "q": "What does the woman see in the wallpaper?",
+          "tr": "Kadın duvar kağıdında ne görür?",
+          "options": [
+            "Nothing unusual",
+            "A moving pattern and trapped woman",
+            "Her husband's face",
+            "Flowers"
+          ],
+          "options_tr": [
+            "Sıra dışı bir şey yok",
+            "Hareketli desen ve tuzağa düşmüş kadın",
+            "Kocasının yüzü",
+            "Çiçekler"
+          ],
+          "answer": 1
+        },
+        {
+          "q": "What happens on the final day?",
+          "tr": "Son gün ne olur?",
+          "options": [
+            "She recovers fully",
+            "She tears the wallpaper apart",
+            "She leaves the house",
+            "She calls a doctor"
+          ],
+          "options_tr": [
+            "Tamamen iyileşir",
+            "Duvar kağıdını yırtar",
+            "Evi terk eder",
+            "Doktor çağırır"
+          ],
+          "answer": 1
+        }
+      ]
+    }
+  ]
 }
