@@ -7,21 +7,99 @@
       "emoji": "🐜",
       "image": "stories/ant_grasshopper.jpg",
       "sentences": [
-        {"en": "It is summer.", "tr": "Yaz mevsimi."},
-        {"en": "The ant works every day.", "tr": "Karınca her gün çalışır."},
-        {"en": "The grasshopper plays and sings.", "tr": "Çekirge oynar ve şarkı söyler."},
-        {"en": "The ant says: Work now!", "tr": "Karınca der ki: Şimdi çalış!"},
-        {"en": "The grasshopper says: No, I want to play.", "tr": "Çekirge der ki: Hayır, oynamak istiyorum."},
-        {"en": "Winter comes.", "tr": "Kış gelir."},
-        {"en": "The grasshopper is cold and hungry.", "tr": "Çekirge üşür ve acıkır."},
-        {"en": "The ant has food and a warm home.", "tr": "Karıncanın yiyeceği ve sıcak bir evi var."},
-        {"en": "The grasshopper learns an important lesson.", "tr": "Çekirge önemli bir ders öğrenir."},
-        {"en": "Work today, rest tomorrow.", "tr": "Bugün çalış, yarın dinlen."}
+        {
+          "en": "It is summer.",
+          "tr": "Yaz mevsimi."
+        },
+        {
+          "en": "The ant works every day.",
+          "tr": "Karınca her gün çalışır."
+        },
+        {
+          "en": "The grasshopper plays and sings.",
+          "tr": "Çekirge oynar ve şarkı söyler."
+        },
+        {
+          "en": "The ant says: Work now!",
+          "tr": "Karınca der ki: Şimdi çalış!"
+        },
+        {
+          "en": "The grasshopper says: No, I want to play.",
+          "tr": "Çekirge der ki: Hayır, oynamak istiyorum."
+        },
+        {
+          "en": "Winter comes.",
+          "tr": "Kış gelir."
+        },
+        {
+          "en": "The grasshopper is cold and hungry.",
+          "tr": "Çekirge üşür ve acıkır."
+        },
+        {
+          "en": "The ant has food and a warm home.",
+          "tr": "Karıncanın yiyeceği ve sıcak bir evi var."
+        },
+        {
+          "en": "The grasshopper learns an important lesson.",
+          "tr": "Çekirge önemli bir ders öğrenir."
+        },
+        {
+          "en": "Work today, rest tomorrow.",
+          "tr": "Bugün çalış, yarın dinlen."
+        }
       ],
       "questions": [
-        {"q": "What does the ant do in summer?", "tr": "Karınca yazın ne yapar?", "options": ["Plays", "Works", "Sleeps", "Sings"], "options_tr": ["Oynar", "Çalışır", "Uyur", "Şarkı söyler"], "answer": 1},
-        {"q": "What does the grasshopper do in summer?", "tr": "Çekirge yazın ne yapar?", "options": ["Works", "Cooks", "Plays and sings", "Reads"], "options_tr": ["Çalışır", "Pişirir", "Oynar ve şarkı söyler", "Okur"], "answer": 2},
-        {"q": "What happens in winter?", "tr": "Kışın ne olur?", "options": ["Ant is hungry", "Grasshopper is cold and hungry", "Both play", "Sun shines"], "options_tr": ["Karınca açtır", "Çekirge üşür ve açtır", "İkisi de oynar", "Güneş parlar"], "answer": 1}
+        {
+          "q": "What does the ant do in summer?",
+          "tr": "Karınca yazın ne yapar?",
+          "options": [
+            "Plays",
+            "Works",
+            "Sleeps",
+            "Sings"
+          ],
+          "options_tr": [
+            "Oynar",
+            "Çalışır",
+            "Uyur",
+            "Şarkı söyler"
+          ],
+          "answer": 1
+        },
+        {
+          "q": "What does the grasshopper do in summer?",
+          "tr": "Çekirge yazın ne yapar?",
+          "options": [
+            "Works",
+            "Cooks",
+            "Plays and sings",
+            "Reads"
+          ],
+          "options_tr": [
+            "Çalışır",
+            "Pişirir",
+            "Oynar ve şarkı söyler",
+            "Okur"
+          ],
+          "answer": 2
+        },
+        {
+          "q": "What happens in winter?",
+          "tr": "Kışın ne olur?",
+          "options": [
+            "Ant is hungry",
+            "Grasshopper is cold and hungry",
+            "Both play",
+            "Sun shines"
+          ],
+          "options_tr": [
+            "Karınca açtır",
+            "Çekirge üşür ve açtır",
+            "İkisi de oynar",
+            "Güneş parlar"
+          ],
+          "answer": 1
+        }
       ]
     },
     {
@@ -31,21 +109,99 @@
       "emoji": "🌬️",
       "image": "stories/north_wind_sun.jpg",
       "sentences": [
-        {"en": "The North Wind and the Sun are talking.", "tr": "Kuzey Rüzgarı ve Güneş konuşuyor."},
-        {"en": "They want to know who is stronger.", "tr": "Kimin daha güçlü olduğunu öğrenmek istiyorlar."},
-        {"en": "A man is walking on the road.", "tr": "Bir adam yolda yürüyor."},
-        {"en": "The man is wearing a coat.", "tr": "Adam bir palto giyiyor."},
-        {"en": "The North Wind blows very hard.", "tr": "Kuzey Rüzgarı çok sert eser."},
-        {"en": "The man holds his coat tightly.", "tr": "Adam paltosunu sıkıca tutar."},
-        {"en": "Now the Sun shines warmly.", "tr": "Şimdi Güneş sıcakça parlar."},
-        {"en": "The man feels hot.", "tr": "Adam sıcak hisseder."},
-        {"en": "He takes off his coat.", "tr": "Paltosunu çıkarır."},
-        {"en": "The Sun wins. Kindness is stronger than force.", "tr": "Güneş kazanır. Nezaket, kuvvetten daha güçlüdür."}
+        {
+          "en": "The North Wind and the Sun are talking.",
+          "tr": "Kuzey Rüzgarı ve Güneş konuşuyor."
+        },
+        {
+          "en": "They want to know who is stronger.",
+          "tr": "Kimin daha güçlü olduğunu öğrenmek istiyorlar."
+        },
+        {
+          "en": "A man is walking on the road.",
+          "tr": "Bir adam yolda yürüyor."
+        },
+        {
+          "en": "The man is wearing a coat.",
+          "tr": "Adam bir palto giyiyor."
+        },
+        {
+          "en": "The North Wind blows very hard.",
+          "tr": "Kuzey Rüzgarı çok sert eser."
+        },
+        {
+          "en": "The man holds his coat tightly.",
+          "tr": "Adam paltosunu sıkıca tutar."
+        },
+        {
+          "en": "Now the Sun shines warmly.",
+          "tr": "Şimdi Güneş sıcakça parlar."
+        },
+        {
+          "en": "The man feels hot.",
+          "tr": "Adam sıcak hisseder."
+        },
+        {
+          "en": "He takes off his coat.",
+          "tr": "Paltosunu çıkarır."
+        },
+        {
+          "en": "The Sun wins. Kindness is stronger than force.",
+          "tr": "Güneş kazanır. Nezaket, kuvvetten daha güçlüdür."
+        }
       ],
       "questions": [
-        {"q": "What is the man wearing?", "tr": "Adam ne giyiyor?", "options": ["A hat", "A coat", "Glasses", "Boots"], "options_tr": ["Şapka", "Palto", "Gözlük", "Bot"], "answer": 1},
-        {"q": "What does the North Wind do?", "tr": "Kuzey Rüzgarı ne yapar?", "options": ["Shines", "Blows hard", "Rains", "Sings"], "options_tr": ["Parlar", "Sert eser", "Yağmur yağdırır", "Şarkı söyler"], "answer": 1},
-        {"q": "Who wins?", "tr": "Kim kazanır?", "options": ["The Wind", "The Man", "The Sun", "Nobody"], "options_tr": ["Rüzgar", "Adam", "Güneş", "Hiç kimse"], "answer": 2}
+        {
+          "q": "What is the man wearing?",
+          "tr": "Adam ne giyiyor?",
+          "options": [
+            "A hat",
+            "A coat",
+            "Glasses",
+            "Boots"
+          ],
+          "options_tr": [
+            "Şapka",
+            "Palto",
+            "Gözlük",
+            "Bot"
+          ],
+          "answer": 1
+        },
+        {
+          "q": "What does the North Wind do?",
+          "tr": "Kuzey Rüzgarı ne yapar?",
+          "options": [
+            "Shines",
+            "Blows hard",
+            "Rains",
+            "Sings"
+          ],
+          "options_tr": [
+            "Parlar",
+            "Sert eser",
+            "Yağmur yağdırır",
+            "Şarkı söyler"
+          ],
+          "answer": 1
+        },
+        {
+          "q": "Who wins?",
+          "tr": "Kim kazanır?",
+          "options": [
+            "The Wind",
+            "The Man",
+            "The Sun",
+            "Nobody"
+          ],
+          "options_tr": [
+            "Rüzgar",
+            "Adam",
+            "Güneş",
+            "Hiç kimse"
+          ],
+          "answer": 2
+        }
       ]
     }
   ],
@@ -57,24 +213,307 @@
       "emoji": "🎁",
       "image": "stories/gift_of_magi.jpg",
       "sentences": [
-        {"en": "Della and Jim are a young couple.", "tr": "Della ve Jim genç bir çifttir."},
-        {"en": "They do not have much money.", "tr": "Çok paraları yoktur."},
-        {"en": "Christmas is coming soon.", "tr": "Noel yakında gelecek."},
-        {"en": "Della wants to buy Jim a special gift.", "tr": "Della, Jim için özel bir hediye almak istiyor."},
-        {"en": "Jim has a beautiful gold watch.", "tr": "Jim'in güzel bir altın saati var."},
-        {"en": "Della has long, beautiful hair.", "tr": "Della'nın uzun, güzel saçları var."},
-        {"en": "Della sells her hair to get money.", "tr": "Della, para almak için saçlarını satar."},
-        {"en": "She buys a gold chain for Jim's watch.", "tr": "Jim'in saati için altın bir zincir satın alır."},
-        {"en": "Jim sells his watch to buy combs for Della's hair.", "tr": "Jim, Della'nın saçları için tarak almak amacıyla saatini satar."},
-        {"en": "They each gave up their most precious thing for love.", "tr": "Her biri sevgi için en değerli şeyinden vazgeçti."}
+        {
+          "en": "Della and Jim are a young couple.",
+          "tr": "Della ve Jim genç bir çifttir."
+        },
+        {
+          "en": "They do not have much money.",
+          "tr": "Çok paraları yoktur."
+        },
+        {
+          "en": "Christmas is coming soon.",
+          "tr": "Noel yakında gelecek."
+        },
+        {
+          "en": "Della wants to buy Jim a special gift.",
+          "tr": "Della, Jim için özel bir hediye almak istiyor."
+        },
+        {
+          "en": "Jim has a beautiful gold watch.",
+          "tr": "Jim'in güzel bir altın saati var."
+        },
+        {
+          "en": "Della has long, beautiful hair.",
+          "tr": "Della'nın uzun, güzel saçları var."
+        },
+        {
+          "en": "Della sells her hair to get money.",
+          "tr": "Della, para almak için saçlarını satar."
+        },
+        {
+          "en": "She buys a gold chain for Jim's watch.",
+          "tr": "Jim'in saati için altın bir zincir satın alır."
+        },
+        {
+          "en": "Jim sells his watch to buy combs for Della's hair.",
+          "tr": "Jim, Della'nın saçları için tarak almak amacıyla saatini satar."
+        },
+        {
+          "en": "They each gave up their most precious thing for love.",
+          "tr": "Her biri sevgi için en değerli şeyinden vazgeçti."
+        }
       ],
       "questions": [
-        {"q": "What does Della sell?", "tr": "Della ne satar?", "options": ["Her watch", "Her ring", "Her hair", "Her coat"], "options_tr": ["Saati", "Yüzüğü", "Saçı", "Paltosu"], "answer": 2},
-        {"q": "What does Jim sell?", "tr": "Jim ne satar?", "options": ["His car", "His gold watch", "His house", "His ring"], "options_tr": ["Arabası", "Altın saati", "Evi", "Yüzüğü"], "answer": 1},
-        {"q": "What is the message of the story?", "tr": "Hikayenin mesajı nedir?", "options": ["Money is important", "Love means sacrifice", "Gifts are useless", "Hair grows back"], "options_tr": ["Para önemlidir", "Sevgi fedakarlık demektir", "Hediyeler işe yaramaz", "Saç tekrar uzar"], "answer": 1}
+        {
+          "q": "What does Della sell?",
+          "tr": "Della ne satar?",
+          "options": [
+            "Her watch",
+            "Her ring",
+            "Her hair",
+            "Her coat"
+          ],
+          "options_tr": [
+            "Saati",
+            "Yüzüğü",
+            "Saçı",
+            "Paltosu"
+          ],
+          "answer": 2
+        },
+        {
+          "q": "What does Jim sell?",
+          "tr": "Jim ne satar?",
+          "options": [
+            "His car",
+            "His gold watch",
+            "His house",
+            "His ring"
+          ],
+          "options_tr": [
+            "Arabası",
+            "Altın saati",
+            "Evi",
+            "Yüzüğü"
+          ],
+          "answer": 1
+        },
+        {
+          "q": "What is the message of the story?",
+          "tr": "Hikayenin mesajı nedir?",
+          "options": [
+            "Money is important",
+            "Love means sacrifice",
+            "Gifts are useless",
+            "Hair grows back"
+          ],
+          "options_tr": [
+            "Para önemlidir",
+            "Sevgi fedakarlık demektir",
+            "Hediyeler işe yaramaz",
+            "Saç tekrar uzar"
+          ],
+          "answer": 1
+        }
       ]
     }
   ],
-  "B1": [],
+  "B1": [
+    {
+      "id": "the_necklace",
+      "title": "The Necklace",
+      "level": "B1",
+      "emoji": "💎",
+      "image": "stories/the_necklace.jpg",
+      "sentences": [
+        {
+          "en": "Mathilde is a beautiful young woman.",
+          "tr": "Mathilde güzel genç bir kadındır."
+        },
+        {
+          "en": "She is not rich, but she dreams of a wealthy life.",
+          "tr": "Zengin değildir, ama zengin bir hayat hayal eder."
+        },
+        {
+          "en": "One day, her husband brings home an invitation to a party.",
+          "tr": "Bir gün kocası eve bir parti davetiyesi getirir."
+        },
+        {
+          "en": "Mathilde has no jewelry to wear.",
+          "tr": "Mathilde'nin takacak mücevheri yoktur."
+        },
+        {
+          "en": "She borrows a beautiful diamond necklace from her friend.",
+          "tr": "Arkadaşından güzel bir elmas kolye ödünç alır."
+        },
+        {
+          "en": "At the party, everyone admires her.",
+          "tr": "Partide herkes ona hayran kalır."
+        },
+        {
+          "en": "But after the party, she loses the necklace.",
+          "tr": "Ama partiden sonra kolyeyi kaybeder."
+        },
+        {
+          "en": "Mathilde and her husband buy a new necklace with all their money.",
+          "tr": "Mathilde ve kocası bütün paralarıyla yeni bir kolye satın alır."
+        },
+        {
+          "en": "They work hard for ten years to pay the debt.",
+          "tr": "Borcu ödemek için on yıl boyunca çok çalışırlar."
+        },
+        {
+          "en": "Finally, she learns the truth: the original necklace was fake.",
+          "tr": "Sonunda gerçeği öğrenir: orijinal kolye sahteydi."
+        }
+      ],
+      "questions": [
+        {
+          "q": "What does Mathilde borrow?",
+          "tr": "Mathilde ne ödünç alır?",
+          "options": [
+            "A dress",
+            "A necklace",
+            "Shoes",
+            "A hat"
+          ],
+          "options_tr": [
+            "Elbise",
+            "Kolye",
+            "Ayakkabı",
+            "Şapka"
+          ],
+          "answer": 1
+        },
+        {
+          "q": "What happens to the necklace?",
+          "tr": "Kolyeye ne olur?",
+          "options": [
+            "It breaks",
+            "She sells it",
+            "She loses it",
+            "She returns it"
+          ],
+          "options_tr": [
+            "Kırılır",
+            "Satar",
+            "Kaybeder",
+            "Geri verir"
+          ],
+          "answer": 2
+        },
+        {
+          "q": "What is the truth about the original necklace?",
+          "tr": "Orijinal kolye hakkındaki gerçek nedir?",
+          "options": [
+            "It was stolen",
+            "It was fake",
+            "It was very old",
+            "It was a gift"
+          ],
+          "options_tr": [
+            "Çalınmıştı",
+            "Sahteydi",
+            "Çok eskiydi",
+            "Hediyeydi"
+          ],
+          "answer": 1
+        }
+      ]
+    },
+    {
+      "id": "selfish_giant",
+      "title": "The Selfish Giant",
+      "level": "B1",
+      "emoji": "🌸",
+      "image": "stories/selfish_giant.jpg",
+      "sentences": [
+        {
+          "en": "A giant has a beautiful garden with soft green grass.",
+          "tr": "Bir devin yumuşak yeşil çimenli güzel bir bahçesi vardır."
+        },
+        {
+          "en": "Every afternoon, children play in his garden.",
+          "tr": "Her öğleden sonra çocuklar bahçesinde oynar."
+        },
+        {
+          "en": "One day, the giant returns and sees the children.",
+          "tr": "Bir gün dev geri döner ve çocukları görür."
+        },
+        {
+          "en": "He builds a high wall around the garden.",
+          "tr": "Bahçenin etrafına yüksek bir duvar inşa eder."
+        },
+        {
+          "en": "Now winter never leaves his garden.",
+          "tr": "Artık kış hiç bahçesinden ayrılmaz."
+        },
+        {
+          "en": "Snow and frost cover everything all year.",
+          "tr": "Kar ve don her şeyi yıl boyu kaplar."
+        },
+        {
+          "en": "One morning, the giant hears beautiful birds singing.",
+          "tr": "Bir sabah dev güzel kuş seslerini duyar."
+        },
+        {
+          "en": "He sees children entering through a small hole in the wall.",
+          "tr": "Duvardaki küçük bir delikten çocukların girdiğini görür."
+        },
+        {
+          "en": "Spring has returned with the children.",
+          "tr": "Çocuklarla birlikte bahar geri dönmüştür."
+        },
+        {
+          "en": "The giant breaks down the wall and lets all children play forever.",
+          "tr": "Dev duvarı yıkar ve tüm çocukların sonsuza dek oynamasına izin verir."
+        }
+      ],
+      "questions": [
+        {
+          "q": "What does the giant build?",
+          "tr": "Dev ne inşa eder?",
+          "options": [
+            "A house",
+            "A high wall",
+            "A bridge",
+            "A tower"
+          ],
+          "options_tr": [
+            "Ev",
+            "Yüksek duvar",
+            "Köprü",
+            "Kule"
+          ],
+          "answer": 1
+        },
+        {
+          "q": "What happens to the garden after the wall?",
+          "tr": "Duvardan sonra bahçeye ne olur?",
+          "options": [
+            "It grows flowers",
+            "Winter never leaves",
+            "It becomes bigger",
+            "Birds come"
+          ],
+          "options_tr": [
+            "Çiçekler büyür",
+            "Kış hiç ayrılmaz",
+            "Büyür",
+            "Kuşlar gelir"
+          ],
+          "answer": 1
+        },
+        {
+          "q": "What makes spring return?",
+          "tr": "Baharı ne geri getirir?",
+          "options": [
+            "The sun",
+            "The children",
+            "Rain",
+            "The wind"
+          ],
+          "options_tr": [
+            "Güneş",
+            "Çocuklar",
+            "Yağmur",
+            "Rüzgar"
+          ],
+          "answer": 1
+        }
+      ]
+    }
+  ],
   "B2": []
 }
