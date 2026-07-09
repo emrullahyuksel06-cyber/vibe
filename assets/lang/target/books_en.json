@@ -100,7 +100,12 @@
           ],
           "answer": 1
         }
-      ]
+      ],
+      "character": "🐜 Karınca",
+      "endMessage": {
+        "en": "Prepare for tomorrow while the sun shines today. Hard work now means you will never go hungry later.",
+        "tr": "Güneş varken yarına hazırlan. Bugünkü çalışman yarın seni hiç aç bırakmaz."
+      }
     },
     {
       "id": "north_wind_sun",
@@ -202,7 +207,12 @@
           ],
           "answer": 2
         }
-      ]
+      ],
+      "character": "☀️ Güneş",
+      "endMessage": {
+        "en": "Warmth and kindness achieve what force never can. Be like the sun — gentle, patient, and unstoppable.",
+        "tr": "Sıcaklık ve nezaket, kuvvetin başaramadığını başarır. Güneş gibi ol — nazik, sabırlı ve durdurulamaz."
+      }
     },
     {
       "id": "tortoise_lesson",
@@ -312,7 +322,12 @@
           ],
           "answer": 1
         }
-      ]
+      ],
+      "character": "🦉 Baykuş",
+      "endMessage": {
+        "en": "Listen more, speak less. The wisest people observe the world carefully before they say a word.",
+        "tr": "Daha çok dinle, daha az konuş. En bilge insanlar bir söz söylemeden önce dünyayı dikkatlice gözlemler."
+      }
     },
     {
       "id": "the_lion_share",
@@ -406,7 +421,12 @@
           ],
           "answer": 1
         }
-      ]
+      ],
+      "character": "🦁 Aslan",
+      "endMessage": {
+        "en": "Be careful who you trust with your efforts. Power does not always mean fairness.",
+        "tr": "Be careful who you trust with your efforts. Power does not always mean fairness."
+      }
     },
     {
       "id": "boy_and_apple_tree",
@@ -500,7 +520,12 @@
           ],
           "answer": 1
         }
-      ]
+      ],
+      "character": "🍎 Elma Ağacı",
+      "endMessage": {
+        "en": "True love gives without keeping score. Cherish those who give to you freely and without conditions.",
+        "tr": "Gerçek sevgi hesap tutmadan verir. Sana özgürce ve koşulsuz verenlere değer ver."
+      }
     },
     {
       "id": "the_thirsty_crow",
@@ -598,7 +623,12 @@
           ],
           "answer": 1
         }
-      ]
+      ],
+      "character": "🐦 Karga",
+      "endMessage": {
+        "en": "Intelligence is stronger than strength. When you face a problem, stop and think — the answer is always closer than you think.",
+        "tr": "Zeka güçten daha kuvvetlidir. Bir sorunla karşılaştığında dur ve düşün — cevap her zaman sandığından yakındır."
+      }
     },
     {
       "id": "the_honest_woodcutter",
@@ -696,7 +726,12 @@
           ],
           "answer": 1
         }
-      ]
+      ],
+      "character": "🪓 Oduncu",
+      "endMessage": {
+        "en": "Honesty is your most valuable treasure. Tell the truth even when it is hard — it will always reward you in the end.",
+        "tr": "Dürüstlük en değerli hazinendir. Zor olsa bile gerçeği söyle — sonunda seni her zaman ödüllendirecektir."
+      }
     },
     {
       "id": "the_lazy_dog",
@@ -790,7 +825,12 @@
           ],
           "answer": 1
         }
-      ]
+      ],
+      "character": "🦊 Tilki",
+      "endMessage": {
+        "en": "Do not judge others before you know them. The most unlikely friends can become your greatest allies in difficult times.",
+        "tr": "Tanımadan başkalarını yargılama. En beklenmedik arkadaşlar, zor anlarda en büyük müttefikin olabilir."
+      }
     },
     {
       "id": "the_old_man_sea_simple",
@@ -880,7 +920,12 @@
           ],
           "answer": 2
         }
-      ]
+      ],
+      "character": "🎣 Balıkçı",
+      "endMessage": {
+        "en": "The sea rewards those who never give up. Patience and persistence are the most powerful tools any person can carry.",
+        "tr": "Deniz hiç pes etmeyenleri ödüllendirir. Sabır ve kararlılık, bir insanın taşıyabileceği en güçlü araçlardır."
+      }
     },
     {
       "id": "the_kind_mouse",
@@ -974,7 +1019,111 @@
           ],
           "answer": 1
         }
-      ]
+      ],
+      "character": "🐭 Fare",
+      "endMessage": {
+        "en": "Never underestimate anyone, no matter how small. Even the tiniest act of kindness can one day save your life.",
+        "tr": "Kimseyi küçümseme, ne kadar küçük olursa olsun. En küçük nezaket bile bir gün hayatını kurtarabilir."
+      }
+    },
+    {
+      "id": "the_three_wishes",
+      "title": "The Three Wishes",
+      "level": "A1",
+      "emoji": "✨",
+      "image": "stories/three_wishes.jpg",
+      "sentences": [
+        {
+          "en": "A poor woodcutter saves a small bird from a hunter's trap.",
+          "tr": "Yoksul bir oduncu küçük bir kuşu bir avcının tuzağından kurtarır."
+        },
+        {
+          "en": "The bird says: Thank you! I will give you three wishes.",
+          "tr": "Kuş der ki: Teşekkür ederim! Sana üç dilek vereceğim."
+        },
+        {
+          "en": "The woodcutter goes home and tells his wife the good news.",
+          "tr": "Oduncu eve gider ve karısına iyi haberi söyler."
+        },
+        {
+          "en": "His wife says: I wish we had a big, beautiful house.",
+          "tr": "Karısı der ki: Büyük, güzel bir evimiz olsun isterim."
+        },
+        {
+          "en": "Suddenly, a wonderful house appears in front of them.",
+          "tr": "Aniden önlerinde harika bir ev belirir."
+        },
+        {
+          "en": "But the woodcutter feels something is still missing from his life.",
+          "tr": "Ama oduncu hayatında hala bir şeylerin eksik olduğunu hisseder."
+        },
+        {
+          "en": "For his second wish, he asks for true happiness, not more things.",
+          "tr": "İkinci dileği için daha fazla şey değil, gerçek mutluluk ister."
+        },
+        {
+          "en": "He learns that happiness comes from kindness and love, not wishes.",
+          "tr": "Mutluluğun dileklerden değil, nezaket ve sevgiden geldiğini öğrenir."
+        }
+      ],
+      "questions": [
+        {
+          "q": "What does the woodcutter save?",
+          "tr": "Oduncu neyi kurtarır?",
+          "options": [
+            "A fish",
+            "A bird",
+            "A rabbit",
+            "A deer"
+          ],
+          "options_tr": [
+            "Balık",
+            "Kuş",
+            "Tavşan",
+            "Geyik"
+          ],
+          "answer": 1
+        },
+        {
+          "q": "What does the wife wish for first?",
+          "tr": "Karısı önce ne diler?",
+          "options": [
+            "Money",
+            "A big house",
+            "A car",
+            "Food"
+          ],
+          "options_tr": [
+            "Para",
+            "Büyük ev",
+            "Araba",
+            "Yiyecek"
+          ],
+          "answer": 1
+        },
+        {
+          "q": "What does the woodcutter learn?",
+          "tr": "Oduncu ne öğrenir?",
+          "options": [
+            "Wishes are bad",
+            "Happiness comes from kindness",
+            "Houses are important",
+            "Birds are magic"
+          ],
+          "options_tr": [
+            "Dilekler kötüdür",
+            "Mutluluk nezaketten gelir",
+            "Evler önemlidir",
+            "Kuşlar sihirlidir"
+          ],
+          "answer": 1
+        }
+      ],
+      "character": "✨ Peri Kuşu",
+      "endMessage": {
+        "en": "No wish in the world can replace love and kindness. The best things in life cannot be bought or wished for.",
+        "tr": "Dünyadaki hiçbir dilek sevgi ve nezaketin yerini alamaz. Hayattaki en güzel şeyler satın alınamaz veya dilenilemez."
+      }
     }
   ],
   "A2": [
@@ -1078,7 +1227,12 @@
           ],
           "answer": 1
         }
-      ]
+      ],
+      "character": "🎁 Della ve Jim",
+      "endMessage": {
+        "en": "The greatest gifts come from sacrifice, not from money. When you give up something precious for someone you love, it becomes priceless.",
+        "tr": "En büyük hediyeler paradan değil fedakarlıktan gelir. Sevdiğin biri için değerli bir şeyden vazgeçtiğinde, o şey paha biçilemez hale gelir."
+      }
     },
     {
       "id": "the_open_window",
@@ -1188,7 +1342,12 @@
           ],
           "answer": 1
         }
-      ]
+      ],
+      "character": "🪟 Vera",
+      "endMessage": {
+        "en": "Question every story before you believe it. The world is full of clever storytellers — always look for the truth beneath the surface.",
+        "tr": "Inanmadan önce her hikayeyi sorgula. Dünya zeki hikaye anlatıcılarıyla doludur — her zaman yüzeyin altındaki gerçeği ara."
+      }
     },
     {
       "id": "the_happy_prince",
@@ -1298,7 +1457,12 @@
           ],
           "answer": 1
         }
-      ]
+      ],
+      "character": "👑 Prens",
+      "endMessage": {
+        "en": "True beauty is found in a generous heart, not in gold or jewels. Give what you can — it will make you richer than any treasure.",
+        "tr": "Gerçek güzellik altında veya mücevherlerde değil, cömert bir kalpte bulunur. Elinden geleni ver — bu seni her hazineden zengin yapacak."
+      }
     },
     {
       "id": "the_nightingale_rose",
@@ -1408,7 +1572,12 @@
           ],
           "answer": 1
         }
-      ]
+      ],
+      "character": "🌹 Bülbül",
+      "endMessage": {
+        "en": "Love and beauty are not always recognized by those who need them most. Give your best anyway — your sacrifice has its own worth.",
+        "tr": "Sevgi ve güzellik, en çok ihtiyaç duyanlar tarafından her zaman tanınmaz. Yine de elinden gelenin en iyisini ver — fedakarlığının kendi değeri vardır."
+      }
     },
     {
       "id": "the_signal_man",
@@ -1514,7 +1683,12 @@
           ],
           "answer": 1
         }
-      ]
+      ],
+      "character": "🚂 Sinyalci",
+      "endMessage": {
+        "en": "Sometimes fate cannot be escaped. But warning others, even when no one listens, is always the right thing to do.",
+        "tr": "Bazen kaderden kaçılamaz. Ama kimse dinlemese bile başkalarını uyarmak her zaman doğru olandır."
+      }
     },
     {
       "id": "the_model_millionaire",
@@ -1620,7 +1794,12 @@
           ],
           "answer": 1
         }
-      ]
+      ],
+      "character": "💰 Hughie",
+      "endMessage": {
+        "en": "Your kindness to strangers is never wasted. The universe has a way of returning every generous act you send into the world.",
+        "tr": "Yabancılara gösterdiğin nezaket asla boşa gitmez. Evren, dünyaya gönderdiğin her cömert eylemi geri döndürmenin bir yolunu bulur."
+      }
     },
     {
       "id": "the_canterville_ghost",
@@ -1722,7 +1901,230 @@
           ],
           "answer": 2
         }
-      ]
+      ],
+      "character": "👻 Hayalet",
+      "endMessage": {
+        "en": "Even the most frightening things lose their power when met with kindness. Courage and compassion can free even the oldest trapped soul.",
+        "tr": "En korkutucu şeyler bile nezaketle karşılandığında güçlerini kaybeder. Cesaret ve şefkat, en eski hapsolmuş ruhu bile kurtarabilir."
+      }
+    },
+    {
+      "id": "the_oval_portrait",
+      "title": "The Oval Portrait",
+      "level": "A2",
+      "emoji": "🖼️",
+      "image": "stories/oval_portrait.jpg",
+      "sentences": [
+        {
+          "en": "A wounded traveler takes shelter in an old, abandoned castle at night.",
+          "tr": "Yaralı bir yolcu gece eski, terk edilmiş bir şatoda barınır."
+        },
+        {
+          "en": "He finds a room full of strange and beautiful paintings on the walls.",
+          "tr": "Duvarlarda garip ve güzel tablolarla dolu bir oda bulur."
+        },
+        {
+          "en": "One portrait of a young woman catches his attention immediately.",
+          "tr": "Genç bir kadının portresi hemen dikkatini çeker."
+        },
+        {
+          "en": "The painting looks incredibly lifelike, almost as if she could breathe.",
+          "tr": "Tablo inanılmaz canlı görünüyor, sanki nefes alabilirmiş gibi."
+        },
+        {
+          "en": "He finds an old book describing the story behind each painting.",
+          "tr": "Her tablonun arkasındaki hikayeyi anlatan eski bir kitap bulur."
+        },
+        {
+          "en": "The artist loved his young wife deeply but loved his art even more.",
+          "tr": "Ressam genç karısını derinden seviyordu ama sanatını daha çok seviyordu."
+        },
+        {
+          "en": "He painted her portrait for many months without stopping to rest.",
+          "tr": "Onun portresini durmadan birçok ay boyunca çizdi."
+        },
+        {
+          "en": "His wife grew weaker and paler with each passing day of sitting.",
+          "tr": "Karısı oturarak geçirdiği her gün daha zayıf ve solgun oldu."
+        },
+        {
+          "en": "The artist was too focused on his work to notice her declining health.",
+          "tr": "Ressam çalışmasına o kadar odaklanmıştı ki sağlığının kötüleştiğini fark etmedi."
+        },
+        {
+          "en": "When he finally finished the painting, he turned to look at her.",
+          "tr": "Sonunda tabloyu bitirdiğinde ona bakmak için döndü."
+        },
+        {
+          "en": "He realized with horror that his wife had died during the final brushstroke.",
+          "tr": "Son fırça darbesinde karısının öldüğünü dehşetle fark etti."
+        }
+      ],
+      "questions": [
+        {
+          "q": "Where does the traveler take shelter?",
+          "tr": "Yolcu nerede barınır?",
+          "options": [
+            "A hotel",
+            "An old castle",
+            "A village",
+            "A cave"
+          ],
+          "options_tr": [
+            "Otel",
+            "Eski şato",
+            "Köy",
+            "Mağara"
+          ],
+          "answer": 1
+        },
+        {
+          "q": "What does the artist love most?",
+          "tr": "Ressam en çok neyi sever?",
+          "options": [
+            "His wife",
+            "His art",
+            "Money",
+            "Travel"
+          ],
+          "options_tr": [
+            "Karısı",
+            "Sanatı",
+            "Para",
+            "Seyahat"
+          ],
+          "answer": 1
+        },
+        {
+          "q": "What happens to the wife?",
+          "tr": "Karısına ne olur?",
+          "options": [
+            "She leaves",
+            "She dies",
+            "She gets sick but recovers",
+            "She becomes happy"
+          ],
+          "options_tr": [
+            "Ayrılır",
+            "Ölür",
+            "Hastalanır ama iyileşir",
+            "Mutlu olur"
+          ],
+          "answer": 1
+        }
+      ],
+      "character": "🖼️ Ressam",
+      "endMessage": {
+        "en": "Never sacrifice the living for the immortal. Art is beautiful, but the person beside you is irreplaceable.",
+        "tr": "Ölümsüz için yaşayanı feda etme. Sanat güzeldir, ama yanındaki kişi yeri doldurulamaz."
+      }
+    },
+    {
+      "id": "the_devoted_friend",
+      "title": "The Devoted Friend",
+      "level": "A2",
+      "emoji": "🤝",
+      "image": "stories/devoted_friend.jpg",
+      "sentences": [
+        {
+          "en": "Little Hans is a kind gardener who lives a simple, happy life.",
+          "tr": "Küçük Hans, basit, mutlu bir hayat yaşayan nazik bir bahçıvandır."
+        },
+        {
+          "en": "His wealthy neighbor, the Miller, often calls him his best friend.",
+          "tr": "Zengin komşusu Değirmenci, sık sık onu en iyi arkadaşı olarak adlandırır."
+        },
+        {
+          "en": "However, the Miller never actually helps Hans when he needs anything.",
+          "tr": "Ancak Değirmenci, ihtiyacı olduğunda Hans'a aslında hiç yardım etmez."
+        },
+        {
+          "en": "Instead, the Miller always asks Hans for favors and free flowers.",
+          "tr": "Bunun yerine Değirmenci her zaman Hans'tan iyilik ve bedava çiçekler ister."
+        },
+        {
+          "en": "Hans always agrees because he truly believes in their friendship.",
+          "tr": "Hans her zaman kabul eder çünkü dostluklarına gerçekten inanır."
+        },
+        {
+          "en": "One stormy night, a doctor is needed urgently for the Miller's sick son.",
+          "tr": "Fırtınalı bir gecede Değirmenci'nin hasta oğlu için acilen doktor gerekir."
+        },
+        {
+          "en": "The Miller asks Hans to walk many miles through the dangerous storm.",
+          "tr": "Değirmenci, Hans'tan tehlikeli fırtına boyunca kilometrelerce yürümesini ister."
+        },
+        {
+          "en": "Hans loyally agrees, even though he is afraid of the terrible weather.",
+          "tr": "Hans, korkunç havadan korkmasına rağmen sadakatle kabul eder."
+        },
+        {
+          "en": "Sadly, Hans loses his way in the storm and drowns in a deep pond.",
+          "tr": "Üzücü bir şekilde Hans fırtınada yolunu kaybeder ve derin bir gölette boğulur."
+        },
+        {
+          "en": "At the funeral, the Miller talks only about his own great sadness.",
+          "tr": "Cenazede Değirmenci sadece kendi büyük üzüntüsünden bahseder."
+        }
+      ],
+      "questions": [
+        {
+          "q": "What is Hans's job?",
+          "tr": "Hans'ın işi nedir?",
+          "options": [
+            "A doctor",
+            "A gardener",
+            "A miller",
+            "A farmer"
+          ],
+          "options_tr": [
+            "Doktor",
+            "Bahçıvan",
+            "Değirmenci",
+            "Çiftçi"
+          ],
+          "answer": 1
+        },
+        {
+          "q": "What does the Miller always do?",
+          "tr": "Değirmenci her zaman ne yapar?",
+          "options": [
+            "Helps Hans",
+            "Asks for favors",
+            "Gives gifts",
+            "Visits Hans"
+          ],
+          "options_tr": [
+            "Hans'a yardım eder",
+            "İyilik ister",
+            "Hediye verir",
+            "Hans'ı ziyaret eder"
+          ],
+          "answer": 1
+        },
+        {
+          "q": "What happens to Hans in the storm?",
+          "tr": "Fırtınada Hans'a ne olur?",
+          "options": [
+            "He gets home safely",
+            "He drowns",
+            "He gets sick",
+            "He finds the doctor"
+          ],
+          "options_tr": [
+            "Güvenle eve döner",
+            "Boğulur",
+            "Hastalanır",
+            "Doktoru bulur"
+          ],
+          "answer": 1
+        }
+      ],
+      "character": "🤝 Hans",
+      "endMessage": {
+        "en": "A true friend gives as much as they take. Watch carefully for those who only call themselves your friend when they need something.",
+        "tr": "Gerçek bir arkadaş aldığı kadar verir. Sadece bir şeye ihtiyaçları olduğunda kendine arkadaşın diyenlere dikkat et."
+      }
     }
   ],
   "B1": [
@@ -1826,7 +2228,12 @@
           ],
           "answer": 1
         }
-      ]
+      ],
+      "character": "💎 Mathilde",
+      "endMessage": {
+        "en": "Pride and pretending to be something you are not can cost you everything. Be honest about who you are — it is always enough.",
+        "tr": "Kibir ve olmadığın bir şeymiş gibi davranmak her şeyine mal olabilir. Kim olduğun konusunda dürüst ol — bu her zaman yeterlidir."
+      }
     },
     {
       "id": "selfish_giant",
@@ -1928,7 +2335,12 @@
           ],
           "answer": 1
         }
-      ]
+      ],
+      "character": "🌸 Dev",
+      "endMessage": {
+        "en": "Opening your heart to others brings spring back into your life. Selfishness builds walls, but love tears them down forever.",
+        "tr": "Kalbini başkalarına açmak hayatına baharı geri getirir. Bencillik duvarlar inşa eder, ama sevgi onları sonsuza dek yıkar."
+      }
     },
     {
       "id": "the_last_leaf",
@@ -2046,7 +2458,12 @@
           ],
           "answer": 2
         }
-      ]
+      ],
+      "character": "🍂 Behrman",
+      "endMessage": {
+        "en": "Sometimes the greatest masterpiece is the one that saves another life. Your actions, however small, can give someone the will to live.",
+        "tr": "Bazen en büyük başyapıt başka bir hayatı kurtarandır. Eylemleriniz, ne kadar küçük olursa olsun, birine yaşama isteği verebilir."
+      }
     },
     {
       "id": "the_gift_of_rikki",
@@ -2160,7 +2577,12 @@
           ],
           "answer": 1
         }
-      ]
+      ],
+      "character": "🐍 Rikki",
+      "endMessage": {
+        "en": "True courage protects those who cannot protect themselves. A loyal guardian never backs down, no matter the size of the enemy.",
+        "tr": "Gerçek cesaret, kendini koruyamayanları korur. Sadık bir koruyucu, düşmanın büyüklüğü ne olursa olsun asla geri adım atmaz."
+      }
     },
     {
       "id": "the_landlady",
@@ -2270,7 +2692,12 @@
           ],
           "answer": 1
         }
-      ]
+      ],
+      "character": "🏠 Ev Sahibesi",
+      "endMessage": {
+        "en": "Not all danger wears a frightening face. Trust your instincts — if something feels deeply wrong, it probably is.",
+        "tr": "Her tehlike korkutucu bir yüz takmaz. İçgüdülerine güven — bir şey derinden yanlış hissettiriyorsa, muhtemelen öyledir."
+      }
     },
     {
       "id": "the_gift_of_a_friend",
@@ -2372,7 +2799,12 @@
           ],
           "answer": 1
         }
-      ]
+      ],
+      "character": "💝 James",
+      "endMessage": {
+        "en": "Home is not an address — it is the warmth of the people around you. Wherever kindness lives, you will always belong.",
+        "tr": "Ev bir adres değildir — etrafındaki insanların sıcaklığıdır. Nezaket nerede yaşıyorsa, sen de orada bir yere aitsin."
+      }
     },
     {
       "id": "the_speckled_band",
@@ -2478,7 +2910,238 @@
           ],
           "answer": 2
         }
-      ]
+      ],
+      "character": "🔍 Holmes",
+      "endMessage": {
+        "en": "Careful observation reveals what fear tries to hide. Look beyond the obvious and you will always find the truth.",
+        "tr": "Dikkatli gözlem, korkunun saklamaya çalıştığını ortaya çıkarır. Açık olanın ötesine bak ve her zaman gerçeği bulacaksın."
+      }
+    },
+    {
+      "id": "the_red_room",
+      "title": "The Red Room",
+      "level": "B1",
+      "emoji": "🚪",
+      "image": "stories/red_room.jpg",
+      "sentences": [
+        {
+          "en": "A confident young man visits an old castle to investigate a haunted room.",
+          "tr": "Kendinden emin genç bir adam perili bir odayı araştırmak için eski bir şatoyu ziyaret eder."
+        },
+        {
+          "en": "Three elderly caretakers warn him strongly against entering the room.",
+          "tr": "Üç yaşlı bakıcı odaya girmemesi konusunda onu güçlü bir şekilde uyarır."
+        },
+        {
+          "en": "Despite their warnings, he laughs and insists that ghosts do not exist.",
+          "tr": "Uyarılarına rağmen güler ve hayaletlerin var olmadığını ısrar eder."
+        },
+        {
+          "en": "He carries several candles with him to keep the dark room well lit.",
+          "tr": "Karanlık odayı iyi aydınlatmak için yanında birkaç mum taşır."
+        },
+        {
+          "en": "Alone in the room, he begins to feel a strange, growing uneasiness.",
+          "tr": "Odada yalnız olarak garip, büyüyen bir huzursuzluk hissetmeye başlar."
+        },
+        {
+          "en": "Suddenly, one candle flickers and goes out without any wind or reason.",
+          "tr": "Aniden bir mum titreşir ve hiçbir rüzgar ya da sebep olmadan söner."
+        },
+        {
+          "en": "He quickly relights it, but his hands begin to shake nervously.",
+          "tr": "Hızlıca tekrar yakar ama elleri gergin bir şekilde titremeye başlar."
+        },
+        {
+          "en": "One by one, the other candles also begin going out mysteriously.",
+          "tr": "Birer birer diğer mumlar da gizemli bir şekilde sönmeye başlar."
+        },
+        {
+          "en": "Pure terror fills him as the darkness grows thicker around him.",
+          "tr": "Karanlık etrafında kalınlaştıkça saf dehşet onu sarar."
+        },
+        {
+          "en": "He stumbles wildly in the dark and hits his head badly against furniture.",
+          "tr": "Karanlıkta vahşice tökezler ve başını mobilyaya sertçe çarpar."
+        },
+        {
+          "en": "The next morning, the caretakers find him unconscious on the floor.",
+          "tr": "Ertesi sabah bakıcılar onu yerde bilinçsiz halde bulur."
+        },
+        {
+          "en": "He realizes the room is haunted not by a ghost, but by Fear itself.",
+          "tr": "Odanın bir hayalet tarafından değil, Korkunun kendisi tarafından perili olduğunu fark eder."
+        }
+      ],
+      "questions": [
+        {
+          "q": "What do the caretakers warn him about?",
+          "tr": "Bakıcılar onu ne konusunda uyarır?",
+          "options": [
+            "The cold",
+            "Entering the room",
+            "Thieves",
+            "Animals"
+          ],
+          "options_tr": [
+            "Soğuk",
+            "Odaya girmek",
+            "Hırsızlar",
+            "Hayvanlar"
+          ],
+          "answer": 1
+        },
+        {
+          "q": "What does he carry into the room?",
+          "tr": "Odaya ne taşır?",
+          "options": [
+            "A weapon",
+            "Candles",
+            "A book",
+            "Food"
+          ],
+          "options_tr": [
+            "Silah",
+            "Mumlar",
+            "Kitap",
+            "Yiyecek"
+          ],
+          "answer": 1
+        },
+        {
+          "q": "What haunts the room according to the ending?",
+          "tr": "Sona göre odayı ne perili kılar?",
+          "options": [
+            "A real ghost",
+            "Fear itself",
+            "An animal",
+            "Nothing"
+          ],
+          "options_tr": [
+            "Gerçek bir hayalet",
+            "Korkunun kendisi",
+            "Bir hayvan",
+            "Hiçbir şey"
+          ],
+          "answer": 1
+        }
+      ],
+      "character": "🚪 Genç Adam",
+      "endMessage": {
+        "en": "The greatest monster you will ever face is your own fear. Face it with courage, and you will discover it was never as powerful as you imagined.",
+        "tr": "Karşılaşacağın en büyük canavar kendi korkundur. Cesaretle yüzleş ve sandığın kadar güçlü olmadığını keşfedeceksin."
+      }
+    },
+    {
+      "id": "the_outstation",
+      "title": "Markheim",
+      "level": "B1",
+      "emoji": "🕰️",
+      "image": "stories/markheim.jpg",
+      "sentences": [
+        {
+          "en": "Markheim enters an antique shop on Christmas Day to buy a gift.",
+          "tr": "Markheim, Noel günü hediye almak için bir antikacı dükkanına girer."
+        },
+        {
+          "en": "The shop owner is alone, suspicious of his unusual nervous behavior.",
+          "tr": "Dükkan sahibi yalnızdır, onun olağandışı gergin davranışından şüphelenir."
+        },
+        {
+          "en": "Suddenly, Markheim pulls out a knife and kills the elderly shopkeeper.",
+          "tr": "Aniden Markheim bir bıçak çıkarır ve yaşlı dükkan sahibini öldürür."
+        },
+        {
+          "en": "He begins searching the house desperately for money and valuable items.",
+          "tr": "Para ve değerli eşyalar için evi çaresizce aramaya başlar."
+        },
+        {
+          "en": "A mysterious stranger suddenly appears, seeming to know all his secrets.",
+          "tr": "Gizemli bir yabancı aniden belirir, tüm sırlarını biliyormuş gibi görünür."
+        },
+        {
+          "en": "The stranger offers to help Markheim find the money and escape safely.",
+          "tr": "Yabancı, Markheim'a parayı bulması ve güvenle kaçması için yardım önerir."
+        },
+        {
+          "en": "As they talk, Markheim begins questioning his own moral character deeply.",
+          "tr": "Konuşurlarken Markheim kendi ahlaki karakterini derinden sorgulamaya başlar."
+        },
+        {
+          "en": "The stranger argues that one evil act simply leads to another evil act.",
+          "tr": "Yabancı, bir kötü eylemin basitçe başka bir kötü eyleme yol açtığını savunur."
+        },
+        {
+          "en": "Markheim begins to understand that he has always had free choice.",
+          "tr": "Markheim her zaman özgür seçim hakkı olduğunu anlamaya başlar."
+        },
+        {
+          "en": "When the servant girl arrives, Markheim makes a final, surprising decision.",
+          "tr": "Hizmetçi kız geldiğinde Markheim son, şaşırtıcı bir karar verir."
+        },
+        {
+          "en": "He confesses his crime instead of killing another witness to hide it.",
+          "tr": "Bunu gizlemek için başka bir tanığı öldürmek yerine suçunu itiraf eder."
+        }
+      ],
+      "questions": [
+        {
+          "q": "What does Markheim do to the shopkeeper?",
+          "tr": "Markheim dükkancıya ne yapar?",
+          "options": [
+            "Robs him",
+            "Kills him",
+            "Talks to him",
+            "Helps him"
+          ],
+          "options_tr": [
+            "Soyar",
+            "Öldürür",
+            "Konuşur",
+            "Yardım eder"
+          ],
+          "answer": 1
+        },
+        {
+          "q": "Who appears mysteriously in the shop?",
+          "tr": "Dükkanda gizemli olarak kim belirir?",
+          "options": [
+            "A policeman",
+            "A stranger",
+            "His mother",
+            "The servant girl"
+          ],
+          "options_tr": [
+            "Polis",
+            "Yabancı",
+            "Annesi",
+            "Hizmetçi kız"
+          ],
+          "answer": 1
+        },
+        {
+          "q": "What does Markheim finally decide to do?",
+          "tr": "Markheim sonunda ne yapmaya karar verir?",
+          "options": [
+            "Run away",
+            "Confess his crime",
+            "Kill again",
+            "Hide forever"
+          ],
+          "options_tr": [
+            "Kaçmak",
+            "Suçunu itiraf etmek",
+            "Tekrar öldürmek",
+            "Sonsuza dek saklanmak"
+          ],
+          "answer": 1
+        }
+      ],
+      "character": "🕰️ Markheim",
+      "endMessage": {
+        "en": "Isolation and pride are a dangerous combination. Stay connected to others and humble in your heart — it will save you from your darkest moments.",
+        "tr": "Yalnızlık ve kibir tehlikeli bir kombinasyondur. Başkalarıyla bağlantıda kal ve kalbinde alçakgönüllü ol — bu seni en karanlık anlarından kurtaracak."
+      }
     }
   ],
   "B2": [
@@ -2598,7 +3261,12 @@
           ],
           "answer": 1
         }
-      ]
+      ],
+      "character": "🐾 Bay White",
+      "endMessage": {
+        "en": "Some wishes carry a terrible price. Be grateful for what you have — chasing more can destroy everything you already love.",
+        "tr": "Bazı dileklerin korkunç bir bedeli vardır. Sahip olduklarına şükret — daha fazlasını kovalamak, zaten sevdiğin her şeyi yok edebilir."
+      }
     },
     {
       "id": "the_cask_of_amontillado",
@@ -2716,7 +3384,12 @@
           ],
           "answer": 1
         }
-      ]
+      ],
+      "character": "🍷 Montresor",
+      "endMessage": {
+        "en": "Revenge poisons the one who seeks it most. Let go of hatred before it becomes the stone that walls you in forever.",
+        "tr": "İntikam, en çok onu arayanı zehirler. Nefreti bırak, yoksa o seni sonsuza kadar içine hapseden taş olur."
+      }
     },
     {
       "id": "the_lottery",
@@ -2826,7 +3499,12 @@
           ],
           "answer": 1
         }
-      ]
+      ],
+      "character": "🎟️ Tessie",
+      "endMessage": {
+        "en": "Tradition is not always right just because it is old. Have the courage to question what causes harm, even when everyone else stays silent.",
+        "tr": "Gelenek, sadece eski olduğu için doğru değildir. Zarar veren şeyi sorgulamak için cesur ol, başkaları sessiz kalsa bile."
+      }
     },
     {
       "id": "the_yellow_wallpaper",
@@ -2932,7 +3610,127 @@
           ],
           "answer": 1
         }
-      ]
+      ],
+      "character": "🖼️ Kadın",
+      "endMessage": {
+        "en": "Always listen to those who are struggling, even when their words are hard to understand. Silence can be the most dangerous treatment of all.",
+        "tr": "Mücadele edenleri her zaman dinle, sözleri anlaşılması zor olsa bile. Sessizlik, tüm tedavilerin en tehlikelisi olabilir."
+      }
+    },
+    {
+      "id": "the_fall_of_house_usher",
+      "title": "The Fall of the House of Usher",
+      "level": "B2",
+      "emoji": "🏚️",
+      "image": "stories/house_usher.jpg",
+      "sentences": [
+        {
+          "en": "A narrator travels to visit his old friend Roderick Usher at his family mansion.",
+          "tr": "Bir anlatıcı, eski arkadaşı Roderick Usher'ı aile malikanesinde ziyaret etmek için seyahat eder."
+        },
+        {
+          "en": "The mansion appears gloomy and decayed, with a strange crack running through the walls.",
+          "tr": "Malikane kasvetli ve çürümüş görünür, duvarlarında garip bir çatlak vardır."
+        },
+        {
+          "en": "Roderick suffers from extreme nervous anxiety and unusually heightened senses.",
+          "tr": "Roderick aşırı sinirsel kaygı ve alışılmadık derecede artırılmış duyulardan muzdariptir."
+        },
+        {
+          "en": "His twin sister Madeline suffers from a mysterious, unexplained illness.",
+          "tr": "İkiz kız kardeşi Madeline gizemli, açıklanamayan bir hastalıktan muzdariptir."
+        },
+        {
+          "en": "Soon after the narrator arrives, Madeline appears to die from her illness.",
+          "tr": "Anlatıcı geldikten kısa süre sonra Madeline hastalığından ölmüş gibi görünür."
+        },
+        {
+          "en": "Roderick insists on burying her temporarily in a vault beneath the house.",
+          "tr": "Roderick onu evin altındaki bir kasada geçici olarak gömmekte ısrar eder."
+        },
+        {
+          "en": "Over the following days, Roderick becomes increasingly agitated and restless.",
+          "tr": "Sonraki günlerde Roderick giderek daha huzursuz ve tedirgin olur."
+        },
+        {
+          "en": "One stormy night, strange sounds echo throughout the ancient, crumbling mansion.",
+          "tr": "Fırtınalı bir gecede garip sesler eski, çökmekte olan malikane boyunca yankılanır."
+        },
+        {
+          "en": "Roderick reveals his terrible fear: they buried Madeline alive by mistake.",
+          "tr": "Roderick korkunç korkusunu açığa çıkarır: Madeline'i yanlışlıkla diri diri gömmüşlerdir."
+        },
+        {
+          "en": "Suddenly, Madeline appears at the door, bloodied from escaping the vault.",
+          "tr": "Aniden Madeline, kasadan kaçmaktan kanlı bir halde kapıda belirir."
+        },
+        {
+          "en": "She falls upon her brother, and both die together in terror and shock.",
+          "tr": "Kardeşinin üzerine düşer ve ikisi de dehşet ve şok içinde birlikte ölür."
+        },
+        {
+          "en": "The narrator flees as the entire ancient house collapses into the dark lake.",
+          "tr": "Anlatıcı kaçarken bütün eski ev karanlık göle çöker."
+        }
+      ],
+      "questions": [
+        {
+          "q": "Who does the narrator visit?",
+          "tr": "Anlatıcı kimi ziyaret eder?",
+          "options": [
+            "His brother",
+            "Roderick Usher",
+            "A stranger",
+            "His teacher"
+          ],
+          "options_tr": [
+            "Kardeşi",
+            "Roderick Usher",
+            "Bir yabancı",
+            "Öğretmeni"
+          ],
+          "answer": 1
+        },
+        {
+          "q": "What happens to Madeline?",
+          "tr": "Madeline'e ne olur?",
+          "options": [
+            "She recovers",
+            "She is buried alive",
+            "She moves away",
+            "She gets married"
+          ],
+          "options_tr": [
+            "İyileşir",
+            "Diri diri gömülür",
+            "Taşınır",
+            "Evlenir"
+          ],
+          "answer": 1
+        },
+        {
+          "q": "What happens to the house at the end?",
+          "tr": "Sonunda eve ne olur?",
+          "options": [
+            "It is sold",
+            "It collapses into the lake",
+            "It is rebuilt",
+            "Nothing changes"
+          ],
+          "options_tr": [
+            "Satılır",
+            "Göle çöker",
+            "Yeniden inşa edilir",
+            "Hiçbir şey değişmez"
+          ],
+          "answer": 1
+        }
+      ],
+      "character": "🏚️ Roderick",
+      "endMessage": {
+        "en": "Isolation and fear can crack even the strongest foundations. Reach out to others before the walls close in around you.",
+        "tr": "Yalnızlık ve korku, en güçlü temelleri bile çatlayabilir. Duvarlar etrafında kapanmadan önce başkalarına uzan."
+      }
     }
   ]
 }
