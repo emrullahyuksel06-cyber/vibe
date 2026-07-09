@@ -3865,7 +3865,7 @@ function selectLibLevel(level) {
 }
 
 var _libPage = 0;
-const LIB_PAGE_SIZE = 7;
+const LIB_PAGE_SIZE = 6;
 
 function renderLibBooks(level) {
   var wrap = G('lib-books'); if (!wrap) return;
@@ -4083,11 +4083,16 @@ function renderQuizQuestion() {
   var rq = G('reader-quiz'); if (!rq || !_currentBook) return;
   var q = _currentBook.questions[_quizIdx];
   if (!q) { finishQuiz(); return; }
+  // Şıkları karıştır
+  var indices = [0,1,2,3].slice(0, q.options.length);
+  indices.sort(function() { return Math.random() - 0.5; });
+  var correctText = q.options[q.answer];
   var opts = '';
-  for (var i = 0; i < q.options.length; i++) {
-    opts += '<button class="quiz-opt" onclick="answerQuiz(' + i + ',' + q.answer + ',this)">';
-    opts += q.options[i];
-    opts += ' <span style="font-size:.6rem;color:var(--text-dim)"> &middot; ' + q.options_tr[i] + '</span>';
+  for (var i = 0; i < indices.length; i++) {
+    var idx = indices[i];
+    opts += '<button class="quiz-opt" onclick="answerQuiz(this,\'' + q.options[idx].replace(/'/g,"\\'") + '\',\'' + correctText.replace(/'/g,"\\'") + '\')">';
+    opts += q.options[idx];
+    opts += ' <span style="font-size:.6rem;color:var(--text-dim)"> &middot; ' + q.options_tr[idx] + '</span>';
     opts += '</button>';
   }
   rq.innerHTML =
@@ -4097,7 +4102,7 @@ function renderQuizQuestion() {
     '<div class="quiz-options">' + opts + '</div>';
 }
 
-function answerQuiz(chosen, correct, btn) {
+function answerQuiz(btn, chosen, correct) {
   var opts = btn.closest('.quiz-options').querySelectorAll('.quiz-opt');
   opts.forEach(function(b) { b.disabled = true; });
   if (chosen === correct) {
@@ -4107,7 +4112,7 @@ function answerQuiz(chosen, correct, btn) {
     showToast('Dogru! +15 XP');
   } else {
     btn.classList.add('wrong');
-    opts[correct].classList.add('correct');
+    opts.forEach(function(b) { if (b.textContent.trim().startsWith(correct)) b.classList.add('correct'); });
     showToast('Yanlis!');
   }
   setTimeout(function() {
@@ -4125,10 +4130,13 @@ function finishQuiz() {
   GS.hobby.books_read = (GS.hobby.books_read || 0) + 1;
   autoSave();
   re.style.display = 'flex';
+  var charStr = book.character || '📖';
+  var msgEn = (book.endMessage && book.endMessage.en) ? book.endMessage.en : 'Well done! You finished the book.';
+  var msgTr = (book.endMessage && book.endMessage.tr) ? book.endMessage.tr : 'Aferin! Kitabı bitirdin.';
   re.innerHTML =
-    '<div class="reader-end-char">' + book.character + '</div>' +
-    '<div class="reader-end-msg">' + book.endMessage.en + '</div>' +
-    '<div class="reader-end-msg-tr">' + book.endMessage.tr + '</div>' +
+    '<div class="reader-end-char">' + charStr + '</div>' +
+    '<div class="reader-end-msg">' + msgEn + '</div>' +
+    '<div class="reader-end-msg-tr">' + msgTr + '</div>' +
     '<div class="reader-end-xp">' + _quizScore + '/' + book.questions.length + ' dogru &middot; +' + totalXP + ' XP</div>' +
     '<button class="reader-end-btn" onclick="closeReader()">' + biLine({en:'Back to Library',tr:'Kutuphaney Don',ru:'В библиотеку'}) + '</button>';
   AUD.speak(book.endMessage.en);
