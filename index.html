@@ -583,6 +583,7 @@
       <button class="sl-btn" style="display:flex" onclick="openLangSwitcher()">🌐 Dil</button>
       <button id="inbox-btn" class="sl-btn" style="display:none" onclick="openInbox()">📬 <span id="inbox-badge" style="background:#f87171;color:#fff;border-radius:8px;padding:.02rem .34rem;font-size:.56rem;font-weight:700;display:none">0</span></button>
       <button class="sl-btn" style="display:flex" onclick="openFeedbackModal()">🐞 Hata Bildir</button>
+      <button class="sl-btn" style="display:flex" onclick="openUsernameModal()">👤 Ad</button>
       <button class="sl-btn" style="display:flex" onclick="logoutUser()">🚪 Çıkış</button>
       <div class="xp-bar-wrap">
         <span class="xp-level-badge" id="xp-level-badge">Lv.1</span>
@@ -847,6 +848,7 @@
       <div style="display:flex;gap:.6rem;align-items:center">
         <span id="chat-energy" style="font-size:.7rem;color:var(--text-dim)"></span>
         <span id="chat-admin-energy-btn" onclick="grantEnergyToCurrentChat()" style="display:none;cursor:pointer;font-size:1rem" title="Bu kullanıcıya enerji ver (Admin)">⚡</span>
+        <span id="chat-admin-energy-view" style="display:none;font-size:.65rem;color:var(--text-dim)"></span>
         <span onclick="openReportModal()" style="cursor:pointer;font-size:1rem" title="Şikayet Et">🚫</span>
         <span onclick="blockCurrentChatUser()" style="cursor:pointer;font-size:1rem" title="Engelle">⛔</span>
         <button onclick="closeChat()" style="background:none;border:none;color:var(--text-dim);font-size:1.2rem;cursor:pointer">✕</button>
@@ -916,6 +918,18 @@
     <textarea id="feedback-text" rows="4" placeholder="Ne oldu, ne öneriyorsun?" style="width:100%;padding:.55rem;margin-top:.4rem;border-radius:8px;border:1px solid var(--border2);background:var(--bg);color:var(--text);box-sizing:border-box;font-family:inherit"></textarea>
     <button onclick="submitFeedback()" style="width:100%;margin-top:.7rem;background:var(--teal-dim);border:1px solid var(--teal);color:var(--teal);border-radius:10px;padding:.65rem;font-weight:700;cursor:pointer">Gönder</button>
     <button onclick="closeFeedbackModal()" style="width:100%;margin-top:.4rem;background:var(--card2);border:1px solid var(--border2);color:var(--text);border-radius:10px;padding:.6rem;cursor:pointer">Vazgeç</button>
+  </div>
+</div>
+
+<!-- KULLANICI ADI DEĞİŞTİR -->
+<div id="username-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:800;align-items:center;justify-content:center;padding:1rem">
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.2rem;width:100%;max-width:340px">
+    <div style="font-size:.9rem;font-weight:700;color:var(--text-bright);margin-bottom:.5rem">👤 Kullanıcı Adım</div>
+    <p style="font-size:.68rem;color:var(--text-dim);margin-top:0">Şu anki: <b id="username-current">—</b><br>Kullanıcı adını <b>15 günde bir</b> değiştirebilirsin.</p>
+    <input id="username-new" type="text" placeholder="yeni-kullanici-adi" pattern="[a-zA-Z0-9_]+" style="width:100%;padding:.55rem;margin-top:.4rem;border-radius:8px;border:1px solid var(--border2);background:var(--bg);color:var(--text);box-sizing:border-box">
+    <button onclick="submitUsernameChange()" style="width:100%;margin-top:.7rem;background:var(--teal-dim);border:1px solid var(--teal);color:var(--teal);border-radius:10px;padding:.65rem;font-weight:700;cursor:pointer">Değiştir</button>
+    <button onclick="closeUsernameModal()" style="width:100%;margin-top:.4rem;background:var(--card2);border:1px solid var(--border2);color:var(--text);border-radius:10px;padding:.6rem;cursor:pointer">Vazgeç</button>
+    <div id="username-msg" style="margin-top:.5rem;font-size:.72rem"></div>
   </div>
 </div>
 
@@ -1113,6 +1127,12 @@
       <div id="dev-feedback-list" style="font-size:.62rem;color:var(--text-dim);max-height:260px;overflow-y:auto"></div>
       <div class="dev-row" style="margin-top:.5rem">
         <input id="dev-energy-code" type="text" placeholder="üye kodu" style="flex:1;font-size:.65rem;padding:.3rem;border-radius:6px;border:1px solid var(--border2);background:var(--bg);color:var(--text)">
+        <button class="dev-btn" onclick="devShowEnergy()">🔍 Göster</button>
+      </div>
+      <div class="dev-row">
+        <span id="dev-energy-result" style="font-size:.65rem;color:var(--text-dim)"></span>
+      </div>
+      <div class="dev-row">
         <input id="dev-energy-amount" type="number" value="30" style="width:60px;font-size:.65rem;padding:.3rem;border-radius:6px;border:1px solid var(--border2);background:var(--bg);color:var(--text)">
         <button class="dev-btn green" onclick="devGrantEnergy()">⚡ Enerji Ver</button>
       </div>
@@ -1302,43 +1322,109 @@ function initLoginAnimations() {
 }
 
 const LEGAL_TEXT = {
-  terms: `1. KABUL
-Vibe'ı kullanarak bu şartları kabul etmiş sayılırsın.
+  terms: `KULLANIM ŞARTLARI
+Konuşma Pratiği / Dil Değişimi Özelliği — Vibe
 
-2. UYGUNLUK
-Konuşma Pratiği (mesajlaşma/eşleşme) özelliği yalnızca 18 yaş ve üzeri kullanıcılar içindir. Uygulamanın diğer bölümleri (kelime öğrenme, oyunlar) her yaştan kullanıcıya açıktır.
+1. KABUL
+Vibe'ı ve Konuşma Pratiği özelliğini kullanarak bu şartları kabul etmiş sayılırsın. Kabul etmiyorsan bu özelliği kullanmamalısın.
+
+2. UYGUNLUK (Kimler Kullanabilir)
+Konuşma Pratiği özelliği yalnızca 18 yaş ve üzeri kullanıcılar içindir. Uygulamanın diğer bölümleri (kelime öğrenme, oyunlar) her yaştan kullanıcıya açıktır. Hesap oluştururken doğum tarihini doğru beyan etmeyi kabul edersin. 18 yaşından küçük olduğu tespit edilen hesaplar bildirim yapılmaksızın askıya alınır veya silinir.
 
 3. HESAP SORUMLULUĞU
-Hesap bilgilerinin gizliliğinden sen sorumlusun. Sahte profil veya başkasını taklit etmek yasaktır.
+Hesap bilgilerinin gizliliğinden ve hesabın üzerinden yapılan tüm işlemlerden sen sorumlusun. Sahte kimlik, sahte profil veya başka bir kişi gibi davranmak (impersonation) yasaktır. Her kullanıcı yalnızca bir hesap açabilir.
 
-4. YASAKLI DAVRANIŞLAR
-Taciz, nefret söylemi, cinsel içerik, para/finansal bilgi talebi, spam ve kişisel bilgi paylaşımına zorlama kesinlikle yasaktır.
+3.1 İsim ve Kullanıcı Adı Kuralları
+Görünen adın ve kullanıcı adın; din, dil, ırk, etnik köken veya cinsiyete yönelik aşağılayıcı/ayrımcı ifadeler, küfür, hakaret veya cinsel içerikli kelimeler ve nefret söylemi içeremez. Bu kurala uymayan isimler otomatik reddedilir; tespit edilirse hesap uyarı almadan askıya alınabilir. Kullanıcı adını hesap oluşturduktan sonra 15 günde bir kez değiştirebilirsin. Her kullanıcı adı yalnızca bir kişi tarafından kullanılabilir.
 
-5. MODERASYON
-Kuralları ihlal eden hesaplar uyarılır, geçici olarak askıya alınır veya kalıcı olarak kapatılabilir.
+4. HİZMETİN TANIMI
+Konuşma Pratiği, dil öğrenen kullanıcıları birbirleriyle eşleştirerek metin ve sesli mesaj yoluyla konuşma pratiği yapmalarını sağlar. Vibe bir arabulucu platformdur; kullanıcılar arasındaki içerikten ve etkileşimden doğrudan sorumlu değildir (bkz. Madde 9).
 
-6. SORUMLULUĞUN SINIRLANDIRILMASI
-Vibe, kullanıcılar arasındaki etkileşimlerden doğan zararlardan sorumlu tutulamaz.
+5. KULLANICI İÇERİĞİ
+Gönderdiğin metin ve sesli mesajların içeriğinden sen sorumlusun. Mesajlarını, hizmeti işletebilmemiz için gerekli ölçüde (iletme, saklama, moderasyon incelemesi) kullanmamıza izin verirsin. Sesli mesajlar sunucularımızda en fazla 90 gün saklanır, ardından otomatik silinir. Şikayet edilen içerik, inceleme amacıyla bu sürenin ötesinde saklanabilir.
 
-7. DEĞİŞİKLİKLER
-Bu şartlar zaman zaman güncellenebilir, önemli değişikliklerde bilgilendirilirsin.`,
-  privacy: `1. TOPLADIĞIMIZ VERİLER
-Hesap bilgilerin (ad, e-posta, doğum tarihi), profil bilgilerin, gönderdiğin mesajlar, kullanım verisi.
+6. YASAKLI DAVRANIŞLAR
+Aşağıdakiler kesinlikle yasaktır ve hesap askıya alma/kapatma ile sonuçlanır: taciz, tehdit, aşağılama veya nefret söylemi; cinsel içerikli mesaj/ses/görsel gönderme; para, hediye, kripto para veya finansal bilgi talep etme ya da teklif etme; başka bir kullanıcının izni olmadan kişisel bilgilerini paylaşma/talep etme; reklam, spam veya toplu/otomatik mesaj; yasa dışı içerik; sahte profil/impersonation; moderasyondan kaçınmak için başka bir iletişim kanalına yönlendirme.
 
-2. NEDEN TOPLUYORUZ
-Hizmeti sunmak, güvenliği sağlamak, kötüye kullanımı tespit etmek için.
+7. MODERASYON VE YAPTIRIMLAR
+Her kullanıcı diğerini engelleyebilir ve şikayet edebilir. Şikayetler bir inceleme sürecinden geçer. İhlal durumunda uyarı → geçici askıya alma → kalıcı hesap kapatma uygulanabilir. Ağır ihlallerde (istismar, tehdit, dolandırıcılık girişimi) doğrudan kalıcı kapatma uygulanabilir. Hesabı kapatılan kullanıcı destek@ üzerinden itiraz edebilir.
 
-3. NE KADAR SAKLIYORUZ
-Hesap bilgilerin, hesabın aktif olduğu sürece saklanır. Sesli mesajlar en fazla 90 gün sonra otomatik silinir.
+8. GİZLİLİK
+Kişisel verilerinin nasıl işlendiği ayrı bir Gizlilik Politikası'nda açıklanmıştır (bu ekrandaki diğer sekme).
 
-4. KİMLERLE PAYLAŞIYORUZ
-Verilerin barındırma sağlayıcımız (Supabase) dışında hiç kimseyle, hele reklam amacıyla asla paylaşılmaz/satılmaz.
+9. SORUMLULUĞUN SINIRLANDIRILMASI
+Vibe, kullanıcılar arasındaki eşleşme ve iletişimden kaynaklanan hiçbir zarar, dolandırıcılık, taciz veya diğer olumsuz deneyimden sorumlu tutulamaz. Hizmeti kendi riskinle kullanırsın. Şüpheli/rahatsız edici davranışla karşılaşırsan derhal engelle ve şikayet et.
 
-5. HAKLARIN (KVKK)
-Verilerinin işlenip işlenmediğini öğrenme, düzeltme, silinmesini isteme, itiraz etme hakkına sahipsin.
+10. FESİH
+Hesabını istediğin zaman silebilirsin. Bu şartları ihlal etmen durumunda hesabını bildirimde bulunmaksızın kapatma hakkımız saklıdır.
 
-6. ÇOCUKLARA YÖNELİK DEĞİLDİR (Konuşma Pratiği için)
-Mesajlaşma özelliği 18 yaş altına hiç gösterilmez.`
+11. DEĞİŞİKLİKLER
+Bu şartlar zaman zaman güncellenebilir. Önemli değişikliklerde uygulama içi bildirim yoluyla bilgilendirilirsin.
+
+12. UYGULANACAK HUKUK
+Bu şartlar Türkiye Cumhuriyeti kanunlarına tabidir.
+
+13. İLETİŞİM
+Soruların için: supportvibeapp@gmail.com
+
+━━━━━━━━━━━━━━━━━━━━
+
+TOPLULUK KURALLARI
+
+Bu alanın, farklı dilleri öğrenen insanların birbirleriyle güvenle pratik yapabileceği bir yer olmasını istiyoruz.
+
+✅ Yapman Gerekenler
+Karşındaki kişiye sabırlı ve nazik ol. Hatalarını nazikçe düzelt, alay etme. Kültürel farklılıklara saygı göster. Rahatsız edici bir şey görürsen hemen şikayet et ve engelle.
+
+🚫 Yapmaman Gerekenler
+İsminde/kullanıcı adında din, dil, ırk temelli aşağılayıcı ifade, küfür veya nefret söylemi kullanma. Para, hediye, kripto para veya finansal bilgi isteme/teklif etme — kimse senden pratik yapmak için para istemez. Taciz, hakaret, nefret söylemi veya tehdit. Cinsel içerikli mesaj, ses veya görsel. Israrla kişisel iletişim bilgisi isteme. Reklam/spam/toplu mesaj. Sahte profil kullanma.
+
+🎙️ Sesli Mesajlar İçin
+Sesli mesajlar da aynı kurallara tabidir. Rahatsız edici bir sesli mesaj alırsan, dinlemeden de şikayet edebilirsin.
+
+🛡️ Güvenlik İpuçları
+Hiçbir zaman kimseye para göndermeyin veya finansal bilgi paylaşmayın. Kişisel bilgilerinizi çok erken paylaşmaktan kaçının. Bir konuşma sizi rahatsız ediyorsa açıklama yapmak zorunda değilsiniz.
+
+⚖️ Kuralları İhlal Edersen
+1. Uyarı — küçük ihlaller için
+2. Geçici askıya alma — tekrarlanan ihlaller için
+3. Kalıcı hesap kapatma — ağır ihlaller için anında uygulanır`,
+  privacy: `GİZLİLİK POLİTİKASI
+Vibe
+
+1. BU POLİTİKA NE İŞE YARAR
+Bu Gizlilik Politikası, Vibe'ı kullanırken hangi kişisel verilerinin toplandığını, nasıl kullanıldığını, kimlerle paylaşıldığını ve haklarının neler olduğunu açıklar.
+
+2. TOPLADIĞIMIZ VERİLER
+Hesap bilgileri (görünen ad, kullanıcı adı, e-posta, doğum tarihi); profil bilgileri (ana dil, öğrenilen dil, seviye); mesaj içeriği (metin ve sesli mesajlar, +18 Konuşma Pratiği kullanılıyorsa); kullanım verisi (giriş zamanı, aktif olunan süre); rapor/şikayet verisi.
+Toplamadığımız veriler: Ödeme/banka bilgisi, açık izin verilmedikçe konum verisi.
+
+3. VERİLERİN İŞLENME AMACI VE HUKUKİ DAYANAĞI (KVKK m.5)
+Sözleşmenin ifası: Hizmeti sunabilmek için hesap ve eşleştirme verisi işlenir. Meşru menfaat: kötüye kullanım/dolandırıcılık tespiti, platform güvenliği. Açık rıza: sesli mesaj gibi isteğe bağlı özellikler için (kayıt sırasında onay alınır). Kanuni yükümlülük: hukuki talep halinde yetkili makamlarla paylaşım.
+
+4. VERİLERİN SAKLANMA SÜRESİ
+Hesap bilgileri: hesap aktif olduğu sürece, hesap silindikten sonra 30 gün (güvenlik amaçlı yedekleme). Metin mesajları: hesap silinene kadar. Sesli mesajlar: en fazla 90 gün, sonrasında otomatik silinir. Şikayet edilen içerik: inceleme sürecinin tamamlanmasına kadar, gerekirse daha uzun.
+
+5. VERİLERİN KİMLERLE PAYLAŞILDIĞI
+Barındırma/altyapı sağlayıcımız Supabase — verilerin bu sağlayıcının sunucularında saklanır. Diğer kullanıcılar — mesajlaştığın kişi, gönderdiğin mesaj içeriğini ve profil bilgilerini (ad, seviye vb.) görür. Yasal makamlar — mahkeme kararı veya yasal zorunluluk halinde. Verilerin hiçbir şekilde reklam amacıyla üçüncü taraflara satılmaz.
+
+6. KULLANICI HAKLARIN (KVKK m.11)
+Verilerinin işlenip işlenmediğini öğrenme; işlenmişse bilgi talep etme; işlenme amacını öğrenme; verilerinin düzeltilmesini isteme; yasal şartlar çerçevesinde silinmesini isteme; aktarıldığı üçüncü kişilere bildirilmesini isteme; işlenen verilere itiraz etme.
+Bu haklarını kullanmak için: supportvibeapp@gmail.com
+
+7. VERİ GÜVENLİĞİ
+Mesajların aktarım sırasında TLS ile şifrelenir. Erişim yalnızca yetkili moderasyon ekibiyle sınırlıdır. Hiçbir sistem %100 güvenli değildir; makul güvenlik önlemleri alınır ancak mutlak güvenlik garanti edilemez.
+
+8. ÇOCUKLARA YÖNELİK DEĞİLDİR (Konuşma Pratiği için)
+Konuşma Pratiği özelliği yalnızca 18 yaş ve üzeri kullanıcılar içindir. 18 yaşından küçük bir kullanıcıya ait olduğu fark edilen ilgili veriler tespit edildiğinde derhal silinir.
+
+9. POLİTİKADA DEĞİŞİKLİK
+Bu politika güncellenebilir. Önemli değişikliklerde uygulama içi bildirim yoluyla bilgilendirilirsin.
+
+10. İLETİŞİM
+Soruların veya KVKK kapsamındaki taleplerin için: supportvibeapp@gmail.com
+
+Bu belge, Kullanım Şartları & Topluluk Kuralları belgesiyle birlikte okunmalıdır.`
 };
 
 function openLegal(which) {
@@ -1386,6 +1472,35 @@ async function unblockUser(blockId) {
   openBlockedList();
 }
 // ── HATA BİLDİR / GERİ BİLDİRİM — yaş sınırı yok, herkes kullanabilir ──
+// ── KULLANICI ADI DEĞİŞTİR (15 günde 1 kez) ─────────────────
+async function openUsernameModal() {
+  if (!CURRENT_USER) return;
+  const { data } = await sb.from('profiles').select('username').eq('id', CURRENT_USER.id).maybeSingle();
+  G('username-current').textContent = data?.username || '—';
+  G('username-new').value = '';
+  G('username-msg').textContent = '';
+  G('username-modal').style.display = 'flex';
+}
+function closeUsernameModal() { G('username-modal').style.display = 'none'; }
+
+async function submitUsernameChange() {
+  const newUsername = G('username-new').value.trim();
+  if (!newUsername) { setAuthMsg('username-msg', 'Bir kullanıcı adı yaz.', true); return; }
+  if (!/^[a-zA-Z0-9_]+$/.test(newUsername)) { setAuthMsg('username-msg', 'Sadece harf, rakam ve alt çizgi (_) içerebilir.', true); return; }
+  if (containsBadWords(newUsername)) { setAuthMsg('username-msg', 'Uygunsuz/küfürlü bir ifade tespit edildi, başka bir kullanıcı adı dene.', true); return; }
+
+  const { error } = await sb.from('profiles').update({ username: newUsername }).eq('id', CURRENT_USER.id);
+  if (error) {
+    // 15 gün kuralı veya "zaten alınmış" hatası veritabanından geliyor
+    const desc = describeAuthError(error);
+    setAuthMsg('username-msg', desc.includes('duplicate') || desc.includes('unique')
+      ? 'Bu kullanıcı adı zaten alınmış.' : desc, true);
+    return;
+  }
+  setAuthMsg('username-msg', '✅ Kullanıcı adın güncellendi!', false);
+  setTimeout(closeUsernameModal, 1200);
+}
+
 function openFeedbackModal() {
   if (!CURRENT_USER) { showToast('Önce giriş yapmalısın.'); return; }
   G('feedback-text').value = '';
@@ -1462,6 +1577,13 @@ async function checkExistingSession() {
     if (event === 'PASSWORD_RECOVERY') switchScreen('screen-reset');
   });
 
+  // Şifre sıfırlama linkinden geldiyse, "zaten giriş yapılmış" mantığı bunu
+  // ele geçirip direkt oyuna sokmasın diye — her şeyden ÖNCE bunu kontrol ediyoruz
+  if (window.location.hash.includes('type=recovery') || window.location.search.includes('type=recovery')) {
+    switchScreen('screen-reset');
+    return;
+  }
+
   const { data: { session } } = await sb.auth.getSession();
   if (session) {
     const { data: profile } = await sb.from('profiles').select('id, display_name, birth_date, is_admin').eq('id', session.user.id).maybeSingle();
@@ -1486,6 +1608,10 @@ async function startRegister() {
 
   if (!email || !password || !name || !username || !birth) { setAuthMsg('auth-msg', 'Lütfen tüm alanları doldur.', true); return; }
   if (!/^[a-zA-Z0-9_]+$/.test(username)) { setAuthMsg('auth-msg', 'Kullanıcı adı sadece harf, rakam ve alt çizgi (_) içerebilir, boşluk olamaz.', true); return; }
+  if (containsBadWords(name) || containsBadWords(username)) {
+    setAuthMsg('auth-msg', 'İsim veya kullanıcı adında uygunsuz/küfürlü bir ifade tespit edildi. Kullanım Şartları gereği din, dil, ırk temelli veya küfürlü isimler kullanılamaz.', true);
+    return;
+  }
   if (!isPasswordStrong(password)) { setAuthMsg('auth-msg', 'Şifre en az 8 karakter olmalı ve büyük harf, küçük harf, rakam içermeli.', true); return; }
   if (!consent) { setAuthMsg('auth-msg', 'Devam etmek için Kullanım Şartları ve Gizlilik Politikasını kabul etmelisin.', true); return; }
 
@@ -5088,7 +5214,7 @@ function closeInbox() { G('inbox-modal').style.display = 'none'; }
 
 function updateChatEnergyDisplay() {
   const el = G('chat-energy');
-  if (el) el.textContent = '⚡' + getEnergy() + '%';
+  if (el) el.textContent = 'Sen: ⚡' + getEnergy() + '%';
 }
 
 async function openChat(connectionId, otherId) {
@@ -5102,7 +5228,18 @@ async function openChat(connectionId, otherId) {
   currentChatOtherNative = profile ? profile.native_language : null;
   currentChatOtherCode = profile ? profile.member_code : null;
   updateChatEnergyDisplay();
-  G('chat-admin-energy-btn').style.display = (USER_IS_ADMIN && currentChatOtherId !== CURRENT_USER.id) ? 'inline' : 'none';
+  const isAdminViewingOther = USER_IS_ADMIN && currentChatOtherId !== CURRENT_USER.id;
+  G('chat-admin-energy-btn').style.display = isAdminViewingOther ? 'inline' : 'none';
+  const energyView = G('chat-admin-energy-view');
+  energyView.style.display = 'none';
+  if (isAdminViewingOther && currentChatOtherCode) {
+    const codeAtRequestTime = currentChatOtherCode; // hızlı sohbet değiştirmede yanlış kişinin verisi kalmasın diye
+    sb.rpc('get_user_energy', { target_code: codeAtRequestTime }).then(({ data }) => {
+      if (currentChatOtherCode !== codeAtRequestTime) return; // kullanıcı bu arada başka bir sohbete geçti
+      energyView.textContent = (data === null || data === undefined) ? 'Karşı taraf: kayıt yok' : 'Karşı taraf: ⚡' + data + '%';
+      energyView.style.display = 'inline';
+    });
+  }
 
   renderChatSuggestions();
   G('chat-messages').innerHTML = ''; // yeni sohbet — önceki sohbetten kalıntı olmasın
@@ -5119,6 +5256,11 @@ async function grantEnergyToCurrentChat() {
   const { error } = await sb.rpc('grant_energy', { target_code: currentChatOtherCode, amount: parseInt(amount, 10) || 0 });
   if (error) { showToast('Hata: ' + describeAuthError(error)); return; }
   showToast('⚡ Enerji verildi (kullanıcının bir sonraki girişinde görünecek).');
+  sb.rpc('get_user_energy', { target_code: currentChatOtherCode }).then(({ data }) => {
+    const energyView = G('chat-admin-energy-view');
+    energyView.textContent = (data === null || data === undefined) ? 'Karşı taraf: kayıt yok' : 'Karşı taraf: ⚡' + data + '%';
+    energyView.style.display = 'inline';
+  });
 }
 
 function renderChatSuggestions() {
@@ -5412,7 +5554,16 @@ async function stopVoiceRecording() {
   G('chat-mic-btn').style.borderColor = 'var(--border2)';
   G('chat-recording-status').style.display = 'none';
 
-  if (_speechRecognizer) { try { _speechRecognizer.stop(); } catch (e) {} }
+  // Konuşma tanımanın son sonucu stop() çağrısından SONRA gelebiliyor —
+  // bunu beklemeden transkripti okumak bazen transkripti boş bırakıyordu
+  if (_speechRecognizer) {
+    await new Promise(resolve => {
+      const finishOnce = () => { _speechRecognizer.onend = null; resolve(); };
+      _speechRecognizer.onend = finishOnce;
+      try { _speechRecognizer.stop(); } catch (e) { finishOnce(); }
+      setTimeout(finishOnce, 1500); // emniyet: onend hiç gelmezse takılı kalma
+    });
+  }
 
   const durationSec = Math.round((Date.now() - _recordingStartTime) / 1000);
   if (durationSec < 1) { _mediaRecorder.stop(); showToast('Çok kısa bir kayıt, tekrar dene.'); return; }
@@ -6658,6 +6809,16 @@ async function devMarkFeedbackReviewed(id) {
   devLoadFeedback();
 }
 
+async function devShowEnergy() {
+  const code = G('dev-energy-code').value.trim();
+  if (!code) { showToast('Üye kodu gir.'); return; }
+  const { data, error } = await sb.rpc('get_user_energy', { target_code: code });
+  if (error) { G('dev-energy-result').textContent = 'Hata: ' + describeAuthError(error); return; }
+  G('dev-energy-result').textContent = (data === null || data === undefined)
+    ? '⚡ Bu kullanıcının henüz bir oyun kaydı yok.'
+    : '⚡ Enerji: %' + data;
+}
+
 async function devGrantEnergy() {
   const code = G('dev-energy-code').value.trim();
   const amount = parseInt(G('dev-energy-amount').value, 10) || 0;
@@ -6665,6 +6826,7 @@ async function devGrantEnergy() {
   const { error } = await sb.rpc('grant_energy', { target_code: code, amount });
   if (error) { showToast('Hata: ' + describeAuthError(error)); return; }
   showToast('⚡ ' + code + ' için enerji güncellendi (bir sonraki girişinde/güncellemesinde görünecek).');
+  devShowEnergy(); // güncel değeri hemen göster
 }
 
 function devJumpDay2() {
@@ -7329,6 +7491,7 @@ function enterGameScreen() {
   }
   startUnreadPolling();
   startAdminPolling();
+  startEnergyRegen();
   showToast('👋 Kaldığın yerden devam ediyorsun!');
   fetchBooksFromGitHub();
   document.addEventListener('click', function startMusicResume() {
