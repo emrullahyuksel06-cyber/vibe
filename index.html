@@ -1724,13 +1724,13 @@ async function setNewPassword() {
 // ── OYUNA GEÇİŞ — giriş/kayıt tamamlanınca buradan devam eder ──
 let CLOUD_SAVES = []; // kullanıcının sahip olduğu tüm dil ilerlemeleri
 // ── İNTRO VİDEO — giriş/kayıt başarılı olunca, oyundan önce ──────
-// NOT: Video değiştirdiğinde jsDelivr CDN eskisini önbellekte tutabiliyor.
-// Yeni bir video yüklediğinde bu numarayı artır (v=1 -> v=2 gibi), CDN'i
-// eski dosyaya bakmaya zorlamış olursun. purge.jsdelivr.net üzerinden
-// elle temizlemeye de gerek kalmaz.
+// NOT: jsDelivr GitHub CDN'i "kalıcı önbellekleme" yapıyor (kendi belgelerinde
+// yazıyor) — sık güncellenen dosyalar için uygun değil, purge aracı bile
+// güvenilir çalışmıyor. Bu yüzden videoyu doğrudan GitHub Pages adresinden
+// servis ediyoruz. Video değiştirdiğinde bu numarayı artır (v=2 -> v=3 gibi).
 const INTRO_VIDEO_VERSION = 3;
-const INTRO_VIDEO_DESKTOP = 'https://cdn.jsdelivr.net/gh/emrullahyuksel06-cyber/vibe@main/assets/intro/intro.mp4?v=' + INTRO_VIDEO_VERSION;
-const INTRO_VIDEO_MOBILE  = 'https://cdn.jsdelivr.net/gh/emrullahyuksel06-cyber/vibe@main/assets/intro/intro-mobile.mp4?v=' + INTRO_VIDEO_VERSION;
+const INTRO_VIDEO_DESKTOP = 'https://emrullahyuksel06-cyber.github.io/vibe/assets/intro/intro.mp4?v=' + INTRO_VIDEO_VERSION;
+const INTRO_VIDEO_MOBILE  = 'https://emrullahyuksel06-cyber.github.io/vibe/assets/intro/intro-mobile.mp4?v=' + INTRO_VIDEO_VERSION;
 
 function pickIntroVideoUrl() {
   // Ekran dikey/kareye yakınsa (telefon) mobil videoyu, yataysa (bilgisayar) masaüstü videoyu seç
