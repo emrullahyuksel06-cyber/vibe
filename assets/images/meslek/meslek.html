@@ -54,7 +54,7 @@
         }
 
         #start-screen {
-            background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6)), url('girs.webp');
+            background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6)), url('https://raw.githubusercontent.com/emrullahyuksel06-cyber/vibe/main/assets/images/meslek/girs.webp');
             background-size: cover;
             background-position: center;
             border-radius: 16px;
@@ -374,6 +374,10 @@
     let secimYapildi = false;
     let secilenDil = "TT"; 
 
+    // Ünlü Yerler oyunuyla aynı ses efektleri (dosyalar zaten GitHub'da mevcut)
+    const audioCorrect = new Audio('https://raw.githubusercontent.com/emrullahyuksel06-cyber/vibe/main/assets/images/unluyerler/correct.mp3');
+    const audioWrong = new Audio('https://raw.githubusercontent.com/emrullahyuksel06-cyber/vibe/main/assets/images/unluyerler/wrong.mp3');
+
     function arrayKaristir(array) {
         for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -409,7 +413,7 @@
 
             sorular.push({
                 id: i,
-                gorsel: `${i}.webp`,
+                gorsel: `https://raw.githubusercontent.com/emrullahyuksel06-cyber/vibe/main/assets/images/meslek/${i}.webp`,
                 secenekler: seceneklerPaketi,
                 dogru: dogruMeslek // Referans olarak tüm dilleri taşır
             });
@@ -518,11 +522,13 @@
             document.getElementById("result-message").textContent = UI.correctMsg;
             document.getElementById("result-message").style.color = "var(--success-color)";
             dogruSayisi++;
+            try { audioCorrect.currentTime = 0; audioCorrect.play(); } catch(e) {}
         } else {
             buton.classList.add("wrong");
             document.getElementById("result-message").textContent = UI.wrongMsg;
             document.getElementById("result-message").style.color = "var(--accent-color)";
             yanlisSayisi++;
+            try { audioWrong.currentTime = 0; audioWrong.play(); } catch(e) {}
             
             buttons.forEach(b => {
                 if (b.textContent === dogruCevap) b.classList.add("correct");
@@ -606,7 +612,14 @@
     }
 
     function vibeUygulamasinaDon() {
-        window.location.href = "vibe://back"; 
+        // Diğer GeoQuiz oyunlarıyla (ünlü yerler, başkentler, hayvanlar) aynı
+        // yöntem: Vibe'a iframe postMessage ile doğru sayısına göre XP gönder
+        const xp = dogruSayisi * 3;
+        if (window.parent && window.parent !== window) {
+            window.parent.postMessage({ type: 'GEOQUIZ_DONE', correct: dogruSayisi, wrong: yanlisSayisi, empty: bosSayisi, xp: xp }, '*');
+        } else {
+            window.history.back();
+        }
     }
 </script>
 </body>
