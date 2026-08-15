@@ -958,6 +958,22 @@
   </div>
 </div>
 
+<!-- TUVAL (Renkler + Sayılar) MODAL -->
+<div id="canvas-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:600;align-items:center;justify-content:center;padding:.8rem">
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:1.3rem;width:100%;max-width:360px;max-height:85vh;overflow-y:auto">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem">
+      <span style="font-size:.9rem;font-weight:700;color:var(--text-bright)">🎨 Tuval</span>
+      <button onclick="closeCanvasModal()" style="background:none;border:none;color:var(--text-dim);font-size:1.2rem;cursor:pointer">✕</button>
+    </div>
+    <div id="canvas-body"></div>
+  </div>
+</div>
+<style>
+.canvas-tab-btn{background:var(--card2);border:1.5px solid var(--border2);border-radius:12px;padding:.8rem;font-size:.82rem;font-weight:700;color:var(--text-bright);cursor:pointer;text-align:left}
+.canvas-tab-btn:hover{border-color:var(--teal)}
+.canvas-back-btn{background:none;border:none;color:var(--text-dim);font-size:.68rem;cursor:pointer;padding:0}
+</style>
+
 <!-- GLOBE GAME SELECT MODAL -->
 <div id="globe-select-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:600;align-items:center;justify-content:center;">
   <div style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:1.5rem;width:88%;max-width:380px;display:flex;flex-direction:column;gap:1rem;">
@@ -2680,7 +2696,7 @@ const ROOMS = {
   living_room: { em:'🛋️', en:'Living Room', tr:'Salon',ru:'Гостиная', bg:7,badge:'SALON',
     obs:['wall_clock','tv','painting','lamp','radio','bookshelf','sofa','coffee_table','newspaper','lr_table','lr_chair'] },
   hobby_room:  { em:'🎮', en:'Hobby Room',  tr:'Hobi Odası',ru:'Хобби-комната', bg:9,badge:'HOBBY',
-    obs:['hr_computer_parts','hr_bookshelf','hr_dictionary','hr_trophy','hr_phone','hr_radio','hr_guitar','hr_globe'] },
+    obs:['hr_computer_parts','hr_bookshelf','hr_dictionary','hr_trophy','hr_phone','hr_radio','hr_guitar','hr_globe','hr_canvas'] },
 };
 // Fabrika ayarları — devReset() ve gerçek Gün 1 yeniden başlatmalarında ROOMS.*.obs'u buradan geri yükle
 const ROOMS_INITIAL = JSON.parse(JSON.stringify(ROOMS));
@@ -2791,6 +2807,7 @@ const OBJ = {
   hr_phone:    {d:'easy',  em:'📱', en:'Phone',    tr:'Telefon',ru:'Телефон',  ctx:'Your smartphone. Always in your pocket.',   recall:{c:'Telefon',   o:['Telefon','Tablet','Bilgisayar','Kumanda'],c_ru:'Телефон',o_ru:['Телефон','Планшет','Компьютер','Пульт']},       act:'open_phone',       ex:{en:'Your smartphone.',tr:'Akıllı telefon.',ru:'Your smartphone.'}},
   hr_guitar:   {bg:13,d:'easy',  em:'🎸', en:'Guitar',    tr:'Gitar',ru:'Гитара',    ctx:'An acoustic guitar. Strum the strings!',     recall:{c:'Gitar',     o:['Gitar','Keman','Piyano','Davul'],c_ru:'Гитара',o_ru:['Гитара','Скрипка','Пианино','Барабан']},               act:'open_guitar',      ex:{en:'An acoustic guitar!',tr:'Akustik bir gitar!',ru:'An acoustic guitar!'}},
   hr_globe:    {d:'medium', em:'🌍', en:'Globe',     tr:'Dünya Küresi',ru:'Глобус', ctx:'A globe showing famous landmarks around the world.', recall:{c:'Dünya Küresi', o:['Dünya Küresi','Harita','Teleskop','Pusula'],c_ru:'Глобус',o_ru:['Глобус','Карта','Телескоп','Компас']}, act:'open_globe', ex:{en:'A globe of the world!',tr:'Bir dünya küresi!',ru:'A globe of the world!'}},
+  hr_canvas:   {d:'easy', em:'🎨', en:'Canvas',    tr:'Tuval',ru:'Холст', ctx:'A canvas for learning colors and numbers.', recall:{c:'Tuval', o:['Tuval','Fırça','Boya','Kalem'],c_ru:'Холст',o_ru:['Холст','Кисть','Краска','Карандаш']}, act:'open_canvas', ex:{en:'A canvas full of colors and numbers!',tr:'Renk ve sayılarla dolu bir tuval!',ru:'A canvas full of colors and numbers!'}},
   // BEDROOM WARDROBE
   wardrobe:    {bg:14,d:'medium',em:'🧥',en:'Wardrobe',      tr:'Gardırop',ru:'Гардероб',       ctx:'Open the wardrobe to get dressed.',            recall:{c:'Gardırop',    o:['Dolap','Gardırop','Raf','Çekmece'],c_ru:'Гардероб',o_ru:['Шкаф','Гардероб','Полка','Ящик']},        act:'open_wardrobe',  ex:{en:'The wardrobe.',             tr:'Gardırop.',ru:'The wardrobe.'}},
   window_w:    {d:'easy',  em:'🪟',en:'Window',        tr:'Pencere',ru:'Окно',        ctx:'Open the window for fresh air.',               recall:{c:'Pencere',     o:['Kapı','Tavan','Pencere','Duvar'],c_ru:'Окно',o_ru:['Дверь','Потолок','Окно','Стена']},          act:'open_fresh_window',ex:{en:'The bedroom window.',      tr:'Yatak odası penceresi.',ru:'The bedroom window.'}},
@@ -3133,6 +3150,7 @@ const HOBBY_FEATURE_MAP = {
   hr_globe:      () => openGlobeGame(),
   hr_phone:      () => openPhoneModal(),
   hr_guitar:     () => openGuitarModal(),
+  hr_canvas:     () => openCanvasModal(),
 };
 
 function examineObj(key, btn) {
@@ -3304,7 +3322,7 @@ function handleAction(act, key, btn) {
   const st = G('scene-text');
   // Hobi odası özellikleri (bilgisayar oyunu, sözlük, kitaplık, radyo, gitar, küre, telefon, kupa)
   // sadece Gün 2'de aktif — Gün 1'de bu nesneler sadece normal kelime kartı gösterir.
-  const HOBBY_DAY2_ACTS = ['use_computer','open_dictionary','view_trophies','open_radio','open_guitar','open_globe','open_phone','open_bookshelf'];
+  const HOBBY_DAY2_ACTS = ['use_computer','open_dictionary','view_trophies','open_radio','open_guitar','open_globe','open_phone','open_bookshelf','open_canvas'];
   if (HOBBY_DAY2_ACTS.includes(act) && GS.day < 2) {
     showToast('🔒 Bu özellik Gün 2\'de kullanılabilir!');
     return;
@@ -4895,6 +4913,238 @@ function renderFridgeGrid(keys) {
     };
     grid.appendChild(btn);
   });
+}
+
+// ══════════════════════════════════════════════════════════
+//  TUVAL — Renkler + Sayılar (A1 temel müfredat)
+// ══════════════════════════════════════════════════════════
+const CANVAS_IMG_BASE = 'https://raw.githubusercontent.com/emrullahyuksel06-cyber/vibe/main/assets/images/colors_numbers/';
+const CANVAS_COLOR_IMG_BASE = 'https://raw.githubusercontent.com/emrullahyuksel06-cyber/vibe/main/assets/images/colors/';
+
+const COLOR_LIST = ['red','blue','yellow','green','orange','purple','pink','black','white','brown'];
+const CANVAS_SWATCH = { red:'#e05555', blue:'#4f8ef7', yellow:'#f0c040', green:'#2ecc71', orange:'#f5a623', purple:'#9b6dff', pink:'#ff6fa5', black:'#1a1a2e', white:'#e8ecf8', brown:'#8b5a2b' };
+const COLOR_LABEL = {
+  red:{tr:'Kırmızı',en:'Red'}, blue:{tr:'Mavi',en:'Blue'}, yellow:{tr:'Sarı',en:'Yellow'},
+  green:{tr:'Yeşil',en:'Green'}, orange:{tr:'Turuncu',en:'Orange'}, purple:{tr:'Mor',en:'Purple'},
+  pink:{tr:'Pembe',en:'Pink'}, black:{tr:'Siyah',en:'Black'}, white:{tr:'Beyaz',en:'White'}, brown:{tr:'Kahverengi',en:'Brown'}
+};
+const COLOR_EXAMPLES = {
+  red:    [{tr:'kırmızı araba',en:'red car'},{tr:'kırmızı balon',en:'red balloon'},{tr:'kırmızı top',en:'red ball'},{tr:'kırmızı tişört',en:'red t-shirt'}],
+  blue:   [{tr:'mavi bisiklet',en:'blue bicycle'},{tr:'mavi şemsiye',en:'blue umbrella'},{tr:'mavi ayakkabı',en:'blue shoes'},{tr:'mavi balon',en:'blue balloon'}],
+  yellow: [{tr:'sarı bisiklet',en:'yellow bicycle'},{tr:'sarı motor',en:'yellow motorcycle'},{tr:'sarı taksi',en:'yellow taxi'},{tr:'sarı eldiven',en:'yellow glove'}],
+  green:  [{tr:'yeşil elma',en:'green apple'},{tr:'yeşil yaprak',en:'green leaf'},{tr:'yeşil bisiklet',en:'green bicycle'},{tr:'yeşil tişört',en:'green t-shirt'}],
+  orange: [{tr:'turuncu portakal',en:'orange fruit'},{tr:'turuncu balon',en:'orange balloon'},{tr:'turuncu şemsiye',en:'orange umbrella'},{tr:'turuncu top',en:'orange ball'}],
+  purple: [{tr:'mor çiçek',en:'purple flower'},{tr:'mor şemsiye',en:'purple umbrella'},{tr:'mor tişört',en:'purple t-shirt'},{tr:'mor üzüm',en:'purple grapes'}],
+  pink:   [{tr:'pembe çiçek',en:'pink flower'},{tr:'pembe ayakkabı',en:'pink shoes'},{tr:'pembe balon',en:'pink balloon'},{tr:'pembe şemsiye',en:'pink umbrella'}],
+  black:  [{tr:'siyah şapka',en:'black hat'},{tr:'siyah ayakkabı',en:'black shoes'},{tr:'siyah gözlük',en:'black glasses'},{tr:'siyah çanta',en:'black bag'}],
+  white:  [{tr:'beyaz tişört',en:'white t-shirt'},{tr:'beyaz ayakkabı',en:'white shoes'},{tr:'beyaz papatya',en:'white daisy'},{tr:'beyaz tavşan',en:'white rabbit'}],
+  brown:  [{tr:'kahverengi oyuncak ayı',en:'brown teddy bear'},{tr:'kahverengi çanta',en:'brown bag'},{tr:'kahverengi ayakkabı',en:'brown shoes'},{tr:'kahverengi kutu',en:'brown box'}],
+};
+
+const NUMBER_SINGLE = [
+  {n:1,tr:'1 yeşil elma',en:'1 green apple'},{n:2,tr:'2 sarı bisiklet',en:'2 yellow bicycles'},
+  {n:3,tr:'3 mavi top',en:'3 blue balls'},{n:4,tr:'4 kırmızı araba',en:'4 red cars'},
+  {n:5,tr:'5 mor balon',en:'5 purple balloons'},{n:6,tr:'6 turuncu şemsiye',en:'6 orange umbrellas'},
+  {n:7,tr:'7 pembe çiçek',en:'7 pink flowers'},{n:8,tr:'8 siyah ayakkabı',en:'8 black shoes'},
+  {n:9,tr:'9 beyaz papatya',en:'9 white daisies'},{n:10,tr:'10 kahverengi yaprak',en:'10 brown leaves'},
+  {n:1,tr:'1 kırmızı şapka',en:'1 red hat'},{n:2,tr:'2 yeşil bisiklet',en:'2 green bicycles'},
+  {n:3,tr:'3 sarı balon',en:'3 yellow balloons'},{n:4,tr:'4 mavi şemsiye',en:'4 blue umbrellas'},
+  {n:5,tr:'5 turuncu top',en:'5 orange balls'},{n:6,tr:'6 mor üzüm',en:'6 purple grapes'},
+  {n:7,tr:'7 pembe balon',en:'7 pink balloons'},{n:8,tr:'8 beyaz ayakkabı',en:'8 white shoes'},
+  {n:9,tr:'9 siyah gözlük',en:'9 black glasses'},{n:10,tr:'10 kahverengi kutu',en:'10 brown boxes'}
+];
+
+const NUMBER_MIXED = [
+  {img:1, a:{n:3,tr:'mavi çiçek',en:'blue flowers'}, b:{n:2,tr:'kırmızı bisiklet',en:'red bicycles'}},
+  {img:2, a:{n:4,tr:'sarı balon',en:'yellow balloons'}, b:{n:1,tr:'yeşil top',en:'green ball'}},
+  {img:3, a:{n:2,tr:'mor şemsiye',en:'purple umbrellas'}, b:{n:5,tr:'turuncu elma',en:'orange apples'}},
+  {img:4, a:{n:3,tr:'siyah ayakkabı',en:'black shoes'}, b:{n:4,tr:'beyaz ayakkabı',en:'white shoes'}},
+  {img:5, a:{n:5,tr:'pembe balon',en:'pink balloons'}, b:{n:2,tr:'mavi balon',en:'blue balloons'}},
+  {img:6, a:{n:2,tr:'kahverengi kutu',en:'brown boxes'}, b:{n:3,tr:'sarı kutu',en:'yellow boxes'}},
+  {img:7, a:{n:4,tr:'kırmızı araba',en:'red cars'}, b:{n:2,tr:'mavi araba',en:'blue cars'}},
+  {img:8, a:{n:1,tr:'yeşil bisiklet',en:'green bicycle'}, b:{n:3,tr:'sarı bisiklet',en:'yellow bicycles'}},
+  {img:9, a:{n:3,tr:'mor üzüm',en:'purple grapes'}, b:{n:2,tr:'yeşil üzüm',en:'green grapes'}},
+  {img:10, a:{n:2,tr:'turuncu top',en:'orange balls'}, b:{n:4,tr:'kırmızı top',en:'red balls'}},
+];
+
+function tText(item) {
+  return (LANG.target === 'tr' ? item.tr : item.en) || item.en;
+}
+function shuffleArray(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }
+  return a;
+}
+function pickRandomOthers(list, exclude, count) {
+  return shuffleArray(list.filter(x => x !== exclude)).slice(0, count);
+}
+function pickRandomOthersNum(exclude, count, min, max) {
+  const pool = [];
+  for (let i = min; i <= max; i++) if (i !== exclude) pool.push(i);
+  return shuffleArray(pool).slice(0, count);
+}
+
+let _canvasQuiz = { active: false, round: 0, total: 5, correct: 0, mode: null };
+
+function openCanvasModal() { G('canvas-modal').style.display = 'flex'; showCanvasHome(); }
+function closeCanvasModal() { G('canvas-modal').style.display = 'none'; }
+
+function showCanvasHome() {
+  G('canvas-body').innerHTML = `
+    <div style="display:flex;flex-direction:column;gap:.6rem">
+      <button onclick="openCanvasColors()" class="canvas-tab-btn">🎨 Renkler</button>
+      <button onclick="openCanvasNumbers()" class="canvas-tab-btn">🔢 Sayılar</button>
+      <button onclick="openCanvasMixed()" class="canvas-tab-btn">🔀 Sayı + Renk</button>
+    </div>`;
+}
+
+// ── RENKLER ──
+function openCanvasColors() {
+  const grid = COLOR_LIST.map(c => `<button onclick="showColorGallery('${c}')" style="background:${CANVAS_SWATCH[c]};border:2px solid var(--border2);border-radius:10px;padding:.6rem;font-size:.7rem;font-weight:700;color:${c === 'white' ? '#000' : '#fff'};text-shadow:0 1px 3px rgba(0,0,0,.35);cursor:pointer">${COLOR_LABEL[c].tr}</button>`).join('');
+  G('canvas-body').innerHTML = `
+    <button onclick="showCanvasHome()" class="canvas-back-btn">← Geri</button>
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:.5rem;margin-top:.6rem">${grid}</div>
+    <button onclick="startColorQuiz()" style="width:100%;margin-top:.8rem;background:var(--teal-dim);border:1px solid var(--teal);color:var(--teal);border-radius:10px;padding:.6rem;font-weight:700;cursor:pointer">✓ Test Et</button>`;
+}
+function showColorGallery(colorKey) {
+  const examples = COLOR_EXAMPLES[colorKey];
+  const imgs = examples.map((ex, i) => `
+    <div onclick="AUD.speak('${tText(ex).replace(/'/g, "\\'")}')" style="cursor:pointer;text-align:center">
+      <img src="${CANVAS_COLOR_IMG_BASE}${colorKey}/${i + 1}.webp" style="width:100%;aspect-ratio:1;object-fit:cover;border-radius:10px;border:1px solid var(--border2)">
+      <div style="font-size:.6rem;color:var(--text-dim);margin-top:.2rem">🔊 ${tText(ex)}</div>
+    </div>`).join('');
+  G('canvas-body').innerHTML = `
+    <button onclick="openCanvasColors()" class="canvas-back-btn">← Renkler</button>
+    <div style="font-size:.85rem;font-weight:700;color:var(--text-bright);margin:.5rem 0">${COLOR_LABEL[colorKey].tr}</div>
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:.5rem">${imgs}</div>
+    <button onclick="startColorQuiz()" style="width:100%;margin-top:.8rem;background:var(--teal-dim);border:1px solid var(--teal);color:var(--teal);border-radius:10px;padding:.6rem;font-weight:700;cursor:pointer">✓ Test Et</button>`;
+}
+function startColorQuiz() { _canvasQuiz = { active: true, round: 0, total: 5, correct: 0, mode: 'colors' }; nextColorQuizRound(); }
+function nextColorQuizRound() {
+  if (_canvasQuiz.round >= _canvasQuiz.total) { finishCanvasQuiz(); return; }
+  _canvasQuiz.round++;
+  const colorKey = COLOR_LIST[Math.floor(Math.random() * COLOR_LIST.length)];
+  const exIdx = Math.floor(Math.random() * 4);
+  const imgUrl = `${CANVAS_COLOR_IMG_BASE}${colorKey}/${exIdx + 1}.webp`;
+  const options = shuffleArray([colorKey, ...pickRandomOthers(COLOR_LIST, colorKey, 3)]);
+  G('canvas-body').innerHTML = `
+    <div style="font-size:.62rem;color:var(--text-dim)">Soru ${_canvasQuiz.round}/${_canvasQuiz.total}</div>
+    <img src="${imgUrl}" style="width:100%;max-width:200px;aspect-ratio:1;object-fit:cover;border-radius:12px;border:1px solid var(--border2);margin:.5rem auto;display:block">
+    <div style="font-size:.78rem;color:var(--text-bright);text-align:center;margin-bottom:.6rem">Bu hangi renk?</div>
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:.4rem" id="canvas-quiz-opts">
+      ${options.map(c => `<button onclick="answerColorQuiz('${c}','${colorKey}')" style="background:var(--card2);border:1.5px solid var(--border2);border-radius:9px;padding:.55rem;font-size:.75rem;font-weight:600;color:var(--text);cursor:pointer">${COLOR_LABEL[c].tr}</button>`).join('')}
+    </div>`;
+}
+function answerColorQuiz(picked, correct) {
+  document.querySelectorAll('#canvas-quiz-opts button').forEach(b => b.disabled = true);
+  const isCorrect = picked === correct;
+  if (isCorrect) _canvasQuiz.correct++;
+  AUD.speak(tText(COLOR_LABEL[correct]));
+  showToast(isCorrect ? '✅ Doğru!' : '❌ Doğrusu: ' + COLOR_LABEL[correct].tr);
+  setTimeout(nextColorQuizRound, 1600);
+}
+
+// ── SAYILAR ──
+let _canvasGalleryIdx = 0;
+function openCanvasNumbers() { _canvasGalleryIdx = 0; renderNumberGalleryItem(); }
+function renderNumberGalleryItem() {
+  const item = NUMBER_SINGLE[_canvasGalleryIdx];
+  const imgUrl = `${CANVAS_IMG_BASE}single/${_canvasGalleryIdx + 1}.webp`;
+  G('canvas-body').innerHTML = `
+    <button onclick="showCanvasHome()" class="canvas-back-btn">← Geri</button>
+    <div onclick="AUD.speak('${tText(item).replace(/'/g, "\\'")}')" style="cursor:pointer;text-align:center;margin-top:.5rem">
+      <img src="${imgUrl}" style="width:100%;max-width:220px;aspect-ratio:1;object-fit:cover;border-radius:12px;border:1px solid var(--border2)">
+      <div style="font-size:.7rem;color:var(--text-dim);margin-top:.3rem">🔊 ${tText(item)}</div>
+    </div>
+    <div style="display:flex;justify-content:space-between;margin-top:.6rem;align-items:center">
+      <button onclick="canvasNumberNav(-1)" style="background:var(--card2);border:1px solid var(--border2);border-radius:8px;padding:.4rem .8rem;color:var(--text);cursor:pointer">‹ Önceki</button>
+      <span style="font-size:.65rem;color:var(--text-dim)">${_canvasGalleryIdx + 1}/${NUMBER_SINGLE.length}</span>
+      <button onclick="canvasNumberNav(1)" style="background:var(--card2);border:1px solid var(--border2);border-radius:8px;padding:.4rem .8rem;color:var(--text);cursor:pointer">Sonraki ›</button>
+    </div>
+    <button onclick="startNumberQuiz()" style="width:100%;margin-top:.8rem;background:var(--teal-dim);border:1px solid var(--teal);color:var(--teal);border-radius:10px;padding:.6rem;font-weight:700;cursor:pointer">✓ Test Et</button>`;
+}
+function canvasNumberNav(dir) { _canvasGalleryIdx = Math.max(0, Math.min(NUMBER_SINGLE.length - 1, _canvasGalleryIdx + dir)); renderNumberGalleryItem(); }
+function startNumberQuiz() { _canvasQuiz = { active: true, round: 0, total: 5, correct: 0, mode: 'numbers' }; nextNumberQuizRound(); }
+function nextNumberQuizRound() {
+  if (_canvasQuiz.round >= _canvasQuiz.total) { finishCanvasQuiz(); return; }
+  _canvasQuiz.round++;
+  const idx = Math.floor(Math.random() * NUMBER_SINGLE.length);
+  const item = NUMBER_SINGLE[idx];
+  const imgUrl = `${CANVAS_IMG_BASE}single/${idx + 1}.webp`;
+  const options = shuffleArray([item.n, ...pickRandomOthersNum(item.n, 3, 1, 10)]);
+  G('canvas-body').innerHTML = `
+    <div style="font-size:.62rem;color:var(--text-dim)">Soru ${_canvasQuiz.round}/${_canvasQuiz.total}</div>
+    <img src="${imgUrl}" style="width:100%;max-width:200px;aspect-ratio:1;object-fit:cover;border-radius:12px;border:1px solid var(--border2);margin:.5rem auto;display:block">
+    <div style="font-size:.78rem;color:var(--text-bright);text-align:center;margin-bottom:.6rem">Kaç tane var?</div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:.4rem" id="canvas-quiz-opts">
+      ${options.map(n => `<button onclick="answerNumberQuiz(${n},${item.n},${idx})" style="background:var(--card2);border:1.5px solid var(--border2);border-radius:9px;padding:.55rem;font-size:.85rem;font-weight:700;color:var(--text);cursor:pointer">${n}</button>`).join('')}
+    </div>`;
+}
+function answerNumberQuiz(picked, correct, idx) {
+  document.querySelectorAll('#canvas-quiz-opts button').forEach(b => b.disabled = true);
+  const isCorrect = picked === correct;
+  if (isCorrect) _canvasQuiz.correct++;
+  AUD.speak(tText(NUMBER_SINGLE[idx]));
+  showToast(isCorrect ? '✅ Doğru!' : '❌ Doğrusu: ' + correct);
+  setTimeout(nextNumberQuizRound, 1600);
+}
+
+// ── KARIŞIK (Sayı + Renk) ──
+function openCanvasMixed() { _canvasGalleryIdx = 0; renderMixedGalleryItem(); }
+function renderMixedGalleryItem() {
+  const item = NUMBER_MIXED[_canvasGalleryIdx];
+  const imgUrl = `${CANVAS_IMG_BASE}mixed/${item.img}.webp`;
+  G('canvas-body').innerHTML = `
+    <button onclick="showCanvasHome()" class="canvas-back-btn">← Geri</button>
+    <div onclick="AUD.speak('${item.a.n} ${tText(item.a).replace(/'/g, "\\'")}, ${item.b.n} ${tText(item.b).replace(/'/g, "\\'")}')" style="cursor:pointer;text-align:center;margin-top:.5rem">
+      <img src="${imgUrl}" style="width:100%;max-width:220px;aspect-ratio:1;object-fit:cover;border-radius:12px;border:1px solid var(--border2)">
+      <div style="font-size:.66rem;color:var(--text-dim);margin-top:.3rem">🔊 ${item.a.n} ${tText(item.a)}, ${item.b.n} ${tText(item.b)}</div>
+    </div>
+    <div style="display:flex;justify-content:space-between;margin-top:.6rem;align-items:center">
+      <button onclick="canvasMixedNav(-1)" style="background:var(--card2);border:1px solid var(--border2);border-radius:8px;padding:.4rem .8rem;color:var(--text);cursor:pointer">‹ Önceki</button>
+      <span style="font-size:.65rem;color:var(--text-dim)">${_canvasGalleryIdx + 1}/${NUMBER_MIXED.length}</span>
+      <button onclick="canvasMixedNav(1)" style="background:var(--card2);border:1px solid var(--border2);border-radius:8px;padding:.4rem .8rem;color:var(--text);cursor:pointer">Sonraki ›</button>
+    </div>
+    <button onclick="startMixedQuiz()" style="width:100%;margin-top:.8rem;background:var(--teal-dim);border:1px solid var(--teal);color:var(--teal);border-radius:10px;padding:.6rem;font-weight:700;cursor:pointer">✓ Test Et</button>`;
+}
+function canvasMixedNav(dir) { _canvasGalleryIdx = Math.max(0, Math.min(NUMBER_MIXED.length - 1, _canvasGalleryIdx + dir)); renderMixedGalleryItem(); }
+function startMixedQuiz() { _canvasQuiz = { active: true, round: 0, total: 5, correct: 0, mode: 'mixed' }; nextMixedQuizRound(); }
+function nextMixedQuizRound() {
+  if (_canvasQuiz.round >= _canvasQuiz.total) { finishCanvasQuiz(); return; }
+  _canvasQuiz.round++;
+  const idx = Math.floor(Math.random() * NUMBER_MIXED.length);
+  const item = NUMBER_MIXED[idx];
+  const target = Math.random() < 0.5 ? item.a : item.b;
+  const imgUrl = `${CANVAS_IMG_BASE}mixed/${item.img}.webp`;
+  const options = shuffleArray([target.n, ...pickRandomOthersNum(target.n, 3, 1, 6)]);
+  const label = tText(target).replace(/'/g, "\\'");
+  G('canvas-body').innerHTML = `
+    <div style="font-size:.62rem;color:var(--text-dim)">Soru ${_canvasQuiz.round}/${_canvasQuiz.total}</div>
+    <img src="${imgUrl}" style="width:100%;max-width:200px;aspect-ratio:1;object-fit:cover;border-radius:12px;border:1px solid var(--border2);margin:.5rem auto;display:block">
+    <div style="font-size:.78rem;color:var(--text-bright);text-align:center;margin-bottom:.6rem">Kaç tane ${tText(target)} var?</div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:.4rem" id="canvas-quiz-opts">
+      ${options.map(n => `<button onclick="answerMixedQuiz(${n},${target.n},'${label}')" style="background:var(--card2);border:1.5px solid var(--border2);border-radius:9px;padding:.55rem;font-size:.85rem;font-weight:700;color:var(--text);cursor:pointer">${n}</button>`).join('')}
+    </div>`;
+}
+function answerMixedQuiz(picked, correct, label) {
+  document.querySelectorAll('#canvas-quiz-opts button').forEach(b => b.disabled = true);
+  const isCorrect = picked === correct;
+  if (isCorrect) _canvasQuiz.correct++;
+  AUD.speak(correct + ' ' + label);
+  showToast(isCorrect ? '✅ Doğru!' : '❌ Doğrusu: ' + correct);
+  setTimeout(nextMixedQuizRound, 1600);
+}
+
+function finishCanvasQuiz() {
+  const xp = _canvasQuiz.correct * 2;
+  if (xp > 0) addXP(xp);
+  G('canvas-body').innerHTML = `
+    <div style="text-align:center;padding:1rem 0">
+      <div style="font-size:2rem">${_canvasQuiz.correct === _canvasQuiz.total ? '🏆' : '👍'}</div>
+      <div style="font-size:.9rem;font-weight:700;color:var(--text-bright);margin-top:.4rem">${_canvasQuiz.correct}/${_canvasQuiz.total} doğru!</div>
+      <div style="font-size:.7rem;color:var(--gold);margin-top:.3rem">+${xp} XP</div>
+      <button onclick="showCanvasHome()" style="margin-top:1rem;background:var(--teal-dim);border:1px solid var(--teal);color:var(--teal);border-radius:10px;padding:.6rem 1.2rem;font-weight:700;cursor:pointer">Tamam</button>
+    </div>`;
 }
 
 function openGuitarModal() {
