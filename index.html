@@ -4967,8 +4967,36 @@ const NUMBER_MIXED = [
   {img:10, a:{n:2,tr:'turuncu top',en:'orange balls'}, b:{n:4,tr:'kırmızı top',en:'red balls'}},
 ];
 
-function tText(item) {
-  return (LANG.target === 'tr' ? item.tr : item.en) || item.en;
+const NUMBER_WORDS = {
+  1:{tr:'Bir',en:'One'}, 2:{tr:'İki',en:'Two'}, 3:{tr:'Üç',en:'Three'}, 4:{tr:'Dört',en:'Four'},
+  5:{tr:'Beş',en:'Five'}, 6:{tr:'Altı',en:'Six'}, 7:{tr:'Yedi',en:'Seven'}, 8:{tr:'Sekiz',en:'Eight'},
+  9:{tr:'Dokuz',en:'Nine'}, 10:{tr:'On',en:'Ten'}
+};
+
+// UI metinleri — soru/buton yazıları öğrenilen dilde, altlarında küçük ana dil çevirisi
+const CANVAS_UI = {
+  colors: {tr:'Renkler', en:'Colors'},
+  numbers: {tr:'Sayılar', en:'Numbers'},
+  mixed: {tr:'Sayı + Renk', en:'Numbers + Colors'},
+  back: {tr:'Geri', en:'Back'},
+  test: {tr:'Test Et', en:'Test'},
+  prev: {tr:'‹ Önceki', en:'‹ Previous'},
+  next: {tr:'Sonraki ›', en:'Next ›'},
+  question: {tr:'Soru', en:'Question'},
+  whatColor: {tr:'Bu hangi renk?', en:'What color is this?'},
+  howManyPrefix: {tr:'Kaç tane', en:'How many'},
+  howManySuffix: {tr:'var?', en:'are there?'},
+  ok: {tr:'Tamam', en:'OK'},
+  scoreLine: {tr:'doğru', en:'correct'},
+  sentence: {tr:'Cümle Tamamla', en:'Complete the Sentence'},
+  confirm: {tr:'Onayla', en:'Confirm'},
+  correctWas: {tr:'Doğrusu:', en:'Correct answer:'},
+};
+
+// t()/nt() zaten uygulamada var: t(obj)=hedef dil, nt(obj)=ana dil
+function biLabel(item) {
+  // Küçük ekranda: hedef dil büyük, ana dil altında küçük/soluk (WORD-CARD ile aynı mantık)
+  return `<div>${t(item)}</div><div style="font-size:.7em;color:var(--text-dim);font-style:italic">${nt(item)}</div>`;
 }
 function shuffleArray(arr) {
   const a = [...arr];
@@ -4992,32 +5020,34 @@ function closeCanvasModal() { G('canvas-modal').style.display = 'none'; }
 function showCanvasHome() {
   G('canvas-body').innerHTML = `
     <div style="display:flex;flex-direction:column;gap:.6rem">
-      <button onclick="openCanvasColors()" class="canvas-tab-btn">🎨 Renkler</button>
-      <button onclick="openCanvasNumbers()" class="canvas-tab-btn">🔢 Sayılar</button>
-      <button onclick="openCanvasMixed()" class="canvas-tab-btn">🔀 Sayı + Renk</button>
+      <button onclick="openCanvasColors()" class="canvas-tab-btn">🎨 ${biLabel(CANVAS_UI.colors)}</button>
+      <button onclick="openCanvasNumbers()" class="canvas-tab-btn">🔢 ${biLabel(CANVAS_UI.numbers)}</button>
+      <button onclick="openCanvasMixed()" class="canvas-tab-btn">🔀 ${biLabel(CANVAS_UI.mixed)}</button>
+      <button onclick="startSentenceQuiz()" class="canvas-tab-btn">📝 ${biLabel(CANVAS_UI.sentence)}</button>
     </div>`;
 }
 
 // ── RENKLER ──
 function openCanvasColors() {
-  const grid = COLOR_LIST.map(c => `<button onclick="showColorGallery('${c}')" style="background:${CANVAS_SWATCH[c]};border:2px solid var(--border2);border-radius:10px;padding:.6rem;font-size:.7rem;font-weight:700;color:${c === 'white' ? '#000' : '#fff'};text-shadow:0 1px 3px rgba(0,0,0,.35);cursor:pointer">${COLOR_LABEL[c].tr}</button>`).join('');
+  const grid = COLOR_LIST.map(c => `<button onclick="showColorGallery('${c}')" style="background:${CANVAS_SWATCH[c]};border:2px solid var(--border2);border-radius:10px;padding:.6rem;font-size:.7rem;font-weight:700;color:${c === 'white' ? '#000' : '#fff'};text-shadow:0 1px 3px rgba(0,0,0,.35);cursor:pointer">${t(COLOR_LABEL[c])}</button>`).join('');
   G('canvas-body').innerHTML = `
-    <button onclick="showCanvasHome()" class="canvas-back-btn">← Geri</button>
+    <button onclick="showCanvasHome()" class="canvas-back-btn">← ${t(CANVAS_UI.back)}</button>
     <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:.5rem;margin-top:.6rem">${grid}</div>
-    <button onclick="startColorQuiz()" style="width:100%;margin-top:.8rem;background:var(--teal-dim);border:1px solid var(--teal);color:var(--teal);border-radius:10px;padding:.6rem;font-weight:700;cursor:pointer">✓ Test Et</button>`;
+    <button onclick="startColorQuiz()" style="width:100%;margin-top:.8rem;background:var(--teal-dim);border:1px solid var(--teal);color:var(--teal);border-radius:10px;padding:.6rem;font-weight:700;cursor:pointer">✓ ${t(CANVAS_UI.test)}</button>`;
 }
 function showColorGallery(colorKey) {
   const examples = COLOR_EXAMPLES[colorKey];
   const imgs = examples.map((ex, i) => `
-    <div onclick="AUD.speak('${tText(ex).replace(/'/g, "\\'")}')" style="cursor:pointer;text-align:center">
+    <div onclick="AUD.speak('${t(ex).replace(/'/g, "\\'")}')" style="cursor:pointer;text-align:center">
       <img src="${CANVAS_COLOR_IMG_BASE}${colorKey}/${i + 1}.webp" style="width:100%;aspect-ratio:1;object-fit:cover;border-radius:10px;border:1px solid var(--border2)">
-      <div style="font-size:.6rem;color:var(--text-dim);margin-top:.2rem">🔊 ${tText(ex)}</div>
+      <div style="font-size:.62rem;color:var(--text-bright);margin-top:.2rem">🔊 ${t(ex)}</div>
+      <div style="font-size:.56rem;color:var(--text-dim);font-style:italic">${nt(ex)}</div>
     </div>`).join('');
   G('canvas-body').innerHTML = `
-    <button onclick="openCanvasColors()" class="canvas-back-btn">← Renkler</button>
-    <div style="font-size:.85rem;font-weight:700;color:var(--text-bright);margin:.5rem 0">${COLOR_LABEL[colorKey].tr}</div>
+    <button onclick="openCanvasColors()" class="canvas-back-btn">← ${t(CANVAS_UI.colors)}</button>
+    <div style="font-size:.85rem;font-weight:700;color:var(--text-bright);margin:.5rem 0">${t(COLOR_LABEL[colorKey])} <span style="font-size:.7rem;color:var(--text-dim);font-style:italic">(${nt(COLOR_LABEL[colorKey])})</span></div>
     <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:.5rem">${imgs}</div>
-    <button onclick="startColorQuiz()" style="width:100%;margin-top:.8rem;background:var(--teal-dim);border:1px solid var(--teal);color:var(--teal);border-radius:10px;padding:.6rem;font-weight:700;cursor:pointer">✓ Test Et</button>`;
+    <button onclick="startColorQuiz()" style="width:100%;margin-top:.8rem;background:var(--teal-dim);border:1px solid var(--teal);color:var(--teal);border-radius:10px;padding:.6rem;font-weight:700;cursor:pointer">✓ ${t(CANVAS_UI.test)}</button>`;
 }
 function startColorQuiz() { _canvasQuiz = { active: true, round: 0, total: 5, correct: 0, mode: 'colors' }; nextColorQuizRound(); }
 function nextColorQuizRound() {
@@ -5028,20 +5058,24 @@ function nextColorQuizRound() {
   const imgUrl = `${CANVAS_COLOR_IMG_BASE}${colorKey}/${exIdx + 1}.webp`;
   const options = shuffleArray([colorKey, ...pickRandomOthers(COLOR_LIST, colorKey, 3)]);
   G('canvas-body').innerHTML = `
-    <div style="font-size:.62rem;color:var(--text-dim)">Soru ${_canvasQuiz.round}/${_canvasQuiz.total}</div>
+    <div style="font-size:.62rem;color:var(--text-dim)">${t(CANVAS_UI.question)} ${_canvasQuiz.round}/${_canvasQuiz.total}</div>
     <img src="${imgUrl}" style="width:100%;max-width:200px;aspect-ratio:1;object-fit:cover;border-radius:12px;border:1px solid var(--border2);margin:.5rem auto;display:block">
-    <div style="font-size:.78rem;color:var(--text-bright);text-align:center;margin-bottom:.6rem">Bu hangi renk?</div>
+    <div style="font-size:.78rem;color:var(--text-bright);text-align:center">${t(CANVAS_UI.whatColor)}</div>
+    <div style="font-size:.64rem;color:var(--text-dim);text-align:center;font-style:italic;margin-bottom:.6rem">${nt(CANVAS_UI.whatColor)}</div>
     <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:.4rem" id="canvas-quiz-opts">
-      ${options.map(c => `<button onclick="answerColorQuiz('${c}','${colorKey}')" style="background:var(--card2);border:1.5px solid var(--border2);border-radius:9px;padding:.55rem;font-size:.75rem;font-weight:600;color:var(--text);cursor:pointer">${COLOR_LABEL[c].tr}</button>`).join('')}
+      ${options.map(c => `<button id="opt-${c}" onclick="answerColorQuiz('${c}','${colorKey}')" style="background:var(--card2);border:1.5px solid var(--border2);border-radius:9px;padding:.55rem;font-size:.75rem;font-weight:600;color:var(--text);cursor:pointer">${t(COLOR_LABEL[c])}</button>`).join('')}
     </div>`;
 }
 function answerColorQuiz(picked, correct) {
   document.querySelectorAll('#canvas-quiz-opts button').forEach(b => b.disabled = true);
   const isCorrect = picked === correct;
   if (isCorrect) _canvasQuiz.correct++;
-  AUD.speak(tText(COLOR_LABEL[correct]));
-  showToast(isCorrect ? '✅ Doğru!' : '❌ Doğrusu: ' + COLOR_LABEL[correct].tr);
-  setTimeout(nextColorQuizRound, 1600);
+  const correctBtn = G('opt-' + correct);
+  if (correctBtn) { correctBtn.style.borderColor = 'var(--green)'; correctBtn.style.background = 'var(--green-dim)'; correctBtn.style.color = 'var(--green)'; }
+  if (!isCorrect) { const wrongBtn = G('opt-' + picked); if (wrongBtn) { wrongBtn.style.borderColor = 'var(--red)'; wrongBtn.style.background = 'var(--red-dim)'; wrongBtn.style.color = 'var(--red)'; } }
+  AUD.speak(t(COLOR_LABEL[correct]));
+  showToast((isCorrect ? '✅' : '❌') + ' ' + t(COLOR_LABEL[correct]) + ' (' + nt(COLOR_LABEL[correct]) + ')');
+  setTimeout(nextColorQuizRound, 1800);
 }
 
 // ── SAYILAR ──
@@ -5051,17 +5085,18 @@ function renderNumberGalleryItem() {
   const item = NUMBER_SINGLE[_canvasGalleryIdx];
   const imgUrl = `${CANVAS_IMG_BASE}single/${_canvasGalleryIdx + 1}.webp`;
   G('canvas-body').innerHTML = `
-    <button onclick="showCanvasHome()" class="canvas-back-btn">← Geri</button>
-    <div onclick="AUD.speak('${tText(item).replace(/'/g, "\\'")}')" style="cursor:pointer;text-align:center;margin-top:.5rem">
+    <button onclick="showCanvasHome()" class="canvas-back-btn">← ${t(CANVAS_UI.back)}</button>
+    <div onclick="AUD.speak('${t(item).replace(/'/g, "\\'")}')" style="cursor:pointer;text-align:center;margin-top:.5rem">
       <img src="${imgUrl}" style="width:100%;max-width:220px;aspect-ratio:1;object-fit:cover;border-radius:12px;border:1px solid var(--border2)">
-      <div style="font-size:.7rem;color:var(--text-dim);margin-top:.3rem">🔊 ${tText(item)}</div>
+      <div style="font-size:.7rem;color:var(--text-bright);margin-top:.3rem">🔊 ${t(item)}</div>
+      <div style="font-size:.62rem;color:var(--text-dim);font-style:italic">${nt(item)}</div>
     </div>
     <div style="display:flex;justify-content:space-between;margin-top:.6rem;align-items:center">
-      <button onclick="canvasNumberNav(-1)" style="background:var(--card2);border:1px solid var(--border2);border-radius:8px;padding:.4rem .8rem;color:var(--text);cursor:pointer">‹ Önceki</button>
+      <button onclick="canvasNumberNav(-1)" style="background:var(--card2);border:1px solid var(--border2);border-radius:8px;padding:.4rem .8rem;color:var(--text);cursor:pointer">${t(CANVAS_UI.prev)}</button>
       <span style="font-size:.65rem;color:var(--text-dim)">${_canvasGalleryIdx + 1}/${NUMBER_SINGLE.length}</span>
-      <button onclick="canvasNumberNav(1)" style="background:var(--card2);border:1px solid var(--border2);border-radius:8px;padding:.4rem .8rem;color:var(--text);cursor:pointer">Sonraki ›</button>
+      <button onclick="canvasNumberNav(1)" style="background:var(--card2);border:1px solid var(--border2);border-radius:8px;padding:.4rem .8rem;color:var(--text);cursor:pointer">${t(CANVAS_UI.next)}</button>
     </div>
-    <button onclick="startNumberQuiz()" style="width:100%;margin-top:.8rem;background:var(--teal-dim);border:1px solid var(--teal);color:var(--teal);border-radius:10px;padding:.6rem;font-weight:700;cursor:pointer">✓ Test Et</button>`;
+    <button onclick="startNumberQuiz()" style="width:100%;margin-top:.8rem;background:var(--teal-dim);border:1px solid var(--teal);color:var(--teal);border-radius:10px;padding:.6rem;font-weight:700;cursor:pointer">✓ ${t(CANVAS_UI.test)}</button>`;
 }
 function canvasNumberNav(dir) { _canvasGalleryIdx = Math.max(0, Math.min(NUMBER_SINGLE.length - 1, _canvasGalleryIdx + dir)); renderNumberGalleryItem(); }
 function startNumberQuiz() { _canvasQuiz = { active: true, round: 0, total: 5, correct: 0, mode: 'numbers' }; nextNumberQuizRound(); }
@@ -5073,20 +5108,24 @@ function nextNumberQuizRound() {
   const imgUrl = `${CANVAS_IMG_BASE}single/${idx + 1}.webp`;
   const options = shuffleArray([item.n, ...pickRandomOthersNum(item.n, 3, 1, 10)]);
   G('canvas-body').innerHTML = `
-    <div style="font-size:.62rem;color:var(--text-dim)">Soru ${_canvasQuiz.round}/${_canvasQuiz.total}</div>
+    <div style="font-size:.62rem;color:var(--text-dim)">${t(CANVAS_UI.question)} ${_canvasQuiz.round}/${_canvasQuiz.total}</div>
     <img src="${imgUrl}" style="width:100%;max-width:200px;aspect-ratio:1;object-fit:cover;border-radius:12px;border:1px solid var(--border2);margin:.5rem auto;display:block">
-    <div style="font-size:.78rem;color:var(--text-bright);text-align:center;margin-bottom:.6rem">Kaç tane var?</div>
+    <div style="font-size:.78rem;color:var(--text-bright);text-align:center">${t(CANVAS_UI.howManyPrefix)} ${t(CANVAS_UI.howManySuffix)}</div>
+    <div style="font-size:.64rem;color:var(--text-dim);text-align:center;font-style:italic;margin-bottom:.6rem">${nt(CANVAS_UI.howManyPrefix)} ${nt(CANVAS_UI.howManySuffix)}</div>
     <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:.4rem" id="canvas-quiz-opts">
-      ${options.map(n => `<button onclick="answerNumberQuiz(${n},${item.n},${idx})" style="background:var(--card2);border:1.5px solid var(--border2);border-radius:9px;padding:.55rem;font-size:.85rem;font-weight:700;color:var(--text);cursor:pointer">${n}</button>`).join('')}
+      ${options.map(n => `<button id="opt-${n}" onclick="answerNumberQuiz(${n},${item.n},${idx})" style="background:var(--card2);border:1.5px solid var(--border2);border-radius:9px;padding:.55rem;font-size:.78rem;font-weight:700;color:var(--text);cursor:pointer">${t(NUMBER_WORDS[n])}</button>`).join('')}
     </div>`;
 }
 function answerNumberQuiz(picked, correct, idx) {
   document.querySelectorAll('#canvas-quiz-opts button').forEach(b => b.disabled = true);
   const isCorrect = picked === correct;
   if (isCorrect) _canvasQuiz.correct++;
-  AUD.speak(tText(NUMBER_SINGLE[idx]));
-  showToast(isCorrect ? '✅ Doğru!' : '❌ Doğrusu: ' + correct);
-  setTimeout(nextNumberQuizRound, 1600);
+  const correctBtn = G('opt-' + correct);
+  if (correctBtn) { correctBtn.style.borderColor = 'var(--green)'; correctBtn.style.background = 'var(--green-dim)'; correctBtn.style.color = 'var(--green)'; }
+  if (!isCorrect) { const wrongBtn = G('opt-' + picked); if (wrongBtn) { wrongBtn.style.borderColor = 'var(--red)'; wrongBtn.style.background = 'var(--red-dim)'; wrongBtn.style.color = 'var(--red)'; } }
+  AUD.speak(t(NUMBER_SINGLE[idx]));
+  showToast((isCorrect ? '✅' : '❌') + ' ' + t(NUMBER_SINGLE[idx]) + ' (' + nt(NUMBER_SINGLE[idx]) + ')');
+  setTimeout(nextNumberQuizRound, 1800);
 }
 
 // ── KARIŞIK (Sayı + Renk) ──
@@ -5094,18 +5133,21 @@ function openCanvasMixed() { _canvasGalleryIdx = 0; renderMixedGalleryItem(); }
 function renderMixedGalleryItem() {
   const item = NUMBER_MIXED[_canvasGalleryIdx];
   const imgUrl = `${CANVAS_IMG_BASE}mixed/${item.img}.webp`;
+  const fullTarget = item.a.n + ' ' + t(item.a) + ', ' + item.b.n + ' ' + t(item.b);
+  const fullNative = item.a.n + ' ' + nt(item.a) + ', ' + item.b.n + ' ' + nt(item.b);
   G('canvas-body').innerHTML = `
-    <button onclick="showCanvasHome()" class="canvas-back-btn">← Geri</button>
-    <div onclick="AUD.speak('${item.a.n} ${tText(item.a).replace(/'/g, "\\'")}, ${item.b.n} ${tText(item.b).replace(/'/g, "\\'")}')" style="cursor:pointer;text-align:center;margin-top:.5rem">
+    <button onclick="showCanvasHome()" class="canvas-back-btn">← ${t(CANVAS_UI.back)}</button>
+    <div onclick="AUD.speak('${fullTarget.replace(/'/g, "\\'")}')" style="cursor:pointer;text-align:center;margin-top:.5rem">
       <img src="${imgUrl}" style="width:100%;max-width:220px;aspect-ratio:1;object-fit:cover;border-radius:12px;border:1px solid var(--border2)">
-      <div style="font-size:.66rem;color:var(--text-dim);margin-top:.3rem">🔊 ${item.a.n} ${tText(item.a)}, ${item.b.n} ${tText(item.b)}</div>
+      <div style="font-size:.66rem;color:var(--text-bright);margin-top:.3rem">🔊 ${fullTarget}</div>
+      <div style="font-size:.58rem;color:var(--text-dim);font-style:italic">${fullNative}</div>
     </div>
     <div style="display:flex;justify-content:space-between;margin-top:.6rem;align-items:center">
-      <button onclick="canvasMixedNav(-1)" style="background:var(--card2);border:1px solid var(--border2);border-radius:8px;padding:.4rem .8rem;color:var(--text);cursor:pointer">‹ Önceki</button>
+      <button onclick="canvasMixedNav(-1)" style="background:var(--card2);border:1px solid var(--border2);border-radius:8px;padding:.4rem .8rem;color:var(--text);cursor:pointer">${t(CANVAS_UI.prev)}</button>
       <span style="font-size:.65rem;color:var(--text-dim)">${_canvasGalleryIdx + 1}/${NUMBER_MIXED.length}</span>
-      <button onclick="canvasMixedNav(1)" style="background:var(--card2);border:1px solid var(--border2);border-radius:8px;padding:.4rem .8rem;color:var(--text);cursor:pointer">Sonraki ›</button>
+      <button onclick="canvasMixedNav(1)" style="background:var(--card2);border:1px solid var(--border2);border-radius:8px;padding:.4rem .8rem;color:var(--text);cursor:pointer">${t(CANVAS_UI.next)}</button>
     </div>
-    <button onclick="startMixedQuiz()" style="width:100%;margin-top:.8rem;background:var(--teal-dim);border:1px solid var(--teal);color:var(--teal);border-radius:10px;padding:.6rem;font-weight:700;cursor:pointer">✓ Test Et</button>`;
+    <button onclick="startMixedQuiz()" style="width:100%;margin-top:.8rem;background:var(--teal-dim);border:1px solid var(--teal);color:var(--teal);border-radius:10px;padding:.6rem;font-weight:700;cursor:pointer">✓ ${t(CANVAS_UI.test)}</button>`;
 }
 function canvasMixedNav(dir) { _canvasGalleryIdx = Math.max(0, Math.min(NUMBER_MIXED.length - 1, _canvasGalleryIdx + dir)); renderMixedGalleryItem(); }
 function startMixedQuiz() { _canvasQuiz = { active: true, round: 0, total: 5, correct: 0, mode: 'mixed' }; nextMixedQuizRound(); }
@@ -5117,22 +5159,26 @@ function nextMixedQuizRound() {
   const target = Math.random() < 0.5 ? item.a : item.b;
   const imgUrl = `${CANVAS_IMG_BASE}mixed/${item.img}.webp`;
   const options = shuffleArray([target.n, ...pickRandomOthersNum(target.n, 3, 1, 6)]);
-  const label = tText(target).replace(/'/g, "\\'");
+  const labelTarget = t(target).replace(/'/g, "\\'");
   G('canvas-body').innerHTML = `
-    <div style="font-size:.62rem;color:var(--text-dim)">Soru ${_canvasQuiz.round}/${_canvasQuiz.total}</div>
+    <div style="font-size:.62rem;color:var(--text-dim)">${t(CANVAS_UI.question)} ${_canvasQuiz.round}/${_canvasQuiz.total}</div>
     <img src="${imgUrl}" style="width:100%;max-width:200px;aspect-ratio:1;object-fit:cover;border-radius:12px;border:1px solid var(--border2);margin:.5rem auto;display:block">
-    <div style="font-size:.78rem;color:var(--text-bright);text-align:center;margin-bottom:.6rem">Kaç tane ${tText(target)} var?</div>
+    <div style="font-size:.78rem;color:var(--text-bright);text-align:center">${t(CANVAS_UI.howManyPrefix)} ${t(target)} ${t(CANVAS_UI.howManySuffix)}</div>
+    <div style="font-size:.64rem;color:var(--text-dim);text-align:center;font-style:italic;margin-bottom:.6rem">${nt(CANVAS_UI.howManyPrefix)} ${nt(target)} ${nt(CANVAS_UI.howManySuffix)}</div>
     <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:.4rem" id="canvas-quiz-opts">
-      ${options.map(n => `<button onclick="answerMixedQuiz(${n},${target.n},'${label}')" style="background:var(--card2);border:1.5px solid var(--border2);border-radius:9px;padding:.55rem;font-size:.85rem;font-weight:700;color:var(--text);cursor:pointer">${n}</button>`).join('')}
+      ${options.map(n => `<button id="opt-${n}" onclick="answerMixedQuiz(${n},${target.n},'${labelTarget}','${nt(target).replace(/'/g, "\\'")}')" style="background:var(--card2);border:1.5px solid var(--border2);border-radius:9px;padding:.55rem;font-size:.78rem;font-weight:700;color:var(--text);cursor:pointer">${t(NUMBER_WORDS[n])}</button>`).join('')}
     </div>`;
 }
-function answerMixedQuiz(picked, correct, label) {
+function answerMixedQuiz(picked, correct, labelTarget, labelNative) {
   document.querySelectorAll('#canvas-quiz-opts button').forEach(b => b.disabled = true);
   const isCorrect = picked === correct;
   if (isCorrect) _canvasQuiz.correct++;
-  AUD.speak(correct + ' ' + label);
-  showToast(isCorrect ? '✅ Doğru!' : '❌ Doğrusu: ' + correct);
-  setTimeout(nextMixedQuizRound, 1600);
+  const correctBtn = G('opt-' + correct);
+  if (correctBtn) { correctBtn.style.borderColor = 'var(--green)'; correctBtn.style.background = 'var(--green-dim)'; correctBtn.style.color = 'var(--green)'; }
+  if (!isCorrect) { const wrongBtn = G('opt-' + picked); if (wrongBtn) { wrongBtn.style.borderColor = 'var(--red)'; wrongBtn.style.background = 'var(--red-dim)'; wrongBtn.style.color = 'var(--red)'; } }
+  AUD.speak(correct + ' ' + labelTarget);
+  showToast((isCorrect ? '✅' : '❌') + ' ' + correct + ' ' + labelTarget + ' (' + labelNative + ')');
+  setTimeout(nextMixedQuizRound, 1800);
 }
 
 function finishCanvasQuiz() {
@@ -5141,9 +5187,140 @@ function finishCanvasQuiz() {
   G('canvas-body').innerHTML = `
     <div style="text-align:center;padding:1rem 0">
       <div style="font-size:2rem">${_canvasQuiz.correct === _canvasQuiz.total ? '🏆' : '👍'}</div>
-      <div style="font-size:.9rem;font-weight:700;color:var(--text-bright);margin-top:.4rem">${_canvasQuiz.correct}/${_canvasQuiz.total} doğru!</div>
+      <div style="font-size:.9rem;font-weight:700;color:var(--text-bright);margin-top:.4rem">${_canvasQuiz.correct}/${_canvasQuiz.total} ${t(CANVAS_UI.scoreLine)}!</div>
       <div style="font-size:.7rem;color:var(--gold);margin-top:.3rem">+${xp} XP</div>
-      <button onclick="showCanvasHome()" style="margin-top:1rem;background:var(--teal-dim);border:1px solid var(--teal);color:var(--teal);border-radius:10px;padding:.6rem 1.2rem;font-weight:700;cursor:pointer">Tamam</button>
+      <button onclick="showCanvasHome()" style="margin-top:1rem;background:var(--teal-dim);border:1px solid var(--teal);color:var(--teal);border-radius:10px;padding:.6rem 1.2rem;font-weight:700;cursor:pointer">${t(CANVAS_UI.ok)}</button>
+    </div>`;
+}
+
+// ── CÜMLE TAMAMLA (boşluk doldurma — renk+sayı karışık seçenekli) ──
+function stripColorFromPhrase(colorKey, phraseEn, phraseTr) {
+  const enColorWord = COLOR_LABEL[colorKey].en.toLowerCase();
+  const trColorWord = COLOR_LABEL[colorKey].tr.toLowerCase();
+  const objEn = phraseEn.toLowerCase().replace(enColorWord, '').trim();
+  const objTr = phraseTr.replace(new RegExp(trColorWord, 'i'), '').trim();
+  return { en: objEn, tr: objTr };
+}
+function stripNumberFromPhrase(n, phraseEn, phraseTr) {
+  const objEn = phraseEn.replace(new RegExp('^' + n + '\\s*'), '').trim();
+  const objTr = phraseTr.replace(new RegExp('^' + n + '\\s*'), '').trim();
+  return { en: objEn, tr: objTr };
+}
+function buildSentenceQuestionPool() {
+  const pool = [];
+  COLOR_LIST.forEach(colorKey => {
+    COLOR_EXAMPLES[colorKey].forEach((ex, i) => pool.push({ kind: 'color', colorKey, exIdx: i }));
+  });
+  NUMBER_SINGLE.forEach((item, i) => pool.push({ kind: 'number', idx: i }));
+  return pool;
+}
+function buildOptionPool() {
+  const pool = [];
+  COLOR_LIST.forEach(c => pool.push({ type: 'color', value: c, label: t(COLOR_LABEL[c]) }));
+  for (let i = 1; i <= 10; i++) pool.push({ type: 'number', value: i, label: t(NUMBER_WORDS[i]) });
+  return pool;
+}
+
+let _sentenceQuiz = { active: false, round: 0, total: 10, correct: 0, questions: [], selected: null };
+
+function startSentenceQuiz() {
+  const pool = shuffleArray(buildSentenceQuestionPool()).slice(0, 10);
+  _sentenceQuiz = { active: true, round: 0, total: 10, correct: 0, questions: pool, selected: null };
+  nextSentenceQuestion();
+}
+
+function nextSentenceQuestion() {
+  if (_sentenceQuiz.round >= _sentenceQuiz.total) { finishSentenceQuiz(); return; }
+  _sentenceQuiz.selected = null;
+  const q = _sentenceQuiz.questions[_sentenceQuiz.round];
+  _sentenceQuiz.round++;
+
+  let imgUrl, sentenceEn, sentenceTr, correctOpt;
+  if (q.kind === 'color') {
+    const ex = COLOR_EXAMPLES[q.colorKey][q.exIdx];
+    const obj = stripColorFromPhrase(q.colorKey, ex.en, ex.tr);
+    imgUrl = `${CANVAS_COLOR_IMG_BASE}${q.colorKey}/${q.exIdx + 1}.webp`;
+    sentenceEn = `It is a ___ ${obj.en}.`;
+    sentenceTr = `Bu bir ___ ${obj.tr}.`;
+    correctOpt = { type: 'color', value: q.colorKey, label: t(COLOR_LABEL[q.colorKey]) };
+  } else {
+    const item = NUMBER_SINGLE[q.idx];
+    const obj = stripNumberFromPhrase(item.n, item.en, item.tr);
+    imgUrl = `${CANVAS_IMG_BASE}single/${q.idx + 1}.webp`;
+    sentenceEn = `There are ___ ${obj.en}.`;
+    sentenceTr = `___ tane ${obj.tr} var.`;
+    correctOpt = { type: 'number', value: item.n, label: t(NUMBER_WORDS[item.n]) };
+  }
+  const sentenceTarget = LANG.target === 'tr' ? sentenceTr : sentenceEn;
+  const sentenceNative = LANG.native === 'tr' ? sentenceTr : sentenceEn;
+
+  const distractors = shuffleArray(buildOptionPool().filter(o => !(o.type === correctOpt.type && o.value === correctOpt.value))).slice(0, 3);
+  const options = shuffleArray([correctOpt, ...distractors]);
+
+  window._sentenceCorrectOpt = correctOpt;
+  window._sentenceCurrentImg = imgUrl;
+  window._sentenceCurrentSentence = { en: sentenceEn, tr: sentenceTr };
+
+  G('canvas-body').innerHTML = `
+    <div style="font-size:.62rem;color:var(--text-dim)">${t(CANVAS_UI.question)} ${_sentenceQuiz.round}/${_sentenceQuiz.total}</div>
+    <img src="${imgUrl}" style="width:100%;max-width:200px;aspect-ratio:1;object-fit:cover;border-radius:12px;border:1px solid var(--border2);margin:.5rem auto;display:block">
+    <div style="font-size:.8rem;color:var(--text-bright);text-align:center;font-weight:600">${sentenceTarget}</div>
+    <div style="font-size:.64rem;color:var(--text-dim);text-align:center;font-style:italic;margin-bottom:.6rem">${sentenceNative}</div>
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:.4rem" id="sentence-opts">
+      ${options.map((o, i) => `<button id="sopt-${o.type}-${o.value}" onclick="selectSentenceOption('${o.type}','${o.value}')" style="background:var(--card2);border:1.5px solid var(--border2);border-radius:9px;padding:.55rem;font-size:.78rem;font-weight:600;color:var(--text);cursor:pointer">${o.label}</button>`).join('')}
+    </div>
+    <button id="sentence-confirm-btn" onclick="confirmSentenceAnswer()" disabled style="width:100%;margin-top:.8rem;background:var(--card2);border:1px solid var(--border2);color:var(--text-dim);border-radius:10px;padding:.6rem;font-weight:700;cursor:not-allowed;opacity:.6">${t(CANVAS_UI.confirm)}</button>`;
+}
+
+function selectSentenceOption(type, value) {
+  document.querySelectorAll('#sentence-opts button').forEach(b => { b.style.borderColor = 'var(--border2)'; b.style.background = 'var(--card2)'; });
+  const btn = G('sopt-' + type + '-' + value);
+  if (btn) { btn.style.borderColor = 'var(--teal)'; btn.style.background = 'var(--teal-dim)'; }
+  _sentenceQuiz.selected = { type, value };
+  const confirmBtn = G('sentence-confirm-btn');
+  confirmBtn.disabled = false;
+  confirmBtn.style.cursor = 'pointer';
+  confirmBtn.style.opacity = '1';
+  confirmBtn.style.background = 'var(--teal-dim)';
+  confirmBtn.style.borderColor = 'var(--teal)';
+  confirmBtn.style.color = 'var(--teal)';
+}
+
+function confirmSentenceAnswer() {
+  if (!_sentenceQuiz.selected) return;
+  document.querySelectorAll('#sentence-opts button').forEach(b => b.disabled = true);
+  G('sentence-confirm-btn').disabled = true;
+  const correct = window._sentenceCorrectOpt;
+  const picked = _sentenceQuiz.selected;
+  const isCorrect = picked.type === correct.type && String(picked.value) === String(correct.value);
+
+  const correctBtn = G('sopt-' + correct.type + '-' + correct.value);
+  if (correctBtn) { correctBtn.style.borderColor = 'var(--green)'; correctBtn.style.background = 'var(--green-dim)'; correctBtn.style.color = 'var(--green)'; }
+  if (!isCorrect) {
+    const pickedBtn = G('sopt-' + picked.type + '-' + picked.value);
+    if (pickedBtn) { pickedBtn.style.borderColor = 'var(--red)'; pickedBtn.style.background = 'var(--red-dim)'; pickedBtn.style.color = 'var(--red)'; }
+  }
+
+  if (isCorrect) {
+    _sentenceQuiz.correct++;
+    AUD.speak(window._sentenceCurrentSentence.en.replace('___', correct.label));
+    showToast('✅ ' + t(CANVAS_UI.scoreLine).charAt(0).toUpperCase() + t(CANVAS_UI.scoreLine).slice(1) + '!');
+  } else {
+    AUD.speak(window._sentenceCurrentSentence.en.replace('___', correct.label));
+    G('canvas-body').insertAdjacentHTML('beforeend', `<div style="text-align:center;margin-top:.6rem;font-size:.72rem;color:var(--text-bright)">${t(CANVAS_UI.correctWas)} <b>${correct.label}</b><div style="font-size:.62rem;color:var(--text-dim);font-style:italic">${nt(CANVAS_UI.correctWas)} <b>${correct.label}</b></div></div>`);
+  }
+  setTimeout(nextSentenceQuestion, isCorrect ? 1400 : 2200);
+}
+
+function finishSentenceQuiz() {
+  const xp = _sentenceQuiz.correct * 2;
+  if (xp > 0) addXP(xp);
+  G('canvas-body').innerHTML = `
+    <div style="text-align:center;padding:1rem 0">
+      <div style="font-size:2rem">${_sentenceQuiz.correct === _sentenceQuiz.total ? '🏆' : '👍'}</div>
+      <div style="font-size:.9rem;font-weight:700;color:var(--text-bright);margin-top:.4rem">${_sentenceQuiz.correct}/${_sentenceQuiz.total} ${t(CANVAS_UI.scoreLine)}!</div>
+      <div style="font-size:.7rem;color:var(--gold);margin-top:.3rem">+${xp} XP</div>
+      <button onclick="showCanvasHome()" style="margin-top:1rem;background:var(--teal-dim);border:1px solid var(--teal);color:var(--teal);border-radius:10px;padding:.6rem 1.2rem;font-weight:700;cursor:pointer">${t(CANVAS_UI.ok)}</button>
     </div>`;
 }
 
@@ -5536,9 +5713,15 @@ function closeChat() {
   currentChatConversationId = null;
 }
 
+function formatMsgTime(iso) {
+  try { return new Date(iso).toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' }); }
+  catch (e) { return ''; }
+}
+
 async function renderMessageHtml(m) {
   const mine = m.sender_id === CURRENT_USER.id;
   const bubbleStyle = `background:${mine ? 'var(--teal-dim)' : 'var(--card2)'};border:1px solid ${mine ? 'var(--teal)' : 'var(--border2)'};border-radius:14px;padding:.5rem .7rem;font-size:.8rem;color:var(--text)`;
+  const timeLabel = `<div style="font-size:.58rem;color:var(--text-dim);margin-top:.1rem;text-align:${mine ? 'right' : 'left'}">${formatMsgTime(m.created_at)}</div>`;
 
   if (m.type === 'voice') {
     let playUrl = '';
@@ -5569,6 +5752,7 @@ async function renderMessageHtml(m) {
         ${transcriptToggle}
       </div>
       <div id="msg-tr-${m.id}" style="font-size:.68rem;color:var(--text-dim);font-style:italic;margin-top:.15rem;display:none"></div>
+      ${timeLabel}
     </div>`;
   }
 
@@ -5576,6 +5760,7 @@ async function renderMessageHtml(m) {
   return `<div data-msg-id="${m.id}" style="align-self:${mine ? 'flex-end' : 'flex-start'};max-width:75%">
     <div id="msg-${m.id}" style="${bubbleStyle}">${escapeHtml(m.text_content || '')}${translateBtn}</div>
     <div id="msg-tr-${m.id}" style="font-size:.68rem;color:var(--text-dim);font-style:italic;margin-top:.15rem;display:none"></div>
+    ${timeLabel}
   </div>`;
 }
 
