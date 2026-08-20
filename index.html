@@ -574,29 +574,37 @@
   <div class="top-bar">
     <div class="player-info">
       <div class="avatar-btn" id="avatar-btn" onclick="openProfile()">🧑</div>
-      <div><span class="p-name" id="p-name">—</span><span class="p-title" id="p-title">Lost Soul</span></div>
+      <div>
+        <div style="display:flex;align-items:center;gap:.4rem;flex-wrap:wrap;cursor:pointer" onclick="toggleVitalsPanel()" title="Canlarını gör">
+          <span class="p-name" id="p-name">—</span>
+          <span class="xp-level-badge" id="xp-level-badge">Lv.1</span>
+          <div class="xp-progress-outer"><div class="xp-progress-inner" id="xp-bar"></div></div>
+          <span class="xp-num" id="xp-num">0/100</span>
+        </div>
+        <span class="p-title" id="p-title">Lost Soul</span>
+      </div>
+      <div style="position:relative">
+        <button onclick="toggleSettingsMenu(event)" style="background:var(--card2);border:1px solid var(--border2);border-radius:8px;width:28px;height:28px;font-size:.85rem;cursor:pointer;display:flex;align-items:center;justify-content:center">⚙️</button>
+        <div id="settings-dropdown" style="display:none;position:absolute;top:calc(100% + .3rem);left:0;background:var(--card2);border:1px solid var(--border2);border-radius:10px;padding:.4rem;z-index:50;min-width:150px;box-shadow:0 8px 24px rgba(0,0,0,.4)">
+          <button onclick="openFeedbackModal();closeSettingsMenu()" style="width:100%;text-align:left;background:none;border:none;color:var(--text);padding:.4rem .5rem;font-size:.72rem;cursor:pointer;border-radius:6px;display:flex;align-items:center;gap:.4rem">🐞 Hata Bildir</button>
+          <button onclick="openLangSwitcher();closeSettingsMenu()" style="width:100%;text-align:left;background:none;border:none;color:var(--text);padding:.4rem .5rem;font-size:.72rem;cursor:pointer;border-radius:6px;display:flex;align-items:center;gap:.4rem">🌐 Dil</button>
+          <button onclick="openUsernameModal();closeSettingsMenu()" style="width:100%;text-align:left;background:none;border:none;color:var(--text);padding:.4rem .5rem;font-size:.72rem;cursor:pointer;border-radius:6px;display:flex;align-items:center;gap:.4rem">👤 Ad</button>
+          <button onclick="logoutUser();closeSettingsMenu()" style="width:100%;text-align:left;background:none;border:none;color:var(--text);padding:.4rem .5rem;font-size:.72rem;cursor:pointer;border-radius:6px;display:flex;align-items:center;gap:.4rem">🚪 Çıkış</button>
+        </div>
+      </div>
     </div>
     <div class="top-right">
       <button id="logbook-btn" onclick="openLogbook()">📖 <span id="lb-badge" class="lb-badge">0</span></button>
       <button id="day2-tasks-btn" class="day2-tasks-btn-el" style="display:none" onclick="openDay2Tasks()">🗓️ Görevler <span id="day2-badge">0</span></button>
       <button class="sl-btn" onclick="deleteSave()">🗑️ Kaydı Sil</button>
-      <button class="sl-btn" style="display:flex" onclick="openLangSwitcher()">🌐 Dil</button>
       <button id="inbox-btn" class="sl-btn" style="display:none" onclick="openInbox()">📬 <span id="inbox-badge" style="background:#f87171;color:#fff;border-radius:8px;padding:.02rem .34rem;font-size:.56rem;font-weight:700;display:none">0</span></button>
-      <button class="sl-btn" style="display:flex" onclick="openFeedbackModal()">🐞 Hata Bildir</button>
-      <button class="sl-btn" style="display:flex" onclick="openUsernameModal()">👤 Ad</button>
-      <button class="sl-btn" style="display:flex" onclick="logoutUser()">🚪 Çıkış</button>
-      <div class="xp-bar-wrap">
-        <span class="xp-level-badge" id="xp-level-badge">Lv.1</span>
-        <div class="xp-progress-outer"><div class="xp-progress-inner" id="xp-bar"></div></div>
-        <span class="xp-num" id="xp-num">0/100</span>
-      </div>
       <div class="room-badge" id="room-badge">BEDROOM</div>
     </div>
   </div>
 
-  <div class="vitals-panel">
-    <div class="vital-row"><span class="vital-icon">💧</span><span class="vital-label">Thirst</span><div class="vital-bar-wrap"><div class="vital-bar" id="bar-thirst"></div></div><span class="vital-val" id="val-thirst">10%</span></div>
+  <div class="vitals-panel" id="vitals-panel" style="display:none">
     <div class="vital-row"><span class="vital-icon">⚡</span><span class="vital-label">ENERGY</span><div class="vital-bar-wrap"><div class="vital-bar" id="bar-hunger"></div></div><span class="vital-val" id="val-hunger">40%</span></div>
+    <div class="vital-row"><span class="vital-icon">💧</span><span class="vital-label">Thirst</span><div class="vital-bar-wrap"><div class="vital-bar" id="bar-thirst"></div></div><span class="vital-val" id="val-thirst">10%</span></div>
     <div class="vital-row"><span class="vital-icon">🚽</span><span class="vital-label">Toilet</span><div class="vital-bar-wrap"><div class="vital-bar" id="bar-toilet"></div></div><span class="vital-val" id="val-toilet">20%</span></div>
   </div>
 
@@ -7776,6 +7784,29 @@ function fadeText(el, html) {
   if (!el) return; el.style.opacity='0';
   setTimeout(()=>{el.innerHTML=html;el.style.opacity='1';},250);
 }
+// ── CANLAR PANELİ (Enerji/Susuzluk/Tuvalet) — Lv barına tıklayınca aç/kapa ──
+function toggleVitalsPanel() {
+  const el = G('vitals-panel');
+  if (el) el.style.display = el.style.display === 'none' ? 'flex' : 'none';
+}
+
+// ── AYARLAR AÇILIR MENÜSÜ (⚙️) ────────────────────────────────
+function toggleSettingsMenu(event) {
+  if (event) event.stopPropagation();
+  const el = G('settings-dropdown');
+  if (el) el.style.display = el.style.display === 'none' ? 'block' : 'none';
+}
+function closeSettingsMenu() {
+  const el = G('settings-dropdown');
+  if (el) el.style.display = 'none';
+}
+document.addEventListener('click', (e) => {
+  const dropdown = G('settings-dropdown');
+  if (dropdown && dropdown.style.display === 'block' && !dropdown.contains(e.target)) {
+    closeSettingsMenu();
+  }
+});
+
 function switchScreen(id) {
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   const el=G(id);if(el)el.classList.add('active');
@@ -7802,6 +7833,7 @@ function saveGame() {
       drawer:      GS.drawer,
       kettleOn:    GS.kettleOn,
       mealChoice:  GS.mealChoice,
+      cookingStage: GS.cookingStage,
       QD:          QD,
       sessionInv:  GS.sessionInv,
       examined:    [...GS.examined],
@@ -7858,6 +7890,7 @@ function applySaveData(d) {
   GS.drawer      = { ...GS.drawer, ...d.drawer };
   GS.kettleOn    = d.kettleOn || false;
   GS.mealChoice  = d.mealChoice || null;
+  GS.cookingStage = d.cookingStage || null;
   GS.sessionInv  = d.sessionInv || [];
   GS.examined    = new Set(d.examined || []);
   GS.scoredKeys  = new Set(d.scoredKeys || []);
@@ -7871,6 +7904,19 @@ function applySaveData(d) {
   if (!GS.player.learnedRecipes) GS.player.learnedRecipes = ['sandwich','omelette'];
   if (d.QD) Object.assign(QD, d.QD);
   if (d.lang) { LANG.native = d.lang.native; LANG.target = d.lang.target; }
+
+  // GÜVENLİ SIFIRLAMA: Kahvaltı akışının ortasında (menü seçildi ama pişirme
+  // bitmedi) uygulamadan çıkılmışsa, bu ara adımların (malzeme listesi, hangi
+  // malzemeler alındı vb.) tam durumu hiç kaydedilmiyordu — bu da geri dönünce
+  // mutfağın bozuk/karışık görünmesine yol açıyordu. Böyle bir durum tespit
+  // edilirse menü seçim adımına güvenli şekilde sıfırlıyoruz.
+  if (GS.quest === 'breakfast' && (GS.mealChoice || GS.cookingStage)) {
+    GS.mealChoice = null;
+    GS.cookingStage = null;
+    GS.recipeTasks = {};
+    GS.fridgeObs = [];
+    if (!ROOMS.kitchen.obs.includes('menu')) ROOMS.kitchen.obs.unshift('menu');
+  }
   return true;
 }
 
