@@ -781,6 +781,10 @@
   <div class="dict-search-wrap">
     <input id="dict-search" class="dict-search" placeholder="🔍 Search word..." oninput="filterDict()">
   </div>
+  <div style="display:flex;gap:.4rem;margin-bottom:.5rem">
+    <button id="dict-filter-all" onclick="setDictFilter('all')" style="background:var(--card2);border:1px solid var(--border2);border-radius:8px;padding:.3rem .7rem;font-size:.68rem;color:var(--text);cursor:pointer;opacity:1">Tümü</button>
+    <button id="dict-filter-learned" onclick="setDictFilter('learned')" style="background:var(--card2);border:1px solid var(--border2);border-radius:8px;padding:.3rem .7rem;font-size:.68rem;color:var(--text);cursor:pointer;opacity:.5">✓ Öğrenilenler</button>
+  </div>
   <div id="dict-list" class="dict-list"></div>
   <button class="ach-btn" onclick="closeDictionary()" style="margin-top:.6rem">Kapat ✕</button>
 </div>
@@ -974,6 +978,17 @@
       <button onclick="closeCanvasModal()" style="background:none;border:none;color:var(--text-dim);font-size:1.2rem;cursor:pointer">✕</button>
     </div>
     <div id="canvas-body"></div>
+  </div>
+</div>
+
+<!-- KELİME OYUNU MODAL -->
+<div id="wordgame-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:600;align-items:center;justify-content:center;padding:.8rem">
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:1.3rem;width:100%;max-width:360px;max-height:85vh;overflow-y:auto">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem">
+      <span style="font-size:.9rem;font-weight:700;color:var(--text-bright)">🧩 Kelime Oyunu</span>
+      <button onclick="closeWordGameModal()" style="background:none;border:none;color:var(--text-dim);font-size:1.2rem;cursor:pointer">✕</button>
+    </div>
+    <div id="wordgame-body"></div>
   </div>
 </div>
 <style>
@@ -2704,7 +2719,7 @@ const ROOMS = {
   living_room: { em:'🛋️', en:'Living Room', tr:'Salon',ru:'Гостиная', bg:7,badge:'SALON',
     obs:['wall_clock','tv','painting','lamp','radio','bookshelf','sofa','coffee_table','newspaper','lr_table','lr_chair'] },
   hobby_room:  { em:'🎮', en:'Hobby Room',  tr:'Hobi Odası',ru:'Хобби-комната', bg:9,badge:'HOBBY',
-    obs:['hr_computer_parts','hr_bookshelf','hr_dictionary','hr_trophy','hr_phone','hr_radio','hr_guitar','hr_globe','hr_canvas'] },
+    obs:['hr_computer_parts','hr_bookshelf','hr_dictionary','hr_trophy','hr_phone','hr_radio','hr_guitar','hr_globe','hr_canvas','hr_wordgame'] },
 };
 // Fabrika ayarları — devReset() ve gerçek Gün 1 yeniden başlatmalarında ROOMS.*.obs'u buradan geri yükle
 const ROOMS_INITIAL = JSON.parse(JSON.stringify(ROOMS));
@@ -2816,6 +2831,7 @@ const OBJ = {
   hr_guitar:   {bg:13,d:'easy',  em:'🎸', en:'Guitar',    tr:'Gitar',ru:'Гитара',    ctx:'An acoustic guitar. Strum the strings!',     recall:{c:'Gitar',     o:['Gitar','Keman','Piyano','Davul'],c_ru:'Гитара',o_ru:['Гитара','Скрипка','Пианино','Барабан']},               act:'open_guitar',      ex:{en:'An acoustic guitar!',tr:'Akustik bir gitar!',ru:'An acoustic guitar!'}},
   hr_globe:    {d:'medium', em:'🌍', en:'Globe',     tr:'Dünya Küresi',ru:'Глобус', ctx:'A globe showing famous landmarks around the world.', recall:{c:'Dünya Küresi', o:['Dünya Küresi','Harita','Teleskop','Pusula'],c_ru:'Глобус',o_ru:['Глобус','Карта','Телескоп','Компас']}, act:'open_globe', ex:{en:'A globe of the world!',tr:'Bir dünya küresi!',ru:'A globe of the world!'}},
   hr_canvas:   {d:'easy', em:'🎨', en:'Canvas',    tr:'Tuval',ru:'Холст', ctx:'A canvas for learning colors and numbers.', recall:{c:'Tuval', o:['Tuval','Fırça','Boya','Kalem'],c_ru:'Холст',o_ru:['Холст','Кисть','Краска','Карандаш']}, act:'open_canvas', ex:{en:'A canvas full of colors and numbers!',tr:'Renk ve sayılarla dolu bir tuval!',ru:'A canvas full of colors and numbers!'}},
+  hr_wordgame: {d:'easy', em:'🧩', en:'Word Game', tr:'Kelime Oyunu',ru:'Игра слов', ctx:'A game for matching and reviewing words.', recall:{c:'Kelime Oyunu', o:['Kelime Oyunu','Bulmaca','Kart','Zar'],c_ru:'Игра слов',o_ru:['Игра слов','Пазл','Карта','Кубик']}, act:'open_wordgame', ex:{en:'A fun way to practice words!',tr:'Kelime pratiği yapmanın eğlenceli bir yolu!',ru:'A fun way to practice words!'}},
   // BEDROOM WARDROBE
   wardrobe:    {bg:14,d:'medium',em:'🧥',en:'Wardrobe',      tr:'Gardırop',ru:'Гардероб',       ctx:'Open the wardrobe to get dressed.',            recall:{c:'Gardırop',    o:['Dolap','Gardırop','Raf','Çekmece'],c_ru:'Гардероб',o_ru:['Шкаф','Гардероб','Полка','Ящик']},        act:'open_wardrobe',  ex:{en:'The wardrobe.',             tr:'Gardırop.',ru:'The wardrobe.'}},
   window_w:    {d:'easy',  em:'🪟',en:'Window',        tr:'Pencere',ru:'Окно',        ctx:'Open the window for fresh air.',               recall:{c:'Pencere',     o:['Kapı','Tavan','Pencere','Duvar'],c_ru:'Окно',o_ru:['Дверь','Потолок','Окно','Стена']},          act:'open_fresh_window',ex:{en:'The bedroom window.',      tr:'Yatak odası penceresi.',ru:'The bedroom window.'}},
@@ -3159,6 +3175,7 @@ const HOBBY_FEATURE_MAP = {
   hr_phone:      () => openPhoneModal(),
   hr_guitar:     () => openGuitarModal(),
   hr_canvas:     () => openCanvasModal(),
+  hr_wordgame:   () => openWordGameModal(),
 };
 
 function examineObj(key, btn) {
@@ -3330,7 +3347,7 @@ function handleAction(act, key, btn) {
   const st = G('scene-text');
   // Hobi odası özellikleri (bilgisayar oyunu, sözlük, kitaplık, radyo, gitar, küre, telefon, kupa)
   // sadece Gün 2'de aktif — Gün 1'de bu nesneler sadece normal kelime kartı gösterir.
-  const HOBBY_DAY2_ACTS = ['use_computer','open_dictionary','view_trophies','open_radio','open_guitar','open_globe','open_phone','open_bookshelf','open_canvas'];
+  const HOBBY_DAY2_ACTS = ['use_computer','open_dictionary','view_trophies','open_radio','open_guitar','open_globe','open_phone','open_bookshelf','open_canvas','open_wordgame'];
   if (HOBBY_DAY2_ACTS.includes(act) && GS.day < 2) {
     showToast('🔒 Bu özellik Gün 2\'de kullanılabilir!');
     return;
@@ -4207,7 +4224,8 @@ function openDictionary() {
     showToast('🗓️ Görev tamamlandı: Sözlüğü keşfettin!');
   }
   const modal = G('dict-modal'); if (!modal) return;
-  renderDictList(GS.player.inventory);
+  _dictFilter = 'all';
+  renderDictList();
   G('dict-backdrop').classList.add('show');
   modal.classList.add('show');
   const si = G('dict-search'); if (si) si.value = '';
@@ -4218,9 +4236,23 @@ function closeDictionary() {
   G('dict-backdrop').classList.remove('show');
 }
 
+function isWordLearned(key) {
+  return GS.player.inventory.includes(key);
+}
+
+let _dictFilter = 'all'; // 'all' | 'learned'
+function setDictFilter(f) {
+  _dictFilter = f;
+  const btnAll = G('dict-filter-all'), btnLearned = G('dict-filter-learned');
+  if (btnAll) btnAll.style.opacity = f === 'all' ? '1' : '.5';
+  if (btnLearned) btnLearned.style.opacity = f === 'learned' ? '1' : '.5';
+  filterDict();
+}
+
 function filterDict() {
   const q = (G('dict-search')?.value || '').toLowerCase();
-  const keys = GS.player.inventory.filter(k => {
+  let keys = Object.keys(OBJ).filter(k => {
+    if (_dictFilter === 'learned' && !isWordLearned(k)) return false;
     if (!q) return true;
     const o = OBJ[k]; if (!o) return false;
     return o.en.toLowerCase().includes(q) || o.tr.toLowerCase().includes(q);
@@ -4230,21 +4262,29 @@ function filterDict() {
 
 function renderDictList(keys) {
   var list = G('dict-list'); if (!list) return;
+  var validKeys = (keys || Object.keys(OBJ)).filter(function(k) { return OBJ[k]; });
+  // Öğrenilenler önce, sonra alfabetik (hedef dile göre)
+  validKeys.sort(function(a, b) {
+    var la = isWordLearned(a), lb = isWordLearned(b);
+    if (la !== lb) return la ? -1 : 1;
+    return OBJ[a].en.localeCompare(OBJ[b].en);
+  });
+  var learnedCount = validKeys.filter(isWordLearned).length;
   var countEl = G('dict-count');
-  var validKeys = keys.filter(function(k) { return OBJ[k]; });
-  if (countEl) countEl.textContent = validKeys.length + ' word' + (validKeys.length !== 1 ? 's' : '');
+  if (countEl) countEl.textContent = learnedCount + '/' + validKeys.length + ' öğrenildi';
   if (!validKeys.length) {
-    list.innerHTML = '<p style="color:var(--text-dim);font-size:.72rem;text-align:center;padding:.8rem 0">' + biLine({en:'No words yet. Keep exploring!',tr:'Henuz kelime yok.',ru:'Пока нет слов. Продолжай исследовать!'}) + '</p>';
+    list.innerHTML = '<p style="color:var(--text-dim);font-size:.72rem;text-align:center;padding:.8rem 0">' + biLine({en:'No words found.',tr:'Kelime bulunamadı.',ru:'Слова не найдены.'}) + '</p>';
     return;
   }
   var html = '';
   validKeys.forEach(function(k) {
     var o = OBJ[k];
+    var learned = isWordLearned(k);
     var badgeClass = o.d === 'easy' ? 'dict-badge-easy' : o.d === 'hard' ? 'dict-badge-hard' : 'dict-badge-medium';
-    html += '<div class="dict-card">';
+    html += '<div class="dict-card"' + (learned ? '' : ' style="opacity:.55"') + '>';
     html += '<span class="dict-card-em">' + (o.em || '') + '</span>';
     html += '<div class="dict-card-body">';
-    html += '<span class="dict-card-en">' + o.en + '</span>';
+    html += '<span class="dict-card-en">' + o.en + (learned ? ' <span style="color:var(--green);font-size:.7em">✓</span>' : '') + '</span>';
     html += '<span class="dict-card-tr">' + o.tr + '</span>';
     html += '<span class="dict-card-ctx">' + (o.ctx || '') + '</span>';
     html += '</div>';
@@ -5329,6 +5369,237 @@ function finishSentenceQuiz() {
       <div style="font-size:.9rem;font-weight:700;color:var(--text-bright);margin-top:.4rem">${_sentenceQuiz.correct}/${_sentenceQuiz.total} ${t(CANVAS_UI.scoreLine)}!</div>
       <div style="font-size:.7rem;color:var(--gold);margin-top:.3rem">+${xp} XP</div>
       <button onclick="showCanvasHome()" style="margin-top:1rem;background:var(--teal-dim);border:1px solid var(--teal);color:var(--teal);border-radius:10px;padding:.6rem 1.2rem;font-weight:700;cursor:pointer">${t(CANVAS_UI.ok)}</button>
+    </div>`;
+}
+
+// ══════════════════════════════════════════════════════════
+//  KELİME OYUNU — Eşleştirme + Süreli Kelimeler (A1/A2 seviyeli)
+// ══════════════════════════════════════════════════════════
+// Kitaplardan alınan, doğrulanmış çeviriyle ek kelime dağarcığı
+const BOOK_WORDS = {
+  A1: [
+    {en:'fox', tr:'tilki'}, {en:'grapes', tr:'üzüm'}, {en:'vine', tr:'asma'},
+    {en:'tired', tr:'yorgun'}, {en:'jump', tr:'zıplamak'}, {en:'wolf', tr:'kurt'},
+    {en:'village', tr:'köy'}, {en:'lie', tr:'yalan'}, {en:'run', tr:'koşmak'}, {en:'sour', tr:'ekşi'},
+  ],
+  A2: [
+    {en:'lion', tr:'aslan'}, {en:'mouse', tr:'fare'}, {en:'forest', tr:'orman'},
+    {en:'afraid', tr:'korkmuş'}, {en:'paw', tr:'pençe'}, {en:'help', tr:'yardım'},
+    {en:'laugh', tr:'gülmek'}, {en:'sleep', tr:'uyumak'},
+  ],
+  B1: [
+    {en:'environment', tr:'çevre'}, {en:'experience', tr:'deneyim'}, {en:'opportunity', tr:'fırsat'},
+    {en:'responsibility', tr:'sorumluluk'}, {en:'achievement', tr:'başarı'}, {en:'relationship', tr:'ilişki'},
+    {en:'decision', tr:'karar'}, {en:'advantage', tr:'avantaj'}, {en:'increase', tr:'artmak'},
+    {en:'improve', tr:'geliştirmek'}, {en:'difficulty', tr:'zorluk'}, {en:'opinion', tr:'görüş'},
+    {en:'society', tr:'toplum'}, {en:'purpose', tr:'amaç'}, {en:'solution', tr:'çözüm'},
+  ],
+  B2: [
+    {en:'consequence', tr:'sonuç'}, {en:'assumption', tr:'varsayım'}, {en:'perspective', tr:'bakış açısı'},
+    {en:'significant', tr:'önemli'}, {en:'controversy', tr:'tartışma'}, {en:'sustainable', tr:'sürdürülebilir'},
+    {en:'phenomenon', tr:'olgu'}, {en:'inevitable', tr:'kaçınılmaz'}, {en:'ambiguous', tr:'belirsiz'},
+    {en:'contradiction', tr:'çelişki'}, {en:'justify', tr:'haklı çıkarmak'}, {en:'compromise', tr:'uzlaşma'},
+    {en:'circumstance', tr:'durum'}, {en:'priority', tr:'öncelik'}, {en:'consistent', tr:'tutarlı'},
+  ],
+};
+
+function buildWordPool(level) {
+  const tierMap = { A1: 'easy', A2: 'medium', B1: 'hard' };
+  const objWords = tierMap[level]
+    ? Object.keys(OBJ).filter(k => OBJ[k].d === tierMap[level]).map(k => ({ key: k, en: OBJ[k].en, tr: OBJ[k].tr, ru: OBJ[k].ru }))
+    : [];
+  const bookWords = (BOOK_WORDS[level] || []).map(w => ({ key: null, en: w.en, tr: w.tr }));
+  return [...objWords, ...bookWords];
+}
+
+// Bir kelime 4 kez doğru bilinince (sadece sözlükte gerçek bir nesnesi varsa) öğrenilenlere eklenir
+function registerWordCorrect(key) {
+  if (!key) return; // kitap kelimeleri sözlüğe eklenmiyor (nesne karşılığı yok)
+  if (!GS.wordGameProgress) GS.wordGameProgress = {};
+  GS.wordGameProgress[key] = (GS.wordGameProgress[key] || 0) + 1;
+  if (GS.wordGameProgress[key] >= 4 && !GS.player.inventory.includes(key)) {
+    GS.player.inventory.push(key);
+    showToast('📖 "' + t(OBJ[key]) + '" sözlüğe eklendi!');
+  }
+}
+
+const WORDGAME_UI = {
+  chooseLevel: {tr:'Seviye Seç', en:'Choose a Level'},
+  chooseMode: {tr:'Bölüm Seç', en:'Choose a Mode'},
+  matching: {tr:'Eşleştirme', en:'Matching'},
+  timed: {tr:'Süreli Kelimeler', en:'Timed Words'},
+  back: {tr:'Geri', en:'Back'},
+  timeLeft: {tr:'Süre', en:'Time'},
+  score: {tr:'Skor', en:'Score'},
+  ok: {tr:'Tamam', en:'OK'},
+};
+
+let _wordGameLevel = 'A1';
+
+function openWordGameModal() {
+  G('wordgame-modal').style.display = 'flex';
+  showWordGameLevelSelect();
+}
+function closeWordGameModal() {
+  clearInterval(_wgTimerInterval);
+  G('wordgame-modal').style.display = 'none';
+}
+
+function showWordGameLevelSelect() {
+  G('wordgame-body').innerHTML = `
+    <div style="text-align:center;font-size:.8rem;color:var(--text-bright);margin-bottom:.6rem">${t(WORDGAME_UI.chooseLevel)}</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem">
+      <button onclick="selectWordGameLevel('A1')" style="background:var(--card2);border:1.5px solid var(--border2);border-radius:12px;padding:.9rem;font-size:.9rem;font-weight:700;color:var(--text-bright);cursor:pointer">A1</button>
+      <button onclick="selectWordGameLevel('A2')" style="background:var(--card2);border:1.5px solid var(--border2);border-radius:12px;padding:.9rem;font-size:.9rem;font-weight:700;color:var(--text-bright);cursor:pointer">A2</button>
+      <button onclick="selectWordGameLevel('B1')" style="background:var(--card2);border:1.5px solid var(--border2);border-radius:12px;padding:.9rem;font-size:.9rem;font-weight:700;color:var(--text-bright);cursor:pointer">B1</button>
+      <button onclick="selectWordGameLevel('B2')" style="background:var(--card2);border:1.5px solid var(--border2);border-radius:12px;padding:.9rem;font-size:.9rem;font-weight:700;color:var(--text-bright);cursor:pointer">B2</button>
+    </div>`;
+}
+function selectWordGameLevel(level) {
+  _wordGameLevel = level;
+  showWordGameModeSelect();
+}
+function showWordGameModeSelect() {
+  G('wordgame-body').innerHTML = `
+    <button onclick="showWordGameLevelSelect()" class="canvas-back-btn">← ${t(WORDGAME_UI.back)}</button>
+    <div style="text-align:center;font-size:.8rem;color:var(--text-bright);margin:.6rem 0">${_wordGameLevel} — ${t(WORDGAME_UI.chooseMode)}</div>
+    <div style="display:flex;flex-direction:column;gap:.6rem">
+      <button onclick="startMatchingGame()" class="canvas-tab-btn">🧩 ${biLabel(WORDGAME_UI.matching)}</button>
+      <button onclick="startTimedWordGame()" class="canvas-tab-btn">⏱️ ${biLabel(WORDGAME_UI.timed)}</button>
+    </div>`;
+}
+
+// ── EŞLEŞTİRME ──
+let _wgMatch = { pairs: [], selectedTarget: null, selectedNative: null, matchedCount: 0, xp: 0, newlyLearned: [] };
+
+function startMatchingGame() {
+  const pool = shuffleArray(buildWordPool(_wordGameLevel)).slice(0, 6);
+  _wgMatch = { pairs: pool, selectedTarget: null, selectedNative: null, matchedCount: 0, xp: 0, newlyLearned: [] };
+  renderMatchingGame();
+}
+function renderMatchingGame() {
+  const targetTiles = shuffleArray(_wgMatch.pairs.map((p, i) => ({ i, text: t(p) })));
+  const nativeTiles = shuffleArray(_wgMatch.pairs.map((p, i) => ({ i, text: nt(p) })));
+  G('wordgame-body').innerHTML = `
+    <div style="font-size:.62rem;color:var(--text-dim);text-align:center;margin-bottom:.4rem">${_wgMatch.matchedCount}/${_wgMatch.pairs.length}</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem">
+      <div id="wg-target-col" style="display:flex;flex-direction:column;gap:.4rem">
+        ${targetTiles.map(tl => `<button id="wg-t-${tl.i}" onclick="selectMatchTile('target',${tl.i})" style="background:var(--card2);border:1.5px solid var(--border2);border-radius:9px;padding:.55rem .4rem;font-size:.72rem;font-weight:600;color:var(--text);cursor:pointer">${tl.text}</button>`).join('')}
+      </div>
+      <div id="wg-native-col" style="display:flex;flex-direction:column;gap:.4rem">
+        ${nativeTiles.map(tl => `<button id="wg-n-${tl.i}" onclick="selectMatchTile('native',${tl.i})" style="background:var(--card2);border:1.5px solid var(--border2);border-radius:9px;padding:.55rem .4rem;font-size:.72rem;font-weight:600;color:var(--text);cursor:pointer">${tl.text}</button>`).join('')}
+      </div>
+    </div>`;
+}
+function selectMatchTile(col, idx) {
+  const btn = G(col === 'target' ? 'wg-t-' + idx : 'wg-n-' + idx);
+  if (!btn || btn.disabled) return;
+  if (col === 'target') {
+    if (_wgMatch.selectedTarget !== null) G('wg-t-' + _wgMatch.selectedTarget).style.borderColor = 'var(--border2)';
+    _wgMatch.selectedTarget = idx;
+    btn.style.borderColor = 'var(--teal)';
+  } else {
+    if (_wgMatch.selectedNative !== null) G('wg-n-' + _wgMatch.selectedNative).style.borderColor = 'var(--border2)';
+    _wgMatch.selectedNative = idx;
+    btn.style.borderColor = 'var(--teal)';
+  }
+  if (_wgMatch.selectedTarget !== null && _wgMatch.selectedNative !== null) {
+    setTimeout(checkMatchAttempt, 250);
+  }
+}
+function checkMatchAttempt() {
+  const ti = _wgMatch.selectedTarget, ni = _wgMatch.selectedNative;
+  const tBtn = G('wg-t-' + ti), nBtn = G('wg-n-' + ni);
+  if (ti === ni) {
+    // Doğru eşleşme
+    tBtn.style.borderColor = 'var(--green)'; tBtn.style.background = 'var(--green-dim)'; tBtn.style.color = 'var(--green)'; tBtn.disabled = true;
+    nBtn.style.borderColor = 'var(--green)'; nBtn.style.background = 'var(--green-dim)'; nBtn.style.color = 'var(--green)'; nBtn.disabled = true;
+    _wgMatch.matchedCount++;
+    _wgMatch.xp += 2;
+    const word = _wgMatch.pairs[ti];
+    AUD.speak(t(word));
+    const beforeLearned = word.key && GS.player.inventory.includes(word.key);
+    registerWordCorrect(word.key);
+    if (word.key && !beforeLearned && GS.player.inventory.includes(word.key)) _wgMatch.newlyLearned.push(t(word));
+    if (_wgMatch.matchedCount >= _wgMatch.pairs.length) { setTimeout(finishMatchingGame, 500); return; }
+  } else {
+    // Yanlış — kırmızı yanıp geri dön
+    tBtn.style.borderColor = 'var(--red)'; nBtn.style.borderColor = 'var(--red)';
+    setTimeout(() => { if (!tBtn.disabled) tBtn.style.borderColor = 'var(--border2)'; if (!nBtn.disabled) nBtn.style.borderColor = 'var(--border2)'; }, 500);
+  }
+  _wgMatch.selectedTarget = null; _wgMatch.selectedNative = null;
+}
+function finishMatchingGame() {
+  if (_wgMatch.xp > 0) addXP(_wgMatch.xp);
+  const learnedHtml = _wgMatch.newlyLearned.length
+    ? `<div style="font-size:.68rem;color:var(--teal);margin-top:.4rem">📖 ${_wgMatch.newlyLearned.join(', ')} ${t({tr:'sözlüğe eklendi!',en:'added to the dictionary!'})}</div>`
+    : '';
+  G('wordgame-body').innerHTML = `
+    <div style="text-align:center;padding:1rem 0">
+      <div style="font-size:2rem">🏆</div>
+      <div style="font-size:.9rem;font-weight:700;color:var(--text-bright);margin-top:.4rem">${_wgMatch.pairs.length}/${_wgMatch.pairs.length}!</div>
+      <div style="font-size:.7rem;color:var(--gold);margin-top:.3rem">+${_wgMatch.xp} XP</div>
+      ${learnedHtml}
+      <button onclick="showWordGameModeSelect()" style="margin-top:1rem;background:var(--teal-dim);border:1px solid var(--teal);color:var(--teal);border-radius:10px;padding:.6rem 1.2rem;font-weight:700;cursor:pointer">${t(WORDGAME_UI.ok)}</button>
+    </div>`;
+}
+
+// ── SÜRELİ KELİMELER ──
+let _wgTimed = { pool: [], secondsLeft: 45, correct: 0, total: 0, xp: 0, newlyLearned: [] };
+let _wgTimerInterval = null;
+
+function startTimedWordGame() {
+  _wgTimed = { pool: buildWordPool(_wordGameLevel), secondsLeft: 45, correct: 0, total: 0, xp: 0, newlyLearned: [] };
+  clearInterval(_wgTimerInterval);
+  _wgTimerInterval = setInterval(() => {
+    _wgTimed.secondsLeft--;
+    const timerEl = G('wg-timer'); if (timerEl) timerEl.textContent = _wgTimed.secondsLeft + 's';
+    if (_wgTimed.secondsLeft <= 0) { clearInterval(_wgTimerInterval); finishTimedWordGame(); }
+  }, 1000);
+  nextTimedQuestion();
+}
+function nextTimedQuestion() {
+  if (_wgTimed.secondsLeft <= 0) return;
+  const correctWord = _wgTimed.pool[Math.floor(Math.random() * _wgTimed.pool.length)];
+  const distractors = shuffleArray(_wgTimed.pool.filter(w => w.en !== correctWord.en)).slice(0, 3);
+  const options = shuffleArray([correctWord, ...distractors]);
+  window._wgCurrentCorrect = correctWord;
+  G('wordgame-body').innerHTML = `
+    <div style="display:flex;justify-content:space-between;font-size:.65rem;color:var(--text-dim);margin-bottom:.5rem">
+      <span>${t(WORDGAME_UI.score)}: ${_wgTimed.correct}/${_wgTimed.total}</span>
+      <span id="wg-timer" style="color:var(--amber);font-weight:700">${_wgTimed.secondsLeft}s</span>
+    </div>
+    <div style="font-size:.95rem;font-weight:700;color:var(--text-bright);text-align:center;margin-bottom:.7rem">${t(correctWord)}</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.4rem" id="wg-timed-opts">
+      ${options.map((o, i) => `<button onclick="answerTimedWord(${i === options.indexOf(correctWord) ? 'true' : 'false'})" style="background:var(--card2);border:1.5px solid var(--border2);border-radius:9px;padding:.55rem;font-size:.75rem;font-weight:600;color:var(--text);cursor:pointer">${nt(o)}</button>`).join('')}
+    </div>`;
+}
+function answerTimedWord(isCorrect) {
+  if (_wgTimed.secondsLeft <= 0) return;
+  document.querySelectorAll('#wg-timed-opts button').forEach(b => b.disabled = true);
+  _wgTimed.total++;
+  const word = window._wgCurrentCorrect;
+  if (isCorrect) {
+    _wgTimed.correct++;
+    _wgTimed.xp += 1;
+    const beforeLearned = word.key && GS.player.inventory.includes(word.key);
+    registerWordCorrect(word.key);
+    if (word.key && !beforeLearned && GS.player.inventory.includes(word.key)) _wgTimed.newlyLearned.push(t(word));
+  }
+  setTimeout(nextTimedQuestion, 400);
+}
+function finishTimedWordGame() {
+  if (_wgTimed.xp > 0) addXP(_wgTimed.xp);
+  const learnedHtml = _wgTimed.newlyLearned.length
+    ? `<div style="font-size:.68rem;color:var(--teal);margin-top:.4rem">📖 ${[...new Set(_wgTimed.newlyLearned)].join(', ')} ${t({tr:'sözlüğe eklendi!',en:'added to the dictionary!'})}</div>`
+    : '';
+  G('wordgame-body').innerHTML = `
+    <div style="text-align:center;padding:1rem 0">
+      <div style="font-size:2rem">⏱️</div>
+      <div style="font-size:.9rem;font-weight:700;color:var(--text-bright);margin-top:.4rem">${_wgTimed.correct}/${_wgTimed.total} ${t(CANVAS_UI.scoreLine)}!</div>
+      <div style="font-size:.7rem;color:var(--gold);margin-top:.3rem">+${_wgTimed.xp} XP</div>
+      ${learnedHtml}
+      <button onclick="showWordGameModeSelect()" style="margin-top:1rem;background:var(--teal-dim);border:1px solid var(--teal);color:var(--teal);border-radius:10px;padding:.6rem 1.2rem;font-weight:700;cursor:pointer">${t(WORDGAME_UI.ok)}</button>
     </div>`;
 }
 
@@ -7857,6 +8128,7 @@ function saveGame() {
       _day2WelcomeShown: GS._day2WelcomeShown,
       _computerIntroSeen: GS._computerIntroSeen,
       chatMsgCounter: GS.chatMsgCounter || 0,
+      wordGameProgress: GS.wordGameProgress || {},
       savedAt:     Date.now(),
     };
     localStorage.setItem(SAVE_KEY, JSON.stringify(saveData));
@@ -7912,6 +8184,7 @@ function applySaveData(d) {
   GS._day2WelcomeShown = d._day2WelcomeShown || false;
   GS._computerIntroSeen = d._computerIntroSeen || false;
   GS.chatMsgCounter = d.chatMsgCounter || 0;
+  GS.wordGameProgress = d.wordGameProgress || {};
   if (!GS.player.learnedRecipes) GS.player.learnedRecipes = ['sandwich','omelette'];
   if (d.QD) Object.assign(QD, d.QD);
   if (d.lang) { LANG.native = d.lang.native; LANG.target = d.lang.target; }
@@ -7988,6 +8261,15 @@ function enterGameScreen() {
       if (!r.obs.includes('door_free')) r.obs.push('door_free');
       r.obs = r.obs.filter(o => !['door_k','door_b','door_lr'].includes(o));
     });
+    // PC kurulmuşsa (GS.hobby.pc_built) hobi odasında kurulu bilgisayarı göster —
+    // bu görsel değişiklik hiç kaydedilmiyordu, sayfa yenilenince parçalar
+    // kutusu tekrar görünüyordu (veri kaybolmamıştı, sadece görsel eksikti)
+    if (GS.hobby && GS.hobby.pc_built) {
+      ['hr_monitor','hr_keyboard','hr_mouse','hr_headset','hr_case','hr_computer_parts'].forEach(p => {
+        ROOMS.hobby_room.obs = ROOMS.hobby_room.obs.filter(o => o !== p);
+      });
+      if (!ROOMS.hobby_room.obs.includes('hr_computer')) ROOMS.hobby_room.obs.splice(0, 0, 'hr_computer');
+    }
   }
   // Quest ve oda yükle
   if (GS.freeMode) {
@@ -7995,6 +8277,11 @@ function enterGameScreen() {
   } else {
     setQuest(GS.quest);
     loadRoom(GS.room);
+  }
+  // "Günü Bitir" butonu da aynı sebeple kayboluyordu — freeMode aktifse ve
+  // gün hâlâ bitirilmemişse (Gün 2'deyse tüm görevler tamamlanmışsa) geri koy
+  if (GS.freeMode && !GS._dayReviewDone) {
+    setTimeout(() => showEndDayBtn(), 300);
   }
   if (GS.day >= 2) {
     const d2btn = G('day2-tasks-btn'); if (d2btn) d2btn.style.display = 'flex';
