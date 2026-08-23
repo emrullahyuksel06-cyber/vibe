@@ -5571,14 +5571,25 @@ function nextTimedQuestion() {
     </div>
     <div style="font-size:.95rem;font-weight:700;color:var(--text-bright);text-align:center;margin-bottom:.7rem">${t(correctWord)}</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:.4rem" id="wg-timed-opts">
-      ${options.map((o, i) => `<button onclick="answerTimedWord(${i === options.indexOf(correctWord) ? 'true' : 'false'})" style="background:var(--card2);border:1.5px solid var(--border2);border-radius:9px;padding:.55rem;font-size:.75rem;font-weight:600;color:var(--text);cursor:pointer">${nt(o)}</button>`).join('')}
+      ${options.map((o, i) => `<button id="wg-opt-${i}" data-en="${o.en.replace(/"/g,'&quot;')}" onclick="answerTimedWord('${o.en.replace(/'/g,"\\'")}', ${i})" style="background:var(--card2);border:1.5px solid var(--border2);border-radius:9px;padding:.55rem;font-size:.75rem;font-weight:600;color:var(--text);cursor:pointer">${nt(o)}</button>`).join('')}
     </div>`;
 }
-function answerTimedWord(isCorrect) {
+function answerTimedWord(pickedEn, pickedIdx) {
   if (_wgTimed.secondsLeft <= 0) return;
   document.querySelectorAll('#wg-timed-opts button').forEach(b => b.disabled = true);
   _wgTimed.total++;
   const word = window._wgCurrentCorrect;
+  const isCorrect = pickedEn === word.en;
+
+  // Doğru/yanlış görsel geri bildirim — hangi butona bastığını ve doğrusunu göster
+  document.querySelectorAll('#wg-timed-opts button').forEach(b => {
+    if (b.dataset.en === word.en) { b.style.borderColor = 'var(--green)'; b.style.background = 'var(--green-dim)'; b.style.color = 'var(--green)'; }
+  });
+  if (!isCorrect) {
+    const pickedBtn = G('wg-opt-' + pickedIdx);
+    if (pickedBtn) { pickedBtn.style.borderColor = 'var(--red)'; pickedBtn.style.background = 'var(--red-dim)'; pickedBtn.style.color = 'var(--red)'; }
+  }
+
   if (isCorrect) {
     _wgTimed.correct++;
     _wgTimed.xp += 1;
@@ -5586,7 +5597,7 @@ function answerTimedWord(isCorrect) {
     registerWordCorrect(word.key);
     if (word.key && !beforeLearned && GS.player.inventory.includes(word.key)) _wgTimed.newlyLearned.push(t(word));
   }
-  setTimeout(nextTimedQuestion, 400);
+  setTimeout(nextTimedQuestion, 1200);
 }
 function finishTimedWordGame() {
   if (_wgTimed.xp > 0) addXP(_wgTimed.xp);
