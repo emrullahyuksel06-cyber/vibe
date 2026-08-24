@@ -4284,8 +4284,8 @@ function renderDictList(keys) {
     html += '<div class="dict-card"' + (learned ? '' : ' style="opacity:.55"') + '>';
     html += '<span class="dict-card-em">' + (o.em || '') + '</span>';
     html += '<div class="dict-card-body">';
-    html += '<span class="dict-card-en">' + o.en + (learned ? ' <span style="color:var(--green);font-size:.7em">✓</span>' : '') + '</span>';
-    html += '<span class="dict-card-tr">' + o.tr + '</span>';
+    html += '<span class="dict-card-en">' + capitalizeFirst(o.en) + (learned ? ' <span style="color:var(--green);font-size:.7em">✓</span>' : '') + '</span>';
+    html += '<span class="dict-card-tr">' + capitalizeFirst(o.tr) + '</span>';
     html += '<span class="dict-card-ctx">' + (o.ctx || '') + '</span>';
     html += '</div>';
     html += '<span class="dict-card-badge ' + badgeClass + '">' + o.d + '</span>';
@@ -5101,7 +5101,7 @@ function startColorQuiz() { _canvasQuiz = { active: true, round: 0, total: 5, co
 function nextColorQuizRound() {
   if (_canvasQuiz.round >= _canvasQuiz.total) { finishCanvasQuiz(); return; }
   _canvasQuiz.round++;
-  const colorKey = COLOR_LIST[Math.floor(Math.random() * COLOR_LIST.length)];
+  const colorKey = pickStringWithoutRecentRepeat(COLOR_LIST, 'colorQuiz', 3);
   const exIdx = Math.floor(Math.random() * 4);
   const imgUrl = `${CANVAS_COLOR_IMG_BASE}${colorKey}/${exIdx + 1}.webp`;
   const options = shuffleArray([colorKey, ...pickRandomOthers(COLOR_LIST, colorKey, 3)]);
@@ -5151,7 +5151,8 @@ function startNumberQuiz() { _canvasQuiz = { active: true, round: 0, total: 5, c
 function nextNumberQuizRound() {
   if (_canvasQuiz.round >= _canvasQuiz.total) { finishCanvasQuiz(); return; }
   _canvasQuiz.round++;
-  const idx = Math.floor(Math.random() * NUMBER_SINGLE.length);
+  const idxList = NUMBER_SINGLE.map((_, i) => i);
+  const idx = pickStringWithoutRecentRepeat(idxList, 'numberQuiz', 4);
   const item = NUMBER_SINGLE[idx];
   const imgUrl = `${CANVAS_IMG_BASE}single/${idx + 1}.webp`;
   const options = shuffleArray([item.n, ...pickRandomOthersNum(item.n, 3, 1, 10)]);
@@ -5202,7 +5203,8 @@ function startMixedQuiz() { _canvasQuiz = { active: true, round: 0, total: 5, co
 function nextMixedQuizRound() {
   if (_canvasQuiz.round >= _canvasQuiz.total) { finishCanvasQuiz(); return; }
   _canvasQuiz.round++;
-  const idx = Math.floor(Math.random() * NUMBER_MIXED.length);
+  const mixedIdxList = NUMBER_MIXED.map((_, i) => i);
+  const idx = pickStringWithoutRecentRepeat(mixedIdxList, 'mixedQuiz', 3);
   const item = NUMBER_MIXED[idx];
   const target = Math.random() < 0.5 ? item.a : item.b;
   const imgUrl = `${CANVAS_IMG_BASE}mixed/${item.img}.webp`;
@@ -5403,13 +5405,60 @@ const BOOK_WORDS = {
   ],
 };
 
+// Büyük/küçük harf normalizasyonu — metinlerden/kitaplardan çekilen kelimeler
+// bazen küçük harfle geliyordu, görüntülenirken tutarlı hale getiriyoruz
+function capitalizeFirst(s) {
+  if (!s) return s;
+  return s.charAt(0).toUpperCase() + s.slice(1);
+}
+function normalizeWordEntry(w) {
+  return { key: w.key, en: capitalizeFirst(w.en), tr: capitalizeFirst(w.tr), ru: w.ru ? capitalizeFirst(w.ru) : undefined };
+}
+
 function buildWordPool(level) {
   const tierMap = { A1: 'easy', A2: 'medium', B1: 'hard' };
   const objWords = tierMap[level]
     ? Object.keys(OBJ).filter(k => OBJ[k].d === tierMap[level]).map(k => ({ key: k, en: OBJ[k].en, tr: OBJ[k].tr, ru: OBJ[k].ru }))
     : [];
   const bookWords = (BOOK_WORDS[level] || []).map(w => ({ key: null, en: w.en, tr: w.tr }));
-  return [...objWords, ...bookWords];
+  // Aynı kelimeden iki tane olmasın — İngilizce metne göre (büyük/küçük harf fark etmeksizin)
+  // tekilleştiriyoruz. Bu, ileride 70-80 kitap eklenince de otomatik çalışacak.
+  const combined = [...objWords, ...bookWords];
+  const seen = new Set();
+  const deduped = [];
+  combined.forEach(w => {
+    const key = w.en.toLowerCase().trim();
+    if (seen.has(key)) return;
+    seen.add(key);
+    deduped.push(normalizeWordEntry(w));
+  });
+  return deduped;
+}
+
+// Son sorulan kelimeleri hatırlayıp arka arkaya tekrar gelmesini engeller
+const _recentWordHistory = {};
+function pickWithoutRecentRepeat(pool, historyKey, windowSize) {
+  if (!pool.length) return null;
+  if (!_recentWordHistory[historyKey]) _recentWordHistory[historyKey] = [];
+  const recent = _recentWordHistory[historyKey];
+  let candidates = pool.filter(w => !recent.includes(w.en));
+  if (!candidates.length) candidates = pool; // havuz küçükse tekrar etmek zorunda kalabilir
+  const picked = candidates[Math.floor(Math.random() * candidates.length)];
+  recent.push(picked.en);
+  while (recent.length > (windowSize || 3)) recent.shift();
+  return picked;
+}
+// Aynı mantığın düz metin (renk anahtarı, kelime indeksi vb.) hali
+function pickStringWithoutRecentRepeat(list, historyKey, windowSize) {
+  if (!list.length) return null;
+  if (!_recentWordHistory[historyKey]) _recentWordHistory[historyKey] = [];
+  const recent = _recentWordHistory[historyKey];
+  let candidates = list.filter(v => !recent.includes(v));
+  if (!candidates.length) candidates = list;
+  const picked = candidates[Math.floor(Math.random() * candidates.length)];
+  recent.push(picked);
+  while (recent.length > (windowSize || 3)) recent.shift();
+  return picked;
 }
 
 // Bir kelime 4 kez doğru bilinince (sadece sözlükte gerçek bir nesnesi varsa) öğrenilenlere eklenir
@@ -5560,7 +5609,7 @@ function startTimedWordGame() {
 }
 function nextTimedQuestion() {
   if (_wgTimed.secondsLeft <= 0) return;
-  const correctWord = _wgTimed.pool[Math.floor(Math.random() * _wgTimed.pool.length)];
+  const correctWord = pickWithoutRecentRepeat(_wgTimed.pool, 'timedWords', 4);
   const distractors = shuffleArray(_wgTimed.pool.filter(w => w.en !== correctWord.en)).slice(0, 3);
   const options = shuffleArray([correctWord, ...distractors]);
   window._wgCurrentCorrect = correctWord;
