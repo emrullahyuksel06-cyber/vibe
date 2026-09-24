@@ -1,0 +1,334 @@
+{
+ "vocab": [
+  {
+   "id": "v01",
+   "cefr": "A1a",
+   "em": "🛏️",
+   "word": "cama",
+   "options": [
+    "bed",
+    "chair",
+    "table",
+    "door"
+   ],
+   "answer": 0
+  },
+  {
+   "id": "v02",
+   "cefr": "A1a",
+   "em": "🚪",
+   "word": "puerta",
+   "options": [
+    "window",
+    "door",
+    "wall",
+    "stairs"
+   ],
+   "answer": 1
+  },
+  {
+   "id": "v03",
+   "cefr": "A1a",
+   "em": "💧",
+   "word": "agua",
+   "options": [
+    "water",
+    "milk",
+    "tea",
+    "coffee"
+   ],
+   "answer": 0
+  },
+  {
+   "id": "v04",
+   "cefr": "A1a",
+   "em": "☕",
+   "word": "taza",
+   "options": [
+    "cup",
+    "plate",
+    "spoon",
+    "bottle"
+   ],
+   "answer": 0
+  },
+  {
+   "id": "v05",
+   "cefr": "A1b",
+   "em": "🪟",
+   "word": "ventana",
+   "options": [
+    "door",
+    "window",
+    "roof",
+    "wall"
+   ],
+   "answer": 1
+  },
+  {
+   "id": "v06",
+   "cefr": "A1b",
+   "em": "🪑",
+   "word": "silla",
+   "options": [
+    "sofa",
+    "chair",
+    "stool",
+    "bed"
+   ],
+   "answer": 1
+  },
+  {
+   "id": "v07",
+   "cefr": "A1b",
+   "em": "🥚",
+   "word": "huevo",
+   "options": [
+    "egg",
+    "cheese",
+    "butter",
+    "milk"
+   ],
+   "answer": 0
+  },
+  {
+   "id": "v08",
+   "cefr": "A1b",
+   "em": "🥛",
+   "word": "leche",
+   "options": [
+    "water",
+    "milk",
+    "juice",
+    "coffee"
+   ],
+   "answer": 1
+  },
+  {
+   "id": "v09",
+   "cefr": "A2a",
+   "em": "🧣",
+   "word": "toalla",
+   "options": [
+    "towel",
+    "napkin",
+    "apron",
+    "sheet"
+   ],
+   "answer": 0
+  },
+  {
+   "id": "v10",
+   "cefr": "A2a",
+   "em": "🥄",
+   "word": "cuchara",
+   "options": [
+    "fork",
+    "knife",
+    "spoon",
+    "ladle"
+   ],
+   "answer": 2
+  },
+  {
+   "id": "v11",
+   "cefr": "A2a",
+   "em": "🔪",
+   "word": "cuchillo",
+   "options": [
+    "spoon",
+    "fork",
+    "scissors",
+    "knife"
+   ],
+   "answer": 3
+  },
+  {
+   "id": "v12",
+   "cefr": "A2a",
+   "em": "🧥",
+   "word": "armario",
+   "options": [
+    "wardrobe",
+    "shelf",
+    "drawer",
+    "nightstand"
+   ],
+   "answer": 0
+  }
+ ],
+ "sentences": [
+  {
+   "id": "s01",
+   "cefr": "A1a",
+   "sentence": "Esta es una cama.",
+   "options": [
+    "This is a bed.",
+    "This is a door.",
+    "This is a table.",
+    "This is a chair."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "s02",
+   "cefr": "A1a",
+   "sentence": "El agua está fría.",
+   "options": [
+    "The water is cold.",
+    "The water is hot.",
+    "There is no water.",
+    "Drink water."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "s03",
+   "cefr": "A1b",
+   "sentence": "Bebo café por la mañana.",
+   "options": [
+    "I drink coffee in the morning.",
+    "I drink coffee at night.",
+    "I don't like coffee.",
+    "I drink tea in the morning."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "s04",
+   "cefr": "A1b",
+   "sentence": "Ella está en la cocina.",
+   "options": [
+    "She is in the kitchen.",
+    "She is in the bathroom.",
+    "She is outside.",
+    "She is sleeping."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "s05",
+   "cefr": "A2a",
+   "sentence": "¿Puedo abrir la ventana?",
+   "options": [
+    "Can I open the window?",
+    "Where is the window?",
+    "I opened the window.",
+    "The window is open."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "s06",
+   "cefr": "A2a",
+   "sentence": "Necesito lavarme las manos.",
+   "options": [
+    "I need to wash my hands.",
+    "I need to brush my teeth.",
+    "I need to eat.",
+    "I need to sleep."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "s07",
+   "cefr": "A2b",
+   "sentence": "¿Me pasas la sal?",
+   "options": [
+    "Could you pass me the salt?",
+    "Where is the salt?",
+    "With salt?",
+    "We're out of salt."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "s08",
+   "cefr": "A2b",
+   "sentence": "La película empezó hace diez minutos.",
+   "options": [
+    "The movie started ten minutes ago.",
+    "The movie starts in ten minutes.",
+    "The movie has been on for an hour.",
+    "The movie hasn't started yet."
+   ],
+   "answer": 0
+  }
+ ],
+ "writing": [
+  {
+   "id": "w01",
+   "cefr": "A1a",
+   "prompt": "Write \"water\" in Spanish",
+   "answer": "agua",
+   "hint": "a__a"
+  },
+  {
+   "id": "w02",
+   "cefr": "A1b",
+   "prompt": "Write \"apple\" in Spanish",
+   "answer": "manzana",
+   "hint": "ma___na"
+  },
+  {
+   "id": "w03",
+   "cefr": "A2a",
+   "prompt": "Write \"I drink coffee\" in Spanish",
+   "answer": "Bebo café",
+   "hint": "B___ café"
+  },
+  {
+   "id": "w04",
+   "cefr": "A2b",
+   "prompt": "Write \"Can you open the window?\" in Spanish",
+   "answer": "Puedes abrir la ventana",
+   "hint": "P____s abrir la ventana"
+  }
+ ],
+ "listening": [
+  {
+   "id": "l01",
+   "cefr": "A1a",
+   "tts": "Esta es una cama.",
+   "options": [
+    "This is a bed.",
+    "This is a door.",
+    "This is a table."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "l02",
+   "cefr": "A1a",
+   "tts": "El agua está fría.",
+   "options": [
+    "The water is cold.",
+    "The water is hot.",
+    "There is no water."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "l03",
+   "cefr": "A1b",
+   "tts": "Ella está en la cocina.",
+   "options": [
+    "She is in the kitchen.",
+    "She is in the bathroom.",
+    "She is outside."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "l04",
+   "cefr": "A2b",
+   "tts": "¿Me pasas la sal?",
+   "options": [
+    "Could you pass me the salt?",
+    "Where is the salt?",
+    "With salt?"
+   ],
+   "answer": 0
+  }
+ ]
+}

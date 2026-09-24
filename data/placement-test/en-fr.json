@@ -1,0 +1,334 @@
+{
+ "vocab": [
+  {
+   "id": "v01",
+   "cefr": "A1a",
+   "em": "🛏️",
+   "word": "lit",
+   "options": [
+    "bed",
+    "chair",
+    "table",
+    "door"
+   ],
+   "answer": 0
+  },
+  {
+   "id": "v02",
+   "cefr": "A1a",
+   "em": "🚪",
+   "word": "porte",
+   "options": [
+    "window",
+    "door",
+    "wall",
+    "stairs"
+   ],
+   "answer": 1
+  },
+  {
+   "id": "v03",
+   "cefr": "A1a",
+   "em": "💧",
+   "word": "eau",
+   "options": [
+    "water",
+    "milk",
+    "tea",
+    "coffee"
+   ],
+   "answer": 0
+  },
+  {
+   "id": "v04",
+   "cefr": "A1a",
+   "em": "☕",
+   "word": "tasse",
+   "options": [
+    "cup",
+    "plate",
+    "spoon",
+    "bottle"
+   ],
+   "answer": 0
+  },
+  {
+   "id": "v05",
+   "cefr": "A1b",
+   "em": "🪟",
+   "word": "fenêtre",
+   "options": [
+    "door",
+    "window",
+    "roof",
+    "wall"
+   ],
+   "answer": 1
+  },
+  {
+   "id": "v06",
+   "cefr": "A1b",
+   "em": "🪑",
+   "word": "chaise",
+   "options": [
+    "sofa",
+    "chair",
+    "stool",
+    "bed"
+   ],
+   "answer": 1
+  },
+  {
+   "id": "v07",
+   "cefr": "A1b",
+   "em": "🥚",
+   "word": "œuf",
+   "options": [
+    "egg",
+    "cheese",
+    "butter",
+    "milk"
+   ],
+   "answer": 0
+  },
+  {
+   "id": "v08",
+   "cefr": "A1b",
+   "em": "🥛",
+   "word": "lait",
+   "options": [
+    "water",
+    "milk",
+    "juice",
+    "coffee"
+   ],
+   "answer": 1
+  },
+  {
+   "id": "v09",
+   "cefr": "A2a",
+   "em": "🧣",
+   "word": "serviette",
+   "options": [
+    "towel",
+    "napkin",
+    "apron",
+    "sheet"
+   ],
+   "answer": 0
+  },
+  {
+   "id": "v10",
+   "cefr": "A2a",
+   "em": "🥄",
+   "word": "cuillère",
+   "options": [
+    "fork",
+    "knife",
+    "spoon",
+    "ladle"
+   ],
+   "answer": 2
+  },
+  {
+   "id": "v11",
+   "cefr": "A2a",
+   "em": "🔪",
+   "word": "couteau",
+   "options": [
+    "spoon",
+    "fork",
+    "scissors",
+    "knife"
+   ],
+   "answer": 3
+  },
+  {
+   "id": "v12",
+   "cefr": "A2a",
+   "em": "🧥",
+   "word": "armoire",
+   "options": [
+    "wardrobe",
+    "shelf",
+    "drawer",
+    "nightstand"
+   ],
+   "answer": 0
+  }
+ ],
+ "sentences": [
+  {
+   "id": "s01",
+   "cefr": "A1a",
+   "sentence": "C'est un lit.",
+   "options": [
+    "This is a bed.",
+    "This is a door.",
+    "This is a table.",
+    "This is a chair."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "s02",
+   "cefr": "A1a",
+   "sentence": "L'eau est froide.",
+   "options": [
+    "The water is cold.",
+    "The water is hot.",
+    "There is no water.",
+    "Drink water."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "s03",
+   "cefr": "A1b",
+   "sentence": "Je bois du café le matin.",
+   "options": [
+    "I drink coffee in the morning.",
+    "I drink coffee at night.",
+    "I don't like coffee.",
+    "I drink tea in the morning."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "s04",
+   "cefr": "A1b",
+   "sentence": "Elle est dans la cuisine.",
+   "options": [
+    "She is in the kitchen.",
+    "She is in the bathroom.",
+    "She is outside.",
+    "She is sleeping."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "s05",
+   "cefr": "A2a",
+   "sentence": "Puis-je ouvrir la fenêtre ?",
+   "options": [
+    "Can I open the window?",
+    "Where is the window?",
+    "I opened the window.",
+    "The window is open."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "s06",
+   "cefr": "A2a",
+   "sentence": "Je dois me laver les mains.",
+   "options": [
+    "I need to wash my hands.",
+    "I need to brush my teeth.",
+    "I need to eat.",
+    "I need to sleep."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "s07",
+   "cefr": "A2b",
+   "sentence": "Tu peux me passer le sel ?",
+   "options": [
+    "Could you pass me the salt?",
+    "Where is the salt?",
+    "With salt?",
+    "We're out of salt."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "s08",
+   "cefr": "A2b",
+   "sentence": "Le film a commencé il y a dix minutes.",
+   "options": [
+    "The movie started ten minutes ago.",
+    "The movie starts in ten minutes.",
+    "The movie has been on for an hour.",
+    "The movie hasn't started yet."
+   ],
+   "answer": 0
+  }
+ ],
+ "writing": [
+  {
+   "id": "w01",
+   "cefr": "A1a",
+   "prompt": "Write \"water\" in French",
+   "answer": "eau",
+   "hint": "e_u"
+  },
+  {
+   "id": "w02",
+   "cefr": "A1b",
+   "prompt": "Write \"apple\" in French",
+   "answer": "pomme",
+   "hint": "p___e"
+  },
+  {
+   "id": "w03",
+   "cefr": "A2a",
+   "prompt": "Write \"I drink coffee\" in French",
+   "answer": "Je bois du café",
+   "hint": "Je b___ du café"
+  },
+  {
+   "id": "w04",
+   "cefr": "A2b",
+   "prompt": "Write \"Can you open the window?\" in French",
+   "answer": "Tu peux ouvrir la fenêtre",
+   "hint": "Tu p___ ouvrir la fenêtre"
+  }
+ ],
+ "listening": [
+  {
+   "id": "l01",
+   "cefr": "A1a",
+   "tts": "C'est un lit.",
+   "options": [
+    "This is a bed.",
+    "This is a door.",
+    "This is a table."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "l02",
+   "cefr": "A1a",
+   "tts": "L'eau est froide.",
+   "options": [
+    "The water is cold.",
+    "The water is hot.",
+    "There is no water."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "l03",
+   "cefr": "A1b",
+   "tts": "Elle est dans la cuisine.",
+   "options": [
+    "She is in the kitchen.",
+    "She is in the bathroom.",
+    "She is outside."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "l04",
+   "cefr": "A2b",
+   "tts": "Tu peux me passer le sel ?",
+   "options": [
+    "Could you pass me the salt?",
+    "Where is the salt?",
+    "With salt?"
+   ],
+   "answer": 0
+  }
+ ]
+}

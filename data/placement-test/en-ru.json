@@ -1,0 +1,334 @@
+{
+ "vocab": [
+  {
+   "id": "v01",
+   "cefr": "A1a",
+   "em": "🛏️",
+   "word": "кровать",
+   "options": [
+    "bed",
+    "chair",
+    "table",
+    "door"
+   ],
+   "answer": 0
+  },
+  {
+   "id": "v02",
+   "cefr": "A1a",
+   "em": "🚪",
+   "word": "дверь",
+   "options": [
+    "window",
+    "door",
+    "wall",
+    "stairs"
+   ],
+   "answer": 1
+  },
+  {
+   "id": "v03",
+   "cefr": "A1a",
+   "em": "💧",
+   "word": "вода",
+   "options": [
+    "water",
+    "milk",
+    "tea",
+    "coffee"
+   ],
+   "answer": 0
+  },
+  {
+   "id": "v04",
+   "cefr": "A1a",
+   "em": "☕",
+   "word": "чашка",
+   "options": [
+    "cup",
+    "plate",
+    "spoon",
+    "bottle"
+   ],
+   "answer": 0
+  },
+  {
+   "id": "v05",
+   "cefr": "A1b",
+   "em": "🪟",
+   "word": "окно",
+   "options": [
+    "door",
+    "window",
+    "roof",
+    "wall"
+   ],
+   "answer": 1
+  },
+  {
+   "id": "v06",
+   "cefr": "A1b",
+   "em": "🪑",
+   "word": "стул",
+   "options": [
+    "sofa",
+    "chair",
+    "stool",
+    "bed"
+   ],
+   "answer": 1
+  },
+  {
+   "id": "v07",
+   "cefr": "A1b",
+   "em": "🥚",
+   "word": "яйцо",
+   "options": [
+    "egg",
+    "cheese",
+    "butter",
+    "milk"
+   ],
+   "answer": 0
+  },
+  {
+   "id": "v08",
+   "cefr": "A1b",
+   "em": "🥛",
+   "word": "молоко",
+   "options": [
+    "water",
+    "milk",
+    "juice",
+    "coffee"
+   ],
+   "answer": 1
+  },
+  {
+   "id": "v09",
+   "cefr": "A2a",
+   "em": "🧣",
+   "word": "полотенце",
+   "options": [
+    "towel",
+    "napkin",
+    "apron",
+    "sheet"
+   ],
+   "answer": 0
+  },
+  {
+   "id": "v10",
+   "cefr": "A2a",
+   "em": "🥄",
+   "word": "ложка",
+   "options": [
+    "fork",
+    "knife",
+    "spoon",
+    "ladle"
+   ],
+   "answer": 2
+  },
+  {
+   "id": "v11",
+   "cefr": "A2a",
+   "em": "🔪",
+   "word": "нож",
+   "options": [
+    "spoon",
+    "fork",
+    "scissors",
+    "knife"
+   ],
+   "answer": 3
+  },
+  {
+   "id": "v12",
+   "cefr": "A2a",
+   "em": "🧥",
+   "word": "шкаф",
+   "options": [
+    "wardrobe",
+    "shelf",
+    "drawer",
+    "nightstand"
+   ],
+   "answer": 0
+  }
+ ],
+ "sentences": [
+  {
+   "id": "s01",
+   "cefr": "A1a",
+   "sentence": "Это кровать.",
+   "options": [
+    "This is a bed.",
+    "This is a door.",
+    "This is a table.",
+    "This is a chair."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "s02",
+   "cefr": "A1a",
+   "sentence": "Вода холодная.",
+   "options": [
+    "The water is cold.",
+    "The water is hot.",
+    "There is no water.",
+    "Drink water."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "s03",
+   "cefr": "A1b",
+   "sentence": "Я пью кофе утром.",
+   "options": [
+    "I drink coffee in the morning.",
+    "I drink coffee at night.",
+    "I don't like coffee.",
+    "I drink tea in the morning."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "s04",
+   "cefr": "A1b",
+   "sentence": "Она на кухне.",
+   "options": [
+    "She is in the kitchen.",
+    "She is in the bathroom.",
+    "She is outside.",
+    "She is sleeping."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "s05",
+   "cefr": "A2a",
+   "sentence": "Можно мне открыть окно?",
+   "options": [
+    "Can I open the window?",
+    "Where is the window?",
+    "I opened the window.",
+    "The window is open."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "s06",
+   "cefr": "A2a",
+   "sentence": "Мне нужно помыть руки.",
+   "options": [
+    "I need to wash my hands.",
+    "I need to brush my teeth.",
+    "I need to eat.",
+    "I need to sleep."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "s07",
+   "cefr": "A2b",
+   "sentence": "Не мог бы ты передать мне соль?",
+   "options": [
+    "Could you pass me the salt?",
+    "Where is the salt?",
+    "With salt?",
+    "We're out of salt."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "s08",
+   "cefr": "A2b",
+   "sentence": "Фильм начался десять минут назад.",
+   "options": [
+    "The movie started ten minutes ago.",
+    "The movie starts in ten minutes.",
+    "The movie has been on for an hour.",
+    "The movie hasn't started yet."
+   ],
+   "answer": 0
+  }
+ ],
+ "writing": [
+  {
+   "id": "w01",
+   "cefr": "A1a",
+   "prompt": "Write \"water\" in Russian",
+   "answer": "вода",
+   "hint": "в___а"
+  },
+  {
+   "id": "w02",
+   "cefr": "A1b",
+   "prompt": "Write \"apple\" in Russian",
+   "answer": "яблоко",
+   "hint": "я____о"
+  },
+  {
+   "id": "w03",
+   "cefr": "A2a",
+   "prompt": "Write \"I drink coffee\" in Russian",
+   "answer": "Я пью кофе",
+   "hint": "Я п_ кофе"
+  },
+  {
+   "id": "w04",
+   "cefr": "A2b",
+   "prompt": "Write \"Can you open the window?\" in Russian",
+   "answer": "Ты можешь открыть окно",
+   "hint": "Ты м____ открыть окно"
+  }
+ ],
+ "listening": [
+  {
+   "id": "l01",
+   "cefr": "A1a",
+   "tts": "Это кровать.",
+   "options": [
+    "This is a bed.",
+    "This is a door.",
+    "This is a table."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "l02",
+   "cefr": "A1a",
+   "tts": "Вода холодная.",
+   "options": [
+    "The water is cold.",
+    "The water is hot.",
+    "There is no water."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "l03",
+   "cefr": "A1b",
+   "tts": "Она на кухне.",
+   "options": [
+    "She is in the kitchen.",
+    "She is in the bathroom.",
+    "She is outside."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "l04",
+   "cefr": "A2b",
+   "tts": "Не мог бы ты передать мне соль?",
+   "options": [
+    "Could you pass me the salt?",
+    "Where is the salt?",
+    "With salt?"
+   ],
+   "answer": 0
+  }
+ ]
+}

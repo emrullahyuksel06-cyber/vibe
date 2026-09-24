@@ -1,0 +1,334 @@
+{
+ "vocab": [
+  {
+   "id": "v01",
+   "cefr": "A1a",
+   "em": "🛏️",
+   "word": "lit",
+   "options": [
+    "кровать",
+    "стул",
+    "стол",
+    "дверь"
+   ],
+   "answer": 0
+  },
+  {
+   "id": "v02",
+   "cefr": "A1a",
+   "em": "🚪",
+   "word": "porte",
+   "options": [
+    "окно",
+    "дверь",
+    "стена",
+    "лестница"
+   ],
+   "answer": 1
+  },
+  {
+   "id": "v03",
+   "cefr": "A1a",
+   "em": "💧",
+   "word": "eau",
+   "options": [
+    "вода",
+    "молоко",
+    "чай",
+    "кофе"
+   ],
+   "answer": 0
+  },
+  {
+   "id": "v04",
+   "cefr": "A1a",
+   "em": "☕",
+   "word": "tasse",
+   "options": [
+    "чашка",
+    "тарелка",
+    "ложка",
+    "бутылка"
+   ],
+   "answer": 0
+  },
+  {
+   "id": "v05",
+   "cefr": "A1b",
+   "em": "🪟",
+   "word": "fenêtre",
+   "options": [
+    "дверь",
+    "окно",
+    "потолок",
+    "стена"
+   ],
+   "answer": 1
+  },
+  {
+   "id": "v06",
+   "cefr": "A1b",
+   "em": "🪑",
+   "word": "chaise",
+   "options": [
+    "диван",
+    "стул",
+    "табурет",
+    "кровать"
+   ],
+   "answer": 1
+  },
+  {
+   "id": "v07",
+   "cefr": "A1b",
+   "em": "🥚",
+   "word": "œuf",
+   "options": [
+    "яйцо",
+    "сыр",
+    "масло",
+    "молоко"
+   ],
+   "answer": 0
+  },
+  {
+   "id": "v08",
+   "cefr": "A1b",
+   "em": "🥛",
+   "word": "lait",
+   "options": [
+    "вода",
+    "молоко",
+    "сок",
+    "кофе"
+   ],
+   "answer": 1
+  },
+  {
+   "id": "v09",
+   "cefr": "A2a",
+   "em": "🧣",
+   "word": "serviette",
+   "options": [
+    "полотенце",
+    "салфетка",
+    "фартук",
+    "простыня"
+   ],
+   "answer": 0
+  },
+  {
+   "id": "v10",
+   "cefr": "A2a",
+   "em": "🥄",
+   "word": "cuillère",
+   "options": [
+    "вилка",
+    "нож",
+    "ложка",
+    "половник"
+   ],
+   "answer": 2
+  },
+  {
+   "id": "v11",
+   "cefr": "A2a",
+   "em": "🔪",
+   "word": "couteau",
+   "options": [
+    "ложка",
+    "вилка",
+    "ножницы",
+    "нож"
+   ],
+   "answer": 3
+  },
+  {
+   "id": "v12",
+   "cefr": "A2a",
+   "em": "🧥",
+   "word": "armoire",
+   "options": [
+    "шкаф",
+    "полка",
+    "ящик",
+    "тумба"
+   ],
+   "answer": 0
+  }
+ ],
+ "sentences": [
+  {
+   "id": "s01",
+   "cefr": "A1a",
+   "sentence": "C'est un lit.",
+   "options": [
+    "Это кровать.",
+    "Это дверь.",
+    "Это стол.",
+    "Это стул."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "s02",
+   "cefr": "A1a",
+   "sentence": "L'eau est froide.",
+   "options": [
+    "Вода холодная.",
+    "Вода горячая.",
+    "Воды нет.",
+    "Выпей воду."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "s03",
+   "cefr": "A1b",
+   "sentence": "Je bois du café le matin.",
+   "options": [
+    "Я пью кофе утром.",
+    "Я пью кофе вечером.",
+    "Я не люблю кофе.",
+    "Я пью чай утром."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "s04",
+   "cefr": "A1b",
+   "sentence": "Elle est dans la cuisine.",
+   "options": [
+    "Она на кухне.",
+    "Она в ванной.",
+    "Она на улице.",
+    "Она спит."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "s05",
+   "cefr": "A2a",
+   "sentence": "Puis-je ouvrir la fenêtre ?",
+   "options": [
+    "Можно мне открыть окно?",
+    "Где окно?",
+    "Я открыл окно.",
+    "Окно открыто."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "s06",
+   "cefr": "A2a",
+   "sentence": "Je dois me laver les mains.",
+   "options": [
+    "Мне нужно помыть руки.",
+    "Мне нужно почистить зубы.",
+    "Мне нужно поесть.",
+    "Мне нужно поспать."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "s07",
+   "cefr": "A2b",
+   "sentence": "Tu peux me passer le sel ?",
+   "options": [
+    "Не мог бы ты передать мне соль?",
+    "Где соль?",
+    "Посолить?",
+    "Соль закончилась."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "s08",
+   "cefr": "A2b",
+   "sentence": "Le film a commencé il y a dix minutes.",
+   "options": [
+    "Фильм начался десять минут назад.",
+    "Фильм начнётся через десять минут.",
+    "Фильм уже идёт час.",
+    "Фильм ещё не начался."
+   ],
+   "answer": 0
+  }
+ ],
+ "writing": [
+  {
+   "id": "w01",
+   "cefr": "A1a",
+   "prompt": "Напишите по-французски: «вода»",
+   "answer": "eau",
+   "hint": "e_u"
+  },
+  {
+   "id": "w02",
+   "cefr": "A1b",
+   "prompt": "Напишите по-французски: «яблоко»",
+   "answer": "pomme",
+   "hint": "p___e"
+  },
+  {
+   "id": "w03",
+   "cefr": "A2a",
+   "prompt": "Напишите по-французски: «Я пью кофе»",
+   "answer": "Je bois du café",
+   "hint": "Je b___ du café"
+  },
+  {
+   "id": "w04",
+   "cefr": "A2b",
+   "prompt": "Напишите по-французски: «Ты можешь открыть окно?»",
+   "answer": "Tu peux ouvrir la fenêtre",
+   "hint": "Tu p___ ouvrir la fenêtre"
+  }
+ ],
+ "listening": [
+  {
+   "id": "l01",
+   "cefr": "A1a",
+   "tts": "C'est un lit.",
+   "options": [
+    "Это кровать.",
+    "Это дверь.",
+    "Это стол."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "l02",
+   "cefr": "A1a",
+   "tts": "L'eau est froide.",
+   "options": [
+    "Вода холодная.",
+    "Вода горячая.",
+    "Воды нет."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "l03",
+   "cefr": "A1b",
+   "tts": "Elle est dans la cuisine.",
+   "options": [
+    "Она на кухне.",
+    "Она в ванной.",
+    "Она на улице."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "l04",
+   "cefr": "A2b",
+   "tts": "Tu peux me passer le sel ?",
+   "options": [
+    "Не мог бы ты передать мне соль?",
+    "Где соль?",
+    "Посолить?"
+   ],
+   "answer": 0
+  }
+ ]
+}

@@ -1,0 +1,334 @@
+{
+ "vocab": [
+  {
+   "id": "v01",
+   "cefr": "A1a",
+   "em": "🛏️",
+   "word": "سرير",
+   "options": [
+    "bed",
+    "chair",
+    "table",
+    "door"
+   ],
+   "answer": 0
+  },
+  {
+   "id": "v02",
+   "cefr": "A1a",
+   "em": "🚪",
+   "word": "باب",
+   "options": [
+    "window",
+    "door",
+    "wall",
+    "stairs"
+   ],
+   "answer": 1
+  },
+  {
+   "id": "v03",
+   "cefr": "A1a",
+   "em": "💧",
+   "word": "ماء",
+   "options": [
+    "water",
+    "milk",
+    "tea",
+    "coffee"
+   ],
+   "answer": 0
+  },
+  {
+   "id": "v04",
+   "cefr": "A1a",
+   "em": "☕",
+   "word": "كوب",
+   "options": [
+    "cup",
+    "plate",
+    "spoon",
+    "bottle"
+   ],
+   "answer": 0
+  },
+  {
+   "id": "v05",
+   "cefr": "A1b",
+   "em": "🪟",
+   "word": "نافذة",
+   "options": [
+    "door",
+    "window",
+    "roof",
+    "wall"
+   ],
+   "answer": 1
+  },
+  {
+   "id": "v06",
+   "cefr": "A1b",
+   "em": "🪑",
+   "word": "كرسي",
+   "options": [
+    "sofa",
+    "chair",
+    "stool",
+    "bed"
+   ],
+   "answer": 1
+  },
+  {
+   "id": "v07",
+   "cefr": "A1b",
+   "em": "🥚",
+   "word": "بيضة",
+   "options": [
+    "egg",
+    "cheese",
+    "butter",
+    "milk"
+   ],
+   "answer": 0
+  },
+  {
+   "id": "v08",
+   "cefr": "A1b",
+   "em": "🥛",
+   "word": "حليب",
+   "options": [
+    "water",
+    "milk",
+    "juice",
+    "coffee"
+   ],
+   "answer": 1
+  },
+  {
+   "id": "v09",
+   "cefr": "A2a",
+   "em": "🧣",
+   "word": "منشفة",
+   "options": [
+    "towel",
+    "napkin",
+    "apron",
+    "sheet"
+   ],
+   "answer": 0
+  },
+  {
+   "id": "v10",
+   "cefr": "A2a",
+   "em": "🥄",
+   "word": "ملعقة",
+   "options": [
+    "fork",
+    "knife",
+    "spoon",
+    "ladle"
+   ],
+   "answer": 2
+  },
+  {
+   "id": "v11",
+   "cefr": "A2a",
+   "em": "🔪",
+   "word": "سكين",
+   "options": [
+    "spoon",
+    "fork",
+    "scissors",
+    "knife"
+   ],
+   "answer": 3
+  },
+  {
+   "id": "v12",
+   "cefr": "A2a",
+   "em": "🧥",
+   "word": "خزانة",
+   "options": [
+    "wardrobe",
+    "shelf",
+    "drawer",
+    "nightstand"
+   ],
+   "answer": 0
+  }
+ ],
+ "sentences": [
+  {
+   "id": "s01",
+   "cefr": "A1a",
+   "sentence": "هذا سرير.",
+   "options": [
+    "This is a bed.",
+    "This is a door.",
+    "This is a table.",
+    "This is a chair."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "s02",
+   "cefr": "A1a",
+   "sentence": "الماء بارد.",
+   "options": [
+    "The water is cold.",
+    "The water is hot.",
+    "There is no water.",
+    "Drink water."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "s03",
+   "cefr": "A1b",
+   "sentence": "أشرب القهوة في الصباح.",
+   "options": [
+    "I drink coffee in the morning.",
+    "I drink coffee at night.",
+    "I don't like coffee.",
+    "I drink tea in the morning."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "s04",
+   "cefr": "A1b",
+   "sentence": "هي في المطبخ.",
+   "options": [
+    "She is in the kitchen.",
+    "She is in the bathroom.",
+    "She is outside.",
+    "She is sleeping."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "s05",
+   "cefr": "A2a",
+   "sentence": "هل يمكنني فتح النافذة؟",
+   "options": [
+    "Can I open the window?",
+    "Where is the window?",
+    "I opened the window.",
+    "The window is open."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "s06",
+   "cefr": "A2a",
+   "sentence": "أحتاج لغسل يديّ.",
+   "options": [
+    "I need to wash my hands.",
+    "I need to brush my teeth.",
+    "I need to eat.",
+    "I need to sleep."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "s07",
+   "cefr": "A2b",
+   "sentence": "هل تمرر لي الملح؟",
+   "options": [
+    "Could you pass me the salt?",
+    "Where is the salt?",
+    "With salt?",
+    "We're out of salt."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "s08",
+   "cefr": "A2b",
+   "sentence": "بدأ الفيلم قبل عشر دقائق.",
+   "options": [
+    "The movie started ten minutes ago.",
+    "The movie starts in ten minutes.",
+    "The movie has been on for an hour.",
+    "The movie hasn't started yet."
+   ],
+   "answer": 0
+  }
+ ],
+ "writing": [
+  {
+   "id": "w01",
+   "cefr": "A1a",
+   "prompt": "Write \"water\" in Arabic",
+   "answer": "الماء",
+   "hint": "ا____"
+  },
+  {
+   "id": "w02",
+   "cefr": "A1b",
+   "prompt": "Write \"apple\" in Arabic",
+   "answer": "تفاحة",
+   "hint": "ت___ة"
+  },
+  {
+   "id": "w03",
+   "cefr": "A2a",
+   "prompt": "Write \"I drink coffee\" in Arabic",
+   "answer": "أشرب القهوة",
+   "hint": "أ____ القهوة"
+  },
+  {
+   "id": "w04",
+   "cefr": "A2b",
+   "prompt": "Write \"Can you open the window?\" in Arabic",
+   "answer": "هل يمكنك فتح النافذة",
+   "hint": "هل يم___ فتح النافذة"
+  }
+ ],
+ "listening": [
+  {
+   "id": "l01",
+   "cefr": "A1a",
+   "tts": "هذا سرير.",
+   "options": [
+    "This is a bed.",
+    "This is a door.",
+    "This is a table."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "l02",
+   "cefr": "A1a",
+   "tts": "الماء بارد.",
+   "options": [
+    "The water is cold.",
+    "The water is hot.",
+    "There is no water."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "l03",
+   "cefr": "A1b",
+   "tts": "هي في المطبخ.",
+   "options": [
+    "She is in the kitchen.",
+    "She is in the bathroom.",
+    "She is outside."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "l04",
+   "cefr": "A2b",
+   "tts": "هل تمرر لي الملح؟",
+   "options": [
+    "Could you pass me the salt?",
+    "Where is the salt?",
+    "With salt?"
+   ],
+   "answer": 0
+  }
+ ]
+}

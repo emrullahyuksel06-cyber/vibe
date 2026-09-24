@@ -1,0 +1,334 @@
+{
+ "vocab": [
+  {
+   "id": "v01",
+   "cefr": "A1a",
+   "em": "🛏️",
+   "word": "lit",
+   "options": [
+    "yatak",
+    "sandalye",
+    "masa",
+    "kapı"
+   ],
+   "answer": 0
+  },
+  {
+   "id": "v02",
+   "cefr": "A1a",
+   "em": "🚪",
+   "word": "porte",
+   "options": [
+    "pencere",
+    "kapı",
+    "duvar",
+    "merdiven"
+   ],
+   "answer": 1
+  },
+  {
+   "id": "v03",
+   "cefr": "A1a",
+   "em": "💧",
+   "word": "eau",
+   "options": [
+    "su",
+    "süt",
+    "çay",
+    "kahve"
+   ],
+   "answer": 0
+  },
+  {
+   "id": "v04",
+   "cefr": "A1a",
+   "em": "☕",
+   "word": "tasse",
+   "options": [
+    "bardak",
+    "tabak",
+    "kaşık",
+    "şişe"
+   ],
+   "answer": 0
+  },
+  {
+   "id": "v05",
+   "cefr": "A1b",
+   "em": "🪟",
+   "word": "fenêtre",
+   "options": [
+    "kapı",
+    "pencere",
+    "çatı",
+    "duvar"
+   ],
+   "answer": 1
+  },
+  {
+   "id": "v06",
+   "cefr": "A1b",
+   "em": "🪑",
+   "word": "chaise",
+   "options": [
+    "kanepe",
+    "sandalye",
+    "tabure",
+    "yatak"
+   ],
+   "answer": 1
+  },
+  {
+   "id": "v07",
+   "cefr": "A1b",
+   "em": "🥚",
+   "word": "œuf",
+   "options": [
+    "yumurta",
+    "peynir",
+    "tereyağı",
+    "süt"
+   ],
+   "answer": 0
+  },
+  {
+   "id": "v08",
+   "cefr": "A1b",
+   "em": "🥛",
+   "word": "lait",
+   "options": [
+    "su",
+    "süt",
+    "meyve suyu",
+    "kahve"
+   ],
+   "answer": 1
+  },
+  {
+   "id": "v09",
+   "cefr": "A2a",
+   "em": "🧣",
+   "word": "serviette",
+   "options": [
+    "havlu",
+    "peçete",
+    "önlük",
+    "çarşaf"
+   ],
+   "answer": 0
+  },
+  {
+   "id": "v10",
+   "cefr": "A2a",
+   "em": "🥄",
+   "word": "cuillère",
+   "options": [
+    "çatal",
+    "bıçak",
+    "kaşık",
+    "kepçe"
+   ],
+   "answer": 2
+  },
+  {
+   "id": "v11",
+   "cefr": "A2a",
+   "em": "🔪",
+   "word": "couteau",
+   "options": [
+    "kaşık",
+    "çatal",
+    "makas",
+    "bıçak"
+   ],
+   "answer": 3
+  },
+  {
+   "id": "v12",
+   "cefr": "A2a",
+   "em": "🧥",
+   "word": "armoire",
+   "options": [
+    "dolap",
+    "raf",
+    "çekmece",
+    "komodin"
+   ],
+   "answer": 0
+  }
+ ],
+ "sentences": [
+  {
+   "id": "s01",
+   "cefr": "A1a",
+   "sentence": "C'est un lit.",
+   "options": [
+    "Bu bir yatak.",
+    "Bu bir kapı.",
+    "Bu bir masa.",
+    "Bu bir sandalye."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "s02",
+   "cefr": "A1a",
+   "sentence": "L'eau est froide.",
+   "options": [
+    "Su soğuk.",
+    "Su sıcak.",
+    "Su yok.",
+    "Su iç."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "s03",
+   "cefr": "A1b",
+   "sentence": "Je bois du café le matin.",
+   "options": [
+    "Sabah kahve içerim.",
+    "Akşam kahve içerim.",
+    "Kahve sevmem.",
+    "Sabah çay içerim."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "s04",
+   "cefr": "A1b",
+   "sentence": "Elle est dans la cuisine.",
+   "options": [
+    "O mutfakta.",
+    "O banyoda.",
+    "O dışarıda.",
+    "O uyuyor."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "s05",
+   "cefr": "A2a",
+   "sentence": "Puis-je ouvrir la fenêtre ?",
+   "options": [
+    "Pencereyi açabilir miyim?",
+    "Pencere nerede?",
+    "Pencereyi açtım.",
+    "Pencere açık."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "s06",
+   "cefr": "A2a",
+   "sentence": "Je dois me laver les mains.",
+   "options": [
+    "Ellerimi yıkamam lazım.",
+    "Dişlerimi fırçalamam lazım.",
+    "Yemek yemem lazım.",
+    "Uyumam lazım."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "s07",
+   "cefr": "A2b",
+   "sentence": "Tu peux me passer le sel ?",
+   "options": [
+    "Tuzu bana uzatabilir misin?",
+    "Tuz nerede?",
+    "Tuzlu mu olsun?",
+    "Tuz bitti."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "s08",
+   "cefr": "A2b",
+   "sentence": "Le film a commencé il y a dix minutes.",
+   "options": [
+    "Film on dakika önce başladı.",
+    "Film on dakika sonra başlayacak.",
+    "Film bir saattir sürüyor.",
+    "Film henüz başlamadı."
+   ],
+   "answer": 0
+  }
+ ],
+ "writing": [
+  {
+   "id": "w01",
+   "cefr": "A1a",
+   "prompt": "'su' ifadesini Fransızca olarak yazın",
+   "answer": "eau",
+   "hint": "e_u"
+  },
+  {
+   "id": "w02",
+   "cefr": "A1b",
+   "prompt": "'elma' ifadesini Fransızca olarak yazın",
+   "answer": "pomme",
+   "hint": "p___e"
+  },
+  {
+   "id": "w03",
+   "cefr": "A2a",
+   "prompt": "'Ben kahve içiyorum' ifadesini Fransızca olarak yazın",
+   "answer": "Je bois du café",
+   "hint": "Je b___ du café"
+  },
+  {
+   "id": "w04",
+   "cefr": "A2b",
+   "prompt": "'Pencereyi açar mısın?' ifadesini Fransızca olarak yazın",
+   "answer": "Tu peux ouvrir la fenêtre",
+   "hint": "Tu p___ ouvrir la fenêtre"
+  }
+ ],
+ "listening": [
+  {
+   "id": "l01",
+   "cefr": "A1a",
+   "tts": "C'est un lit.",
+   "options": [
+    "Bu bir yatak.",
+    "Bu bir kapı.",
+    "Bu bir masa."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "l02",
+   "cefr": "A1a",
+   "tts": "L'eau est froide.",
+   "options": [
+    "Su soğuk.",
+    "Su sıcak.",
+    "Su yok."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "l03",
+   "cefr": "A1b",
+   "tts": "Elle est dans la cuisine.",
+   "options": [
+    "O mutfakta.",
+    "O banyoda.",
+    "O dışarıda."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "l04",
+   "cefr": "A2b",
+   "tts": "Tu peux me passer le sel ?",
+   "options": [
+    "Tuzu bana uzatabilir misin?",
+    "Tuz nerede?",
+    "Tuzlu mu olsun?"
+   ],
+   "answer": 0
+  }
+ ]
+}

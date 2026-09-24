@@ -1,0 +1,334 @@
+{
+ "vocab": [
+  {
+   "id": "v01",
+   "cefr": "A1a",
+   "em": "🛏️",
+   "word": "кровать",
+   "options": [
+    "yatak",
+    "sandalye",
+    "masa",
+    "kapı"
+   ],
+   "answer": 0
+  },
+  {
+   "id": "v02",
+   "cefr": "A1a",
+   "em": "🚪",
+   "word": "дверь",
+   "options": [
+    "pencere",
+    "kapı",
+    "duvar",
+    "merdiven"
+   ],
+   "answer": 1
+  },
+  {
+   "id": "v03",
+   "cefr": "A1a",
+   "em": "💧",
+   "word": "вода",
+   "options": [
+    "su",
+    "süt",
+    "çay",
+    "kahve"
+   ],
+   "answer": 0
+  },
+  {
+   "id": "v04",
+   "cefr": "A1a",
+   "em": "☕",
+   "word": "чашка",
+   "options": [
+    "bardak",
+    "tabak",
+    "kaşık",
+    "şişe"
+   ],
+   "answer": 0
+  },
+  {
+   "id": "v05",
+   "cefr": "A1b",
+   "em": "🪟",
+   "word": "окно",
+   "options": [
+    "kapı",
+    "pencere",
+    "çatı",
+    "duvar"
+   ],
+   "answer": 1
+  },
+  {
+   "id": "v06",
+   "cefr": "A1b",
+   "em": "🪑",
+   "word": "стул",
+   "options": [
+    "kanepe",
+    "sandalye",
+    "tabure",
+    "yatak"
+   ],
+   "answer": 1
+  },
+  {
+   "id": "v07",
+   "cefr": "A1b",
+   "em": "🥚",
+   "word": "яйцо",
+   "options": [
+    "yumurta",
+    "peynir",
+    "tereyağı",
+    "süt"
+   ],
+   "answer": 0
+  },
+  {
+   "id": "v08",
+   "cefr": "A1b",
+   "em": "🥛",
+   "word": "молоко",
+   "options": [
+    "su",
+    "süt",
+    "meyve suyu",
+    "kahve"
+   ],
+   "answer": 1
+  },
+  {
+   "id": "v09",
+   "cefr": "A2a",
+   "em": "🧣",
+   "word": "полотенце",
+   "options": [
+    "havlu",
+    "peçete",
+    "önlük",
+    "çarşaf"
+   ],
+   "answer": 0
+  },
+  {
+   "id": "v10",
+   "cefr": "A2a",
+   "em": "🥄",
+   "word": "ложка",
+   "options": [
+    "çatal",
+    "bıçak",
+    "kaşık",
+    "kepçe"
+   ],
+   "answer": 2
+  },
+  {
+   "id": "v11",
+   "cefr": "A2a",
+   "em": "🔪",
+   "word": "нож",
+   "options": [
+    "kaşık",
+    "çatal",
+    "makas",
+    "bıçak"
+   ],
+   "answer": 3
+  },
+  {
+   "id": "v12",
+   "cefr": "A2a",
+   "em": "🧥",
+   "word": "шкаф",
+   "options": [
+    "dolap",
+    "raf",
+    "çekmece",
+    "komodin"
+   ],
+   "answer": 0
+  }
+ ],
+ "sentences": [
+  {
+   "id": "s01",
+   "cefr": "A1a",
+   "sentence": "Это кровать.",
+   "options": [
+    "Bu bir yatak.",
+    "Bu bir kapı.",
+    "Bu bir masa.",
+    "Bu bir sandalye."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "s02",
+   "cefr": "A1a",
+   "sentence": "Вода холодная.",
+   "options": [
+    "Su soğuk.",
+    "Su sıcak.",
+    "Su yok.",
+    "Su iç."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "s03",
+   "cefr": "A1b",
+   "sentence": "Я пью кофе утром.",
+   "options": [
+    "Sabah kahve içerim.",
+    "Akşam kahve içerim.",
+    "Kahve sevmem.",
+    "Sabah çay içerim."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "s04",
+   "cefr": "A1b",
+   "sentence": "Она на кухне.",
+   "options": [
+    "O mutfakta.",
+    "O banyoda.",
+    "O dışarıda.",
+    "O uyuyor."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "s05",
+   "cefr": "A2a",
+   "sentence": "Можно мне открыть окно?",
+   "options": [
+    "Pencereyi açabilir miyim?",
+    "Pencere nerede?",
+    "Pencereyi açtım.",
+    "Pencere açık."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "s06",
+   "cefr": "A2a",
+   "sentence": "Мне нужно помыть руки.",
+   "options": [
+    "Ellerimi yıkamam lazım.",
+    "Dişlerimi fırçalamam lazım.",
+    "Yemek yemem lazım.",
+    "Uyumam lazım."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "s07",
+   "cefr": "A2b",
+   "sentence": "Не мог бы ты передать мне соль?",
+   "options": [
+    "Tuzu bana uzatabilir misin?",
+    "Tuz nerede?",
+    "Tuzlu mu olsun?",
+    "Tuz bitti."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "s08",
+   "cefr": "A2b",
+   "sentence": "Фильм начался десять минут назад.",
+   "options": [
+    "Film on dakika önce başladı.",
+    "Film on dakika sonra başlayacak.",
+    "Film bir saattir sürüyor.",
+    "Film henüz başlamadı."
+   ],
+   "answer": 0
+  }
+ ],
+ "writing": [
+  {
+   "id": "w01",
+   "cefr": "A1a",
+   "prompt": "'su' ifadesini Rusça olarak yazın",
+   "answer": "вода",
+   "hint": "в___а"
+  },
+  {
+   "id": "w02",
+   "cefr": "A1b",
+   "prompt": "'elma' ifadesini Rusça olarak yazın",
+   "answer": "яблоко",
+   "hint": "я____о"
+  },
+  {
+   "id": "w03",
+   "cefr": "A2a",
+   "prompt": "'Ben kahve içiyorum' ifadesini Rusça olarak yazın",
+   "answer": "Я пью кофе",
+   "hint": "Я п_ кофе"
+  },
+  {
+   "id": "w04",
+   "cefr": "A2b",
+   "prompt": "'Pencereyi açar mısın?' ifadesini Rusça olarak yazın",
+   "answer": "Ты можешь открыть окно",
+   "hint": "Ты м____ открыть окно"
+  }
+ ],
+ "listening": [
+  {
+   "id": "l01",
+   "cefr": "A1a",
+   "tts": "Это кровать.",
+   "options": [
+    "Bu bir yatak.",
+    "Bu bir kapı.",
+    "Bu bir masa."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "l02",
+   "cefr": "A1a",
+   "tts": "Вода холодная.",
+   "options": [
+    "Su soğuk.",
+    "Su sıcak.",
+    "Su yok."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "l03",
+   "cefr": "A1b",
+   "tts": "Она на кухне.",
+   "options": [
+    "O mutfakta.",
+    "O banyoda.",
+    "O dışarıda."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "l04",
+   "cefr": "A2b",
+   "tts": "Не мог бы ты передать мне соль?",
+   "options": [
+    "Tuzu bana uzatabilir misin?",
+    "Tuz nerede?",
+    "Tuzlu mu olsun?"
+   ],
+   "answer": 0
+  }
+ ]
+}

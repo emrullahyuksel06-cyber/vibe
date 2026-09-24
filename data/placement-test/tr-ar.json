@@ -1,0 +1,334 @@
+{
+ "vocab": [
+  {
+   "id": "v01",
+   "cefr": "A1a",
+   "em": "🛏️",
+   "word": "سرير",
+   "options": [
+    "yatak",
+    "sandalye",
+    "masa",
+    "kapı"
+   ],
+   "answer": 0
+  },
+  {
+   "id": "v02",
+   "cefr": "A1a",
+   "em": "🚪",
+   "word": "باب",
+   "options": [
+    "pencere",
+    "kapı",
+    "duvar",
+    "merdiven"
+   ],
+   "answer": 1
+  },
+  {
+   "id": "v03",
+   "cefr": "A1a",
+   "em": "💧",
+   "word": "ماء",
+   "options": [
+    "su",
+    "süt",
+    "çay",
+    "kahve"
+   ],
+   "answer": 0
+  },
+  {
+   "id": "v04",
+   "cefr": "A1a",
+   "em": "☕",
+   "word": "كوب",
+   "options": [
+    "bardak",
+    "tabak",
+    "kaşık",
+    "şişe"
+   ],
+   "answer": 0
+  },
+  {
+   "id": "v05",
+   "cefr": "A1b",
+   "em": "🪟",
+   "word": "نافذة",
+   "options": [
+    "kapı",
+    "pencere",
+    "çatı",
+    "duvar"
+   ],
+   "answer": 1
+  },
+  {
+   "id": "v06",
+   "cefr": "A1b",
+   "em": "🪑",
+   "word": "كرسي",
+   "options": [
+    "kanepe",
+    "sandalye",
+    "tabure",
+    "yatak"
+   ],
+   "answer": 1
+  },
+  {
+   "id": "v07",
+   "cefr": "A1b",
+   "em": "🥚",
+   "word": "بيضة",
+   "options": [
+    "yumurta",
+    "peynir",
+    "tereyağı",
+    "süt"
+   ],
+   "answer": 0
+  },
+  {
+   "id": "v08",
+   "cefr": "A1b",
+   "em": "🥛",
+   "word": "حليب",
+   "options": [
+    "su",
+    "süt",
+    "meyve suyu",
+    "kahve"
+   ],
+   "answer": 1
+  },
+  {
+   "id": "v09",
+   "cefr": "A2a",
+   "em": "🧣",
+   "word": "منشفة",
+   "options": [
+    "havlu",
+    "peçete",
+    "önlük",
+    "çarşaf"
+   ],
+   "answer": 0
+  },
+  {
+   "id": "v10",
+   "cefr": "A2a",
+   "em": "🥄",
+   "word": "ملعقة",
+   "options": [
+    "çatal",
+    "bıçak",
+    "kaşık",
+    "kepçe"
+   ],
+   "answer": 2
+  },
+  {
+   "id": "v11",
+   "cefr": "A2a",
+   "em": "🔪",
+   "word": "سكين",
+   "options": [
+    "kaşık",
+    "çatal",
+    "makas",
+    "bıçak"
+   ],
+   "answer": 3
+  },
+  {
+   "id": "v12",
+   "cefr": "A2a",
+   "em": "🧥",
+   "word": "خزانة",
+   "options": [
+    "dolap",
+    "raf",
+    "çekmece",
+    "komodin"
+   ],
+   "answer": 0
+  }
+ ],
+ "sentences": [
+  {
+   "id": "s01",
+   "cefr": "A1a",
+   "sentence": "هذا سرير.",
+   "options": [
+    "Bu bir yatak.",
+    "Bu bir kapı.",
+    "Bu bir masa.",
+    "Bu bir sandalye."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "s02",
+   "cefr": "A1a",
+   "sentence": "الماء بارد.",
+   "options": [
+    "Su soğuk.",
+    "Su sıcak.",
+    "Su yok.",
+    "Su iç."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "s03",
+   "cefr": "A1b",
+   "sentence": "أشرب القهوة في الصباح.",
+   "options": [
+    "Sabah kahve içerim.",
+    "Akşam kahve içerim.",
+    "Kahve sevmem.",
+    "Sabah çay içerim."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "s04",
+   "cefr": "A1b",
+   "sentence": "هي في المطبخ.",
+   "options": [
+    "O mutfakta.",
+    "O banyoda.",
+    "O dışarıda.",
+    "O uyuyor."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "s05",
+   "cefr": "A2a",
+   "sentence": "هل يمكنني فتح النافذة؟",
+   "options": [
+    "Pencereyi açabilir miyim?",
+    "Pencere nerede?",
+    "Pencereyi açtım.",
+    "Pencere açık."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "s06",
+   "cefr": "A2a",
+   "sentence": "أحتاج لغسل يديّ.",
+   "options": [
+    "Ellerimi yıkamam lazım.",
+    "Dişlerimi fırçalamam lazım.",
+    "Yemek yemem lazım.",
+    "Uyumam lazım."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "s07",
+   "cefr": "A2b",
+   "sentence": "هل تمرر لي الملح؟",
+   "options": [
+    "Tuzu bana uzatabilir misin?",
+    "Tuz nerede?",
+    "Tuzlu mu olsun?",
+    "Tuz bitti."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "s08",
+   "cefr": "A2b",
+   "sentence": "بدأ الفيلم قبل عشر دقائق.",
+   "options": [
+    "Film on dakika önce başladı.",
+    "Film on dakika sonra başlayacak.",
+    "Film bir saattir sürüyor.",
+    "Film henüz başlamadı."
+   ],
+   "answer": 0
+  }
+ ],
+ "writing": [
+  {
+   "id": "w01",
+   "cefr": "A1a",
+   "prompt": "'su' ifadesini Arapça olarak yazın",
+   "answer": "الماء",
+   "hint": "ا____"
+  },
+  {
+   "id": "w02",
+   "cefr": "A1b",
+   "prompt": "'elma' ifadesini Arapça olarak yazın",
+   "answer": "تفاحة",
+   "hint": "ت___ة"
+  },
+  {
+   "id": "w03",
+   "cefr": "A2a",
+   "prompt": "'Ben kahve içiyorum' ifadesini Arapça olarak yazın",
+   "answer": "أشرب القهوة",
+   "hint": "أ____ القهوة"
+  },
+  {
+   "id": "w04",
+   "cefr": "A2b",
+   "prompt": "'Pencereyi açar mısın?' ifadesini Arapça olarak yazın",
+   "answer": "هل يمكنك فتح النافذة",
+   "hint": "هل يم___ فتح النافذة"
+  }
+ ],
+ "listening": [
+  {
+   "id": "l01",
+   "cefr": "A1a",
+   "tts": "هذا سرير.",
+   "options": [
+    "Bu bir yatak.",
+    "Bu bir kapı.",
+    "Bu bir masa."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "l02",
+   "cefr": "A1a",
+   "tts": "الماء بارد.",
+   "options": [
+    "Su soğuk.",
+    "Su sıcak.",
+    "Su yok."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "l03",
+   "cefr": "A1b",
+   "tts": "هي في المطبخ.",
+   "options": [
+    "O mutfakta.",
+    "O banyoda.",
+    "O dışarıda."
+   ],
+   "answer": 0
+  },
+  {
+   "id": "l04",
+   "cefr": "A2b",
+   "tts": "هل تمرر لي الملح؟",
+   "options": [
+    "Tuzu bana uzatabilir misin?",
+    "Tuz nerede?",
+    "Tuzlu mu olsun?"
+   ],
+   "answer": 0
+  }
+ ]
+}
